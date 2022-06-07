@@ -38,4 +38,8 @@ public class TableCell extends JButton implements Cell<Integer> {
         return getValue().equals(cell.getValue());
     }
 
+    @Override
+    public String toString(){
+        return "<"+cellValue+">";
+    }
 }

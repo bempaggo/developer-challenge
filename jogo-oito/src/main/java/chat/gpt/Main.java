@@ -12,6 +12,7 @@ import chat.gpt.domain.listeners.KeyboardListener;
 import chat.gpt.domain.listeners.ManagerListener;
 import chat.gpt.domain.listeners.MouseListener;
 import chat.gpt.domain.listeners.NotificationListener;
+import chat.gpt.domain.search.Search;
 import chat.gpt.domain.table.Table;
 import chat.gpt.view.MainView;
 
@@ -49,7 +50,10 @@ public class Main {
         notificationListener.subscribe("jogoConcluido", x -> {
             JOptionPane.showMessageDialog(game, x);
         }).subscribe("restart", x -> {
-            table.suffleTable();
+
+            // Search search =new Search();
+            // search.findPath(table);
+            // table.suffleTable();
         });
 
         mouseListener

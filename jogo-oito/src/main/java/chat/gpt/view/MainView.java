@@ -43,6 +43,8 @@ public class MainView extends JFrame {
 		botaoReiniciar = new JButton("Reiniciar");
 		botaoReiniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Search search =new Search();
+            	search.findPath(table);
 				listener.getListener(NotificationListener.class)
 						.notify("restart", "restart");
 			}
