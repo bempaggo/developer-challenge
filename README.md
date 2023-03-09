@@ -9,9 +9,9 @@ Desafio para vaga de desenvolvedor senior:
 
 _Esperamos que você seja melhor que o ChatGPT._
 
-_Valorizamos código com qualidade, ausência de dívidas técnicas... _
+_Valorizamos código com qualidade, ausência de dívidas técnicas..._
 
-_Mostre para nós o seu potencial por meio do código. _
+_Mostre para nós o seu potencial por meio do código._
 
 _Aplicar programação orientada a objetos eh uma exigência para esta vaga._
 
