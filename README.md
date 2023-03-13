@@ -1,4 +1,4 @@
-Desafio para vaga de desenvolvedor senior:
+Desafio para vaga de desenvolvedor Pleno e Senior:
 
 # INSTRUÇÕES:
 
@@ -19,6 +19,8 @@ _Precisamos jogar o jogo com mouse._
 
 
 ## 3 - Faça um pull request ao nosso projeto.
+
+_Indique o nível da vaga na mensagem de pull request._
 
 _Aceitamos apenas um pull request de cada usuário, então capriche._
 
