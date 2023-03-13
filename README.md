@@ -27,3 +27,7 @@ _Aceitamos apenas um pull request de cada usuário, então capriche._
 ## 4 - Aguarde uma revisão.
 
 _Caso rejeitado, apontaremos apenas um problema._
+
+-> Vaga para trabalho remoto (Residir no Brasil por mais de 6 meses no ano).
+-> R$ 16K  Desenvolvedor Senior.
+-> R$ 7K  Desenvolvedor Pleno. 
