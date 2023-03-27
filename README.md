@@ -1,4 +1,4 @@
-Desafio para vaga de desenvolvedor Pleno e Senior:
+Desafio para vaga de desenvolvedor Pleno e Senior e Estágio:
 
 # INSTRUÇÕES:
 
@@ -34,4 +34,9 @@ _Caso rejeitado, apontaremos apenas um problema._
 
 -> R$ 16K  Desenvolvedor Senior.
 
--> R$ 7K  Desenvolvedor Pleno. 
+-> R$ 7K  Desenvolvedor Pleno.
+
+-> R$ 1.7K  Desenvolvedor Pleno.
+
+
++ Benefícios. 
