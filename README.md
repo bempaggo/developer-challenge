@@ -1,13 +1,14 @@
-# Desafio para vaga de desenvolvedor Pleno e Senior e Estágio:
+# Desafio para vaga de desenvolvedor Senior, Pleno e Estágio.
 
 ![image](https://user-images.githubusercontent.com/5315184/228086966-4b4b41cc-276c-4d04-96b8-5d37317a89e8.png)
 
-https://github.com/bempaggo/developer-challenge
+
 
 
 # INSTRUÇÕES:
 
 ## 1 - Crie um fork do projeto.
+__https://github.com/bempaggo/developer-challenge__
 
 ## 2 - Melhore o nosso projeto inicial. 
 
