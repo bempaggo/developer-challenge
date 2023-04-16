@@ -42,7 +42,7 @@ _Caso rejeitado, apontaremos apenas um problema._
 
 -> R$ 7K  Desenvolvedor Pleno.
 
--> R$ 1.7K  Desenvolvedor Pleno.
+-> R$ 1.7K  Desenvolvedor Estágio.
 
 
 + Benefícios. 
