@@ -2,6 +2,8 @@
 
 ![image](https://user-images.githubusercontent.com/5315184/228086966-4b4b41cc-276c-4d04-96b8-5d37317a89e8.png)
 
+A Bempaggo é uma empresa do setor de pagamentos.
+
 ## Informações sobre a vaga:
 
 -> Vaga para trabalho remoto (Residir no Brasil por mais de 6 meses no ano).
@@ -14,8 +16,6 @@
 
 -> + Benefícios. 
 
-# INSTRUÇÕES:
-A Bempaggo é uma empresa do setor de pagamentos.
 ## Principais tecnologias que utilizamos:
 
 -> Banco de Dados (Postgresql e Mysql).
