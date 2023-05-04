@@ -2,8 +2,27 @@
 
 ![image](https://user-images.githubusercontent.com/5315184/228086966-4b4b41cc-276c-4d04-96b8-5d37317a89e8.png)
 
+## Informações sobre a vaga:
+
+-> Vaga para trabalho remoto (Residir no Brasil por mais de 6 meses no ano).
+
+-> R$ 16K  Desenvolvedor Senior.
+
+-> R$ 7K  Desenvolvedor Pleno.
+
+-> R$ 1.7K  Desenvolvedor Estágio.
 
 
++ Benefícios. 
+
+# INSTRUÇÕES:
+A Bempaggo é uma empresa do setor de pagamentos.
+## Principais tecnologias que utilizamos:
+-> Banco de Dados (Postgresql e Mysql);
+-> Back-end -> Java (orm, jakarta.ws.rs [jersey]), Rust;
+-> Frontend -> JavaScript, Typscript, Vue, CSS e HTML.
+-> Testes automatizados-> unidade e aceitação (JUnit)
+-> Github e AWS
 
 # INSTRUÇÕES:
 
@@ -34,15 +53,4 @@ _Aceitamos apenas um pull request de cada usuário, então capriche._
 
 _Caso rejeitado, apontaremos apenas um problema._
 
-## Outras informações da vaga:
 
--> Vaga para trabalho remoto (Residir no Brasil por mais de 6 meses no ano).
-
--> R$ 16K  Desenvolvedor Senior.
-
--> R$ 7K  Desenvolvedor Pleno.
-
--> R$ 1.7K  Desenvolvedor Estágio.
-
-
-+ Benefícios. 
