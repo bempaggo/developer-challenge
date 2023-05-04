@@ -12,8 +12,7 @@
 
 -> R$ 1.7K  Desenvolvedor Estágio.
 
-
-+ Benefícios. 
+-> + Benefícios. 
 
 # INSTRUÇÕES:
 A Bempaggo é uma empresa do setor de pagamentos.
