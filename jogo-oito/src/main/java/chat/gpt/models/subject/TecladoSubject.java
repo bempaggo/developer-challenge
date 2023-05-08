@@ -5,11 +5,11 @@ import java.awt.event.KeyListener;
 
 import chat.gpt.models.observer.Tabuleiro;
 
-public class TecladoListener implements KeyListener {
+public class TecladoSubject implements KeyListener {
 
     private Tabuleiro tabuleiro;
 
-    public TecladoListener(Tabuleiro tabuleiro) {
+    public TecladoSubject(Tabuleiro tabuleiro) {
         this.tabuleiro = tabuleiro;
     }
 
