@@ -6,13 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class JogoDosOitoGUI implements KeyListener {
+public class JogoDosOitoGUI implements MouseListener {
 
 	private JogoDosOito jogo;
 	private JFrame janela;
@@ -33,7 +35,8 @@ public class JogoDosOitoGUI implements KeyListener {
 			for (int j = 0; j < 3; j++) {
 				botoes[i][j] = new JButton(Integer.toString(jogo.getValor(i, j)));
 				botoes[i][j].setFont(new Font("Arial", Font.BOLD, 36));
-				botoes[i][j].addActionListener(new BotaoListener(i, j));
+				//botoes[i][j].addActionListener(new BotaoListener(i, j));
+				botoes[i][j].addMouseListener(this);
 				janela.add(botoes[i][j]);
 			}
 		}
@@ -51,7 +54,7 @@ public class JogoDosOitoGUI implements KeyListener {
 		janela.add(botaoReiniciar);
 		janela.add(new JLabel(""));
 		
-		janela.addKeyListener(this);;
+		janela.addMouseListener(this);
 		janela.setFocusable(true);
 		atualizarTabuleiro();
 		janela.setVisible(true);
@@ -61,47 +64,67 @@ public class JogoDosOitoGUI implements KeyListener {
 		jogo.atualizarTabuleiro(botoes);
 	}
 
-	private class BotaoListener implements ActionListener {
+//	private class BotaoListener implements ActionListener {
+//
+//		private int linha;
+//		private int coluna;
+//
+//		public BotaoListener(int linha, int coluna) {
+//			this.linha = linha;
+//			this.coluna = coluna;
+//		}
+//
+//		public void actionPerformed(ActionEvent e) {
+//			jogo.mover(linha - 1, coluna - 1);
+//			atualizarTabuleiro();
+//			if (jogo.jogoConcluido()) {
+//				janela.setTitle("Parabéns, você ganhou!");
+//				jogo.reiniciarJogo(botoes);
+//			}
+//		}
+//	}
 
-		private int linha;
-		private int coluna;
-
-		public BotaoListener(int linha, int coluna) {
-			this.linha = linha;
-			this.coluna = coluna;
-		}
-
-		public void actionPerformed(ActionEvent e) {
-			jogo.mover(linha - 1, coluna - 1);
-			atualizarTabuleiro();
-			if (jogo.jogoConcluido()) {
-				janela.setTitle("Parabéns, você ganhou!");
-				jogo.reiniciarJogo(botoes);
-			}
-		}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		int linha = -1;
+        int coluna = -1;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (botoes[i][j] == e.getSource()) {
+                    linha = i;
+                    coluna = j;
+                }
+            }
+        }
+        
+        System.out.println("Linha: " + linha + "\nColuna: " + coluna);
+        jogo.mover(linha, coluna);
+        atualizarTabuleiro();
+		
 	}
 
-	public void keyPressed(KeyEvent e) {
-		int keyCode = e.getKeyCode();
-		switch (keyCode) {
-		case KeyEvent.VK_UP:
-			jogo.mover(1, 0);
-			break;
-		case KeyEvent.VK_DOWN:
-			jogo.mover(-1, 0);
-			break;
-		case KeyEvent.VK_LEFT:
-			jogo.mover(0, 1);
-			break;
-		case KeyEvent.VK_RIGHT:
-			jogo.mover(0, -1);
-			break;
-		}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public void keyTyped(KeyEvent e) {
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public void keyReleased(KeyEvent e) {
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

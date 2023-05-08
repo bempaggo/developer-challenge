@@ -7,27 +7,51 @@ public class JogoDosOito {
     private int[][] tabuleiro = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
 
     public void mover(int linha, int coluna) {
-        int linhaVazia = -1;
-        int colunaVazia = -1;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (tabuleiro[i][j] == 0) {
-                    linhaVazia = i;
-                    colunaVazia = j;
-                }
+        int lAtual = linha;
+        int cAtual = coluna;
+
+        // Certifica-se que só moverá se não for botão vazio
+        if (tabuleiro[lAtual][cAtual] != 0) {
+
+            // verifica se pode subir
+            if (lAtual > 0 && tabuleiro[lAtual - 1][cAtual] == 0) {
+                // pega valor do botão
+                int valorBotao = tabuleiro[lAtual][cAtual];
+                // move o valor atual para cima
+                tabuleiro[lAtual - 1][cAtual] = valorBotao;
+                tabuleiro[lAtual][cAtual] = 0;
+
+            }
+            // Verifica se pode ir para a esquerda
+            else if (cAtual > 0 && tabuleiro[lAtual][cAtual - 1] == 0) {
+                // pega valor do botão
+                int valorBotao = tabuleiro[lAtual][cAtual];
+                // move o valor atual para esquerda
+                tabuleiro[lAtual][cAtual - 1] = valorBotao;
+                tabuleiro[lAtual][cAtual] = 0;
+            }
+
+            // Verifica se pode ir para a direita
+            else if (cAtual < 2 && tabuleiro[lAtual][cAtual + 1] == 0) {
+                // pega valor do botão
+                int valorBotao = tabuleiro[lAtual][cAtual];
+                // move o valor atual para direita
+                tabuleiro[lAtual][cAtual + 1] = valorBotao;
+                tabuleiro[lAtual][cAtual] = 0;
+            }
+
+            // Verifica se pode descer
+            else if (lAtual < 2 && tabuleiro[lAtual + 1][cAtual] == 0) {
+                // pega valor do botão
+                int valorBotao = tabuleiro[lAtual][cAtual];
+                // move o valor atual para baixo
+                tabuleiro[lAtual + 1][cAtual] = valorBotao;
+                tabuleiro[lAtual][cAtual] = 0;
             }
         }
-        int novaLinha = linhaVazia + linha;
-        int novaColuna = colunaVazia + coluna;
-        if (novaLinha < 0 || novaLinha > 2 || novaColuna < 0 || novaColuna > 2) {
-            // movimento inválido
-            return;
-        }
-        tabuleiro[linhaVazia][colunaVazia] = tabuleiro[novaLinha][novaColuna];
-        tabuleiro[novaLinha][novaColuna] = 0;
     }
     
-    private boolean movimentarPeca(int linha, int coluna) {
+    public boolean movimentarPeca(int linha, int coluna) {
 		if (linha > 0 && tabuleiro[linha - 1][coluna] == 0) {
 			tabuleiro[linha - 1][coluna] = tabuleiro[linha][coluna];
 			tabuleiro[linha][coluna] = 0;
