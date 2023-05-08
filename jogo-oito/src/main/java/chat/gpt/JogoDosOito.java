@@ -4,7 +4,7 @@ import javax.swing.JButton;
 
 public class JogoDosOito {
 
-	private int[][] tabuleiro = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
+	private int[][] tabuleiro = { { 1, 2, 3 }, { 4, 5, 0 }, { 7, 8, 6 } };
 
 	public void mover(int linha, int coluna) {
 		int lAtual = linha;
