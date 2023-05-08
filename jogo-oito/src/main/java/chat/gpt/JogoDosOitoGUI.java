@@ -4,15 +4,13 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 public class JogoDosOitoGUI implements MouseListener {
 
@@ -100,6 +98,10 @@ public class JogoDosOitoGUI implements MouseListener {
         System.out.println("Linha: " + linha + "\nColuna: " + coluna);
         jogo.mover(linha, coluna);
         atualizarTabuleiro();
+        if (jogo.jogoConcluido()) {
+			JOptionPane.showMessageDialog(janela, "Parabéns, você venceu!");
+			jogo.reiniciarJogo(botoes);
+		}
 		
 	}
 
