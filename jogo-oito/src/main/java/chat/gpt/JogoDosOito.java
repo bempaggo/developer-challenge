@@ -50,27 +50,6 @@ public class JogoDosOito {
             }
         }
     }
-    
-    public boolean movimentarPeca(int linha, int coluna) {
-		if (linha > 0 && tabuleiro[linha - 1][coluna] == 0) {
-			tabuleiro[linha - 1][coluna] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		} else if (linha < 2 && tabuleiro[linha + 1][coluna] == 0) {
-			tabuleiro[linha + 1][coluna] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		} else if (coluna > 0 && tabuleiro[linha][coluna - 1] == 0) {
-			tabuleiro[linha][coluna - 1] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		} else if (coluna < 2 && tabuleiro[linha][coluna + 1] == 0) {
-			tabuleiro[linha][coluna + 1] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		}
-		return false;
-	}
 
     public boolean jogoConcluido() {
 		int count = 1;
