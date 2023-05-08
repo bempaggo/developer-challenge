@@ -1,4 +1,4 @@
-package chat.gpt;
+package chat.gpt.models;
 
 import java.awt.Font;
 

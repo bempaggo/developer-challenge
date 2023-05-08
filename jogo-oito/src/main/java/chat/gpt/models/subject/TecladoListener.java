@@ -1,7 +1,9 @@
-package chat.gpt;
+package chat.gpt.models.subject;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import chat.gpt.models.observer.Tabuleiro;
 
 public class TecladoListener implements KeyListener {
 

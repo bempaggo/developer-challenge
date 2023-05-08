@@ -1,50 +1,14 @@
-package chat.gpt;
+package chat.gpt.models.observer;
 
-import java.awt.GridLayout;
+import chat.gpt.models.Botao;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-public class Tabuleiro extends JFrame {
+public class Tabuleiro {
 
     private int[][] tabuleiro = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
 	private Botao[][] botoes = new Botao[3][3];
 	private Botao botaoReiniciar;
 
-    public Tabuleiro() {
-        super("Jogo dos Oito");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(300, 300);
-		setLayout(new GridLayout(4, 3));
-
-		criarTabuleiro();
-
-		setFocusable(true);
-		setVisible(true);
-    }
-
-    private void criarTabuleiro() {
-        // Cria as 9 peças de 0 até 8
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-                int valor = tabuleiro[i][j];
-				Botao botao = new Botao(String.valueOf(valor));
-				botoes[i][j] = botao;
-				add(botao);
-			}
-		}
-        
-        // Cria o botão de reiniciar com a fonte padrão
-		botaoReiniciar = new Botao("Reiniciar");
-        botaoReiniciar.setFont(getFont());
-		botaoReiniciar.addActionListener(e -> reiniciarJogo());
-		add(new JLabel(""));
-		add(botaoReiniciar);
-		add(new JLabel(""));
-	}
-
-    protected void mover(int linha, int coluna) {
+    public void mover(int linha, int coluna) {
 		int linhaVazia = -1;
 		int colunaVazia = -1;
 		for (int i = 0; i < 3; i++) {
@@ -74,7 +38,7 @@ public class Tabuleiro extends JFrame {
 
     private void checarVitoria() {
         if (jogoConcluido()) {
-			JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
+			TabuleiroGUI.mensagemVitoria();
 			reiniciarJogo();
 		}
     }
@@ -98,19 +62,29 @@ public class Tabuleiro extends JFrame {
     }
 
     //Atualiza a posição de todos os botões na tela (visão do usuário)
-    private void atualizarVisaoTabuleiro() {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				Botao botao = botoes[i][j];
-				int valor = tabuleiro[i][j];
-				botao.setValor(String.valueOf(valor));
-			}
-		}
+    protected void atualizarVisaoTabuleiro() {
+		TabuleiroGUI.atualizarVisaoTabuleiroGUI(this);
 	}
 
-    private void reiniciarJogo() {
+    protected void reiniciarJogo() {
 		tabuleiro = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
 		atualizarVisaoTabuleiro();
+	}
+
+	public int[][] getTabuleiro() {
+		return tabuleiro;
+	}
+
+	public Botao[][] getBotoes() {
+		return botoes;
+	}
+
+	public Botao getBotaoReiniciar() {
+		return botaoReiniciar;
+	}
+
+	public void setBotaoReiniciar(Botao botaoReiniciar) {
+		this.botaoReiniciar = botaoReiniciar;
 	}
     
 }
