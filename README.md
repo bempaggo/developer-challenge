@@ -73,7 +73,7 @@ _Caso rejeitado, apontaremos apenas um problema._
 
 -> Programação Orientada aos Objetos não se refere às tecnologias.
 
--> Caso utilize testes automatizados, a chance do candidato ter o pull request aceito aumenta significativamente.
+-> Caso utilize testes automatizados, a chance do candidato ter o _pull request_ aceito aumenta significativamente.
 
 -> Respire. Leia atentamente a Seção 5.
 
