@@ -71,7 +71,7 @@ _Caso rejeitado, apontaremos apenas um problema._
 
 -> Disciplinas de: Matemática, Português, Inglês e Física são desejáveis.
 
--> Programação Orientada aos Objetos não refere a quantidade de tecnologias.
+-> Programação Orientada aos Objetos não se refere às tecnologias.
 
 -> Caso utilize testes automatizados, a chance do candidato ter o pull request aceito aumenta significativamente.
 
