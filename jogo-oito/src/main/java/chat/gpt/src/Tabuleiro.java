@@ -1,4 +1,6 @@
-package chat.gpt.modelos;
+package chat.gpt.src;
+
+import chat.gpt.src.exception.JogoException;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,20 +11,22 @@ import java.util.stream.IntStream;
 
 public class Tabuleiro {
 
-    private final Integer DIMENSAO = 3;
-    private final Integer VALOR_PECA_VAZIA = DIMENSAO * DIMENSAO;
-
+    private final Integer dimensao;
     private final Map<Posicao, Peca> tabuleiro = new HashMap<>();
 
-    public Tabuleiro() {
+    public Tabuleiro(Integer dimensao) {
+        if (dimensao < 3) {
+            throw new JogoException("Dimensão deve ser pelo menos 3");
+        }
+        this.dimensao = dimensao;
         inicializarTabuleiro();
     }
 
     private void inicializarTabuleiro() {
         int count = 1;
 
-        for (int i = 0; i < this.DIMENSAO; i++) {
-            for (int j = 0; j < this.DIMENSAO; j++) {
+        for (int i = 0; i < this.dimensao; i++) {
+            for (int j = 0; j < this.dimensao; j++) {
                 this.tabuleiro.put(new Posicao(i, j), new Peca(count));
                 count++;
             }
@@ -37,7 +41,7 @@ public class Tabuleiro {
     public void embaralharPecas() {
         this.tabuleiro.clear();
 
-        List<Integer> numeros = IntStream.rangeClosed(1, this.DIMENSAO * this.DIMENSAO)
+        List<Integer> numeros = IntStream.rangeClosed(1, this.dimensao * this.dimensao)
                 .boxed()
                 .collect(Collectors.toList());
 
@@ -45,8 +49,8 @@ public class Tabuleiro {
 
         int index = 0;
 
-        for (int i = 0; i < this.DIMENSAO; i++) {
-            for (int j = 0; j < this.DIMENSAO; j++) {
+        for (int i = 0; i < this.dimensao; i++) {
+            for (int j = 0; j < this.dimensao; j++) {
                 this.tabuleiro.put(new Posicao(i, j), new Peca(numeros.get(index)));
                 index++;
             }
@@ -60,11 +64,11 @@ public class Tabuleiro {
 
 
     public Integer getDimensao() {
-        return this.DIMENSAO;
+        return this.dimensao;
     }
 
     public Integer getValorPecaVazia() {
-        return this.VALOR_PECA_VAZIA;
+        return this.dimensao * this.dimensao;
     }
 
     public Map<Posicao, Peca> getTabuleiro() {
@@ -72,14 +76,20 @@ public class Tabuleiro {
     }
 
     @Override
-    public String toString() {
-        StringBuilder res = new StringBuilder();
-        for (int i = 0; i < this.DIMENSAO; i++) {
-            for (int j = 0; j < this.DIMENSAO; j++) {
-                res.append(this.tabuleiro.get(new Posicao(i, j)).getValor());
-            }
-            res.append("\n");
-        }
-        return res.toString();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tabuleiro tabuleiro1 = (Tabuleiro) o;
+
+        if (!dimensao.equals(tabuleiro1.dimensao)) return false;
+        return tabuleiro.equals(tabuleiro1.tabuleiro);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = dimensao.hashCode();
+        result = 31 * result + tabuleiro.hashCode();
+        return result;
     }
 }
