@@ -1,4 +1,4 @@
-package chat.gpt.modelos;
+package chat.gpt.src;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package chat.gpt.modelos;
+package chat.gpt.src;
 
 public class Posicao {
 

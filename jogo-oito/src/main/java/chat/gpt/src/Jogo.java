@@ -1,16 +1,10 @@
-package chat.gpt.modelos;
+package chat.gpt.src;
 
 public class Jogo {
 
     public void iniciar() {
-        Tabuleiro tabuleiro = new Tabuleiro();
+        Tabuleiro tabuleiro = new Tabuleiro(3);
         Regra regra = new RegraImpl();
         new InterfaceGrafica(tabuleiro, regra);
     }
-
-    public void reiniciar(Tabuleiro tabuleiro) {
-        tabuleiro = new Tabuleiro();
-    }
-
-
 }
