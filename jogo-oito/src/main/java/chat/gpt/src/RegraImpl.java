@@ -1,4 +1,6 @@
-package chat.gpt.modelos;
+package chat.gpt.src;
+
+import chat.gpt.src.exception.JogoException;
 
 import java.util.Map;
 
@@ -27,7 +29,7 @@ public class RegraImpl implements Regra {
                 .filter(entry -> entry.getValue().getValor() == tabuleiro.getValorPecaVazia())
                 .map(Map.Entry::getKey)
                 .findFirst()
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new JogoException("Posicao vazia nao foi encontrada!"));
     }
 
     private void trocarPosicao(Tabuleiro tabuleiro, Posicao posicaoClicada, Posicao posicaoVazia) {
