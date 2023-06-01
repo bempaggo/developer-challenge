@@ -1,11 +1,15 @@
 package chat.gpt;
 
-import chat.gpt.src.Jogo;
+import chat.gpt.src.servico.Jogo;
+import chat.gpt.src.view.View;
 
 public class App {
 
     public static void main(String[] args) {
-        Jogo jogo = new Jogo();
-        jogo.iniciar();
+        jogoDosOito();
+    }
+
+    private static void jogoDosOito() {
+        new View(new Jogo());
     }
 }
