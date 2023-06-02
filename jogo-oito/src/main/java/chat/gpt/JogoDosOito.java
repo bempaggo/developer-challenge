@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+
+
 public class JogoDosOito extends JFrame implements KeyListener {
 
 	private int[][] tabuleiro = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
@@ -43,12 +45,18 @@ public class JogoDosOito extends JFrame implements KeyListener {
 		add(botaoReiniciar);
 		add(new JLabel(""));
 
-		addKeyListener(this);
+
+		var listener = new Listener();
+		this.addKeyListener(listener);
+
 		setFocusable(true);
+		requestFocus();
 		atualizarTabuleiro();
 		setVisible(true);
+		
 	}
 
+	@Override
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		switch (keyCode) {
@@ -67,10 +75,14 @@ public class JogoDosOito extends JFrame implements KeyListener {
 		}
 	}
 
+	@Override
 	public void keyTyped(KeyEvent e) {
+		System.out.println(e);
 	}
 
+	@Override
 	public void keyReleased(KeyEvent e) {
+		System.out.println(e);
 	}
 
 	private void mover(int linha, int coluna) {
