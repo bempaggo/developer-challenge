@@ -1,10 +1,14 @@
 package chat.gpt;
 
-public interface ActionEventDelegate {    
-    void doAction(Integer keyCodeEvent);
+public interface ActionEventDelegate<T> {    
+    void doAction(T dataEvent);
 }
 
-class MoveAction implements ActionEventDelegate {
+
+class NotifyAction implements ActionEventDelegate<String>{
+
+}
+class MoveAction implements ActionEventDelegate<Integer> {
     private Integer dx;
     private Integer dy;
     private Table table;
@@ -15,11 +19,12 @@ class MoveAction implements ActionEventDelegate {
         this.table = table;
     }
 
+    // dataEvent is a keyCodeEvent 
     @Override
-    public void doAction(Integer keyCodeEvent) {
+    public void doAction(Integer dataEvent) {
         // TODO Auto-generated method stub
         // throw new UnsupportedOperationException("Unimplemented method 'doAction'");
-        String out = keyCodeEvent + " - (" + dx + "," + dy + ")" ;
+        String out = dataEvent + " - (" + dx + "," + dy + ")" ;
         System.out.println(out);
 
 

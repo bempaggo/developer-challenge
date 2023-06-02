@@ -17,7 +17,6 @@ public class JogoDosOito extends JFrame {
 	private int[][] tabuleiro = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
 
 	private JButton botaoReiniciar;
-
 	private Table table;
 	private Listener listener;
 
@@ -25,8 +24,6 @@ public class JogoDosOito extends JFrame {
 		super("Jogo dos Oito");
 		this.table = table;
 		this.listener = listener;
-		registre(table.getBotoes());
-		table.atualizarTabuleiro();
 	}
 
 	private void registre(JButton[][] botoes) {
@@ -42,6 +39,9 @@ public class JogoDosOito extends JFrame {
 	}
 
 	public void start(){
+		registre(table.getBotoes());
+		table.atualizarTabuleiro();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(300, 300);
 		setLayout(new GridLayout(4, 3));
@@ -83,25 +83,12 @@ public class JogoDosOito extends JFrame {
 		tabuleiro[linhaVazia][colunaVazia] = tabuleiro[novaLinha][novaColuna];
 		tabuleiro[novaLinha][novaColuna] = 0;
 		// atualizarTabuleiro();
-		if (jogoConcluido()) {
-			JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
-			reiniciarJogo();
-		}
+		// if (jogoConcluido()) {
+		// 	JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
+		// 	reiniciarJogo();
+		// }
 	}
 
-	private boolean jogoConcluido() {
-		int count = 1;
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				// tabuleiro[i][j] != count % 9
-				if (table.getCell(i, j) != count % 9) {
-					return false;
-				}
-				count++;
-			}
-		}
-		return true;
-	}
 
 	private boolean movimentarPeca(int linha, int coluna) {
 		if (linha > 0 && tabuleiro[linha - 1][coluna] == 0) {

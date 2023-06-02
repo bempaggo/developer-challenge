@@ -13,10 +13,7 @@ public class Table {
     public JButton[][] getBotoes(){
         return botoes;
     }
-    
-    // public void moveCell(Integer dx, Integer dy){
-    //     table[dx][dy]
-    // }
+
     public void setCell(Integer dx, Integer dy, Integer element){
         table[dx][dy] = element;
     }
@@ -38,6 +35,22 @@ public class Table {
 				}
 			}
 		}
-	}    
+        if(jogoConcluido()){
+            // emits event to listner;
+        }
+	}  
+
+    private boolean jogoConcluido() {
+		int count = 1;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (getCell(i, j) != count % 9) {
+					return false;
+				}
+				count++;
+			}
+		}
+		return true;
+	}
 
 }
