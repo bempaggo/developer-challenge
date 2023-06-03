@@ -64,10 +64,6 @@ public class Listener implements KeyListener, EventListener<Integer, Integer> {
 class GameListener implements EventListener<String, String> {
     private HashMap<String, HashSet<ActionEventDelegate<String>>> map = new HashMap<>();
 
-    public GameListener subscribe(String event) {
-        return this;
-    }
-
     @Override
     public EventListener<String, String> subscribe(String key, HashSet<ActionEventDelegate<String>> set) {
         if (map.containsKey(key)) {
