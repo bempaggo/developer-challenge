@@ -1,16 +1,10 @@
-package chat.gpt;
+package chat.gpt.domain.table;
 
 import javax.swing.JButton;
 
-public interface Cell<T> {
-    void setValue(T value);
+import chat.gpt.domain.interfaces.Cell;
 
-    T getValue();
-
-    Boolean isEmpty();
-}
-
-class TableCell extends JButton implements Cell<Integer> {
+public class TableCell extends JButton implements Cell<Integer> {
     private Integer cellValue = 0;
 
     @Override

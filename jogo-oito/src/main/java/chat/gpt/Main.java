@@ -1,10 +1,16 @@
 package chat.gpt;
 
+import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import java.awt.GridLayout;
+
+import chat.gpt.domain.actions.MoveAction;
+import chat.gpt.domain.listeners.KeyboardListener;
+import chat.gpt.domain.listeners.NotificationListener;
+import chat.gpt.domain.table.Table;
+import chat.gpt.view.MainView;
 
 public class Main {
     static final Integer WEIGTH = 300;
@@ -12,11 +18,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        var listener = new Listener();
-        var gameListener = new GameListener();
+        var listener = new KeyboardListener();
+        var gameListener = new NotificationListener();
         var table = new Table(gameListener);
 
-        var game = new JogoDosOito(table, listener, gameListener);
+        var game = new MainView(table, listener, gameListener);
 
         listener
         .subscribe(KeyEvent.VK_UP, new MoveAction(table, 1, 0))
@@ -34,7 +40,6 @@ public class Main {
         });
 
         gameListener.subscribe("jogoConcluido", x -> {
-            // JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
             JOptionPane.showMessageDialog(game, x);
         }).subscribe("restart", x -> {
             table.suffleTable();

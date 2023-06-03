@@ -1,15 +1,17 @@
-package chat.gpt;
+package chat.gpt.domain.table;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import chat.gpt.domain.listeners.NotificationListener;
+
 public class Table {
 
-	private GameListener listener;
+	private NotificationListener listener;
 	private static Integer MAX_CELLS = 9;
 	private ArrayList<TableCell> cells = new ArrayList<>();
 
-	Table(GameListener listener) {
+	public Table(NotificationListener listener) {
 		this.listener = listener;
 
 		for (Integer i = 1; i < MAX_CELLS; ++i) {

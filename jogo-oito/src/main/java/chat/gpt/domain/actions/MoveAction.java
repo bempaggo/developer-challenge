@@ -1,19 +1,10 @@
-package chat.gpt;
+package chat.gpt.domain.actions;
 
-@FunctionalInterface
-public interface ActionEventDelegate<T> {
-    void doAction(T dataEvent);
-}
+import chat.gpt.domain.interfaces.ActionEventDelegate;
+import chat.gpt.domain.table.Table;
 
-class NotifyAction implements ActionEventDelegate<String> {
-    @Override
-    public void doAction(String dataEvent) {
-        throw new UnsupportedOperationException("Unimplemented method 'doAction'");
-    }
 
-}
-
-class MoveAction implements ActionEventDelegate<Integer> {
+public class MoveAction implements ActionEventDelegate<Integer> {
     private Integer dx;
     private Integer dy;
     private Table table;

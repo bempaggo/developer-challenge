@@ -1,4 +1,4 @@
-package chat.gpt;
+package chat.gpt.view;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -8,14 +8,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class JogoDosOito extends JFrame {
+import chat.gpt.domain.listeners.KeyboardListener;
+import chat.gpt.domain.listeners.NotificationListener;
+import chat.gpt.domain.table.Table;
+import chat.gpt.domain.table.TableCell;
+
+public class MainView extends JFrame {
 
 	private JButton botaoReiniciar;
 	private Table table;
-	private Listener listener;
-	private GameListener gameListener;
+	private KeyboardListener listener;
+	private NotificationListener gameListener;
 
-	public JogoDosOito(Table table, Listener listener, GameListener gameListener) {
+	public MainView(Table table, KeyboardListener listener, NotificationListener gameListener) {
 		super("Jogo dos Oito");
 		this.table = table;
 		this.listener = listener;
