@@ -1,7 +1,6 @@
 package chat.gpt;
 
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,16 +28,13 @@ public class JogoDosOito extends JFrame {
 			add(cell);
 		}
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(300, 300);
-		setLayout(new GridLayout(4, 3));
-
 		botaoReiniciar = new JButton("Reiniciar");
 		botaoReiniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reiniciarJogo();
+				gameListener.notify("restart", "restart");
 			}
 		});
+
 		add(new JLabel(""));
 		add(botaoReiniciar);
 		add(new JLabel(""));
@@ -46,11 +42,6 @@ public class JogoDosOito extends JFrame {
 		setFocusable(true);
 		requestFocus();
 		addKeyListener(listener);
-
 		setVisible(true);
-	}
-
-	private void reiniciarJogo() {
-		table.suffleTable();
 	}
 }

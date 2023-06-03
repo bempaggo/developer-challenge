@@ -39,9 +39,7 @@ public class Listener implements KeyListener, EventListener<Integer, Integer> {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -50,14 +48,14 @@ public class Listener implements KeyListener, EventListener<Integer, Integer> {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
-    }
+    public void keyReleased(KeyEvent e) {}
 
     @Override
     public void notify(Integer key, Integer item) {
         // TODO Auto-generated method stub
-        map.get(key).forEach(x -> x.doAction(item));
+        if (map.containsKey(key)) {
+            map.get(key).forEach(x -> x.doAction(item));
+        }
     }
 }
 
@@ -86,8 +84,9 @@ class GameListener implements EventListener<String, String> {
 
     @Override
     public void notify(String key, String item) {
-        // TODO Auto-generated method stub
-        map.get(key).forEach(x -> x.doAction(item));
+        if (map.containsKey(key)) {
+            map.get(key).forEach(x -> x.doAction(item));
+        }
     }
 
 }
