@@ -30,18 +30,18 @@ class MoveAction implements ActionEventDelegate<Integer> {
         String out = dataEvent + " - (" + dx + "," + dy + ")";
         System.out.println(out);
 
-        int linhaVazia = -1;
-        int colunaVazia = -1;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        Integer linhaVazia = -1;
+        Integer colunaVazia = -1;
+        for (Integer i = 0; i < 3; i++) {
+            for (Integer j = 0; j < 3; j++) {
                 if (table.getCell(i, j).isEmpty()) {
                     linhaVazia = i;
                     colunaVazia = j;
                 }
             }
         }
-        int novaLinha = linhaVazia + dx;
-        int novaColuna = colunaVazia + dy;
+        Integer novaLinha = linhaVazia + dx;
+        Integer novaColuna = colunaVazia + dy;
         if (novaLinha < 0 || novaLinha > 2 || novaColuna < 0 || novaColuna > 2) {
             // movimento inválido
             return;

@@ -12,7 +12,7 @@ public class Table {
 	Table(GameListener listener) {
 		this.listener = listener;
 
-		for (int i = 1; i < MAX_CELLS; ++i) {
+		for (Integer i = 1; i < MAX_CELLS; ++i) {
 			var cell = new TableCell();
 			cell.setValue(i);
 			cells.add(cell);
@@ -20,7 +20,7 @@ public class Table {
 		var cell = new TableCell();
 		cell.setValue(0);
 		cells.add(cell);
-		// suffleTable();
+		suffleTable();
 	}
 
 	public ArrayList<TableCell> getBotoes() {
@@ -68,8 +68,8 @@ public class Table {
 		return cells.get(cellIndex(dx, dy));
 	}
 
-	private boolean jogoConcluido() {
-		boolean isGoal = false;
+	private Boolean jogoConcluido() {
+		Boolean isGoal = false;
 
 		for (Integer i = 0; i < MAX_CELLS - 1; ++i) {
 			if (cells.get(i).getValue() != i + 1) {
