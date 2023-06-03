@@ -6,9 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public class Main {
-    public static void main(String[] args) {
-        JButton[][] botoes = new JButton[3][3];
-        
+    public static void main(String[] args) {        
         var listener = new Listener();
         var gameListener = new GameListener();
 

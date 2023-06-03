@@ -4,12 +4,13 @@ import javax.swing.JButton;
 
 public interface Cell<T> {
     void setValue(T value);
+
     T getValue();
+
     Boolean isEmpty();
 }
 
-
-class TableCell extends JButton implements Cell<Integer>{
+class TableCell extends JButton implements Cell<Integer> {
     private Integer cellValue = 0;
 
     @Override
@@ -17,7 +18,7 @@ class TableCell extends JButton implements Cell<Integer>{
         // wraps setText from JButton, isolating TableCell
         // and doing Table more generic and isolated.
         cellValue = value;
-        if(value == 0){
+        if (value == 0) {
             setText("");
             return;
         }
@@ -33,6 +34,5 @@ class TableCell extends JButton implements Cell<Integer>{
     public Boolean isEmpty() {
         return getValue() == 0;
     }
-    
 
 }
