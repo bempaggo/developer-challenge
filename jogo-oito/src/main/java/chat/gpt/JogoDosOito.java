@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,28 +20,34 @@ public class JogoDosOito extends JFrame {
 	private JButton botaoReiniciar;
 	private Table table;
 	private Listener listener;
+	private GameListener gameListener;
 
-	public JogoDosOito(Table table, Listener listener) {
+	public JogoDosOito(Table table, Listener listener, GameListener gameListener ) {
 		super("Jogo dos Oito");
 		this.table = table;
 		this.listener = listener;
+		this.gameListener = gameListener;
 	}
 
-	private void registre(JButton[][] botoes) {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				JButton botao = new JButton();
-				botao.setFont(new Font("Arial", Font.BOLD, 36));
-				botoes[i][j] = botao;
-				add(botao);
-			}
-		}
+	// private void registre(ArrayList<TableCell> list) {
+	// 	// for (int i = 0; i < 3; i++) {
+	// 	// 	for (int j = 0; j < 3; j++) {
+	// 	// 		// JButton botao = new JButton();
+	// 	// 		botao.setFont(new Font("Arial", Font.BOLD, 36));
+	// 	// 		// botoes[i][j] = botao;
+	// 	// 		add(botao);
+	// 	// 	}
+	// 	// }
 
-	}
+	// }
 
 	public void start(){
-		registre(table.getBotoes());
-		table.atualizarTabuleiro();
+		for (TableCell cell : table.getBotoes()) {
+			cell.setFont(new Font("Arial", Font.BOLD, 36));
+			add(cell);
+		}
+
+		// table.atualizarTabuleiro();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(300, 300);
@@ -61,7 +68,15 @@ public class JogoDosOito extends JFrame {
 		addKeyListener(listener);
 
 		setVisible(true);
+		// gameListener.notify("jogoConcluido", "Parabéns, você venceu!");
+		// JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
 	}
+
+	// public void test(){
+	// 	ActionEventDelegate<String> x =  (y) -> {
+	// 		JOptionPane.showMessageDialog(this, y);
+	// 	};
+	// }
 
 	private void mover(int linha, int coluna) {
 		int linhaVazia = -1;
@@ -112,7 +127,6 @@ public class JogoDosOito extends JFrame {
 	}
 
 	private void reiniciarJogo() {
-		tabuleiro = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
-		// atualizarTabuleiro();
+		table.suffleTable();
 	}
 }
