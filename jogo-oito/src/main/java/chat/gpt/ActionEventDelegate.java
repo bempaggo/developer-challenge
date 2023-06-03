@@ -1,11 +1,17 @@
 package chat.gpt;
-
+@FunctionalInterface
 public interface ActionEventDelegate<T> {    
     void doAction(T dataEvent);
 }
 
 
 class NotifyAction implements ActionEventDelegate<String>{
+
+    @Override
+    public void doAction(String dataEvent) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'doAction'");
+    }
 
 }
 class MoveAction implements ActionEventDelegate<Integer> {
@@ -32,7 +38,11 @@ class MoveAction implements ActionEventDelegate<Integer> {
 		int colunaVazia = -1;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				if (table.getCell(i, j) == 0) {
+				// if (table.getCell(i, j) == 0) {
+				// 	linhaVazia = i;
+				// 	colunaVazia = j;
+				// }
+                if (table.getCell(i, j).isEmpty()) {
 					linhaVazia = i;
 					colunaVazia = j;
 				}
@@ -45,9 +55,11 @@ class MoveAction implements ActionEventDelegate<Integer> {
 			return;
 		}
 
-        var element = table.getCell(novaLinha, novaColuna);
-        table.setCell(linhaVazia, colunaVazia, element);
-		table.setCell(novaLinha, novaColuna, 0);
-        table.atualizarTabuleiro();
+        // var element = table.getCell(novaLinha, novaColuna);
+        // table.setCell(linhaVazia, colunaVazia, element);
+		// table.setCell(novaLinha, novaColuna, 0);
+
+        table.swap(linhaVazia, colunaVazia, novaLinha, novaColuna);
+        // table.atualizarTabuleiro();
     }
 }
