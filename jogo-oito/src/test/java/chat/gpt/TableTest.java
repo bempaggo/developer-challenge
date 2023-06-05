@@ -1,38 +1,37 @@
 package chat.gpt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import chat.gpt.domain.listeners.NotificationListener;
 import chat.gpt.domain.table.Table;
 
-public class TableTest {    
+public class TableTest {
 
     @Test
     @DisplayName("Test constructor should be populating table's cells.")
-    void constructor_Shoulds_PopulatesCells(){
+    void constructor_Shoulds_PopulatesCells() {
         // Arrange
-        Table table = new Table(null);
+        var notificationMock = mock(NotificationListener.class);
+        Table table = new Table(notificationMock);
         Integer expectedSize = 9;
         // Act
         var cells = table.getBotoes();
 
         // Assert
-        Assertions.assertEquals(cells.size(), expectedSize);        
+        Assertions.assertEquals(cells.size(), expectedSize);
     }
 
     @Test
-    // @Disabled("DISABLED")
     @DisplayName("Test swap should be swaping table's cells.")
-    void swap_ShouldsBeSwapingCells(){
-        Table table = new Table(null);
+    void swap_ShouldsBeSwapingCells() {
+        var notificationMock = mock(NotificationListener.class);
+        Table table = new Table(notificationMock);
 
         var cells = table.getBotoes();
 
@@ -50,9 +49,9 @@ public class TableTest {
         assertEquals(lastDiagonalCell, table.getCell(0, 0).getValue());
     }
 
-
     @Test
     @Disabled("DISABLED")
     @DisplayName("Test swap shoulds notify GameFinish when table's cells was ordened.")
-    void swap_Shoulds_Notify_GameFinish_When_CellsOrdened(){}
+    void swap_Shoulds_Notify_GameFinish_When_CellsOrdened() {
+    }
 }

@@ -29,4 +29,13 @@ public class TableCell extends JButton implements Cell<Integer> {
         return getValue() == 0;
     }
 
+    @Override
+    public boolean equals(Object other){
+        if(!other.getClass().equals(this.getClass())){
+            return false;
+        }
+        var cell = (TableCell) other;
+        return getValue().equals(cell.getValue());
+    }
+
 }
