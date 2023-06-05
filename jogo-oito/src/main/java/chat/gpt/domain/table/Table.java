@@ -14,14 +14,11 @@ public class Table {
 	public Table(NotificationListener listener) {
 		this.listener = listener;
 
-		for (Integer i = 1; i < MAX_CELLS; ++i) {
+		for (Integer i = 0; i < MAX_CELLS; ++i) {
 			var cell = new TableCell();
 			cell.setValue(i);
 			cells.add(cell);
 		}
-		var cell = new TableCell();
-		cell.setValue(0);
-		cells.add(cell);
 		suffleTable();
 	}
 
