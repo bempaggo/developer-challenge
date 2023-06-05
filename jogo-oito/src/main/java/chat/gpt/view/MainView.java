@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import chat.gpt.domain.listeners.KeyboardListener;
+import chat.gpt.domain.listeners.ManagerListener;
 import chat.gpt.domain.listeners.MouseListener;
 import chat.gpt.domain.listeners.NotificationListener;
 import chat.gpt.domain.table.Table;
@@ -18,24 +19,21 @@ public class MainView extends JFrame {
 
 	private JButton botaoReiniciar;
 	private Table table;
-	private KeyboardListener listener;
-	private NotificationListener gameListener;
-	private MouseListener mouseListener;
-	
-	public MainView(Table table, KeyboardListener listener, NotificationListener gameListener, MouseListener mouseListener) {
+	private ManagerListener listener;
+
+	public MainView(Table table, ManagerListener listener) {
 		super("Jogo dos Oito");
 		this.table = table;
 		this.listener = listener;
-		this.gameListener = gameListener;
-		this.mouseListener = mouseListener;
 	}
 
 	public void start() {
 		for (TableCell cell : table.getBotoes()) {
 			cell.setFont(new Font("Arial", Font.BOLD, 36));
 			cell.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {					
-					mouseListener.notify("move", cell);
+				public void actionPerformed(ActionEvent e) {
+					listener.getListener(MouseListener.class)
+							.notify("move", cell);
 				}
 			});
 			add(cell);
@@ -44,7 +42,8 @@ public class MainView extends JFrame {
 		botaoReiniciar = new JButton("Reiniciar");
 		botaoReiniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gameListener.notify("restart", "restart");
+				listener.getListener(NotificationListener.class)
+						.notify("restart", "restart");
 			}
 		});
 
@@ -54,7 +53,7 @@ public class MainView extends JFrame {
 
 		setFocusable(true);
 		requestFocus();
-		addKeyListener(listener);
+		addKeyListener(listener.getListener(KeyboardListener.class));
 		setVisible(true);
 	}
 }

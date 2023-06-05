@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import chat.gpt.domain.actions.MouseMoveAction;
 import chat.gpt.domain.actions.MoveAction;
 import chat.gpt.domain.listeners.KeyboardListener;
+import chat.gpt.domain.listeners.ManagerListener;
 import chat.gpt.domain.listeners.MouseListener;
 import chat.gpt.domain.listeners.NotificationListener;
 import chat.gpt.domain.table.Table;
@@ -20,16 +21,17 @@ public class Main {
 
     public static void main(String[] args) {
 
-        var listener = new KeyboardListener();
-        var gameListener = new NotificationListener();
+        ManagerListener manager = new ManagerListener();
 
-        var mouseListener = new MouseListener();
+        KeyboardListener keyboardListener = manager.getListener(KeyboardListener.class);
+        NotificationListener notificationListener = manager.getListener(NotificationListener.class);
+        MouseListener mouseListener = manager.getListener(MouseListener.class);
         
-        var table = new Table(gameListener);
+        var table = new Table(notificationListener);
 
-        var game = new MainView(table, listener, gameListener, mouseListener);
+        var game = new MainView(table, manager);
 
-        listener
+        keyboardListener
         .subscribe(KeyEvent.VK_UP, new MoveAction(table, 1, 0))
         .subscribe(KeyEvent.VK_DOWN, new MoveAction(table, -1, 0))
         .subscribe(KeyEvent.VK_LEFT, new MoveAction(table, 0, 1))
@@ -41,10 +43,10 @@ public class Main {
         .subscribe(KeyEvent.VK_D, new MoveAction(table, 0, -1))
 
         .subscribe(KeyEvent.VK_ESCAPE, x -> {
-            gameListener.notify("restart", "restart");
+            notificationListener.notify("restart", "restart");
         });
 
-        gameListener.subscribe("jogoConcluido", x -> {
+        notificationListener.subscribe("jogoConcluido", x -> {
             JOptionPane.showMessageDialog(game, x);
         }).subscribe("restart", x -> {
             table.suffleTable();
@@ -53,7 +55,6 @@ public class Main {
         mouseListener
         .subscribe("move", new MouseMoveAction(table));
 
-        // gameListener.no("a");
 
 
         game.setSize(WEIGTH, LENGTH);
