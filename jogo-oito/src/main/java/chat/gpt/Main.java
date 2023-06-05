@@ -6,8 +6,10 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import chat.gpt.domain.actions.MouseMoveAction;
 import chat.gpt.domain.actions.MoveAction;
 import chat.gpt.domain.listeners.KeyboardListener;
+import chat.gpt.domain.listeners.MouseListener;
 import chat.gpt.domain.listeners.NotificationListener;
 import chat.gpt.domain.table.Table;
 import chat.gpt.view.MainView;
@@ -20,9 +22,12 @@ public class Main {
 
         var listener = new KeyboardListener();
         var gameListener = new NotificationListener();
+
+        var mouseListener = new MouseListener();
+        
         var table = new Table(gameListener);
 
-        var game = new MainView(table, listener, gameListener);
+        var game = new MainView(table, listener, gameListener, mouseListener);
 
         listener
         .subscribe(KeyEvent.VK_UP, new MoveAction(table, 1, 0))
@@ -44,6 +49,11 @@ public class Main {
         }).subscribe("restart", x -> {
             table.suffleTable();
         });
+
+        mouseListener
+        .subscribe("move", new MouseMoveAction(table));
+
+        // gameListener.no("a");
 
 
         game.setSize(WEIGTH, LENGTH);
