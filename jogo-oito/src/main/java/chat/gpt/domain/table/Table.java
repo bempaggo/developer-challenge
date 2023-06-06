@@ -19,10 +19,9 @@ public class Table {
 			cell.setValue(i);
 			cells.add(cell);
 		}
-		suffleTable();
 	}
 
-	public ArrayList<TableCell> getBotoes() {
+	public ArrayList<TableCell> getCells() {
 		return cells;
 	}
 

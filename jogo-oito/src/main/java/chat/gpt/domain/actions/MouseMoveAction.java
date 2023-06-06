@@ -17,14 +17,14 @@ public class MouseMoveAction implements ActionEventDelegate<TableCell> {
         Integer i = 0;
         Integer j = 0;
 
-        for (TableCell aux : table.getBotoes()) {
+        for (TableCell aux : table.getCells()) {
             if (aux.isEmpty()) {
                 break;
             }
             ++i;
         }
 
-        for (TableCell aux : table.getBotoes()) {
+        for (TableCell aux : table.getCells()) {
             if (aux.equals(dataEvent)) {
                 break;
             }
@@ -37,8 +37,11 @@ public class MouseMoveAction implements ActionEventDelegate<TableCell> {
         Integer jdx = j / 3;
         Integer jdy = j % 3;
 
-        // not allowed (1, 1) vector movement:
-        if (Math.abs((idx - jdx)) >= 1 && Math.abs((idy - jdy)) >= 1) {
+        // not allowed |(1, 1)| vector movement:
+        Integer hMov = Math.abs(idx - jdx);
+        Integer vMov = Math.abs(idy - jdy);
+
+        if(hMov == vMov || hMov > 1 || vMov > 1){
             return;
         }
 

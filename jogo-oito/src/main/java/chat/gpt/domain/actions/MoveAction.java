@@ -18,8 +18,6 @@ public class MoveAction implements ActionEventDelegate<Integer> {
     // dataEvent is a keyCodeEvent
     @Override
     public void doAction(Integer dataEvent) {
-        String out = dataEvent + " - (" + dx + "," + dy + ")";
-        System.out.println(out);
 
         Integer linhaVazia = -1;
         Integer colunaVazia = -1;

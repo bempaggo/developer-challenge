@@ -31,7 +31,7 @@ public class MouseMoveActionTest {
             cells.add(aux);
         }
 
-        when(table.getBotoes()).thenReturn(cells);
+        when(table.getCells()).thenReturn(cells);
         when(cell.getValue()).thenReturn(8);
         var mouse = new MouseMoveAction(table);
 
@@ -56,7 +56,7 @@ public class MouseMoveActionTest {
             cells.add(aux);
         }
 
-        when(table.getBotoes()).thenReturn(cells);
+        when(table.getCells()).thenReturn(cells);
         when(cell.getValue()).thenReturn(3);
         var mouse = new MouseMoveAction(table);
 
@@ -81,7 +81,7 @@ public class MouseMoveActionTest {
             cells.add(aux);
         }
 
-        when(table.getBotoes()).thenReturn(cells);
+        when(table.getCells()).thenReturn(cells);
         when(cell.getValue()).thenReturn(1);
         var mouse = new MouseMoveAction(table);
 

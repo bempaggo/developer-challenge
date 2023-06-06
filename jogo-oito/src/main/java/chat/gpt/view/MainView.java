@@ -12,6 +12,7 @@ import chat.gpt.domain.listeners.KeyboardListener;
 import chat.gpt.domain.listeners.ManagerListener;
 import chat.gpt.domain.listeners.MouseListener;
 import chat.gpt.domain.listeners.NotificationListener;
+import chat.gpt.domain.search.Search;
 import chat.gpt.domain.table.Table;
 import chat.gpt.domain.table.TableCell;
 
@@ -28,7 +29,7 @@ public class MainView extends JFrame {
 	}
 
 	public void start() {
-		for (TableCell cell : table.getBotoes()) {
+		for (TableCell cell : table.getCells()) {
 			cell.setFont(new Font("Arial", Font.BOLD, 36));
 			cell.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

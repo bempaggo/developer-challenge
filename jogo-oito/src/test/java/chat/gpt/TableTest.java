@@ -21,7 +21,7 @@ public class TableTest {
         Table table = new Table(notificationMock);
         Integer expectedSize = 9;
         // Act
-        var cells = table.getBotoes();
+        var cells = table.getCells();
 
         // Assert
         Assertions.assertEquals(cells.size(), expectedSize);
@@ -33,7 +33,7 @@ public class TableTest {
         var notificationMock = mock(NotificationListener.class);
         Table table = new Table(notificationMock);
 
-        var cells = table.getBotoes();
+        var cells = table.getCells();
 
         var firstDiagonalCell = cells.get(0).getValue();
         var middleDiagonalCell = cells.get(4).getValue();
