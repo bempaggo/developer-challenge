@@ -23,8 +23,8 @@ import chat.gpt.domain.table.Table;
 import chat.gpt.view.MainView;
 
 public class Main {
-    static final Integer WEIGTH = 300;
-    static final Integer LENGTH = 300;
+    static final Integer WEIGTH = 375;
+    static final Integer LENGTH = 375;
 
     public static void main(String[] args) {
 
@@ -94,7 +94,6 @@ public class Main {
 
         game.setSize(WEIGTH, LENGTH);
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game.setSize(375, 375);
         game.setLayout(new GridLayout(5, 3));
 
         game.start();
