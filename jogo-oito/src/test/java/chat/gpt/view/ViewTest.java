@@ -69,7 +69,7 @@ public class ViewTest {
     public void testBotaoPecaChamaFuncaoFazerMovimento() {
         // Arrange
         JButton botaoPeca = botaoPecas.get(5).getjButton();
-        int valorAntes = botaoPecas.get(5).getValor();
+        Integer valorAntes = botaoPecas.get(5).getValor();
 
         MouseEvent event = new MouseEvent(
                 botaoPeca,
@@ -86,7 +86,7 @@ public class ViewTest {
             listener.mouseClicked(event);
         }
 
-        int valorDepois = botaoPecas.get(5).getValor();
+        Integer valorDepois = botaoPecas.get(5).getValor();
 
         // Assert
         Assertions.assertNotEquals(valorAntes, valorDepois);

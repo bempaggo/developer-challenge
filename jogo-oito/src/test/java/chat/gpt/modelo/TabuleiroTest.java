@@ -27,7 +27,7 @@ public class TabuleiroTest {
     @Test
     public void testGetPecaPorPosicao() {
         // Arrange
-        int posicao = 2;
+        Integer posicao = 2;
 
         // Act
         Peca peca = tabuleiro.getPecaPorPosicao(posicao);
@@ -39,7 +39,7 @@ public class TabuleiroTest {
     @Test
     public void testGetPecaPorPosicaoPecaNaoEncontrada() {
         // Arrange
-        int posicao = 15;
+        Integer posicao = 15;
 
         // Act & Assert
         Assertions.assertThrows(JogoException.class, () -> tabuleiro.getPecaPorPosicao(posicao));
@@ -48,7 +48,7 @@ public class TabuleiroTest {
     @Test
     public void testGetPecaPorValor() {
         // Arrange
-        int valor = 3;
+        Integer valor = 3;
 
         // Act
         Peca peca = tabuleiro.getPecaPorValor(valor);
@@ -60,7 +60,7 @@ public class TabuleiroTest {
     @Test
     public void testGetPecaPorValorPecaNaoEncontrada() {
         // Arrange
-        int valor = 40;
+        Integer valor = 40;
 
         // Act & Assert
         Assertions.assertThrows(JogoException.class, () -> tabuleiro.getPecaPorValor(valor));
