@@ -115,26 +115,11 @@ public class Search {
         return getCoordenatesByIndex(index);
     }
 
-    private ArrayList<Integer[]> getValidsMoves(Integer[] emptyCellCoord) {
-
-        ArrayList<Integer[]> moves = new ArrayList<>();
-
-        for (var mov : allowedMoves) {
-            Integer dx = mov[0] + emptyCellCoord[0];
-            Integer dy = mov[1] + emptyCellCoord[1];
-
-            if ((0 <= dx && dx <= 2) && (0 <= dy && dy <= 2)) {
-                moves.add(new Integer[] { dx, dy });
-            }
-        }
-        return moves;
-    }
-
     private ArrayList<Node> getChildrens(Node node) {
         var emptyCoord = findEmptyCoordenates(node.table);
 
         ArrayList<Node> childs = new ArrayList<>();
-        var aux = getValidsMoves(emptyCoord);
+
         Node childNode = null;
         for (var mov : allowedMoves) {
             Integer dx = mov[0] + emptyCoord[0];
