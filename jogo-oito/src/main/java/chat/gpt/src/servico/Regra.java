@@ -6,5 +6,6 @@ import chat.gpt.src.modelo.Tabuleiro;
 public interface Regra {
 
     Boolean verificarVitoria(Tabuleiro tabuleiro);
+
     Boolean validarMovimento(Peca pecaMovida, Peca pecaVazia);
 }

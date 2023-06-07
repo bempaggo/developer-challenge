@@ -10,12 +10,12 @@ public class RegraImpl implements Regra {
 
     @Override
     public Boolean verificarVitoria(Tabuleiro tabuleiro) {
-        return tabuleiro.getPecas().stream().allMatch(Peca::posicaoCorreta);
+        return tabuleiro.pecas().stream().allMatch(Peca::posicaoCorreta);
     }
 
     @Override
     public Boolean validarMovimento(Peca pecaMovida, Peca pecaVazia) {
         Optional<Movimento> movimentoFeito = Movimento.obterMovimento(pecaMovida.getPosicao() - pecaVazia.getPosicao());
-        return movimentoFeito.filter(movimento -> Movimento.ehValido(movimento, pecaMovida, pecaVazia)).isPresent();
+        return movimentoFeito.filter(movimento -> Movimento.ehValido(movimento, pecaVazia, pecaMovida)).isPresent();
     }
 }

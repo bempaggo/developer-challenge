@@ -14,13 +14,13 @@ public class Jogo {
     private Tabuleiro tabuleiro;
     private final Regra regra;
 
-    public Jogo() {
-        regra = new RegraImpl();
+    public Jogo(Regra regra) {
+        this.regra = regra;
         iniciar();
     }
 
     private void iniciar() {
-        this.tabuleiro = new Tabuleiro(configuracaoInicial());
+        tabuleiro = new Tabuleiro(configuracaoInicial());
     }
 
     private List<Peca> configuracaoInicial() {
@@ -29,20 +29,16 @@ public class Jogo {
         return pecasInicial;
     }
 
-    public Tabuleiro getTabuleiro() {
-        return tabuleiro;
+    public void reiniciar() {
+        iniciar();
     }
 
     public void embaralharPecas() {
-        List<Peca> pecas = this.tabuleiro.getPecas();
+        List<Peca> pecas = tabuleiro.pecas();
         List<Integer> posicoes = IntStream.range(0, 9).boxed().collect(Collectors.toList());
 
         Collections.shuffle(posicoes);
         IntStream.range(0, 9).forEach(i -> pecas.get(i).setPosicao(posicoes.get(i)));
-    }
-
-    public void reiniciar() {
-        iniciar();
     }
 
     public void fazerMovimento(Integer valorMovido) {
@@ -63,5 +59,13 @@ public class Jogo {
 
     public Boolean verificarVitoria() {
         return regra.verificarVitoria(tabuleiro);
+    }
+
+    public Tabuleiro getTabuleiro() {
+        return tabuleiro;
+    }
+
+    public Regra getRegra() {
+        return regra;
     }
 }
