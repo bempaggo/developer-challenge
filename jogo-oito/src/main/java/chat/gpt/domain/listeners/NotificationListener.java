@@ -9,6 +9,7 @@ import chat.gpt.domain.interfaces.EventListener;
 
 public class NotificationListener implements EventListener<String, String> {
     private HashMap<String, HashSet<ActionEventDelegate<String>>> map = new HashMap<>();
+    private Boolean isEnabled = true;
     
     @Override
     public EventListener<String, String> subscribe(String key, HashSet<ActionEventDelegate<String>> set) {
@@ -32,8 +33,18 @@ public class NotificationListener implements EventListener<String, String> {
 
     @Override
     public void notify(String key, String item) {
-        if (map.containsKey(key)) {
+        if (isEnabled && map.containsKey(key)) {
             map.get(key).forEach(x -> x.doAction(item));
         }
+    }
+
+    @Override
+    public void setEnabled(Boolean cond) {
+        isEnabled = cond;
+    }
+
+    @Override
+    public Boolean getEnabled() {
+        return isEnabled;
     }
 }

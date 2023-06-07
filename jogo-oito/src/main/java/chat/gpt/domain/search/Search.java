@@ -1,6 +1,7 @@
 package chat.gpt.domain.search;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
@@ -134,12 +135,20 @@ public class Search {
 
         ArrayList<Node> childs = new ArrayList<>();
         var aux = getValidsMoves(emptyCoord);
-        for (var mov : aux) {
+        Node childNode = null;
+        for (var mov : allowedMoves) {
+            Integer dx = mov[0] + emptyCoord[0];
+            Integer dy = mov[1] + emptyCoord[1];
+
+            if (!((0 <= dx && dx <= 2) && (0 <= dy && dy <= 2))) {
+                // moves.add(new Integer[] { dx, dy });
+                continue;
+            }
 
             Table childTable = new Table(node.table);
-            childTable.swap(emptyCoord[0], emptyCoord[1], mov[0], mov[1]);
+            childTable.swap(emptyCoord[0], emptyCoord[1], dx, dy);
 
-            Node childNode = new Node(node, childTable);
+            childNode = new Node(node, childTable);
             childNode.move = mov;
 
             childs.add(childNode);
@@ -185,7 +194,20 @@ public class Search {
         return Math.abs(px[0] - py[0]) + Math.abs(px[1] - py[1]);
     }
 
-    public void findPath(Table table) {
+
+    private ArrayList<Integer[]> backTrackNode(Node node){
+        ArrayList<Integer[]> steps = new ArrayList<>();
+        while (node.parent != null){
+            steps.add(node.move);
+            node = node.parent;
+        }
+
+        Collections.reverse(steps);
+
+        return steps;
+    }
+
+    public ArrayList<Integer[]> findPath(Table table) {
 
         frontier = new PriorityQueue<>();
         explored = new HashSet<>();
@@ -240,5 +262,6 @@ public class Search {
             }
         }
 
+        return backTrackNode(node);
     }
 }

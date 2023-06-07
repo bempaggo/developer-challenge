@@ -11,6 +11,7 @@ import chat.gpt.domain.interfaces.EventListener;
 public class KeyboardListener implements KeyListener, EventListener<Integer, Integer> {
 
     private HashMap<Integer, HashSet<ActionEventDelegate<Integer>>> map = new HashMap<>();
+    private Boolean isEnabled = true;
 
     @Override
     public EventListener<Integer, Integer> subscribe(Integer keyCodeEvent, HashSet<ActionEventDelegate<Integer>> set) {
@@ -51,5 +52,15 @@ public class KeyboardListener implements KeyListener, EventListener<Integer, Int
         if (map.containsKey(key)) {
             map.get(key).forEach(x -> x.doAction(item));
         }
+    }
+
+    @Override
+    public void setEnabled(Boolean cond) {
+        isEnabled = cond;
+    }
+
+    @Override
+    public Boolean getEnabled() {
+        return isEnabled;
     }
 }

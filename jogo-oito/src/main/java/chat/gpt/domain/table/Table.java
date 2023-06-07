@@ -19,16 +19,6 @@ public class Table implements Cloneable {
 			cell.setValue(i);
 			cells.add(cell);
 		}
-
-		// cells.get(0).setValue(5);
-		// cells.get(1).setValue(2);
-		// cells.get(2).setValue(8);
-		// cells.get(3).setValue(4);
-		// cells.get(4).setValue(1);
-		// cells.get(5).setValue(7);
-		// cells.get(6).setValue(0);
-		// cells.get(7).setValue(3);
-		// cells.get(8).setValue(6);
 		this.randomizeTable();
 	}
 
@@ -40,7 +30,6 @@ public class Table implements Cloneable {
 			cell.setValue(x.getValue());
 			this.cells.add(cell);
 		});
-		// this.cells = new ArrayList<>(table.getCells());
 	}
 
 	public ArrayList<TableCell> getCells() {
@@ -62,8 +51,6 @@ public class Table implements Cloneable {
 				auxj.setValue(aux);
 			}
 		} while (!isSolvable());
-
-		System.out.println("OUT SUFFLE TABLE");
 	}
 
 	private Boolean isSolvable() {

@@ -12,15 +12,16 @@ import chat.gpt.domain.listeners.KeyboardListener;
 import chat.gpt.domain.listeners.ManagerListener;
 import chat.gpt.domain.listeners.MouseListener;
 import chat.gpt.domain.listeners.NotificationListener;
-import chat.gpt.domain.search.Search;
 import chat.gpt.domain.table.Table;
 import chat.gpt.domain.table.TableCell;
 
 public class MainView extends JFrame {
 
 	private JButton botaoReiniciar;
+	private JButton solvePuzzleButton;
 	private Table table;
 	private ManagerListener listener;
+	private JLabel bannerLabel = new JLabel("");
 
 	public MainView(Table table, ManagerListener listener) {
 		super("Jogo dos Oito");
@@ -43,20 +44,32 @@ public class MainView extends JFrame {
 		botaoReiniciar = new JButton("Reiniciar");
 		botaoReiniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Search search =new Search();
-            	search.findPath(table);
 				listener.getListener(NotificationListener.class)
 						.notify("restart", "restart");
 			}
 		});
 
-		add(new JLabel(""));
+		solvePuzzleButton = new JButton("Resolver");
+		solvePuzzleButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listener.getListener(NotificationListener.class)
+						.notify("solve", "disable");
+			}
+		});
+
 		add(botaoReiniciar);
+		add(solvePuzzleButton);
 		add(new JLabel(""));
+		add(new JLabel(""));
+		add(bannerLabel);
 
 		setFocusable(true);
 		requestFocus();
 		addKeyListener(listener.getListener(KeyboardListener.class));
 		setVisible(true);
+	}
+
+	public void showMessage(String message) {
+		bannerLabel.setText(message);
 	}
 }

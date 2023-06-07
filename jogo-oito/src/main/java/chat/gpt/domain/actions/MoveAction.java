@@ -38,4 +38,8 @@ public class MoveAction implements ActionEventDelegate<Integer> {
 
         table.swap(linhaVazia, colunaVazia, novaLinha, novaColuna);
     }
+
+    public void doAction(){
+        doAction(null);
+    }
 }

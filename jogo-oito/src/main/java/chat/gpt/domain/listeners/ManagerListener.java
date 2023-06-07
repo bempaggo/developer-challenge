@@ -21,4 +21,11 @@ public class ManagerListener {
         }
         return null;
     }
+
+    public void setEnabledEvents(Boolean cond){
+        notificationListener.setEnabled(cond);
+        mouseListener.setEnabled(cond);
+        keyboardListener.setEnabled(cond);
+    }
+
 }
