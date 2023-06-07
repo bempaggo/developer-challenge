@@ -9,10 +9,10 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
             <version>RELEASE</version>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
