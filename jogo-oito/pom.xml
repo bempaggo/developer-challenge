@@ -62,6 +62,7 @@
 					<excludes>
 						<exclude>**/view/*</exclude>
 						<exclude>**/domain/intefaces/*</exclude>
+						<exclude>**/search/*</exclude>
 						<exclude>**/Main*</exclude>
 					</excludes>
 				</configuration>
