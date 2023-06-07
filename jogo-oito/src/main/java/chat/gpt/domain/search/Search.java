@@ -2,106 +2,84 @@ package chat.gpt.domain.search;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-import chat.gpt.domain.actions.MoveAction;
 import chat.gpt.domain.table.Table;
-import chat.gpt.domain.table.TableCell;
-
-// [1, 2, 3]
-// [4, 5, 6]
-// [7, 8, 0]
-
-// find the empty cell index (2, 2)
-// compute the alloweds movements: (2, 2) -- (0, 1) (1, 0) => (2, 1) || (1, 2)
-// computes the euristic
-
-// acceptance (all ordened)
-
-// euristic: sum of manhathan distance of all nodes
-
-// chose the lowest one
-
-// all possible movements: (0, 1)(1, 0)(0, -1)(-1, 0)
-
-class Node implements Comparable<Node> {
-    public Node parent = null;
-    public Integer pathCost = 0;
-    public Integer heuristicValue = 0;
-    public Table table = null; // table state
-    public Integer[] move = new Integer[2];
-
-    public Node(Node parent, Table table) {
-        this.parent = parent;
-        this.table = table;
-    }
-
-    public Node(Table table) {
-        this.table = table;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (!(other instanceof Node)) {
-            return false;
-        }
-
-        var otherNode = (Node) other;
-        var otherCells = otherNode.table.getCells();
-        var thisCells = table.getCells();
-
-        Integer counter = thisCells.size();
-        for (Integer i = 0; i < thisCells.size(); ++i) {
-            var x = thisCells.get(i).getValue();
-            var y = otherCells.get(i).getValue();
-
-            if (x.equals(y)) {
-                counter -= 1;
-            }
-        }
-
-        return counter == 0;
-    }
-
-    @Override
-    public int compareTo(Node other) {
-        return (this.pathCost + this.heuristicValue) - (other.pathCost + other.heuristicValue);
-        // if(value < 0){
-        // return -1;
-        // }
-        // else if(value > 0){
-        // return 1;
-        // }
-        // else{
-        // return 0;
-        // }
-    }
-}
-
-class Heuristic {
-    public Integer manhattanDistance(Integer[] px, Integer[] py) {
-        return Math.abs(px[0] - py[0]) + Math.abs(px[1] - py[1]);
-    }
-}
 
 public class Search {
-    // function UNIFORM-COST-SEARCH( problem) returns a solution, or failure
-    // node ←a node with STATE = problem.INITIAL-STATE, P ATH -COST = 0
-    // frontier ←a priority queue ordered by PATH -COST, with node as the only
-    // element
-    // explored ←an empty set
-    // loop do
-    // if EMPTY?( frontier ) then return failure
-    // node ←POP( frontier ) /* chooses the lowest-cost node in frontier */
-    // if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
-    // add node.STATE to explored
-    // for each action in problem.ACTIONS(node.STATE) do
-    // child ←CHILD-NODE( problem, node, action)
-    // if child .STATE is not in explored or frontier then
-    // frontier ←INSERT(child , frontier )
-    // else if child .STATE is in frontier with higher PATH -COST then
-    // replace that frontier node with child
+// AStart algorithm from AIMA(Artificial Inteligence A Modern Approach) 3ed
+// Chapter 3. Solving Problems by Searching.
+// Using manhattan heuristic
+
+// Follow algorithm(UCS + heuristic = A*):
+// function UNIFORM-COST-SEARCH( problem) returns a solution, or failure
+
+// node ←a node with STATE = problem.INITIAL-STATE, P ATH -COST = 0
+// frontier ←a priority queue ordered by PATH -COST, with node as the only element
+// explored ←an empty set
+
+// loop do
+//     if EMPTY?( frontier ) then return failure
+//     node ←POP( frontier ) /* chooses the lowest-cost node in frontier */
+//     if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
+//     add node.STATE to explored
+//     for each action in problem.ACTIONS(node.STATE) do
+//         child ←CHILD-NODE( problem, node, action)
+//         if child .STATE is not in explored or frontier then
+//             frontier ←INSERT(child , frontier )
+//         else if child .STATE is in frontier with higher PATH -COST then
+//             replace that frontier node with child
+
+// function CHILD-NODE( problem, parent , action) returns a node
+//     return a node with
+//     STATE = problem.RESULT(parent .STATE, action),
+//     PARENT = parent , A CTION = action,
+//     PATH -COST = parent .PATH -COST + problem.STEP-COST(parent .STATE, action)
+
+    private class Node implements Comparable<Node> {
+        public Node parent = null;
+        public Integer pathCost = 0;
+        public Integer heuristicValue = 0;
+        public Table table = null; // table state
+        public Integer[] move = new Integer[2];
+
+        public Node(Node parent, Table table) {
+            this.parent = parent;
+            this.table = table;
+        }
+
+        public Node(Table table) {
+            this.table = table;
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            if (!(other instanceof Node)) {
+                return false;
+            }
+
+            var otherNode = (Node) other;
+            var otherCells = otherNode.table.getCells();
+            var thisCells = table.getCells();
+
+            Integer counter = thisCells.size();
+            for (Integer i = 0; i < thisCells.size(); ++i) {
+                var x = thisCells.get(i).getValue();
+                var y = otherCells.get(i).getValue();
+
+                if (x.equals(y)) {
+                    counter -= 1;
+                }
+            }
+
+            return counter == 0;
+        }
+
+        @Override
+        public int compareTo(Node other) {
+            return (this.pathCost + this.heuristicValue) - (other.pathCost + other.heuristicValue);
+        }
+    }
 
     static final private Integer[][] allowedMoves = {
             { 0, -1 },
@@ -124,9 +102,6 @@ public class Search {
 
     private PriorityQueue<Node> frontier;
     private HashSet<Node> explored;
-
-    static final private Integer MAX_COUNTER = 999;
-    private Integer counter = 0;
 
     private Integer[] findEmptyCoordenates(Table table) {
         Integer index = 0;
@@ -163,7 +138,6 @@ public class Search {
 
             Table childTable = new Table(node.table);
             childTable.swap(emptyCoord[0], emptyCoord[1], mov[0], mov[1]);
-            // Integer heuristicValue = manhatanHeuristic(childTable.getCells());
 
             Node childNode = new Node(node, childTable);
             childNode.move = mov;
@@ -173,15 +147,6 @@ public class Search {
 
         return childs;
     }
-
-    // private Node getChildNode(Node parentNode, Integer[] moveAction){
-    // // function CHILD-NODE( problem, parent , action) returns a node
-    // // return a node with
-    // // STATE = problem.RESULT(parent .STATE, action),
-    // // PARENT = parent , A CTION = action,
-    // // PATH -COST = parent .PATH -COST + problem.STEP-COST(parent .STATE, action)
-
-    // }
 
     private Integer[] getCoordenatesByIndex(Integer index) {
         // computes coordenates
@@ -195,13 +160,11 @@ public class Search {
         return node.table.jogoConcluido();
     }
 
-    public Integer heuristic(Node node) {
+    private Integer heuristic(Node node) {
 
         var cells = node.table.getCells();
-        // ArrayList<Integer> sumlist = new ArrayList<>();
         Integer sum = 0;
 
-        // cells.stream().forEach(x -> System.out.print(x.getValue() + ", "));
 
         for (Integer i = 0; i < cells.size(); ++i) {
             var cell = cells.get(i);
@@ -213,15 +176,12 @@ public class Search {
 
             Integer distance = manhattanDistance(goalPosition, actualPosition);
             sum += distance;
-            // sumlist.add(distance);
         }
-        // sumlist.stream().forEach(x -> System.out.print(x + ", "));
-        // System.out.println();
 
         return sum;
     }
 
-    public Integer manhattanDistance(Integer[] px, Integer[] py) {
+    private Integer manhattanDistance(Integer[] px, Integer[] py) {
         return Math.abs(px[0] - py[0]) + Math.abs(px[1] - py[1]);
     }
 
@@ -237,19 +197,10 @@ public class Search {
 
         frontier.add(node);
 
-        while (!frontier.isEmpty() && counter < 999999) {
+        while (!frontier.isEmpty()) {
 
             node = frontier.poll();
 
-            // debug begin
-            // if (node.table == null) {
-            // System.out.println("TABLE NULL ??? WTF");
-            // } else {
-            node.table.getCells().stream().forEach(x -> System.out.print(x + ", "));
-            System.out.println();
-            // }
-            // debug end
-            
             explored.add(node);
 
             if (isGoalState(node)) {
@@ -261,25 +212,23 @@ public class Search {
                 childNode.pathCost = node.pathCost + 1;
                 childNode.heuristicValue = heuristic(childNode);
 
-
-                if(!frontier.contains(childNode) && !explored.contains(childNode)){
+                if (!frontier.contains(childNode) && !explored.contains(childNode)) {
                     frontier.add(childNode);
-                }
-                else {
+                } else {
                     var opFrontierNode = frontier.stream().filter(x -> x.equals(childNode)).findFirst();
-                    if(!opFrontierNode.isEmpty()){
+                    if (!opFrontierNode.isEmpty()) {
                         var frontierNode = opFrontierNode.get();
 
-                        if( childNode.pathCost <  frontierNode.pathCost){
+                        if (childNode.pathCost < frontierNode.pathCost) {
                             frontier.remove(frontierNode);
                             frontier.add(childNode);
                         } else {
 
                             var opExploredNode = explored.stream().filter(x -> x.equals(childNode)).findFirst();
 
-                            if(!opExploredNode.isEmpty()){
+                            if (!opExploredNode.isEmpty()) {
                                 var exploredNode = opExploredNode.get();
-                                if(childNode.pathCost < exploredNode.pathCost ){
+                                if (childNode.pathCost < exploredNode.pathCost) {
                                     explored.remove(exploredNode);
                                     explored.add(childNode);
                                 }
@@ -288,11 +237,7 @@ public class Search {
 
                     }
                 }
-
-                // Integer childPathCost = node.pathCost + 1;
-
             }
-            ++counter;
         }
 
     }
