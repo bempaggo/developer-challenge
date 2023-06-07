@@ -36,6 +36,7 @@ public class MainView extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					listener.getListener(MouseListener.class)
 							.notify("move", cell);
+					requestFocus();
 				}
 			});
 			add(cell);
@@ -46,6 +47,7 @@ public class MainView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				listener.getListener(NotificationListener.class)
 						.notify("restart", "restart");
+				requestFocus();
 			}
 		});
 
@@ -54,6 +56,7 @@ public class MainView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				listener.getListener(NotificationListener.class)
 						.notify("solve", "disable");
+				requestFocus();
 			}
 		});
 
