@@ -33,4 +33,5 @@ public class Peca {
     public Boolean posicaoCorreta() {
         return this.getPosicao().equals(this.getValor() - 1);
     }
+
 }

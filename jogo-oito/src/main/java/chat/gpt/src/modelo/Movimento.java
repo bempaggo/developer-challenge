@@ -16,7 +16,7 @@ public enum Movimento {
         return mover;
     }
 
-    public static boolean ehValido(Movimento movimento, Peca peca, Peca pecaVazia) {
+    public static boolean ehValido(Movimento movimento, Peca pecaVazia, Peca peca) {
         if (peca.ehPecaVazia()) return false;
         Integer novaPosicaoPecaVazia = pecaVazia.getPosicao() + movimento.mover;
         return novaPosicaoPecaVazia.equals(peca.getPosicao());
