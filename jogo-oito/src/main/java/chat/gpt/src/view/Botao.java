@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Botao {
 
-    private JButton jButton;
+    private final JButton jButton;
     private Integer valor;
 
     public Botao(JButton jButton, Integer valor) {
@@ -14,10 +14,6 @@ public class Botao {
 
     public JButton getjButton() {
         return jButton;
-    }
-
-    public void setjButton(JButton jButton) {
-        this.jButton = jButton;
     }
 
     public Integer getValor() {

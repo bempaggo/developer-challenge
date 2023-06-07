@@ -52,9 +52,35 @@ public class View extends JFrame {
     private JButton criarJButton() {
         JButton botao = new JButton();
         botao.setFont(new Font("Arial", Font.BOLD, 36));
-        botao.addMouseListener(getMouseListenerFunction());
+        botao.addMouseListener(tentarMoverBotao());
         add(botao);
         return botao;
+    }
+
+    private MouseAdapter tentarMoverBotao() {
+        JFrame view = this;
+        return new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JButton jButtonClicado = (JButton) e.getSource();
+                Botao botaoClicado = getBotaoClicado(jButtonClicado);
+                jogo.fazerMovimento(botaoClicado.getValor());
+                atualizarInterfaceTabuleiro();
+                verificarVitoria(view);
+            }
+        };
+    }
+
+    private Botao getBotaoClicado(JButton jButtonClicado) {
+        return botaoPecas.stream().filter(botao -> botao.getjButton().equals(jButtonClicado))
+                .findFirst().orElseThrow(() -> new JogoException("Botao clicado nao foi encontrado!"));
+    }
+
+    private void verificarVitoria(JFrame view) {
+        Boolean vitoria = jogo.verificarVitoria();
+        if (vitoria) {
+            JOptionPane.showMessageDialog(view, "Parabéns! Você venceu o jogo!");
+        }
     }
 
     private void criarBotaoEmbaralhar() {
@@ -93,24 +119,8 @@ public class View extends JFrame {
         );
     }
 
-    private MouseAdapter getMouseListenerFunction() {
-        return new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                JButton jButtonClicado = (JButton) e.getSource();
-                Botao botaoClicado = getBotaoClicado(jButtonClicado);
-                jogo.fazerMovimento(botaoClicado.getValor());
-                atualizarInterfaceTabuleiro();
-                Boolean vitoria = jogo.verificarVitoria();
-                if (vitoria) {
-                    JOptionPane.showMessageDialog(null, "Parabéns! Você venceu o jogo!");
-                }
-            }
-        };
+    public List<Botao> getBotaoPecas() {
+        return botaoPecas;
     }
 
-    private Botao getBotaoClicado(JButton jButtonClicado) {
-        return botaoPecas.stream().filter(botao -> botao.getjButton().equals(jButtonClicado))
-                .findFirst().orElseThrow(() -> new JogoException("Botao clicado nao foi encontrado!"));
-    }
 }
