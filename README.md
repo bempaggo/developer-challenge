@@ -20,7 +20,7 @@ A Bempaggo é uma empresa do setor de pagamentos.
 
 -> Banco de Dados (Postgresql e Mysql).
 
--> Back-end -> Java (ORM, jakarta.ws.rs [jersey]), Rust.
+-> Backend -> Java (ORM, jakarta.ws.rs [jersey]), Rust.
 
 -> Frontend -> JavaScript, TypeScript, Vue, CSS e HTML.
 
