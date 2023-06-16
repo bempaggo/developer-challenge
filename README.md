@@ -1,4 +1,4 @@
-# Desafio para vaga de desenvolvedor Sênior, Pleno e Estágio.
+# [100% REMOTO] Desafio para vaga de desenvolvedor Sênior, Pleno e Estágio.
 
 ![image](https://user-images.githubusercontent.com/5315184/228086966-4b4b41cc-276c-4d04-96b8-5d37317a89e8.png)
 
