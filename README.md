@@ -29,8 +29,10 @@ A Bempaggo é uma empresa do setor de pagamentos.
 -> Github e AWS.
 
 ## Requisito da vaga
-### Domínio do paradigma de programação orientada aos objetos (POO)
 
+-> Domínio do paradigma de programação orientada aos objetos (POO).
+
+##
 # INSTRUÇÕES:
 
 ## 1 - Crie um fork do projeto.
