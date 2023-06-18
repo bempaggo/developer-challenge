@@ -14,6 +14,8 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
@@ -62,9 +64,39 @@ public class Board {
 				}
 			}
 		);
+		
+		tile.getButton().addEventFilter(KeyEvent.KEY_PRESSED,
+			new EventHandler<KeyEvent>() {
+				@Override
+				public void handle(KeyEvent event) {
+					KeyCode code = event.getCode();
+					if (!tile.getMovementMap().containsKey(code))
+						return;
+
+					TileMovement movement = tile.getMovementMap().get(code);	
+					Point2D newPosition = tile.getPosition().add(movement.getDirection());
+					if (!newPosition.equals(blankTile))
+						return;
+					
+					blankTile = tile.getPosition();
+					tile.moveTo(movement);
+					checkSuccess();
+					tile.getButton().requestFocus();
+				}
+			}
+		);
 	}
 	
 	private void moveTileToBlankSpot(Tile tile) {
+		Point2D whereCanMove = whereCanTileMove(tile);
+		if (whereCanMove.equals(Point2D.ZERO))
+			return;
+		
+		blankTile = tile.getPosition();
+		tile.moveToPosition(whereCanMove);
+	}
+	
+	private Point2D whereCanTileMove(Tile tile) {
 		Point2D tilePos = tile.getPosition();
 		
 		// vertical ou horizontal
@@ -74,7 +106,7 @@ public class Board {
 		Point2D newPosition = tilePos;
 		Point2D distance = new Point2D(0, 0);
 		if (!isAlignedH && !isAlignedV) {
-			return;
+			return tilePos;
 		} else if (isAlignedH) {
 			distance = new Point2D((int)(blankTile.getX() - tilePos.getX()), 0);
 		} else if (isAlignedV) {
@@ -82,14 +114,14 @@ public class Board {
 		}
 		
 		if (distance.getX() > 1 || distance.getY() > 1)
-			return;
+			return tilePos;
 		
-		blankTile = tilePos;
 		newPosition = newPosition.add(distance);
-		tile.moveToPosition(newPosition);
+		
+		return newPosition;
 	}
 
-	// retorna caso pelo menos uma `tile` estiver fora de seu lugar
+	// não executa caso pelo menos uma `tile` estiver fora de seu lugar
 	private void checkSuccess() {
 		for (Tile tile : this.tiles) {
 			String tileText = tile.getButton().getText();

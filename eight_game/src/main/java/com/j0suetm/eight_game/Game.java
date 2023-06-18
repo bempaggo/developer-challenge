@@ -1,5 +1,5 @@
 /**
- * file: Window.java
+ * file: Game.java
  * author: Josué Teodoro Moreira <teodoro.josue@pm.me>
  * date: Jun 16, 2023
  */
@@ -15,7 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class Window {
+public class Game {
 	private Scene scene;
 	private StackPane stackPane;
 	private Board board;
@@ -23,11 +23,11 @@ public class Window {
 	private Point2D size;
 	private RestartButton restartButton;
 	
-	public Window(String title, int width, int height) {
+	public Game(String title, int width, int height, boolean shouldShuffle) {
 		this.title = title;
 		this.size = new Point2D(width, height);
 		
-		this.board = new Board(width, height - 40, true);
+		this.board = new Board(width, height - 40, shouldShuffle);
 		this.restartButton = new RestartButton((int)this.size.getX(), 40);
 		this.restartButton.addEventHandler(this.board);
 		

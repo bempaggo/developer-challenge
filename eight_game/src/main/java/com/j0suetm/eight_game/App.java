@@ -12,8 +12,8 @@ import javafx.stage.Stage;
 public class App extends Application {
 	@Override
   public void start(Stage stage) {
-		Window window = new Window("Jogo do 8 - Josué Teodoro", 600, 640);
-		window.show(stage);
+		Game game = new Game("Jogo do 8 - Josué Teodoro", 600, 640, true);
+		game.show(stage);
   }
 
   public static void main(String[] args) {
