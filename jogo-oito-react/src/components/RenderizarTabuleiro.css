@@ -1,0 +1,26 @@
+.tabuleiro {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 10px;
+}
+
+.linha {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  width: 100px;
+  height: 100px;
+  font-size: 24px;
+  margin: 10px;
+  background-color: white;
+  border: none;
+  outline: none;
+}
+
+button.vazio {
+  background-color: lightgray;
+  cursor: not-allowed;
+}
