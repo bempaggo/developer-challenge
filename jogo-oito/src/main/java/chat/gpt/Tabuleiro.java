@@ -3,11 +3,13 @@ package chat.gpt;
 import javax.swing.JButton;
 
 public class Tabuleiro {
+
     private int[][] tabuleiro;
     private JButton[][] botoes;
+    private GeradorAleatorioTabuleiro tab = new GeradorAleatorioTabuleiro();
 
-    public Tabuleiro( JButton[][] botoes) {
-        this.tabuleiro = new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
+    public Tabuleiro(JButton[][] botoes) {
+        this.tabuleiro = tab.gerarNumeros();
         this.botoes = botoes;
     }
 
@@ -30,7 +32,7 @@ public class Tabuleiro {
     }
 
     public void reiniciarJogo() {
-        int[][] newTabuleiro = {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
+        int[][] newTabuleiro = tab.gerarNumeros();
         setTabuleiro(newTabuleiro);
         atualizarTabuleiro();
     }
@@ -61,7 +63,7 @@ public class Tabuleiro {
         }
         int novaLinha = linhaVazia + linha;
         int novaColuna = colunaVazia + coluna;
-  
+
         tabuleiro[linhaVazia][colunaVazia] = tabuleiro[novaLinha][novaColuna];
         tabuleiro[novaLinha][novaColuna] = 0;
         atualizarTabuleiro();
