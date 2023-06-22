@@ -16,12 +16,13 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Game {
-	private Scene scene;
-	private StackPane stackPane;
 	private Board board;
 	private String title;
 	private Point2D size;
 	private RestartButton restartButton;
+	private Stage stage;
+	private Scene scene;
+	private StackPane stackPane;
 	
 	public Game(String title, int width, int height, boolean shouldShuffle) {
 		this.title = title;
@@ -38,8 +39,57 @@ public class Game {
 	}
 	
 	public void show(Stage stage) {
-		stage.setTitle(this.title);
-		stage.setScene(this.scene);
-		stage.show();
+		this.stage = stage;
+		this.stage.setTitle(this.title);
+		this.stage.setScene(this.scene);
+		this.stage.show();
+	}
+
+	public Scene getScene() {
+		return scene;
+	}
+
+	public void setScene(Scene scene) {
+		this.scene = scene;
+	}
+
+	public StackPane getStackPane() {
+		return stackPane;
+	}
+
+	public void setStackPane(StackPane stackPane) {
+		this.stackPane = stackPane;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Point2D getSize() {
+		return size;
+	}
+
+	public void setSize(Point2D size) {
+		this.size = size;
+	}
+
+	public RestartButton getRestartButton() {
+		return restartButton;
+	}
+
+	public void setRestartButton(RestartButton restartButton) {
+		this.restartButton = restartButton;
 	}
 }

@@ -30,7 +30,7 @@ public class Tile implements Movable {
 	}
 	
 	@Override
-	public void moveTo(TileMovement direction) {
+	public void move(TileMovement direction) {
 		this.position = this.position.add(direction.getDirection());
 		this.updateGridConstraints();
 	}

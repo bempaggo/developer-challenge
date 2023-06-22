@@ -10,9 +10,11 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class App extends Application {
+	private Game game;
+
 	@Override
-  public void start(Stage stage) {
-		Game game = new Game("Jogo do 8 - Josué Teodoro", 600, 640, true);
+	public void start(Stage stage) {
+		this.game = new Game("Jogo do 8 - Josué Teodoro", 600, 640, true);
 		game.show(stage);
   }
 

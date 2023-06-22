@@ -9,7 +9,7 @@ package com.j0suetm.eight_game.components;
 import javafx.geometry.Point2D;
 
 public interface Movable {
-	public void moveTo(TileMovement direction);
+	public void move(TileMovement direction);
 	public void moveToPosition(Point2D newPosition);
 	public void moveToRelativePosition(int relativePosition);
 }

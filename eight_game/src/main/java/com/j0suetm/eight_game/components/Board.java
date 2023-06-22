@@ -44,6 +44,8 @@ public class Board {
 										this.size.getY() / this.gridSize.getY());
 		
 		this.tiles = new ArrayList<Tile>(8);
+		// utilizo for somente para ter um número crescente, para dar nome
+		// aos `tiles` sem precisar de fazer um por um.
 		for (int i = 0; i < 8; ++i) {
 			Tile tile = new Tile(Integer.toString(i + 1), defaultTileSize);
 			this.gridPane.add(tile.getButton(), 0, 0);
@@ -79,9 +81,8 @@ public class Board {
 						return;
 					
 					blankTile = tile.getPosition();
-					tile.moveTo(movement);
+					tile.move(movement);
 					checkSuccess();
-					tile.getButton().requestFocus();
 				}
 			}
 		);
@@ -89,7 +90,7 @@ public class Board {
 	
 	private void moveTileToBlankSpot(Tile tile) {
 		Point2D whereCanMove = whereCanTileMove(tile);
-		if (whereCanMove.equals(Point2D.ZERO))
+		if (whereCanMove.equals(tile.getPosition()))
 			return;
 		
 		blankTile = tile.getPosition();
@@ -123,13 +124,8 @@ public class Board {
 
 	// não executa caso pelo menos uma `tile` estiver fora de seu lugar
 	private void checkSuccess() {
-		for (Tile tile : this.tiles) {
-			String tileText = tile.getButton().getText();
-			String tileRelativePosition = Integer.toString(tiles.indexOf(tile) + 1);
-			if (!tileText.equals(tileRelativePosition)) {
-				return;
-			}
-		}
+		if (!this.isComplete())
+			return;
 		
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Parabéns!!");
@@ -137,6 +133,18 @@ public class Board {
 		alert.setContentText("Parabéns!! Você ganhou!");
 		
 		alert.showAndWait();
+	}
+	
+	public boolean isComplete() {
+		for (Tile tile : this.tiles) {
+			String tileText = tile.getButton().getText();
+			String tileRelativePosition = Integer.toString(tiles.indexOf(tile) + 1);
+			if (!tileText.equals(tileRelativePosition)) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	public void shuffleTiles() {
