@@ -88,5 +88,7 @@ _Caso rejeitado, apontaremos apenas um problema._
 
 -> Respire. Leia atentamente a Seção 5.
 
+-> [Se liga ](https://refactoring.guru/)https://refactoring.guru/
+
 
 
