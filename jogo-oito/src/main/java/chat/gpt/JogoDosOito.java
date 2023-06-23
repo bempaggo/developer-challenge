@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
 
 public class JogoDosOito extends JFrame implements KeyListener {
 
-	private int[][] tabuleiro = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
-	private JButton[][] botoes = new JButton[3][3];
+	private Tabuleiro tabuleiro;
+	private JButton[][] botoes;
 	private JButton botaoReiniciar;
 
 	public JogoDosOito() {
@@ -23,6 +23,9 @@ public class JogoDosOito extends JFrame implements KeyListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(300, 300);
 		setLayout(new GridLayout(4, 3));
+
+		tabuleiro = new Tabuleiro();
+		botoes = new JButton[3][3];
 
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
@@ -53,16 +56,16 @@ public class JogoDosOito extends JFrame implements KeyListener {
 		int keyCode = e.getKeyCode();
 		switch (keyCode) {
 		case KeyEvent.VK_UP:
-			mover(1, 0);
+			tabuleiro.mover(1, 0);
 			break;
 		case KeyEvent.VK_DOWN:
-			mover(-1, 0);
+			tabuleiro.mover(-1, 0);
 			break;
 		case KeyEvent.VK_LEFT:
-			mover(0, 1);
+			tabuleiro.mover(0, 1);
 			break;
 		case KeyEvent.VK_RIGHT:
-			mover(0, -1);
+			tabuleiro.mover(0, -1);
 			break;
 		}
 	}
@@ -73,75 +76,16 @@ public class JogoDosOito extends JFrame implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 	}
 
-	private void mover(int linha, int coluna) {
-		int linhaVazia = -1;
-		int colunaVazia = -1;
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (tabuleiro[i][j] == 0) {
-					linhaVazia = i;
-					colunaVazia = j;
-				}
-			}
-		}
-		int novaLinha = linhaVazia + linha;
-		int novaColuna = colunaVazia + coluna;
-		if (novaLinha < 0 || novaLinha > 2 || novaColuna < 0 || novaColuna > 2) {
-			// movimento inválido
-			return;
-		}
-		tabuleiro[linhaVazia][colunaVazia] = tabuleiro[novaLinha][novaColuna];
-		tabuleiro[novaLinha][novaColuna] = 0;
-		atualizarTabuleiro();
-		if (jogoConcluido()) {
-			JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
-			reiniciarJogo();
-		}
-	}
-
 	public static void main(String[] args) {
 		new JogoDosOito();
 	}
 
-	private boolean jogoConcluido() {
-		int count = 1;
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (tabuleiro[i][j] != count % 9) {
-					return false;
-				}
-				count++;
-			}
-		}
-		return true;
-	}
-
-	private boolean movimentarPeca(int linha, int coluna) {
-		if (linha > 0 && tabuleiro[linha - 1][coluna] == 0) {
-			tabuleiro[linha - 1][coluna] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		} else if (linha < 2 && tabuleiro[linha + 1][coluna] == 0) {
-			tabuleiro[linha + 1][coluna] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		} else if (coluna > 0 && tabuleiro[linha][coluna - 1] == 0) {
-			tabuleiro[linha][coluna - 1] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		} else if (coluna < 2 && tabuleiro[linha][coluna + 1] == 0) {
-			tabuleiro[linha][coluna + 1] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		}
-		return false;
-	}
-
 	private void atualizarTabuleiro() {
+		int[][] estadoTabuleiro = tabuleiro.getEstado();
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				JButton botao = botoes[i][j];
-				int valor = tabuleiro[i][j];
+				int valor = estadoTabuleiro[i][j];
 				if (valor == 0) {
 					botao.setText("");
 				} else {
@@ -152,7 +96,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
 	}
 
 	private void reiniciarJogo() {
-		tabuleiro = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
+		tabuleiro.reiniciar();
 		atualizarTabuleiro();
 	}
 }
