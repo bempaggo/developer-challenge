@@ -1,0 +1,29 @@
+/* Visual */
+
+.container,
+.container__spaceRight {
+  background-color: #2c2c2c;
+}
+
+.container__spaceRight {
+  border-radius: 32px;
+}
+
+.spaceLeft__title {
+  color: white;
+  font-weight: bold;
+}
+
+.spaceLeft__btn {
+  border-color: transparent;
+  border-radius: 16px;
+
+  font-weight: bold;
+  font-size: medium;
+
+  color: #444;
+}
+
+.spaceRight__draggableItem {
+  background-color: white;
+}

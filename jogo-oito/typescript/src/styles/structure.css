@@ -1,0 +1,65 @@
+/* Structure */
+
+* {
+  font-family: "Dosis", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.container__spaceRight {
+  width: calc(25vw + 1rem);
+}
+
+.container__spaceLeft {
+  width: calc(30vw + 1rem);
+}
+
+.container__spaceRight {
+  height: 50vh;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+
+  overflow: hidden;
+}
+
+.spaceRight__draggableItem {
+  text-align: center;
+}
+
+.spaceRight__draggableItem,
+.container__spaceLeft {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container__spaceLeft {
+  flex-direction: column;
+
+  height: 100vh;
+
+  gap: calc(10rem + 10vh);
+}
+
+.spaceLeft__title {
+  font-size: 4rem;
+
+  width: 50%;
+}
+
+.spaceLeft__btn {
+  padding: 16px 64px;
+}

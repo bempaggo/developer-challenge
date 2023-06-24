@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jogo oito</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./styles/animations.css" />
+    <link rel="stylesheet" href="./styles/responsive.css" />
+    <link rel="stylesheet" href="./styles/structure.css" />
+    <link rel="stylesheet" href="./styles/visual.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section class="container__spaceLeft">
+        <h1 class="spaceLeft__title">Jogo dos Oito</h1>
+        <button class="spaceLeft__btn" onclick="location.reload();">
+          REINICIAR
+        </button>
+      </section>
+      <div class="container__spaceRight">
+        <span id="emptySpace" class="spaceRight__draggableItem"> </span>
+      </div>
+    </main>
+
+    <script type="module" src="../dist/index.js"></script>
+  </body>
+</html>
