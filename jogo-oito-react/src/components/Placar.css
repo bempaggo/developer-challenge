@@ -1,19 +1,8 @@
-.Placar {
-  //background-color: #6666; 
-  //border: solid 1px #6666;
-}
-
 .Placar_Table{
   padding: 5px;
   border: solid 1px #5566;
   width: 300px;
 }
-
-.Placar_Table th{
-  //padding: 10px;
- // border: solid 1px #5566;
-}
-
 
 .Placar_Table td{
   border: solid 1px #5566;

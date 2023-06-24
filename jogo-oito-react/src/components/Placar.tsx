@@ -1,19 +1,39 @@
 import './Placar.css';
 import useCronometro from "../hook/useCronometro";
+import { useEffect } from 'react';
 
 interface IPlacar {
   numVitoria: number;
+  isVenceu: boolean;
 }
 
 
-export default function Placar ({numVitoria}: IPlacar) {
+export default function Placar ({numVitoria, isVenceu}: IPlacar) {
   const {
     cronometro,    
-    registros,   
+    registros,
+    pararCronometro,   
+    guardarRegistro,
+    reiniciarCronometro
   } = useCronometro();
+
+
+ 
+
+  useEffect(() => {
+    if(isVenceu === true){
+      pararCronometro();
+      guardarRegistro();   
+    }else{
+      reiniciarCronometro()
+    }
+
+   }, [isVenceu])
+
+
   return(
    <>
-   <div className='Placar'>
+   <div>
    <table className='Placar_Table'>
     <thead>
       <th>N° Vitorias</th>
@@ -31,12 +51,12 @@ export default function Placar ({numVitoria}: IPlacar) {
       <th>Tempo</th>
     </thead>
     {
-      registros.map((registro, index) => (
-        <tbody key={index}>
-        <td>Partida {index+1}</td>
+     registros.slice(1).map((registro, index) => (
+      <tbody key={index}>
+        <td>Partida {index + 1}</td>
         <td>{registro}</td>
       </tbody>
-      ))
+    ))
     }
   
    </table>
