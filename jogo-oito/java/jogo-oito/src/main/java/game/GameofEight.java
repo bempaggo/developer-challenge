@@ -13,13 +13,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class JogoDosOito extends JFrame implements KeyListener {
-	private int[][] tabuleiro = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
-	private JButton[][] botoes = new JButton[3][3];
-	private JButton botaoReiniciar;
+public class GameofEight extends JFrame implements KeyListener {
+	private int[][] gameBoard = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
+	private JButton[][] buttons = new JButton[3][3];
+	private JButton restartButton;
 	private Actions actions;
 
-	public JogoDosOito() {
+	public GameofEight() {
 		super("Jogo dos Oito");
 
 		configWindow();
@@ -31,23 +31,23 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
 		this.actions = new Actions(this);
 
-		actions.atualizarTabuleiro();
+		actions.updateGameBoard();
 	}
 
-	public int[][] getTabuleiro() {
-		return tabuleiro;
+	public int[][] getGameBoard() {
+		return gameBoard;
 	}
 
-	public JButton[][] getBotoes() {
-		return botoes;
+	public JButton[][] getButtons() {
+		return buttons;
 	}
 
-	public void setTabuleiro(int x, int y, int value) {
-		this.tabuleiro[x][y] = value;
+	public void setGameBoard(int x, int y, int value) {
+		this.gameBoard[x][y] = value;
 	}
 
-	public void replaceTabuleiro(int[][] value) {
-		tabuleiro = value;
+	public void replaceGameBoard(int[][] value) {
+		gameBoard = value;
 	}
 
 	private void configWindow() {
@@ -61,28 +61,28 @@ public class JogoDosOito extends JFrame implements KeyListener {
 	private void renderButtons() {
 		Font font = new Font("Arial", Font.BOLD, 36);
 
-		for (int linha = 0; linha < 3; linha++) {
-			for (int coluna = 0; coluna < 3; coluna++) {
-				JButton botao = new JButton();
-				botao.setFont(font);
+		for (int row = 0; row < 3; row++) {
+			for (int column = 0; column < 3; column++) {
+				JButton button = new JButton();
+				button.setFont(font);
 
-				botoes[linha][coluna] = botao;
-				add(botao);
+				buttons[row][column] = button;
+				add(button);
 			}
 		}
 
-		botaoReiniciar = new JButton("Reiniciar");
+		restartButton = new JButton("Reiniciar");
 
 		add(new JLabel(""));
-		add(botaoReiniciar);
+		add(restartButton);
 		add(new JLabel(""));
 	}
 
 	private void setActions() {
 		// Adiciona ação ao botão reiniciar
-		botaoReiniciar.addActionListener(new ActionListener() {
+		restartButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				actions.reiniciarJogo();
+				actions.restartGame();
 			}
 		});
 	}
@@ -92,16 +92,16 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
 		switch (keyCode) {
 			case KeyEvent.VK_UP:
-				actions.mover(1, 0);
+				actions.move(1, 0);
 				break;
 			case KeyEvent.VK_DOWN:
-				actions.mover(-1, 0);
+				actions.move(-1, 0);
 				break;
 			case KeyEvent.VK_LEFT:
-				actions.mover(0, 1);
+				actions.move(0, 1);
 				break;
 			case KeyEvent.VK_RIGHT:
-				actions.mover(0, -1);
+				actions.move(0, -1);
 				break;
 		}
 	}

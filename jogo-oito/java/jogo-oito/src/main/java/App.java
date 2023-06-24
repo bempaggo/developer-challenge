@@ -1,7 +1,7 @@
-import game.JogoDosOito;
+import game.GameofEight;
 
 public class App {
   public static void main(String[] args) {
-    new JogoDosOito();
+    new GameofEight();
   }
 }

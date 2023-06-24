@@ -5,64 +5,64 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 interface ISetText {
-  void function(int linha, int coluna);
+  void function(int row, int column);
 }
 
 public class Actions {
-  private JogoDosOito game;
+  private GameofEight game;
 
-  private int novaLinha;
-  private int novaColuna;
-  private int linhaVazia;
-  private int colunaVazia;
+  private int newRow;
+  private int newColumn;
+  private int emptyRow;
+  private int emptyColumn;
 
-  public Actions(JogoDosOito game) {
+  public Actions(GameofEight game) {
     this.game = game;
   }
 
-  private void getNewPosition(int paraLinha, int paraColuna) {
-    for (int linha = 0; linha < 3; linha++) {
-      for (int coluna = 0; coluna < 3; coluna++) {
-        if (game.getTabuleiro()[linha][coluna] == 0) {
-          this.linhaVazia = linha;
-          this.colunaVazia = coluna;
+  private void getNewPosition(int toRow, int toColumn) {
+    for (int row = 0; row < 3; row++) {
+      for (int column = 0; column < 3; column++) {
+        if (game.getGameBoard()[row][column] == 0) {
+          this.emptyRow = row;
+          this.emptyColumn = column;
         }
       }
     }
 
-    this.novaLinha = this.linhaVazia + paraLinha;
-    this.novaColuna = this.colunaVazia + paraColuna;
+    this.newRow = this.emptyRow + toRow;
+    this.newColumn = this.emptyColumn + toColumn;
   }
 
-  public void mover(int paraLinha, int paraColuna) {
-    int[][] tabuleiro = game.getTabuleiro();
+  public void move(int toRow, int toColumn) {
+    int[][] gameBoard = game.getGameBoard();
 
-    getNewPosition(paraLinha, paraColuna);
+    getNewPosition(toRow, toColumn);
 
     // Movimento inválido
-    if (this.novaLinha < 0 || this.novaLinha > 2 || this.novaColuna < 0 || this.novaColuna > 2) {
+    if (this.newRow < 0 || this.newRow > 2 || this.newColumn < 0 || this.newColumn > 2) {
       return;
     }
 
-    int newValue = tabuleiro[novaLinha][novaColuna];
+    int newValue = gameBoard[newRow][newColumn];
 
-    game.setTabuleiro(this.linhaVazia, this.colunaVazia, newValue);
-    game.setTabuleiro(novaLinha, novaColuna, 0);
+    game.setGameBoard(this.emptyRow, this.emptyColumn, newValue);
+    game.setGameBoard(newRow, newColumn, 0);
 
-    atualizarTabuleiro();
+    updateGameBoard();
 
-    if (jogoConcluido()) {
+    if (isCompleteGame()) {
       JOptionPane.showMessageDialog(game, "Parabéns, você venceu!");
-      reiniciarJogo();
+      restartGame();
     }
   }
 
-  private boolean jogoConcluido() {
+  private boolean isCompleteGame() {
     int count = 1;
 
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
-        if (game.getTabuleiro()[i][j] != count % 9) {
+        if (game.getGameBoard()[i][j] != count % 9) {
           return false;
         }
         count++;
@@ -71,27 +71,27 @@ public class Actions {
     return true;
   }
 
-  public void atualizarTabuleiro() {
-    ISetText setText = (int linha, int coluna) -> {
-      JButton botao = game.getBotoes()[linha][coluna];
-      int valor = game.getTabuleiro()[linha][coluna];
+  public void updateGameBoard() {
+    ISetText setText = (int row, int column) -> {
+      JButton button = game.getButtons()[row][column];
+      int valor = game.getGameBoard()[row][column];
 
       if (valor == 0) {
-        botao.setText("");
+        button.setText("");
       } else {
-        botao.setText(String.valueOf(valor));
+        button.setText(String.valueOf(valor));
       }
     };
 
-    for (int linha = 0; linha < 3; linha++) {
-      for (int coluna = 0; coluna < 3; coluna++) {
-        setText.function(linha, coluna);
+    for (int row = 0; row < 3; row++) {
+      for (int column = 0; column < 3; column++) {
+        setText.function(row, column);
       }
     }
   }
 
-  public void reiniciarJogo() {
-    game.replaceTabuleiro(new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } });
-    atualizarTabuleiro();
+  public void restartGame() {
+    game.replaceGameBoard(new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } });
+    updateGameBoard();
   }
 }
