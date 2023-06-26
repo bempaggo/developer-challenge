@@ -1,5 +1,5 @@
 
-package chat.gpt;
+package chat.gpt.model;
 
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -111,27 +111,6 @@ public class JogoDosOito extends JFrame implements KeyListener {
 			}
 		}
 		return true;
-	}
-
-	private boolean movimentarPeca(int linha, int coluna) {
-		if (linha > 0 && tabuleiro[linha - 1][coluna] == 0) {
-			tabuleiro[linha - 1][coluna] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		} else if (linha < 2 && tabuleiro[linha + 1][coluna] == 0) {
-			tabuleiro[linha + 1][coluna] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		} else if (coluna > 0 && tabuleiro[linha][coluna - 1] == 0) {
-			tabuleiro[linha][coluna - 1] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		} else if (coluna < 2 && tabuleiro[linha][coluna + 1] == 0) {
-			tabuleiro[linha][coluna + 1] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		}
-		return false;
 	}
 
 	private void atualizarTabuleiro() {

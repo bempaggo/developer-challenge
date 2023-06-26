@@ -1,6 +1,6 @@
 package chat.gpt.application;
 
-import chat.gpt.JogoDosOito;
+import chat.gpt.model.JogoDosOito;
 
 public class Main {
 
