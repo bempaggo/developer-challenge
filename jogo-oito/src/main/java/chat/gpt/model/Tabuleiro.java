@@ -1,14 +1,21 @@
 package chat.gpt.model;
 
+import static chat.gpt.view.Constantes.*;
+
 public class Tabuleiro {
 
     private int[][] tabuleiro;
 
     public Tabuleiro() {
-        tabuleiro = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
+        tabuleiro = new int[][] { 
+            {UM, DOIS, TRES},
+            {QUATRO, CINCO, SEIS},
+            {SETE, OITO, VAZIO} 
+        };
     }
 
     public int[][] getTabuleiro() {
         return tabuleiro;
     }
+
 }
