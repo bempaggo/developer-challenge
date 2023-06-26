@@ -1,7 +1,6 @@
 package chat.gpt.model;
 
 public class JogoDosOito {
-
     private Tabuleiro tabuleiro;
 
     public JogoDosOito() {
@@ -9,34 +8,49 @@ public class JogoDosOito {
     }
 
     public void mover(int linha, int coluna) {
-        int linhaVazia = -1;
-        int colunaVazia = -1;
+        int[] posicaoVazia = encontrarPosicaoVazia();
+
+        int linhaVazia = posicaoVazia[0];
+        int colunaVazia = posicaoVazia[1];
+
+        int novaLinha = linhaVazia + linha;
+        int novaColuna = colunaVazia + coluna;
+
+        if (!posicaoValida(novaLinha, novaColuna)) {
+            return;
+        }
+
+        trocarPosicoes(linhaVazia, colunaVazia, novaLinha, novaColuna);
+
+        if (jogoConcluido()) {
+            reiniciarJogo();
+        }
+    }
+
+    private int[] encontrarPosicaoVazia() {
         int[][] tabuleiroData = tabuleiro.getTabuleiro();
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (tabuleiroData[i][j] == 0) {
-                    linhaVazia = i;
-                    colunaVazia = j;
+                    return new int[]{i, j};
                 }
             }
         }
 
-        int novaLinha = linhaVazia + linha;
-        int novaColuna = colunaVazia + coluna;
+        // Retorna uma posição inválida caso não encontre a posição vazia
+        return new int[]{-1, -1};
+    }
 
-        if (novaLinha < 0 || novaLinha > 2 || novaColuna < 0 || novaColuna > 2) {
-            // Movimento inválido
-            return;
-        }
+    private boolean posicaoValida(int linha, int coluna) {
+        return linha >= 0 && linha < 3 && coluna >= 0 && coluna < 3;
+    }
 
-        tabuleiroData[linhaVazia][colunaVazia] = tabuleiroData[novaLinha][novaColuna];
-        tabuleiroData[novaLinha][novaColuna] = 0;
-
-        if (jogoConcluido()) {
-            System.out.println("Parabéns, você venceu!");
-            reiniciarJogo();
-        }
+    private void trocarPosicoes(int linha1, int coluna1, int linha2, int coluna2) {
+        int[][] tabuleiroData = tabuleiro.getTabuleiro();
+        int temp = tabuleiroData[linha1][coluna1];
+        tabuleiroData[linha1][coluna1] = tabuleiroData[linha2][coluna2];
+        tabuleiroData[linha2][coluna2] = temp;
     }
 
     public boolean jogoConcluido() {
