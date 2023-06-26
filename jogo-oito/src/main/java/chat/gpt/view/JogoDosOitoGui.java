@@ -1,4 +1,4 @@
-package chat.gpt.gui;
+package chat.gpt.view;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,20 +13,27 @@ import java.awt.event.KeyListener;
 
 import chat.gpt.model.JogoDosOito;
 
-public class JogoDosOitoGUI extends JFrame implements KeyListener {
+public class JogoDosOitoGui extends JFrame implements KeyListener {
 
     private JogoDosOito jogo;
     private JButton[][] botoes = new JButton[3][3];
     private JButton botaoReiniciar;
 
-    public JogoDosOitoGUI() {
+    public JogoDosOitoGui() {
         super("Jogo dos Oito");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
         setLayout(new GridLayout(4, 3));
 
         jogo = new JogoDosOito();
+        criarBotoes();
+        criarBotaoReiniciar();
+        configurarJanela();
 
+        setVisible(true);
+    }
+
+    private void criarBotoes() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 JButton botao = new JButton();
@@ -35,7 +42,9 @@ public class JogoDosOitoGUI extends JFrame implements KeyListener {
                 add(botao);
             }
         }
+    }
 
+    private void criarBotaoReiniciar() {
         botaoReiniciar = new JButton("Reiniciar");
         botaoReiniciar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -46,11 +55,12 @@ public class JogoDosOitoGUI extends JFrame implements KeyListener {
         add(new JLabel(""));
         add(botaoReiniciar);
         add(new JLabel(""));
+    }
 
+    private void configurarJanela() {
         addKeyListener(this);
         setFocusable(true);
         atualizarTabuleiro();
-        setVisible(true);
     }
 
     public void keyPressed(KeyEvent e) {
