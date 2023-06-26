@@ -1,3 +1,4 @@
+
 package chat.gpt;
 
 import java.awt.Font;
@@ -97,10 +98,6 @@ public class JogoDosOito extends JFrame implements KeyListener {
 			JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
 			reiniciarJogo();
 		}
-	}
-
-	public static void main(String[] args) {
-		new JogoDosOito();
 	}
 
 	private boolean jogoConcluido() {
