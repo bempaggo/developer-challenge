@@ -1,10 +1,10 @@
 package chat.gpt.application;
 
-import chat.gpt.model.JogoDosOito;
+import chat.gpt.gui.JogoDosOitoGUI;
 
 public class Main {
 
 	public static void main(String[] args) {
-		new JogoDosOito();
+		new JogoDosOitoGUI();
 	}
 }
