@@ -21,10 +21,6 @@ public class JogoDosOito {
         }
 
         trocarPosicoes(linhaVazia, colunaVazia, novaLinha, novaColuna);
-
-        if (jogoConcluido()) {
-            reiniciarJogo();
-        }
     }
 
     private int[] encontrarPosicaoVazia() {

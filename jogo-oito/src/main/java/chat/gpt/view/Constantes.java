@@ -20,5 +20,10 @@ public class Constantes {
     public final static int COLUNA_DOIS = 1;
     public final static int COLUNA_TRES = 2;
 
+    public static final int[] MOVE_UP = {1, 0};
+    public static final int[] MOVE_DOWN = {-1, 0};
+    public static final int[] MOVE_LEFT = {0, 1};
+    public static final int[] MOVE_RIGHT = {0, -1};
+
 
 }

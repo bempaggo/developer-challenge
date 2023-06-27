@@ -12,14 +12,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import chat.gpt.model.JogoDosOito;
+import static chat.gpt.view.Constantes.*;
 
-public class JogoDosOitoGui extends JFrame implements KeyListener {
+public class JogoDosOitoGUI extends JFrame implements KeyListener {
 
     private JogoDosOito jogo;
     private JButton[][] botoes = new JButton[3][3];
     private JButton botaoReiniciar;
 
-    public JogoDosOitoGui() {
+    public JogoDosOitoGUI() {
         super("Jogo dos Oito");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
@@ -67,23 +68,21 @@ public class JogoDosOitoGui extends JFrame implements KeyListener {
         int keyCode = e.getKeyCode();
         switch (keyCode) {
             case KeyEvent.VK_UP:
-                jogo.mover(1, 0);
+                moverPeca(MOVE_UP);
                 break;
             case KeyEvent.VK_DOWN:
-                jogo.mover(-1, 0);
+                moverPeca(MOVE_DOWN);
                 break;
             case KeyEvent.VK_LEFT:
-                jogo.mover(0, 1);
+                moverPeca(MOVE_LEFT);
                 break;
             case KeyEvent.VK_RIGHT:
-                jogo.mover(0, -1);
+                moverPeca(MOVE_RIGHT);
                 break;
         }
         atualizarTabuleiro();
         if (jogo.jogoConcluido()) {
             JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
-            jogo.reiniciarJogo();
-            atualizarTabuleiro();
         }
     }
 
@@ -91,6 +90,12 @@ public class JogoDosOitoGui extends JFrame implements KeyListener {
     }
 
     public void keyReleased(KeyEvent e) {
+    }
+
+    private void moverPeca(int[] deslocamento) {
+        int linha = deslocamento[0];
+        int coluna = deslocamento[1];
+        jogo.mover(linha, coluna);
     }
 
     private void atualizarTabuleiro() {
