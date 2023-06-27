@@ -6,15 +6,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
+import chat.gpt.controller.TecladoInputListener;
 import chat.gpt.model.JogoDosOito;
+
 import static chat.gpt.view.Constantes.*;
 
-public class JogoDosOitoGUI extends JFrame implements KeyListener {
+public class JogoDosOitoGUI extends JFrame implements TecladoInputListener {
 
     private JogoDosOito jogo;
     private JButton[][] botoes = new JButton[3][3];
@@ -47,12 +45,7 @@ public class JogoDosOitoGUI extends JFrame implements KeyListener {
 
     private void criarBotaoReiniciar() {
         botaoReiniciar = new JButton("Reiniciar");
-        botaoReiniciar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jogo.reiniciarJogo();
-                atualizarTabuleiro();
-            }
-        });
+        botaoReiniciar.addActionListener(e -> reiniciarJogo());
         add(new JLabel(""));
         add(botaoReiniciar);
         add(new JLabel(""));
@@ -64,38 +57,13 @@ public class JogoDosOitoGUI extends JFrame implements KeyListener {
         atualizarTabuleiro();
     }
 
-    public void keyPressed(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-        switch (keyCode) {
-            case KeyEvent.VK_UP:
-                moverPeca(MOVE_UP);
-                break;
-            case KeyEvent.VK_DOWN:
-                moverPeca(MOVE_DOWN);
-                break;
-            case KeyEvent.VK_LEFT:
-                moverPeca(MOVE_LEFT);
-                break;
-            case KeyEvent.VK_RIGHT:
-                moverPeca(MOVE_RIGHT);
-                break;
-        }
+    @Override
+    public void processarInput(int[] input) {
+        jogo.mover(input);
         atualizarTabuleiro();
         if (jogo.jogoConcluido()) {
             JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
         }
-    }
-
-    public void keyTyped(KeyEvent e) {
-    }
-
-    public void keyReleased(KeyEvent e) {
-    }
-
-    private void moverPeca(int[] deslocamento) {
-        int linha = deslocamento[0];
-        int coluna = deslocamento[1];
-        jogo.mover(linha, coluna);
     }
 
     private void atualizarTabuleiro() {
@@ -103,14 +71,18 @@ public class JogoDosOitoGUI extends JFrame implements KeyListener {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                JButton botao = botoes[i][j];
-                int valor = tabuleiro[i][j];
-                if (valor == 0) {
-                    botao.setText("");
+                if (tabuleiro[i][j] == VAZIO) {
+                    botoes[i][j].setText("");
                 } else {
-                    botao.setText(String.valueOf(valor));
+                    botoes[i][j].setText(String.valueOf(tabuleiro[i][j]));
                 }
             }
         }
     }
+
+    private void reiniciarJogo() {
+        jogo.reiniciarJogo();
+        atualizarTabuleiro();
+    }
+
 }

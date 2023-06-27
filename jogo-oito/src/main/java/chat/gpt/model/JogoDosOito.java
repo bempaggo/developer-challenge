@@ -7,7 +7,10 @@ public class JogoDosOito {
         tabuleiro = new Tabuleiro();
     }
 
-    public void mover(int linha, int coluna) {
+    public void mover(int[] deslocamento) {
+        int linha = deslocamento[0];
+        int coluna = deslocamento[1];
+
         int[] posicaoVazia = encontrarPosicaoVazia();
 
         int linhaVazia = posicaoVazia[0];
