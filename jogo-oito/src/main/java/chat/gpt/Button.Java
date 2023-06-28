@@ -1,12 +1,24 @@
-package chat.gpt;
+package main.java.chat.gpt;
+
 import javax.swing.*;
 
-public interface Button extends JButton{
+public class Button extends ValueInterface{
+    private final JButton jButton;
 
-    Button(){
-        this.setFont(new Font("Times New Roman", Font.BOLD, 40))
-        this.setVisible(true)
+    public Button(JButton jButton, Integer value) {
+        this.jButton = jButton;
+        this.value = value;
     }
 
+    public JButton getjButton() {
+        return jButton;
+    }
 
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value){
+        this.value = value;
+    }
 }

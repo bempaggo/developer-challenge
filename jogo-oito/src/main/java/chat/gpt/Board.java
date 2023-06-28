@@ -1,31 +1,27 @@
-package chat.gpt;
+package main.java.chat.gpt;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-public class Board{
+public record Board(List<Piece> pieceList) {
 
-    private final Map<Position, Piece> boardMap = new HashMap<>();
-    
-    //construtor inicial com instruções para começar o tabuleiro
-    public Board(){
-        startBoard();
+    public Piece getPieceUsingPosition(Integer position) throws Exception{
+        return this.pieceList.stream()
+                .filter(piece -> piece.getPosition().equals(position))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Peca " + position + " nao foi encontrada!"));
     }
 
-    public void startBoard(){
-        Integer pieceCounter = 0;
-        for (Integer i = 0; i < 3; i++) {
-            for (Integer j = 0; j < 3; j++) {
-                this.boardMap.put(new Position(i, j), new Piece(pieceCounter));
-                pieceCounter++;
-            }
-        }
+    public Piece getPieceUsingValue(Integer value) throws Exception {
+        return this.pieceList.stream()
+                .filter(piece -> piece.getValue().equals(value))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Peca " + value + " nao foi encontrada!"));
     }
 
-    public void restartBoard() {
-        this.boardMap.clear();
-        startBoard();
+    public Piece getEmptyPiece() throws Exception{
+        return this.pieceList.stream()
+                .filter(Piece::isEmpty)
+                .findFirst()
+                .orElseThrow(() -> new Exception("Peca vazia nao foi encontrada!"));
     }
-
-
 }

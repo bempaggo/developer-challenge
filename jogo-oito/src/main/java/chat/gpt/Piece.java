@@ -1,35 +1,35 @@
-package chat.gpt;
+package main.java.chat.gpt;
 
-public class Piece {
-    private Integer pieceValue;
+public class Piece extends ValueInterface{
 
-    public Piece(Integer pieceValue) {
-        this.pieceValue = pieceValue;
+    private Integer position;
+    public Piece(Integer value, Integer position) {
+        this.value = value;
+        this.position = position;
     }
 
-    public Integer getPieceValue() {
-        return pieceValue;
+    public Integer getValue() {
+        return value;
     }
 
-    public void setPieceValue(Integer pieceValue) {
-        this.pieceValue = pieceValue;
+    public Integer getPosition() {
+        return position;
     }
 
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
-
-        Piece piece = (Piece) object;
-
-        if (pieceValue != null ? !pieceValue.equals(piece.pieceValue) : piece.pieceValue != null) return false;
-
-        return true;
+    public void setPosition(Integer position) {
+        this.position = position;
     }
 
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (pieceValue != null ? pieceValue.hashCode() : 0);
-        return result;
+    public String getStringValue() {
+        return this.value == 9 ? " " : this.value.toString();
     }
+
+    public Boolean isEmpty() {
+        return this.value == 9;
+    }
+
+    public Boolean rightPosition() {
+        return this.getPosition().equals(this.getValue() - 1);
+    }
+
 }

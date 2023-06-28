@@ -1,7 +1,8 @@
-package chat.gpt;
+package main.java.chat.gpt;
 
 public class Main {
     public static void main(String[] args) {
-        //Classe Inicial de onde irei rodar a aplicação
+        Rules rules = new Rules();
+        Game game = new Game(rules);
     }
 }
