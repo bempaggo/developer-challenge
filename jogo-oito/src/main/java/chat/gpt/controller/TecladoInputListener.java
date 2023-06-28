@@ -32,6 +32,9 @@ public interface TecladoInputListener extends KeyListener {
             case KeyEvent.VK_RIGHT:
                 input = MOVE_RIGHT;
                 break;
+            default:
+                input = null;
+                break;
         }
         processarInput(input);
     }

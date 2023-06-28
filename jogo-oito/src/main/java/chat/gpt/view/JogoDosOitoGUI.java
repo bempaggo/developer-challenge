@@ -59,10 +59,15 @@ public class JogoDosOitoGUI extends JFrame implements TecladoInputListener {
 
     @Override
     public void processarInput(int[] input) {
-        jogo.mover(input);
-        atualizarTabuleiro();
-        if (jogo.jogoConcluido()) {
-            JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
+        try {
+            jogo.mover(input);
+            atualizarTabuleiro();
+            if (jogo.jogoConcluido()) {
+                JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
+            }
+            //criar Exceção Personalizada para imputs errados no teclado
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Use as teclas direcionais!");
         }
     }
 
