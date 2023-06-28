@@ -1,43 +1,43 @@
 package chat.gpt.model;
 
 import javax.swing.JButton;
-import java.awt.Font;
+
+import static chat.gpt.view.Constantes.*;
 
 public class Botao extends JButton {
-    private int linha;
-    private int coluna;
 
-    public Botao(int linha, int coluna) {
+    /*private int linha;
+    private int coluna; */
+
+    private Botao() {
         super();
+        setFont(FONTE_PADRAO); 
+    }
+
+    /* protected Botao(int linha, int coluna) {
+        this();
         this.linha = linha;
         this.coluna = coluna;
+    } */
+
+    protected Botao(String texto) {
+        this();
+        setText(texto);
     }
 
-    public Botao() {
-        super();
-        
-    }
-
-    public Botao(String texto) {
-        super(texto);
-        
-    }
-
-    public int getLinha() {
+    /* public int getLinha() {
         return linha;
     }
 
     public int getColuna() {
         return coluna;
-    }
+    } */
 
     public static Botao criarBotao(String texto) {
         return new Botao(texto);
     }
 
     public static Botao criarBotaoVazio() {
-        Botao botao = new Botao();
-        botao.setFont(new Font("Arial", Font.BOLD, 36));
-        return botao;
+        return new Botao();
     }
 }
