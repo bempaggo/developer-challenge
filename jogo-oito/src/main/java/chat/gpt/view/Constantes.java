@@ -1,5 +1,7 @@
 package chat.gpt.view;
 
+import java.awt.Font;
+
 public class Constantes {
 
     public final static int UM = 1;
@@ -25,5 +27,16 @@ public class Constantes {
     public static final int[] MOVE_LEFT = {0, 1};
     public static final int[] MOVE_RIGHT = {0, -1};
 
+    public static final Font FONTE_PADRAO = new Font("Arial", Font.BOLD, 36);
 
+    public static final int[][] DIFICULDADE_PADRAO = {
+        {UM, DOIS, TRES},
+        {QUATRO, CINCO, SEIS},
+        {SETE, OITO, VAZIO}
+    };
+    
+    public static final int boardLength = 3;
+    public static final int boardWidth = 3;
+    public static final int boardArea = boardLength * boardWidth;
+    
 }
