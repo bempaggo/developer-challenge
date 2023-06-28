@@ -1,5 +1,5 @@
 package chat.gpt.controller;
 
-public interface BotaoListener {
+public interface BotaoReiniciarListener {
     void reiniciarJogo();
 }
