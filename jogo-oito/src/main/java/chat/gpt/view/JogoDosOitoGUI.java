@@ -1,22 +1,22 @@
 package chat.gpt.view;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import java.awt.Font;
 import java.awt.GridLayout;
 
+import chat.gpt.controller.BotaoListener;
 import chat.gpt.controller.TecladoInputListener;
+import chat.gpt.model.Botao;
+import chat.gpt.model.BotaoReiniciar;
 import chat.gpt.model.JogoDosOito;
 
 import static chat.gpt.view.Constantes.*;
 
-public class JogoDosOitoGUI extends JFrame implements TecladoInputListener {
+public class JogoDosOitoGUI extends JFrame implements TecladoInputListener, BotaoListener {
 
     private JogoDosOito jogo;
-    private JButton[][] botoes = new JButton[3][3];
-    private JButton botaoReiniciar;
+    private Botao[][] botoes = new Botao[3][3];
 
     public JogoDosOitoGUI() {
         super("Jogo dos Oito");
@@ -35,8 +35,7 @@ public class JogoDosOitoGUI extends JFrame implements TecladoInputListener {
     private void criarBotoes() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                JButton botao = new JButton();
-                botao.setFont(new Font("Arial", Font.BOLD, 36));
+                Botao botao = Botao.criarBotaoVazio();
                 botoes[i][j] = botao;
                 add(botao);
             }
@@ -44,8 +43,8 @@ public class JogoDosOitoGUI extends JFrame implements TecladoInputListener {
     }
 
     private void criarBotaoReiniciar() {
-        botaoReiniciar = new JButton("Reiniciar");
-        botaoReiniciar.addActionListener(e -> reiniciarJogo());
+        BotaoReiniciar botaoReiniciar = new BotaoReiniciar(this);
+
         add(new JLabel(""));
         add(botaoReiniciar);
         add(new JLabel(""));
@@ -65,8 +64,8 @@ public class JogoDosOitoGUI extends JFrame implements TecladoInputListener {
             if (jogo.jogoConcluido()) {
                 JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
             }
-            //criar Exceção Personalizada para imputs errados no teclado
-        } catch (NullPointerException e) {
+            // criar Exceção Personalizada para imputs errados no teclado
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Use as teclas direcionais!");
         }
     }
@@ -85,9 +84,8 @@ public class JogoDosOitoGUI extends JFrame implements TecladoInputListener {
         }
     }
 
-    private void reiniciarJogo() {
+    public void reiniciarJogo() {
         jogo.reiniciarJogo();
         atualizarTabuleiro();
     }
-
 }
