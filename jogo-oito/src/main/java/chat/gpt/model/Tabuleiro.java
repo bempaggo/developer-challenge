@@ -24,7 +24,7 @@ public class Tabuleiro {
 
     private void validarMatriz(int[][] matriz) {
         if (!tamanhoValido(matriz) || !semRepeticoes(matriz)) {
-            throw new MatrizInvalidaException("A matriz de dificuldade é inválida");
+            throw new MatrizInvalidaException();
         }
     }
 

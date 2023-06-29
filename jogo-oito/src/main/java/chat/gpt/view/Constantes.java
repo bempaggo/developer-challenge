@@ -34,6 +34,12 @@ public class Constantes {
         {QUATRO, CINCO, SEIS},
         {SETE, OITO, VAZIO}
     };
+
+    public static final int[][] JOGO_CONCLUIDO = {
+        {UM, DOIS, TRES},
+        {QUATRO, CINCO, SEIS},
+        {SETE, OITO, VAZIO}
+    };
     
     public static final int boardLength = 3;
     public static final int boardWidth = 3;

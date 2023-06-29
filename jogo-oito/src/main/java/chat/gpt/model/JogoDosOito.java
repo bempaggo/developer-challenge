@@ -1,5 +1,12 @@
 package chat.gpt.model;
 
+import java.util.Arrays;
+
+import chat.gpt.exception.MovimentoInvalidoException;
+import chat.gpt.exception.PosicaoVaziaNaoEncontradaException;
+
+import static chat.gpt.view.Constantes.*;
+
 public class JogoDosOito {
     private Tabuleiro tabuleiro;
 
@@ -8,70 +15,58 @@ public class JogoDosOito {
     }
 
     public void mover(int[] deslocamento) {
-        int linha = deslocamento[0];
-        int coluna = deslocamento[1];
+        int linhaDeslocamento = deslocamento[0];
+        int colunaDeslocamento = deslocamento[1];
 
         int[] posicaoVazia = encontrarPosicaoVazia();
-
         int linhaVazia = posicaoVazia[0];
         int colunaVazia = posicaoVazia[1];
 
-        int novaLinha = linhaVazia + linha;
-        int novaColuna = colunaVazia + coluna;
+        int novaLinha = linhaVazia + linhaDeslocamento;
+        int novaColuna = colunaVazia + colunaDeslocamento;
 
-        if (!posicaoValida(novaLinha, novaColuna)) {
-            return;
-        }
-
-        trocarPosicoes(linhaVazia, colunaVazia, novaLinha, novaColuna);
+        if (posicaoValida(novaLinha, novaColuna)) {
+            trocarPosicoes(linhaVazia, colunaVazia, novaLinha, novaColuna);
+        } else throw new MovimentoInvalidoException();
     }
 
     private int[] encontrarPosicaoVazia() {
-        int[][] tabuleiroData = tabuleiro.getTabuleiro();
+        int[][] tabuleiroData = estadoAtualTabuleiro();
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < boardLength; i++) {
+            for (int j = 0; j < boardWidth; j++) {
                 if (tabuleiroData[i][j] == 0) {
-                    return new int[]{i, j};
+                    return new int[] { i, j };
                 }
             }
         }
 
-        // Retorna uma posição inválida caso não encontre a posição vazia
-        return new int[]{-1, -1};
+        throw new PosicaoVaziaNaoEncontradaException();
     }
 
     private boolean posicaoValida(int linha, int coluna) {
-        return linha >= 0 && linha < 3 && coluna >= 0 && coluna < 3;
+        return (linha >= 0 && linha < boardWidth) &&
+                (coluna >= 0 && coluna < boardLength);
+                
     }
 
     private void trocarPosicoes(int linha1, int coluna1, int linha2, int coluna2) {
-        int[][] tabuleiroData = tabuleiro.getTabuleiro();
+        int[][] tabuleiroData = estadoAtualTabuleiro();
         int temp = tabuleiroData[linha1][coluna1];
         tabuleiroData[linha1][coluna1] = tabuleiroData[linha2][coluna2];
         tabuleiroData[linha2][coluna2] = temp;
     }
 
-    public boolean jogoConcluido() {
-        int count = 1;
-        int[][] tabuleiroData = tabuleiro.getTabuleiro();
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (tabuleiroData[i][j] != count % 9) {
-                    return false;
-                }
-                count++;
-            }
-        }
-        return true;
+    public boolean jogoConcluido() {
+        return Arrays.deepEquals(estadoAtualTabuleiro(), JOGO_CONCLUIDO);
     }
 
     public void reiniciarJogo() {
         tabuleiro = new Tabuleiro();
     }
 
-    public int[][] getTabuleiro() {
+    public int[][] estadoAtualTabuleiro() {
         return tabuleiro.getTabuleiro();
     }
 }

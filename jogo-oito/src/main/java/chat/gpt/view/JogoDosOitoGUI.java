@@ -5,15 +5,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.GridLayout;
 
-import chat.gpt.controller.BotaoListener;
+import chat.gpt.controller.BotaoReiniciarListener;
 import chat.gpt.controller.TecladoInputListener;
+import chat.gpt.exception.MovimentoInvalidoException;
 import chat.gpt.model.Botao;
 import chat.gpt.model.BotaoReiniciar;
 import chat.gpt.model.JogoDosOito;
 
 import static chat.gpt.view.Constantes.*;
 
-public class JogoDosOitoGUI extends JFrame implements TecladoInputListener, BotaoListener {
+public class JogoDosOitoGUI extends JFrame implements TecladoInputListener, BotaoReiniciarListener {
 
     private JogoDosOito jogo;
     private Botao[][] botoes = new Botao[3][3];
@@ -65,13 +66,15 @@ public class JogoDosOitoGUI extends JFrame implements TecladoInputListener, Bota
                 JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
             }
             // criar Exceção Personalizada para imputs errados no teclado
+        } catch (MovimentoInvalidoException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Use as teclas direcionais!");
-        }
+        } 
     }
 
     private void atualizarTabuleiro() {
-        int[][] tabuleiro = jogo.getTabuleiro();
+        int[][] tabuleiro = jogo.estadoAtualTabuleiro();
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
