@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import chat.gpt.controller.BotaoReiniciarListener;
 import chat.gpt.controller.TecladoInputListener;
 import chat.gpt.exception.MovimentoInvalidoException;
+import chat.gpt.exception.TeclaInvalidaException;
 import chat.gpt.model.Botao;
 import chat.gpt.model.BotaoReiniciar;
 import chat.gpt.model.JogoDosOito;
@@ -31,6 +32,7 @@ public class JogoDosOitoGUI extends JFrame implements TecladoInputListener, Bota
         configurarJanela();
 
         setVisible(true);
+        requestFocus();
     }
 
     private void criarBotoes() {
@@ -56,20 +58,19 @@ public class JogoDosOitoGUI extends JFrame implements TecladoInputListener, Bota
         setFocusable(true);
         atualizarTabuleiro();
     }
-
+    
     @Override
     public void processarInput(int[] input) {
         try {
             jogo.mover(input);
             atualizarTabuleiro();
             if (jogo.jogoConcluido()) {
-                JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
+                exibirMensagem("Parabéns, você venceu!");
             }
-            // criar Exceção Personalizada para imputs errados no teclado
-        } catch (MovimentoInvalidoException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Use as teclas direcionais!");
+        } catch (MovimentoInvalidoException error) {
+            exibirMensagem(error.getMessage());
+        } catch (TeclaInvalidaException error) {
+            exibirMensagem("Tecla inválida");           
         } 
     }
 
@@ -85,6 +86,10 @@ public class JogoDosOitoGUI extends JFrame implements TecladoInputListener, Bota
                 }
             }
         }
+    }
+
+    public void exibirMensagem(String mensagem) {
+        JOptionPane.showMessageDialog(this, mensagem);
     }
 
     public void reiniciarJogo() {

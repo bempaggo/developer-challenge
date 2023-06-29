@@ -1,4 +1,4 @@
-package chat.gpt.exception;
+package chat.gpt.model;
 
 public class PosicaoVaziaNaoEncontradaException extends RuntimeException {
     public PosicaoVaziaNaoEncontradaException() {

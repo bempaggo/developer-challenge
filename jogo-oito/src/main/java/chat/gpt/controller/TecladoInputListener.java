@@ -33,11 +33,12 @@ public interface TecladoInputListener extends KeyListener {
                 input = MOVE_RIGHT;
                 break;
             default:
-                input = null;
                 break;
-        }
+        } 
+        
         processarInput(input);
     }
 
     void processarInput(int[] input);
+
 }

@@ -26,6 +26,7 @@ public class Constantes {
     public static final int[] MOVE_DOWN = {-1, 0};
     public static final int[] MOVE_LEFT = {0, 1};
     public static final int[] MOVE_RIGHT = {0, -1};
+    public static final int[] MOVE_INVALIDO = {-1, -1};
 
     public static final Font FONTE_PADRAO = new Font("Arial", Font.BOLD, 36);
 

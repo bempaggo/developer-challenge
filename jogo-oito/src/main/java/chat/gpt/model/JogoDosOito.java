@@ -3,7 +3,7 @@ package chat.gpt.model;
 import java.util.Arrays;
 
 import chat.gpt.exception.MovimentoInvalidoException;
-import chat.gpt.exception.PosicaoVaziaNaoEncontradaException;
+import chat.gpt.exception.TeclaInvalidaException;
 
 import static chat.gpt.view.Constantes.*;
 
@@ -15,6 +15,9 @@ public class JogoDosOito {
     }
 
     public void mover(int[] deslocamento) {
+
+        if(deslocamento == null) throw new TeclaInvalidaException();
+
         int linhaDeslocamento = deslocamento[0];
         int colunaDeslocamento = deslocamento[1];
 
