@@ -14,7 +14,8 @@ A aplicação original foi separada da seguinte forma:
 
 Uma classe Main, responsável por iniciar a aplicação;
 um pacote .model, que contém design das classes Botao, Tabuleiro e JogoDosOitos, responsável por regras de negócio e design das classes;
-um pacote .view, com as classes JogoDosOitoGUI e Constantes (preciso mudar isso), responsável pela parte gráfica da aplicação;
+um pacote .view, com as classes JogoDosOito
+GUI e Constantes (preciso mudar isso), responsável pela parte gráfica da aplicação;
 um pacote .controller, com a interface TecladoImputListener, responsável por receber inputs do teclado e vincular a chamadas das classes responsáveis.
 
 ---
