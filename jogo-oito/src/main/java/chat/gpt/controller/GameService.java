@@ -7,31 +7,32 @@ import chat.gpt.view.GameGUI;
 
 public class GameService implements KeyboardListener, ResetGameButtonListener {
 
-    private Game jogo;
+    private Game game;
     private GameGUI view;
 
-    public GameService(Game jogo, GameGUI view) {
-        this.jogo = jogo;
+    public GameService(Game game, GameGUI view) {
+        this.game = game;
         this.view = view;
     }
 
     @Override
     public void resetGame() {
-        jogo.restartGame();
+        game.restartGame();
         view.updateGrid();
     }
     @Override
     public void processInput(int[] input) {
         try {
-            jogo.move(input);
+            if (input == null) throw new PressedKeyDoesNothingException();
+            game.move(input);
             view.updateGrid();
-            if (jogo.gameIsComplete()) {
+            if (game.gameIsComplete()) {
                 view.showMessage("Parabéns, você venceu!");
             }
-        } catch (ImpossibleMoveException error) {
-            view.showMessage(error.getMessage());
-        } catch (PressedKeyDoesNothingException error) {
-            view.showMessage(error.getMessage());           
+        } catch (ImpossibleMoveException impossibleMoveException) {
+            view.showMessage(impossibleMoveException.getMessage());
+        } catch (PressedKeyDoesNothingException pressedKeyDoesNothingException) {
+            view.showMessage(pressedKeyDoesNothingException.getMessage());           
         } 
     }
 

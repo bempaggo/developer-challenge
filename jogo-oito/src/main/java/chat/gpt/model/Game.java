@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 import chat.gpt.exception.ImpossibleMoveException;
 import chat.gpt.exception.EmptyPositionNotFoundException;
-import chat.gpt.exception.PressedKeyDoesNothingException;
 
 public class Game {
     private Grid grid;
@@ -16,8 +15,6 @@ public class Game {
     }
 
     public void move(int[] coordinates) {
-
-        if(coordinates == null) throw new PressedKeyDoesNothingException();
 
         int rowCoordinate = coordinates[0];
         int columnCordinate = coordinates[1];

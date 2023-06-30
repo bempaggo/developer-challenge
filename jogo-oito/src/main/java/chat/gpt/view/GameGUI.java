@@ -28,7 +28,7 @@ public class GameGUI extends JFrame {
         game = new Game();
         gameService = new GameService(game, this);
         generateButtons();
-        generateRestartButton();
+        generateResetButton();
         windowSetUp();
 
         setVisible(true);
@@ -58,14 +58,14 @@ public class GameGUI extends JFrame {
     private void generateButtons() {
         for (int i = 0; i < GRID_LENGTH; i++) {
             for (int j = 0; j < GRID_WIDTH; j++) {
-                Button botao = Button.generateEmptyButton();
-                buttons[i][j] = botao;
-                add(botao);
+                Button button = Button.generateEmptyButton();
+                buttons[i][j] = button;
+                add(button);
             }
         }
     }
 
-    private void generateRestartButton() {
+    private void generateResetButton() {
         add(new JLabel(""));
         add(new ResetGameButton(gameService));
         add(new JLabel(""));
