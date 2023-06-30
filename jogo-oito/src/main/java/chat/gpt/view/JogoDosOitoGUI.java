@@ -5,19 +5,17 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.GridLayout;
 
-import chat.gpt.controller.BotaoReiniciarListener;
-import chat.gpt.controller.TecladoInputListener;
-import chat.gpt.exception.MovimentoInvalidoException;
-import chat.gpt.exception.TeclaInvalidaException;
+import chat.gpt.controller.JogoDosOitoService;
 import chat.gpt.model.Botao;
 import chat.gpt.model.BotaoReiniciar;
 import chat.gpt.model.JogoDosOito;
 
 import static chat.gpt.view.Constantes.*;
 
-public class JogoDosOitoGUI extends JFrame implements TecladoInputListener, BotaoReiniciarListener {
+public class JogoDosOitoGUI extends JFrame {
 
     private JogoDosOito jogo;
+    private JogoDosOitoService jogoService;
     private Botao[][] botoes = new Botao[3][3];
 
     public JogoDosOitoGUI() {
@@ -27,6 +25,7 @@ public class JogoDosOitoGUI extends JFrame implements TecladoInputListener, Bota
         setLayout(new GridLayout(4, 3));
 
         jogo = new JogoDosOito();
+        jogoService = new JogoDosOitoService(jogo, this);
         criarBotoes();
         criarBotaoReiniciar();
         configurarJanela();
@@ -35,50 +34,17 @@ public class JogoDosOitoGUI extends JFrame implements TecladoInputListener, Bota
         requestFocus();
     }
 
-    private void criarBotoes() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                Botao botao = Botao.criarBotaoVazio();
-                botoes[i][j] = botao;
-                add(botao);
-            }
-        }
-    }
-
-    private void criarBotaoReiniciar() {
-        BotaoReiniciar botaoReiniciar = new BotaoReiniciar(this);
-
-        add(new JLabel(""));
-        add(botaoReiniciar);
-        add(new JLabel(""));
-    }
-
     private void configurarJanela() {
-        addKeyListener(this);
+        addKeyListener(jogoService);
         setFocusable(true);
         atualizarTabuleiro();
     }
     
-    @Override
-    public void processarInput(int[] input) {
-        try {
-            jogo.mover(input);
-            atualizarTabuleiro();
-            if (jogo.jogoConcluido()) {
-                exibirMensagem("Parabéns, você venceu!");
-            }
-        } catch (MovimentoInvalidoException error) {
-            exibirMensagem(error.getMessage());
-        } catch (TeclaInvalidaException error) {
-            exibirMensagem("Tecla inválida");           
-        } 
-    }
-
-    private void atualizarTabuleiro() {
+    public void atualizarTabuleiro() {
         int[][] tabuleiro = jogo.estadoAtualTabuleiro();
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < boardLength; i++) {
+            for (int j = 0; j < boardWidth; j++) {
                 if (tabuleiro[i][j] == VAZIO) {
                     botoes[i][j].setText("");
                 } else {
@@ -88,12 +54,24 @@ public class JogoDosOitoGUI extends JFrame implements TecladoInputListener, Bota
         }
     }
 
+    private void criarBotoes() {
+        for (int i = 0; i < boardLength; i++) {
+            for (int j = 0; j < boardWidth; j++) {
+                Botao botao = Botao.criarBotaoVazio();
+                botoes[i][j] = botao;
+                add(botao);
+            }
+        }
+    }
+
+    private void criarBotaoReiniciar() {
+        add(new JLabel(""));
+        add(new BotaoReiniciar(jogoService));
+        add(new JLabel(""));
+    }
+
     public void exibirMensagem(String mensagem) {
         JOptionPane.showMessageDialog(this, mensagem);
     }
 
-    public void reiniciarJogo() {
-        jogo.reiniciarJogo();
-        atualizarTabuleiro();
-    }
 }
