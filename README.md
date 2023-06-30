@@ -1,4 +1,4 @@
-# Developer-Challenge
+# Developer-Challenge Estágio
 
 Esse projeto é a minha versão para o desafio de código da [BemPaggo](https://www.bempaggo.com.br/), disponível [aqui](https://github.com/bempaggo/developer-challenge), pleiteando a vaga de estagiário.
 
@@ -10,18 +10,37 @@ Originalmente, temos todo o código dentro da mesma classe, com métodos ociosos
 
 _**Work In Progress**_
 
+### **Arquitetura**
+
 A aplicação original foi separada da seguinte forma:
 
-Uma classe Main, responsável por iniciar a aplicação;
-um pacote .model, que contém design das classes Botao, Tabuleiro e JogoDosOitos, responsável por regras de negócio e design das classes;
-um pacote .view, com as classes JogoDosOito
-GUI e Constantes (preciso mudar isso), responsável pela parte gráfica da aplicação;
-um pacote .controller, com a interface TecladoImputListener, responsável por receber inputs do teclado e vincular a chamadas das classes responsáveis.
+- Pacote .application, responsável por iniciar a aplicação;
+- Pacote .model, responsável por regras de negócio e design das classes;
+- Pacote .view, responsável pela parte gráfica da aplicação;
+- Pacote .controller, responsável por receber inputs e fazer as chamadas necessárias;
+- Pacote .util, para armazenar constantes e evitar números mágicos;
+- Pacote .exception, com exceções personalizadas para lidar com cenários atípicos;
+
+Com essa arquitetura, é esperado uma divisão clara entre as responsabilidades de cada parte do projeto, o que permite um entendimento rápido e acessível sobre cada funcionalidade, bem como modificações fáceis e modularizadas
+
+### **Testes**
+
+Foram implementados testes unitários usando o framework JUnit 5
+
+### **Novas Funcionalidades**
+
+- O jogo notifica quando um movimento é inválido;
+- O jogo informa quando a tecla pressionada é inválida
+
+### **Correção de Bugs**
+
+- Tentar fazer um movimento inválido com o tabuleiro na posião final não ativa mais o evento de finalizar o jogo
 
 ---
 
 ### _Ambiente e Ferramentas usadas_
 
+- [Git](https://git-scm.com/)
 - [Visual Studio Code](https://code.visualstudio.com/docs)
 - [Windows Subsystem for Linux](https://learn.microsoft.com/pt-br/windows/wsl/about)
 - [ArchWSL](https://github.com/yuk7/ArchWSL)
@@ -29,6 +48,7 @@ um pacote .controller, com a interface TecladoImputListener, responsável por re
 - [Zsh](https://www.zsh.org/)
 - [asdf](https://asdf-vm.com/)
 - [OpenJDK-18](https://openjdk.org/)
+- [JUnit 5](https://junit.org/junit5/)
 
 ### _Contato_
 
