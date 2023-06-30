@@ -9,7 +9,7 @@ import static chat.gpt.util.Constants.*;
 import java.awt.GridLayout;
 
 import chat.gpt.controller.GameService;
-import chat.gpt.model.Button;
+import chat.gpt.model.ButtonPiece;
 import chat.gpt.model.ResetGameButton;
 import chat.gpt.model.Game;
 
@@ -17,7 +17,7 @@ public class GameGUI extends JFrame {
 
     private Game game;
     private GameService gameService;
-    private Button[][] buttons = new Button[3][3];
+    private ButtonPiece[][] buttons = new ButtonPiece[3][3];
 
     public GameGUI() {
         super("Jogo dos Oito");
@@ -58,7 +58,7 @@ public class GameGUI extends JFrame {
     private void generateButtons() {
         for (int i = 0; i < GRID_LENGTH; i++) {
             for (int j = 0; j < GRID_WIDTH; j++) {
-                Button button = Button.generateEmptyButton();
+                ButtonPiece button = ButtonPiece.generateEmptyButton();
                 buttons[i][j] = button;
                 add(button);
             }
