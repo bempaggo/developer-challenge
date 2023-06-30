@@ -1,24 +1,25 @@
 package chat.gpt.model;
 
-import static chat.gpt.view.Constantes.*;
+import static chat.gpt.util.Constants.*;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import chat.gpt.exception.MatrizInvalidaException;
+import chat.gpt.exception.GridDoesNotFeatStandardsException;
 
-public class TabuleiroTest {
+public class GridTest {
 
     @Test
-    public void testConstrutorPadrao() {
-        Tabuleiro tabuleiro = new Tabuleiro();
+    public void testConstructor() {
+        Grid grid = new Grid();
 
         int[][] expected = {
-                { UM, DOIS, TRES },
-                { QUATRO, CINCO, SEIS },
-                { SETE, OITO, VAZIO }
+            { ONE, TWO, THREE },
+            { FOUR, FIVE, SIX },
+            { SEVEN, EIGHT, EMPTY }
         };
 
-        int[][] actual = tabuleiro.getTabuleiro();
+        int[][] actual = grid.getGrid();
 
         Assertions.assertArrayEquals(expected, actual);
     }
@@ -31,9 +32,9 @@ public class TabuleiroTest {
                 { 7, 8, 0 }
         };
 
-        Tabuleiro tabuleiro = new Tabuleiro(matrizValida);
+        Grid tabuleiro = new Grid(matrizValida);
 
-        int[][] actual = tabuleiro.getTabuleiro();
+        int[][] actual = tabuleiro.getGrid();
 
         Assertions.assertArrayEquals(matrizValida, actual);
     }
@@ -46,8 +47,9 @@ public class TabuleiroTest {
                 { 7, 7, 0 }
         };
 
-        Assertions.assertThrows(MatrizInvalidaException.class, () -> new Tabuleiro(matrizInvalida));
+        Assertions.assertThrows(GridDoesNotFeatStandardsException.class, () -> new Grid(matrizInvalida));
     }
+
     @Test
     public void testConstrutorComFileiraFaltando() {
         int[][] matrizInvalida = {
@@ -55,7 +57,7 @@ public class TabuleiroTest {
                 { 4, 5, 6 }
         };
 
-        Assertions.assertThrows(MatrizInvalidaException.class, () -> new Tabuleiro(matrizInvalida));
+        Assertions.assertThrows(GridDoesNotFeatStandardsException.class, () -> new Grid(matrizInvalida));
     }
 
     @Test
@@ -66,7 +68,7 @@ public class TabuleiroTest {
                 { 7, 8 }
         };
 
-        Assertions.assertThrows(MatrizInvalidaException.class, () -> new Tabuleiro(matrizInvalida));
+        Assertions.assertThrows(GridDoesNotFeatStandardsException.class, () -> new Grid(matrizInvalida));
     }
 
     @Test
@@ -75,20 +77,21 @@ public class TabuleiroTest {
                 { 1, 2, 3 },
                 { 4, 5, 6 },
                 { 7, 8, 0 },
-                { }
+                {}
         };
 
-        Assertions.assertThrows(MatrizInvalidaException.class, () -> new Tabuleiro(matrizInvalida));
+        Assertions.assertThrows(GridDoesNotFeatStandardsException.class, () -> new Grid(matrizInvalida));
     }
+
     @Test
     public void testConstrutorComColunaSobrando() {
         int[][] matrizInvalida = {
                 { 1, 2, 3, 0 },
                 { 4, 5, 6, 0 },
-                { 7, 8, 0,  }
+                { 7, 8, 0, }
         };
 
-        Assertions.assertThrows(MatrizInvalidaException.class, () -> new Tabuleiro(matrizInvalida));
+        Assertions.assertThrows(GridDoesNotFeatStandardsException.class, () -> new Grid(matrizInvalida));
     }
 
     @Test
@@ -99,9 +102,9 @@ public class TabuleiroTest {
                 { 7, 8, 0 }
         };
 
-        Tabuleiro tabuleiro = new Tabuleiro(matriz);
+        Grid tabuleiro = new Grid(matriz);
 
-        int[][] actual = tabuleiro.getTabuleiro();
+        int[][] actual = tabuleiro.getGrid();
 
         Assertions.assertArrayEquals(matriz, actual);
     }

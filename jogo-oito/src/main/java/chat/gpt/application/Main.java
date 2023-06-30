@@ -1,10 +1,10 @@
 package chat.gpt.application;
 
-import chat.gpt.view.JogoDosOitoGUI;
+import chat.gpt.view.GameGUI;
 
 public class Main {
 
 	public static void main(String[] args) {
-		new JogoDosOitoGUI();
+		new GameGUI();
 	}
 }

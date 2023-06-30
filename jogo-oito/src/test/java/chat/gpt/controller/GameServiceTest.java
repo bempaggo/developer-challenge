@@ -1,6 +1,6 @@
 package chat.gpt.controller;
 
-public class JogoDosOitoServiceTest {
+public class GameServiceTest {
     
     /* Escalar os testes a partir desse ponto sem usar objetos simulados se tornou complicado,
     preciso implementar Mockito para poder facilitar esses testes.

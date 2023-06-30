@@ -5,25 +5,23 @@ import org.junit.jupiter.api.Test;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 
-
-import static chat.gpt.view.Constantes.*;
-
+import static chat.gpt.util.Constants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TecladoInputListenerTest {
+public class KeyboardListenerTest {
 
-    private static class TecladoInputListenerMock implements TecladoInputListener {
+    private static class KeyboardListenerMock implements KeyboardListener {
         private int[] input;
 
         @Override
-        public void processarInput(int[] input) {
+        public void processInput(int[] input) {
             this.input = input;
         }
     }
 
     @Test
     public void testKeyPressed_Up() {
-        TecladoInputListenerMock listener = new TecladoInputListenerMock();
+        KeyboardListenerMock listener = new KeyboardListenerMock();
         KeyEvent event = new KeyEvent(new Component() {
         }, KeyEvent.KEY_PRESSED, 0, 0, KeyEvent.VK_UP, KeyEvent.CHAR_UNDEFINED);
         listener.keyPressed(event);
@@ -32,7 +30,7 @@ public class TecladoInputListenerTest {
 
     @Test
     public void testKeyPressed_Down() {
-        TecladoInputListenerMock listener = new TecladoInputListenerMock();
+        KeyboardListenerMock listener = new KeyboardListenerMock();
         KeyEvent event = new KeyEvent(new Component() {
         }, KeyEvent.KEY_PRESSED, 0, 0, KeyEvent.VK_DOWN, KeyEvent.CHAR_UNDEFINED);
         listener.keyPressed(event);
@@ -41,7 +39,7 @@ public class TecladoInputListenerTest {
 
     @Test
     public void testKeyPressed_Left() {
-        TecladoInputListenerMock listener = new TecladoInputListenerMock();
+        KeyboardListenerMock listener = new KeyboardListenerMock();
         KeyEvent event = new KeyEvent(new Component() {
         }, KeyEvent.KEY_PRESSED, 0, 0, KeyEvent.VK_LEFT, KeyEvent.CHAR_UNDEFINED);
         listener.keyPressed(event);
@@ -50,7 +48,7 @@ public class TecladoInputListenerTest {
 
     @Test
     public void testKeyPressed_Right() {
-        TecladoInputListenerMock listener = new TecladoInputListenerMock();
+        KeyboardListenerMock listener = new KeyboardListenerMock();
         KeyEvent event = new KeyEvent(new Component() {
         }, KeyEvent.KEY_PRESSED, 0, 0, KeyEvent.VK_RIGHT, KeyEvent.CHAR_UNDEFINED);
         listener.keyPressed(event);
@@ -59,7 +57,7 @@ public class TecladoInputListenerTest {
 
     @Test
     public void testKeyPressed_OtherKey() {
-        TecladoInputListenerMock listener = new TecladoInputListenerMock();
+        KeyboardListenerMock listener = new KeyboardListenerMock();
         KeyEvent event = new KeyEvent(new Component() {
         }, KeyEvent.KEY_PRESSED, 0, 0, KeyEvent.VK_A, KeyEvent.CHAR_UNDEFINED);
         listener.keyPressed(event);

@@ -1,11 +1,11 @@
 package chat.gpt.controller;
 
+import static chat.gpt.util.Constants.*;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static chat.gpt.view.Constantes.*;
-
-public interface TecladoInputListener extends KeyListener {
+public interface KeyboardListener extends KeyListener {
 
     @Override
     default void keyTyped(KeyEvent e) {
@@ -36,9 +36,9 @@ public interface TecladoInputListener extends KeyListener {
                 break;
         } 
         
-        processarInput(input);
+        processInput(input);
     }
 
-    void processarInput(int[] input);
+    void processInput(int[] input);
 
 }
