@@ -8,6 +8,8 @@ public class Button extends JButton {
 
     private Button() {
         super();
+        setFocusable(false);
+        setFocusPainted(false);
         setFont(DEFAULT_FONT); 
     }
 
