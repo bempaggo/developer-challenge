@@ -1,5 +1,8 @@
 package chat.gpt.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,19 +14,16 @@ public class GameTest {
 
     @BeforeEach
     public void setUp() {
-        Game = new Game();
+        Game = chat.gpt.model.Game.getInstance();
     }
 
     @Test
     public void testConstructor() {
-        Game game = new Game();
-
-
+        Game game = chat.gpt.model.Game.getInstance();
         int[][] grid = game.gridActualState();
         int expectedGridLength = grid.length;
         int expectedGridWidth = grid[0].length;
 
-    
         Assertions.assertEquals(Constants.GRID_WIDTH, expectedGridWidth);
         Assertions.assertEquals(Constants.GRID_LENGTH, expectedGridWidth);
 
@@ -55,6 +55,35 @@ public class GameTest {
 
         Assertions.assertTrue(Game.gameIsComplete());
     }
-   
+
+    @Test
+    public void testRestartGame() {
+        Game game = chat.gpt.model.Game.getInstance();
+
+        // Obter a referência do objeto Grid antes de reiniciar o jogo
+        int[][] gridAntes = game.gridActualState();
+
+        // Reiniciar o jogo
+        game.restartGame();
+
+        // Obter a referência do objeto Grid após reiniciar o jogo
+        int[][] gridDepois = game.gridActualState();
+
+        // Verificar se as referências são diferentes
+        assertNotSame(gridAntes, gridDepois);
+
+    }
+
+    @Test
+    public void testGridActualState() {
+        Game game = chat.gpt.model.Game.getInstance();
+        int[][] grid = game.gridActualState();
+
+        grid[0][0] = 100;
+
+        int[][] gridNovo = game.gridActualState();
+
+        assertEquals(1, gridNovo[0][0]);
+    }
 
 }

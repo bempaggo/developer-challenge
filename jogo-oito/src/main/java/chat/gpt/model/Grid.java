@@ -12,7 +12,12 @@ public class Grid {
 
     public Grid(int[][] gridMode) {
         gridValidate(gridMode);
-        this.grid = gridMode;
+        this.grid = new int[GRID_LENGTH][GRID_WIDTH];
+        for (int i = 0; i < GRID_LENGTH; i++) {
+            for (int j = 0; j < GRID_WIDTH; j++) {
+                this.grid[i][j] = gridMode[i][j];
+            }
+        }
     }
 
     public Grid() {

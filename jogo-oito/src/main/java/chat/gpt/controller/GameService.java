@@ -5,21 +5,15 @@ import chat.gpt.exception.PressedKeyDoesNothingException;
 import chat.gpt.model.Game;
 import chat.gpt.view.GameGUI;
 
-public class GameService implements KeyboardListener{
+public class GameService implements KeyboardListener {
 
-    private Game game;
+    private Game game = Game.getInstance();
     private GameGUI view;
 
-    public GameService(Game game, GameGUI view) {
-        this.game = game;
+    public GameService(GameGUI view) {
         this.view = view;
     }
-
-    public void resetGame() {
-        game.restartGame();
-        view.updateGrid();
-    }
-    @Override
+    
     public void processInput(int[] input) {
         try {
             if (input == null) throw new PressedKeyDoesNothingException();

@@ -10,7 +10,6 @@ public class ResetGameButton extends Button {
     public ResetGameButton() {
         super(restartButtonName);
         this.setFont(RESTART_BUTTON_FONT);
-        
     }
 
 }

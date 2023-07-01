@@ -8,11 +8,19 @@ import chat.gpt.exception.ImpossibleMoveException;
 import chat.gpt.exception.EmptyPositionNotFoundException;
 
 public class Game {
-    
+
+    private static Game instance;
     private Grid grid;
 
-    public Game() {
+    private Game() {
         grid = new Grid();
+    }
+
+    public static Game getInstance() {
+        if (instance == null) {
+            instance = new Game();
+        }
+        return instance;
     }
 
     public void move(int[] coordinates) {
@@ -29,9 +37,10 @@ public class Game {
 
         if (validPosition(newRow, newColumn)) {
             changePositions(emptyRow, emptyColumn, newRow, newColumn);
-        } else throw new ImpossibleMoveException();
+        } else
+            throw new ImpossibleMoveException();
     }
-    
+
     private int[] findEmptyPosition() {
         int[][] gridData = grid.getGrid();
 
@@ -49,7 +58,7 @@ public class Game {
     private boolean validPosition(int row, int column) {
         return (row >= 0 && row < GRID_WIDTH) &&
                 (column >= 0 && column < GRID_LENGTH);
-                
+
     }
 
     private void changePositions(int row1, int column1, int row2, int column2) {
@@ -58,7 +67,6 @@ public class Game {
         gridData[row1][column1] = gridData[row2][column2];
         gridData[row2][column2] = temp;
     }
-
 
     public boolean gameIsComplete() {
         return Arrays.deepEquals(grid.getGrid(), GAME_FINISHED);
@@ -69,6 +77,10 @@ public class Game {
     }
 
     public int[][] gridActualState() {
-        return grid.getGrid();
+        int[][] originalGrid = grid.getGrid();
+        return Arrays.stream(originalGrid)
+                .map(int[]::clone)
+                .toArray(int[][]::new);
     }
+
 }
