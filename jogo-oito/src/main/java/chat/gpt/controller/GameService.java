@@ -5,7 +5,7 @@ import chat.gpt.exception.PressedKeyDoesNothingException;
 import chat.gpt.model.Game;
 import chat.gpt.view.GameGUI;
 
-public class GameService implements KeyboardListener, ResetGameButtonListener {
+public class GameService implements KeyboardListener{
 
     private Game game;
     private GameGUI view;
@@ -15,7 +15,6 @@ public class GameService implements KeyboardListener, ResetGameButtonListener {
         this.view = view;
     }
 
-    @Override
     public void resetGame() {
         game.restartGame();
         view.updateGrid();

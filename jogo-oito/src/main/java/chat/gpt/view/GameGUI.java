@@ -67,7 +67,7 @@ public class GameGUI extends JFrame {
 
     private void generateResetButton() {
         add(new JLabel(""));
-        add(new ResetGameButton(gameService));
+        add(new ResetGameButton());
         add(new JLabel(""));
     }
 
