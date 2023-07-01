@@ -16,7 +16,7 @@ public class ButtonTest {
 
     @Test
     void testGenerateEmptyButton() {
-        ButtonPiece button = ButtonPiece.generateEmptyButton();
+        ButtonPiece button = new ButtonPiece();
         Assertions.assertEquals("", button.getText());
         Assertions.assertEquals(new Font("Arial", Font.BOLD, 36), button.getFont());
     }

@@ -58,7 +58,7 @@ public class GameGUI extends JFrame {
     private void generateButtons() {
         for (int i = 0; i < GRID_LENGTH; i++) {
             for (int j = 0; j < GRID_WIDTH; j++) {
-                ButtonPiece button = ButtonPiece.generateEmptyButton();
+                ButtonPiece button = new ButtonPiece();
                 buttons[i][j] = button;
                 add(button);
             }

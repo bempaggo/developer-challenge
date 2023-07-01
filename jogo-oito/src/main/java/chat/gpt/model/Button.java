@@ -4,13 +4,13 @@ import javax.swing.JButton;
 
 public abstract class Button extends JButton {
     
-    protected Button() {
+    public Button() {
         super();
         setFocusable(false);
         setFocusPainted(false);
     }
 
-    protected Button(String buttonName) {
+    public Button(String buttonName) {
         this();
         setText(buttonName);
     }

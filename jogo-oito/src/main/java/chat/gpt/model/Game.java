@@ -8,6 +8,7 @@ import chat.gpt.exception.ImpossibleMoveException;
 import chat.gpt.exception.EmptyPositionNotFoundException;
 
 public class Game {
+    
     private Grid grid;
 
     public Game() {
@@ -32,7 +33,7 @@ public class Game {
     }
     
     private int[] findEmptyPosition() {
-        int[][] gridData = gridActualState();
+        int[][] gridData = grid.getGrid();
 
         for (int i = 0; i < GRID_LENGTH; i++) {
             for (int j = 0; j < GRID_WIDTH; j++) {
@@ -52,7 +53,7 @@ public class Game {
     }
 
     private void changePositions(int row1, int column1, int row2, int column2) {
-        int[][] gridData = gridActualState();
+        int[][] gridData = grid.getGrid();
         int temp = gridData[row1][column1];
         gridData[row1][column1] = gridData[row2][column2];
         gridData[row2][column2] = temp;
@@ -60,7 +61,7 @@ public class Game {
 
 
     public boolean gameIsComplete() {
-        return Arrays.deepEquals(gridActualState(), GAME_FINISHED);
+        return Arrays.deepEquals(grid.getGrid(), GAME_FINISHED);
     }
 
     public void restartGame() {

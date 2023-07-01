@@ -4,12 +4,12 @@ import static chat.gpt.util.Constants.DEFAULT_FONT;
 
 public class ButtonPiece extends Button {
 
-    private ButtonPiece() {
+    public ButtonPiece() {
         super();
         setFont(DEFAULT_FONT); 
     }
 
-    protected ButtonPiece(String buttonName) {
+    public ButtonPiece(String buttonName) {
         this();
         setText(buttonName);
     }
@@ -18,7 +18,4 @@ public class ButtonPiece extends Button {
         return new ButtonPiece(buttonName);
     }
 
-    public static ButtonPiece generateEmptyButton() {
-        return new ButtonPiece();
-    }
 }
