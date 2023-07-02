@@ -80,8 +80,8 @@ public class Tabuleiro {
     }
 
     private PosicaoPeca pegaNovaPosicao(PosicaoPeca pVazia, DirecaoMovimento direcao) {
-        int novaLinha = pVazia.getLinha() + direcao.getLinha();
-        int novaColuna = pVazia.getColuna() + direcao.getColuna();
+        int novaLinha = pVazia.getLinha() + direcao.getDeslocamentoHorizontal();
+        int novaColuna = pVazia.getColuna() + direcao.getDeslocamentoVertical();
         return new PosicaoPeca(novaLinha, novaColuna);
     }
 
