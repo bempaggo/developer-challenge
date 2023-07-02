@@ -9,37 +9,46 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class JogoDosOitoUI {
 
     public static final String STR_VAZIA = "";
     private final Tabuleiro tabuleiro;
-    private final JButton[][] botoes = new JButton[3][3];
+    private final List<List<JButton>> botoes;
     private final JFrame jFrame;
 
     public JogoDosOitoUI(String titulo) {
         this.jFrame = new JFrame(titulo);
         this.tabuleiro = new Tabuleiro();
+        this.botoes = new ArrayList<>(Arrays.asList(
+                new ArrayList<>(3),
+                new ArrayList<>(3),
+                new ArrayList<>(3)
+        ));
     }
 
     public void iniciarJogo() {
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(300, 300);
-        jFrame.setLayout(new GridLayout(4, 3));
-
+        this.criaJanela();
         this.criaComponentes();
-
         this.permiteJogarPeloTeclado();
-        jFrame.setFocusable(true);
         this.atualizaTabuleiro();
-        jFrame.setVisible(true);
+        this.jFrame.setVisible(true);
+    }
+
+    private void criaJanela() {
+        this.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.jFrame.setSize(300, 300);
+        this.jFrame.setLayout(new GridLayout(4, 3));
+        this.jFrame.setFocusable(true);
     }
 
     private void criaComponentes() {
         this.tabuleiro.executaParaCadaPosicao((linha, coluna) -> {
             JButton botaoPeca = this.criaBotaoPeca();
-            botoes[linha][coluna] = botaoPeca;
+            this.botoes.get(linha).add(botaoPeca);
             this.adicionaComponentesJframe(botaoPeca);
             botaoPeca.addActionListener(this::moverPecaPeloMouse);
         });
@@ -96,9 +105,9 @@ public class JogoDosOitoUI {
 
     private void atualizaTabuleiro() {
         this.tabuleiro.executaParaCadaPosicao((linha, coluna) -> {
-            JButton botao = this.botoes[linha][coluna];
-            int pecaNumero = this.tabuleiro.pegaPecaPelaPosicao(linha, coluna);
-            botao.setText(pecaNumero == 0 ? STR_VAZIA : String.valueOf(pecaNumero));
+            JButton botao = this.botoes.get(linha).get(coluna);
+            int pecaValor = this.tabuleiro.pegaPecaPelaPosicao(linha, coluna).getValor();
+            botao.setText(pecaValor == 0 ? STR_VAZIA : String.valueOf(pecaValor));
         });
     }
 

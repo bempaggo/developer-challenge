@@ -8,7 +8,7 @@ import chat.gpt.infra.values.TabuleiroPecas;
 import java.util.*;
 
 public class Tabuleiro {
-    private List<List<Integer>> tabuleiro;
+    private List<List<Peca>> tabuleiro;
 
     public Tabuleiro() {
         this.criaTabuleiro();
@@ -24,17 +24,17 @@ public class Tabuleiro {
     }
 
 
-    public int pegaPecaPelaPosicao(PosicaoPeca posicaoPeca) {
+    public Peca pegaPecaPelaPosicao(PosicaoPeca posicaoPeca) {
         return this.tabuleiro.get(posicaoPeca.getLinha()).get(posicaoPeca.getColuna());
     }
 
-    public int pegaPecaPelaPosicao(int linha, int coluna) {
+    public Peca pegaPecaPelaPosicao(int linha, int coluna) {
         return this.pegaPecaPelaPosicao(new PosicaoPeca(linha, coluna));
     }
 
-    private void mudaPosicaoPeca(PosicaoPeca posicaoAlvo, int novoValor) {
+    private void mudaPosicaoPeca(PosicaoPeca posicaoAlvo, Peca peca) {
         this.tabuleiro.get(posicaoAlvo.getLinha())
-                .set(posicaoAlvo.getColuna(), novoValor);
+                .set(posicaoAlvo.getColuna(), peca);
     }
 
     public void executaParaCadaPosicao(TabuleiroLaco tabuleiroLaco) {
@@ -48,7 +48,7 @@ public class Tabuleiro {
     public PosicaoPeca encontraPosicaoPecaPeloNumero(int numeroPeca) {
         for (int linha = 0; linha < 3; linha++) {
             for (int coluna = 0; coluna < 3; coluna++) {
-                if (this.pegaPecaPelaPosicao(new PosicaoPeca(linha, coluna)) == numeroPeca) {
+                if (this.pegaPecaPelaPosicao(linha, coluna).getValor() == numeroPeca) {
                     return new PosicaoPeca(linha, coluna);
                 }
             }
@@ -59,7 +59,7 @@ public class Tabuleiro {
     public PosicaoPeca pegaPosicaoVazia() {
         for (int linha = 0; linha < 3; linha++) {
             for (int coluna = 0; coluna < 3; coluna++) {
-                if (this.pegaPecaPelaPosicao(linha, coluna) == 0) {
+                if (this.pegaPecaPelaPosicao(linha, coluna).getValor() == 0) {
                     return new PosicaoPeca(linha, coluna);
                 }
             }
@@ -74,8 +74,8 @@ public class Tabuleiro {
         if (Util.posicaoEhInvalida(posicaoNova)) return false;
 
         this.mudaPosicaoPeca(posicaoVazia,
-                this.pegaPecaPelaPosicao(posicaoNova.getLinha(), posicaoNova.getColuna()));
-        this.mudaPosicaoPeca(posicaoNova, 0);
+                this.pegaPecaPelaPosicao(posicaoNova));
+        this.mudaPosicaoPeca(posicaoNova, new Peca(0));
         return true;
     }
 
@@ -89,7 +89,7 @@ public class Tabuleiro {
         int count = 1;
         for (int linha = 0; linha < 3; linha++) {
             for (int coluna = 0; coluna < 3; coluna++) {
-                if (this.pegaPecaPelaPosicao(linha, coluna) != count % 9) {
+                if (this.pegaPecaPelaPosicao(linha, coluna).getValor() != count % 9) {
                     return false;
                 }
                 count++;
