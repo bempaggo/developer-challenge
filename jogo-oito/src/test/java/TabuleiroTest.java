@@ -25,8 +25,8 @@ class TabuleiroTest {
 
     @Test
     void deveriaPegarPosicaoPecasExistentes() {
-        for (int i = 1; i < 9; i++) {
-            int numeroPeca = i;
+        for (Integer i = 1; i < 9; i++) {
+            Integer numeroPeca = i;
             Assertions.assertDoesNotThrow(() -> this.tabuleiro
                     .encontraPosicaoPeca(new Peca(numeroPeca)));
         }
@@ -34,8 +34,8 @@ class TabuleiroTest {
 
     @Test
     void naoDeveriaPegarPosicaoDePecasInexistentes() {
-        for (int i = 9; i < 99; i++) {
-            int numeroPeca = i;
+        for (Integer i = 9; i < 99; i++) {
+            Integer numeroPeca = i;
             Assertions.assertThrows(RuntimeException.class, () -> this.tabuleiro
                     .encontraPosicaoPeca(new Peca(numeroPeca)));
         }
@@ -43,7 +43,7 @@ class TabuleiroTest {
 
     @Test
     void naoDeveriaAceitarMovimentosInvalidos() {
-        boolean movimentoMouseInvalido = Util.movimentoEhInvalido(DirecaoMovimento.SEM_MOVIMENTO);
+        Boolean movimentoMouseInvalido = Util.movimentoEhInvalido(DirecaoMovimento.SEM_MOVIMENTO);
         Assertions.assertTrue(movimentoMouseInvalido);
     }
 

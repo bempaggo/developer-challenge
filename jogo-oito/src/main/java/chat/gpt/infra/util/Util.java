@@ -5,13 +5,13 @@ import chat.gpt.model.PosicaoPeca;
 
 public class Util {
 
-    public static boolean movimentoEhInvalido(DirecaoMovimento pMovimento) {
+    public static Boolean movimentoEhInvalido(DirecaoMovimento pMovimento) {
         DirecaoMovimento semMovimento = DirecaoMovimento.SEM_MOVIMENTO;
         return pMovimento.getDeslocamentoVertical() == semMovimento.getDeslocamentoVertical()
                 && pMovimento.getDeslocamentoHorizontal() == semMovimento.getDeslocamentoHorizontal();
     }
 
-    public static boolean posicaoEhInvalida(PosicaoPeca pMovimento) {
+    public static Boolean posicaoEhInvalida(PosicaoPeca pMovimento) {
         return pMovimento.getLinha() < 0 || pMovimento.getLinha() > 2
                 || pMovimento.getColuna() < 0 || pMovimento.getColuna() > 2;
     }

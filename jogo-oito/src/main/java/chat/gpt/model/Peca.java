@@ -2,13 +2,13 @@ package chat.gpt.model;
 
 public class Peca {
 
-    private final int valor;
+    private final Integer valor;
 
-    public Peca(int valor) {
+    public Peca(Integer valor) {
         this.valor = valor;
     }
 
-    public int getValor() {
+    public Integer getValor() {
         return this.valor;
     }
 }
