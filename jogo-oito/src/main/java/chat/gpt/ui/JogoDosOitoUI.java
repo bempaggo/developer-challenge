@@ -2,6 +2,7 @@ package chat.gpt.ui;
 
 import chat.gpt.infra.util.Util;
 import chat.gpt.infra.values.DirecaoMovimento;
+import chat.gpt.model.Peca;
 import chat.gpt.model.PosicaoPeca;
 import chat.gpt.model.Tabuleiro;
 
@@ -9,49 +10,58 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class JogoDosOitoUI {
 
     public static final String STR_VAZIA = "";
     private final Tabuleiro tabuleiro;
-    private final JButton[][] botoes = new JButton[3][3];
+    private final List<List<JButton>> botoes;
     private final JFrame jFrame;
 
     public JogoDosOitoUI(String titulo) {
         this.jFrame = new JFrame(titulo);
         this.tabuleiro = new Tabuleiro();
+        this.botoes = new ArrayList<>(Arrays.asList(
+                new ArrayList<>(3),
+                new ArrayList<>(3),
+                new ArrayList<>(3)
+        ));
     }
 
     public void iniciarJogo() {
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(300, 300);
-        jFrame.setLayout(new GridLayout(4, 3));
-
+        this.criaJanela();
         this.criaComponentes();
-
         this.permiteJogarPeloTeclado();
-        jFrame.setFocusable(true);
         this.atualizaTabuleiro();
-        jFrame.setVisible(true);
+        this.jFrame.setVisible(true);
+    }
+
+    private void criaJanela() {
+        this.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.jFrame.setSize(300, 300);
+        this.jFrame.setLayout(new GridLayout(4, 3));
+        this.jFrame.setFocusable(true);
     }
 
     private void criaComponentes() {
-        this.tabuleiro.executaParaCadaPosicao((linha, coluna) -> {
+        this.tabuleiro.executaParaCadaPosicaoTabuleiro((linha, coluna) -> {
             JButton botaoPeca = this.criaBotaoPeca();
-            botoes[linha][coluna] = botaoPeca;
-            this.adicionaComponentesJframe(botaoPeca);
+            this.botoes.get(linha).add(botaoPeca);
+            this.adicionaNoJframe(botaoPeca);
             botaoPeca.addActionListener(this::moverPecaPeloMouse);
         });
         JButton botaoReiniciar = new JButton("Reiniciar");
         botaoReiniciar.addActionListener(e -> this.reiniciaJogo());
-        this.adicionaComponentesJframe(new JLabel(STR_VAZIA), botaoReiniciar, new JLabel(STR_VAZIA));
+        this.adicionaNoJframe(new JLabel(STR_VAZIA), botaoReiniciar, new JLabel(STR_VAZIA));
     }
 
     private void moverPecaPeloMouse(ActionEvent e) {
-        String numeroPeca = ((JButton) e.getSource()).getText();
-        if (numeroPeca.isEmpty()) return;
-        DirecaoMovimento direcaoMovimento = this.pegaDirecaoMovimentoMouse(numeroPeca);
+        String valorPeca = ((JButton) e.getSource()).getText();
+        if (valorPeca.isEmpty()) return;
+        DirecaoMovimento direcaoMovimento = this.pegaDirecaoMovimentoMouse(Integer.parseInt(valorPeca));
         this.movimentaPecaEAtualiza(direcaoMovimento);
     }
 
@@ -61,10 +71,10 @@ public class JogoDosOitoUI {
     }
 
 
-    private DirecaoMovimento pegaDirecaoMovimentoMouse(String numeroPeca) {
-        PosicaoPeca pPecaTocada = this.tabuleiro.encontraPosicaoPecaPeloNumero(Integer.parseInt(numeroPeca));
+    private DirecaoMovimento pegaDirecaoMovimentoMouse(int numeroPeca) {
+        PosicaoPeca pPecaTocada = this.tabuleiro.encontraPosicaoPeca(new Peca(numeroPeca));
         PosicaoPeca pVazia = this.tabuleiro.pegaPosicaoVazia();
-        return DirecaoMovimento.pegaPelaPosicaoBotaoTocado(pVazia, pPecaTocada);
+        return DirecaoMovimento.pegaPelaPosicaoPecaClicada(pVazia, pPecaTocada);
     }
 
     private void permiteJogarPeloTeclado() {
@@ -95,10 +105,10 @@ public class JogoDosOitoUI {
     }
 
     private void atualizaTabuleiro() {
-        this.tabuleiro.executaParaCadaPosicao((linha, coluna) -> {
-            JButton botao = this.botoes[linha][coluna];
-            int pecaNumero = this.tabuleiro.pegaPecaPelaPosicao(new PosicaoPeca(linha, coluna));
-            botao.setText(pecaNumero == 0 ? STR_VAZIA : String.valueOf(pecaNumero));
+        this.tabuleiro.executaParaCadaPosicaoTabuleiro((linha, coluna) -> {
+            JButton botao = this.botoes.get(linha).get(coluna);
+            int pecaValor = this.tabuleiro.pegaPecaPelaPosicao(linha, coluna).getValor();
+            botao.setText(pecaValor == 0 ? STR_VAZIA : String.valueOf(pecaValor));
         });
     }
 
@@ -108,7 +118,7 @@ public class JogoDosOitoUI {
         return botao;
     }
 
-    private void adicionaComponentesJframe(Component... components) {
+    private void adicionaNoJframe(Component... components) {
         Arrays.stream(components).forEach(this.jFrame::add);
     }
 }

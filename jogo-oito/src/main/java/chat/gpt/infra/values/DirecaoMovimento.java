@@ -9,38 +9,37 @@ public enum DirecaoMovimento {
     BAIXO(-1, 0),
     ESQUERDA(0, 1),
     DIREITA(0, -1),
-    SEM_MOVIMENTO(-1, -1);
+    SEM_MOVIMENTO(0, 0);
 
-    private final int linha;
-    private final int coluna;
-    DirecaoMovimento(int linha, int coluna) {
-        this.linha = linha;
-        this.coluna = coluna;
+    private final int deslocamentoHorizontal;
+    private final int deslocamentoVertical;
+
+    DirecaoMovimento(int deslocamentoHorizontal, int deslocamentoVertical) {
+        this.deslocamentoHorizontal = deslocamentoHorizontal;
+        this.deslocamentoVertical = deslocamentoVertical;
     }
 
-    public int getLinha() {
-        return linha;
+    public int getDeslocamentoHorizontal() {
+        return deslocamentoHorizontal;
     }
 
-    public int getColuna() {
-        return coluna;
+    public int getDeslocamentoVertical() {
+        return deslocamentoVertical;
     }
 
-    public PosicaoPeca getPosicao() {
-        return new PosicaoPeca(this.linha, this.coluna);
-    }
-
-    public static DirecaoMovimento pegaPelaPosicaoBotaoTocado(PosicaoPeca pVazia, PosicaoPeca pPecaClicada) {
-        int linha = pPecaClicada.pegarDiferencaLinhaPara(pVazia);
-        int coluna = pPecaClicada.pegarDiferencaColunaPara(pVazia);
-        return Arrays.stream(values()).filter(movimentoMouseValue -> movimentoMouseValue.linha == linha &&
-                movimentoMouseValue.coluna == coluna).findFirst().orElse(DirecaoMovimento.SEM_MOVIMENTO);
+    public static DirecaoMovimento pegaPelaPosicaoPecaClicada(PosicaoPeca pVazia, PosicaoPeca pPecaClicada) {
+        int linha = pPecaClicada.pegaDistanciaLinhasPara(pVazia);
+        int coluna = pPecaClicada.pegaDistanciaColunasPara(pVazia);
+        return Arrays.stream(values())
+                .filter(movimentoMouseValue -> movimentoMouseValue.deslocamentoHorizontal == linha &&
+                        movimentoMouseValue.deslocamentoVertical == coluna)
+                .findFirst().orElse(DirecaoMovimento.SEM_MOVIMENTO);
     }
 
     public static DirecaoMovimento pegaPeloTeclado(int teclaCode) {
-        return Arrays.stream(DirecaoMovimentoTeclado.values()).filter(movimentoTeclado -> movimentoTeclado.getTeclaCode() == teclaCode)
+        return Arrays.stream(DirecaoMovimentoTeclado.values())
+                .filter(movimentoTeclado -> movimentoTeclado.getTeclaCode() == teclaCode)
                 .map(DirecaoMovimentoTeclado::getMovimento)
                 .findFirst().orElse(DirecaoMovimento.SEM_MOVIMENTO);
-
     }
 }

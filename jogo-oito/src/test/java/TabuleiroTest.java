@@ -1,5 +1,6 @@
 import chat.gpt.infra.util.Util;
 import chat.gpt.infra.values.DirecaoMovimento;
+import chat.gpt.model.Peca;
 import chat.gpt.model.PosicaoPeca;
 import chat.gpt.model.Tabuleiro;
 import org.junit.jupiter.api.Assertions;
@@ -26,7 +27,8 @@ class TabuleiroTest {
     void deveriaPegarPosicaoPecasExistentes() {
         for (int i = 1; i < 9; i++) {
             int numeroPeca = i;
-            Assertions.assertDoesNotThrow(() -> this.tabuleiro.encontraPosicaoPecaPeloNumero(numeroPeca));
+            Assertions.assertDoesNotThrow(() -> this.tabuleiro
+                    .encontraPosicaoPeca(new Peca(numeroPeca)));
         }
     }
 
@@ -34,7 +36,8 @@ class TabuleiroTest {
     void naoDeveriaPegarPosicaoDePecasInexistentes() {
         for (int i = 9; i < 99; i++) {
             int numeroPeca = i;
-            Assertions.assertThrows(RuntimeException.class, () -> this.tabuleiro.encontraPosicaoPecaPeloNumero(numeroPeca));
+            Assertions.assertThrows(RuntimeException.class, () -> this.tabuleiro
+                    .encontraPosicaoPeca(new Peca(numeroPeca)));
         }
     }
 
