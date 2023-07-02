@@ -2,6 +2,7 @@ package chat.gpt.ui;
 
 import chat.gpt.infra.util.Util;
 import chat.gpt.infra.values.DirecaoMovimento;
+import chat.gpt.model.Peca;
 import chat.gpt.model.PosicaoPeca;
 import chat.gpt.model.Tabuleiro;
 
@@ -46,7 +47,7 @@ public class JogoDosOitoUI {
     }
 
     private void criaComponentes() {
-        this.tabuleiro.executaParaCadaPosicao((linha, coluna) -> {
+        this.tabuleiro.executaParaCadaPosicaoTabuleiro((linha, coluna) -> {
             JButton botaoPeca = this.criaBotaoPeca();
             this.botoes.get(linha).add(botaoPeca);
             this.adicionaComponentesJframe(botaoPeca);
@@ -60,7 +61,7 @@ public class JogoDosOitoUI {
     private void moverPecaPeloMouse(ActionEvent e) {
         String numeroPeca = ((JButton) e.getSource()).getText();
         if (numeroPeca.isEmpty()) return;
-        DirecaoMovimento direcaoMovimento = this.pegaDirecaoMovimentoMouse(numeroPeca);
+        DirecaoMovimento direcaoMovimento = this.pegaDirecaoMovimentoMouse(Integer.parseInt(numeroPeca));
         this.movimentaPecaEAtualiza(direcaoMovimento);
     }
 
@@ -70,10 +71,10 @@ public class JogoDosOitoUI {
     }
 
 
-    private DirecaoMovimento pegaDirecaoMovimentoMouse(String numeroPeca) {
-        PosicaoPeca pPecaTocada = this.tabuleiro.encontraPosicaoPecaPeloNumero(Integer.parseInt(numeroPeca));
+    private DirecaoMovimento pegaDirecaoMovimentoMouse(int numeroPeca) {
+        PosicaoPeca pPecaTocada = this.tabuleiro.encontraPosicaoPeca(new Peca(numeroPeca));
         PosicaoPeca pVazia = this.tabuleiro.pegaPosicaoVazia();
-        return DirecaoMovimento.pegaPelaPosicaoBotaoTocado(pVazia, pPecaTocada);
+        return DirecaoMovimento.pegaPelaPosicaoPecaTocada(pVazia, pPecaTocada);
     }
 
     private void permiteJogarPeloTeclado() {
@@ -104,7 +105,7 @@ public class JogoDosOitoUI {
     }
 
     private void atualizaTabuleiro() {
-        this.tabuleiro.executaParaCadaPosicao((linha, coluna) -> {
+        this.tabuleiro.executaParaCadaPosicaoTabuleiro((linha, coluna) -> {
             JButton botao = this.botoes.get(linha).get(coluna);
             int pecaValor = this.tabuleiro.pegaPecaPelaPosicao(linha, coluna).getValor();
             botao.setText(pecaValor == 0 ? STR_VAZIA : String.valueOf(pecaValor));

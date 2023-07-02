@@ -17,11 +17,11 @@ public class PosicaoPeca {
         return this.coluna;
     }
 
-    public int pegarDiferencaLinhaPara(PosicaoPeca posicao) {
+    public int pegaDistanciaLinhasPara(PosicaoPeca posicao) {
         return this.linha - posicao.linha;
     }
 
-    public int pegarDiferencaColunaPara(PosicaoPeca posicao) {
+    public int pegaDistanciaColunasPara(PosicaoPeca posicao) {
         return this.coluna - posicao.coluna;
     }
 }

@@ -6,7 +6,9 @@ import chat.gpt.model.PosicaoPeca;
 public class Util {
 
     public static boolean movimentoEhInvalido(DirecaoMovimento pMovimento) {
-        return pMovimento.getColuna() == -1 && pMovimento.getLinha() == -1;
+        DirecaoMovimento semMovimento = DirecaoMovimento.SEM_MOVIMENTO;
+        return pMovimento.getDeslocamentoVertical() == semMovimento.getDeslocamentoVertical()
+                && pMovimento.getDeslocamentoHorizontal() == semMovimento.getDeslocamentoHorizontal();
     }
 
     public static boolean posicaoEhInvalida(PosicaoPeca pMovimento) {

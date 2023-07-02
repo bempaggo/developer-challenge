@@ -37,7 +37,7 @@ public class Tabuleiro {
                 .set(posicaoAlvo.getColuna(), peca);
     }
 
-    public void executaParaCadaPosicao(TabuleiroLaco tabuleiroLaco) {
+    public void executaParaCadaPosicaoTabuleiro(TabuleiroLaco tabuleiroLaco) {
         for (int linha = 0; linha < 3; linha++) {
             for (int coluna = 0; coluna < 3; coluna++) {
                 tabuleiroLaco.executar(linha, coluna);
@@ -45,10 +45,10 @@ public class Tabuleiro {
         }
     }
 
-    public PosicaoPeca encontraPosicaoPecaPeloNumero(int numeroPeca) {
+    public PosicaoPeca encontraPosicaoPeca(Peca peca) {
         for (int linha = 0; linha < 3; linha++) {
             for (int coluna = 0; coluna < 3; coluna++) {
-                if (this.pegaPecaPelaPosicao(linha, coluna).getValor() == numeroPeca) {
+                if (this.pegaPecaPelaPosicao(linha, coluna).getValor() == peca.getValor()) {
                     return new PosicaoPeca(linha, coluna);
                 }
             }
