@@ -8,15 +8,13 @@ import chat.gpt.exception.GridDoesNotFeatStandardsException;
 
 public class Grid {
 
-    private int[][] grid;
+    private final int[][] grid;
 
     public Grid(int[][] gridMode) {
         gridValidate(gridMode);
         this.grid = new int[GRID_LENGTH][GRID_WIDTH];
         for (int i = 0; i < GRID_LENGTH; i++) {
-            for (int j = 0; j < GRID_WIDTH; j++) {
-                this.grid[i][j] = gridMode[i][j];
-            }
+            System.arraycopy(gridMode[i], 0, this.grid[i], 0, GRID_WIDTH);
         }
     }
 
@@ -29,7 +27,7 @@ public class Grid {
     }
 
     private void gridValidate(int[][] grid) {
-        if (!validSize(grid) || !noRepetedElements(grid)) {
+        if (!validSize(grid) || !noRepeatedElements(grid)) {
             throw new GridDoesNotFeatStandardsException();
         }
     }
@@ -46,7 +44,7 @@ public class Grid {
         return true;
     }
 
-    private boolean noRepetedElements(int[][] grid) {
+    private boolean noRepeatedElements(int[][] grid) {
         return Arrays.stream(grid)
                 .flatMapToInt(Arrays::stream)
                 .distinct()

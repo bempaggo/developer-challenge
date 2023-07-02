@@ -26,14 +26,14 @@ public class Game {
     public void move(int[] coordinates) {
 
         int rowCoordinate = coordinates[0];
-        int columnCordinate = coordinates[1];
+        int columnCoordinate = coordinates[1];
 
         int[] emptyPosition = findEmptyPosition();
         int emptyRow = emptyPosition[0];
         int emptyColumn = emptyPosition[1];
 
         int newRow = emptyRow + rowCoordinate;
-        int newColumn = emptyColumn + columnCordinate;
+        int newColumn = emptyColumn + columnCoordinate;
 
         if (validPosition(newRow, newColumn)) {
             changePositions(emptyRow, emptyColumn, newRow, newColumn);
@@ -72,7 +72,7 @@ public class Game {
         return Arrays.deepEquals(grid.getGrid(), GAME_FINISHED);
     }
 
-    public void restartGame() {
+    public void resetGame() {
         grid = new Grid();
     }
 

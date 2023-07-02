@@ -8,13 +8,12 @@ import static chat.gpt.util.Constants.*;
 
 import java.awt.GridLayout;
 
-import chat.gpt.controller.ButtonActionListener;
 import chat.gpt.controller.GameService;
 import chat.gpt.model.ButtonPiece;
 import chat.gpt.model.Game;
 import chat.gpt.model.ResetGameButton;
 
-public class GameGUI extends JFrame implements ButtonActionListener {
+public class GameGUI extends JFrame {
 
     private Game game;
     private GameService gameService;
@@ -69,8 +68,7 @@ public class GameGUI extends JFrame implements ButtonActionListener {
     private void generateResetButton() {
         add(new JLabel(""));
         ResetGameButton resetButton = createResetButton();
-        resetButton.addActionListener(e -> onButtonAction());
-        setFocusable(false);
+        resetButton.addActionListener(gameService);
         add(resetButton);
         add(new JLabel(""));
     }
@@ -79,14 +77,7 @@ public class GameGUI extends JFrame implements ButtonActionListener {
         return new ResetGameButton();
     }
 
-    @Override
-    public void onButtonAction() {
-        Game.getInstance().restartGame();
-        updateGrid();
-    }
-
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
-
 }

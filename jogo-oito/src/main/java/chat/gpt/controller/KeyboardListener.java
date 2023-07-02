@@ -17,25 +17,15 @@ public interface KeyboardListener extends KeyListener {
 
     @Override
     default void keyPressed(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-        int[] input = null;
-        switch (keyCode) {
-            case KeyEvent.VK_UP:
-                input = MOVE_UP;
-                break;
-            case KeyEvent.VK_DOWN:
-                input = MOVE_DOWN;
-                break;
-            case KeyEvent.VK_LEFT:
-                input = MOVE_LEFT;
-                break;
-            case KeyEvent.VK_RIGHT:
-                input = MOVE_RIGHT;
-                break;
-            default:
-                break;
-        } 
         
+        int[] input = switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP -> MOVE_UP;
+            case KeyEvent.VK_DOWN -> MOVE_DOWN;
+            case KeyEvent.VK_LEFT -> MOVE_LEFT;
+            case KeyEvent.VK_RIGHT -> MOVE_RIGHT;
+            default -> null;
+        };
+
         processInput(input);
     }
 

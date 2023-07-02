@@ -64,7 +64,7 @@ public class GameTest {
         int[][] gridAntes = game.gridActualState();
 
         // Reiniciar o jogo
-        game.restartGame();
+        game.resetGame();
 
         // Obter a referência do objeto Grid após reiniciar o jogo
         int[][] gridDepois = game.gridActualState();
