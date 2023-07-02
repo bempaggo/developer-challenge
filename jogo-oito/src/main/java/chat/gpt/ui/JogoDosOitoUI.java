@@ -97,7 +97,7 @@ public class JogoDosOitoUI {
     private void atualizaTabuleiro() {
         this.tabuleiro.executaParaCadaPosicao((linha, coluna) -> {
             JButton botao = this.botoes[linha][coluna];
-            int pecaNumero = this.tabuleiro.pegaPecaPelaPosicao(new PosicaoPeca(linha, coluna));
+            int pecaNumero = this.tabuleiro.pegaPecaPelaPosicao(linha, coluna);
             botao.setText(pecaNumero == 0 ? STR_VAZIA : String.valueOf(pecaNumero));
         });
     }
