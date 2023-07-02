@@ -10,9 +10,9 @@ public enum DirecaoMovimentoTeclado {
 
 
     private final DirecaoMovimento movimento;
-    private final int teclaCode;
+    private final Integer teclaCode;
 
-    DirecaoMovimentoTeclado(int teclaCode, DirecaoMovimento movimento) {
+    DirecaoMovimentoTeclado(Integer teclaCode, DirecaoMovimento movimento) {
         this.teclaCode = teclaCode;
         this.movimento = movimento;
     }
@@ -21,7 +21,7 @@ public enum DirecaoMovimentoTeclado {
         return movimento;
     }
 
-    public int getTeclaCode() {
+    public Integer getTeclaCode() {
         return teclaCode;
     }
 }

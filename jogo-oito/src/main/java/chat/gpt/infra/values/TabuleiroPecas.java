@@ -16,7 +16,7 @@ public enum TabuleiroPecas {
     private final Peca pecaColuna2;
     private final Peca pecaColuna3;
 
-    TabuleiroPecas(int coluna1, int coluna2, int coluna3) {
+    TabuleiroPecas(Integer coluna1, Integer coluna2, Integer coluna3) {
         this.pecaColuna1 = new Peca(coluna1);
         this.pecaColuna2 = new Peca(coluna2);
         this.pecaColuna3 = new Peca(coluna3);

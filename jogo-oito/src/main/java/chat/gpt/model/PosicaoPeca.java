@@ -1,27 +1,27 @@
 package chat.gpt.model;
 
 public class PosicaoPeca {
-    private final int linha;
-    private final int coluna;
+    private final Integer linha;
+    private final Integer coluna;
 
-    public PosicaoPeca(int linha, int coluna) {
+    public PosicaoPeca(Integer linha, Integer coluna) {
         this.linha = linha;
         this.coluna = coluna;
     }
 
-    public int getLinha() {
+    public Integer getLinha() {
         return this.linha;
     }
 
-    public int getColuna() {
+    public Integer getColuna() {
         return this.coluna;
     }
 
-    public int pegaDistanciaLinhasPara(PosicaoPeca posicao) {
+    public Integer pegaDistanciaLinhasPara(PosicaoPeca posicao) {
         return this.linha - posicao.linha;
     }
 
-    public int pegaDistanciaColunasPara(PosicaoPeca posicao) {
+    public Integer pegaDistanciaColunasPara(PosicaoPeca posicao) {
         return this.coluna - posicao.coluna;
     }
 }

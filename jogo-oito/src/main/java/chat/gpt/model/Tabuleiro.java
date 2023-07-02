@@ -28,7 +28,7 @@ public class Tabuleiro {
         return this.tabuleiro.get(posicaoPeca.getLinha()).get(posicaoPeca.getColuna());
     }
 
-    public Peca pegaPecaPelaPosicao(int linha, int coluna) {
+    public Peca pegaPecaPelaPosicao(Integer linha, Integer coluna) {
         return this.pegaPecaPelaPosicao(new PosicaoPeca(linha, coluna));
     }
 
@@ -38,17 +38,17 @@ public class Tabuleiro {
     }
 
     public void executaParaCadaPosicaoTabuleiro(TabuleiroLaco tabuleiroLaco) {
-        for (int linha = 0; linha < 3; linha++) {
-            for (int coluna = 0; coluna < 3; coluna++) {
+        for (Integer linha = 0; linha < 3; linha++) {
+            for (Integer coluna = 0; coluna < 3; coluna++) {
                 tabuleiroLaco.executar(linha, coluna);
             }
         }
     }
 
     public PosicaoPeca encontraPosicaoPeca(Peca peca) {
-        for (int linha = 0; linha < 3; linha++) {
-            for (int coluna = 0; coluna < 3; coluna++) {
-                if (this.pegaPecaPelaPosicao(linha, coluna).getValor() == peca.getValor()) {
+        for (Integer linha = 0; linha < 3; linha++) {
+            for (Integer coluna = 0; coluna < 3; coluna++) {
+                if (this.pegaPecaPelaPosicao(linha, coluna).getValor().equals(peca.getValor())) {
                     return new PosicaoPeca(linha, coluna);
                 }
             }
@@ -57,8 +57,8 @@ public class Tabuleiro {
     }
 
     public PosicaoPeca pegaPosicaoVazia() {
-        for (int linha = 0; linha < 3; linha++) {
-            for (int coluna = 0; coluna < 3; coluna++) {
+        for (Integer linha = 0; linha < 3; linha++) {
+            for (Integer coluna = 0; coluna < 3; coluna++) {
                 if (this.pegaPecaPelaPosicao(linha, coluna).getValor() == 0) {
                     return new PosicaoPeca(linha, coluna);
                 }
@@ -67,7 +67,7 @@ public class Tabuleiro {
         throw new RuntimeException("Ocorreu um erro no jogo");
     }
 
-    public boolean movePeca(DirecaoMovimento direcao) {
+    public Boolean movePeca(DirecaoMovimento direcao) {
         PosicaoPeca posicaoVazia = this.pegaPosicaoVazia();
         PosicaoPeca posicaoNova = this.pegaNovaPosicao(posicaoVazia, direcao);
 
@@ -80,16 +80,16 @@ public class Tabuleiro {
     }
 
     private PosicaoPeca pegaNovaPosicao(PosicaoPeca pVazia, DirecaoMovimento direcao) {
-        int novaLinha = pVazia.getLinha() + direcao.getDeslocamentoHorizontal();
-        int novaColuna = pVazia.getColuna() + direcao.getDeslocamentoVertical();
+        Integer novaLinha = pVazia.getLinha() + direcao.getDeslocamentoHorizontal();
+        Integer novaColuna = pVazia.getColuna() + direcao.getDeslocamentoVertical();
         return new PosicaoPeca(novaLinha, novaColuna);
     }
 
-    public boolean jogoConcluido() {
-        int count = 1;
-        for (int linha = 0; linha < 3; linha++) {
-            for (int coluna = 0; coluna < 3; coluna++) {
-                if (this.pegaPecaPelaPosicao(linha, coluna).getValor() != count % 9) {
+    public Boolean jogoConcluido() {
+        Integer count = 1;
+        for (Integer linha = 0; linha < 3; linha++) {
+            for (Integer coluna = 0; coluna < 3; coluna++) {
+                if (!this.pegaPecaPelaPosicao(linha, coluna).getValor().equals(count % 9)) {
                     return false;
                 }
                 count++;

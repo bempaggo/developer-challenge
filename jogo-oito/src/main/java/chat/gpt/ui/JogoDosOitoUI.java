@@ -71,7 +71,7 @@ public class JogoDosOitoUI {
     }
 
 
-    private DirecaoMovimento pegaDirecaoMovimentoMouse(int numeroPeca) {
+    private DirecaoMovimento pegaDirecaoMovimentoMouse(Integer numeroPeca) {
         PosicaoPeca pPecaTocada = this.tabuleiro.encontraPosicaoPeca(new Peca(numeroPeca));
         PosicaoPeca pVazia = this.tabuleiro.pegaPosicaoVazia();
         return DirecaoMovimento.pegaPelaPosicaoPecaClicada(pVazia, pPecaTocada);
@@ -91,7 +91,7 @@ public class JogoDosOitoUI {
 
     private void movimentaPecaEAtualiza(DirecaoMovimento movimento) {
         if (Util.movimentoEhInvalido(movimento)) return;
-        boolean moveu = this.tabuleiro.movePeca(movimento);
+        Boolean moveu = this.tabuleiro.movePeca(movimento);
         if (moveu) {
             this.atualizaTabuleiro();
             this.verificaJogoConcluido();
@@ -107,7 +107,7 @@ public class JogoDosOitoUI {
     private void atualizaTabuleiro() {
         this.tabuleiro.executaParaCadaPosicaoTabuleiro((linha, coluna) -> {
             JButton botao = this.botoes.get(linha).get(coluna);
-            int pecaValor = this.tabuleiro.pegaPecaPelaPosicao(linha, coluna).getValor();
+            Integer pecaValor = this.tabuleiro.pegaPecaPelaPosicao(linha, coluna).getValor();
             botao.setText(pecaValor == 0 ? STR_VAZIA : String.valueOf(pecaValor));
         });
     }

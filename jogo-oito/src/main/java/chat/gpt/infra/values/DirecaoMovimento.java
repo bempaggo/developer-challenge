@@ -11,34 +11,34 @@ public enum DirecaoMovimento {
     DIREITA(0, -1),
     SEM_MOVIMENTO(0, 0);
 
-    private final int deslocamentoHorizontal;
-    private final int deslocamentoVertical;
+    private final Integer deslocamentoHorizontal;
+    private final Integer deslocamentoVertical;
 
-    DirecaoMovimento(int deslocamentoHorizontal, int deslocamentoVertical) {
+    DirecaoMovimento(Integer deslocamentoHorizontal, Integer deslocamentoVertical) {
         this.deslocamentoHorizontal = deslocamentoHorizontal;
         this.deslocamentoVertical = deslocamentoVertical;
     }
 
-    public int getDeslocamentoHorizontal() {
+    public Integer getDeslocamentoHorizontal() {
         return deslocamentoHorizontal;
     }
 
-    public int getDeslocamentoVertical() {
+    public Integer getDeslocamentoVertical() {
         return deslocamentoVertical;
     }
 
     public static DirecaoMovimento pegaPelaPosicaoPecaClicada(PosicaoPeca pVazia, PosicaoPeca pPecaClicada) {
-        int linha = pPecaClicada.pegaDistanciaLinhasPara(pVazia);
-        int coluna = pPecaClicada.pegaDistanciaColunasPara(pVazia);
+        Integer linha = pPecaClicada.pegaDistanciaLinhasPara(pVazia);
+        Integer coluna = pPecaClicada.pegaDistanciaColunasPara(pVazia);
         return Arrays.stream(values())
-                .filter(movimentoMouseValue -> movimentoMouseValue.deslocamentoHorizontal == linha &&
-                        movimentoMouseValue.deslocamentoVertical == coluna)
+                .filter(movimentoMouseValue -> movimentoMouseValue.deslocamentoHorizontal.equals(linha) &&
+                        movimentoMouseValue.deslocamentoVertical.equals(coluna))
                 .findFirst().orElse(DirecaoMovimento.SEM_MOVIMENTO);
     }
 
-    public static DirecaoMovimento pegaPeloTeclado(int teclaCode) {
+    public static DirecaoMovimento pegaPeloTeclado(Integer teclaCode) {
         return Arrays.stream(DirecaoMovimentoTeclado.values())
-                .filter(movimentoTeclado -> movimentoTeclado.getTeclaCode() == teclaCode)
+                .filter(movimentoTeclado -> movimentoTeclado.getTeclaCode().equals(teclaCode))
                 .map(DirecaoMovimentoTeclado::getMovimento)
                 .findFirst().orElse(DirecaoMovimento.SEM_MOVIMENTO);
     }
