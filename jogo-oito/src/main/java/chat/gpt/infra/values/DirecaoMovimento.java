@@ -27,7 +27,7 @@ public enum DirecaoMovimento {
         return deslocamentoVertical;
     }
 
-    public static DirecaoMovimento pegaPelaPosicaoPecaTocada(PosicaoPeca pVazia, PosicaoPeca pPecaClicada) {
+    public static DirecaoMovimento pegaPelaPosicaoPecaClicada(PosicaoPeca pVazia, PosicaoPeca pPecaClicada) {
         int linha = pPecaClicada.pegaDistanciaLinhasPara(pVazia);
         int coluna = pPecaClicada.pegaDistanciaColunasPara(pVazia);
         return Arrays.stream(values())

@@ -50,18 +50,18 @@ public class JogoDosOitoUI {
         this.tabuleiro.executaParaCadaPosicaoTabuleiro((linha, coluna) -> {
             JButton botaoPeca = this.criaBotaoPeca();
             this.botoes.get(linha).add(botaoPeca);
-            this.adicionaComponentesJframe(botaoPeca);
+            this.adicionaNoJframe(botaoPeca);
             botaoPeca.addActionListener(this::moverPecaPeloMouse);
         });
         JButton botaoReiniciar = new JButton("Reiniciar");
         botaoReiniciar.addActionListener(e -> this.reiniciaJogo());
-        this.adicionaComponentesJframe(new JLabel(STR_VAZIA), botaoReiniciar, new JLabel(STR_VAZIA));
+        this.adicionaNoJframe(new JLabel(STR_VAZIA), botaoReiniciar, new JLabel(STR_VAZIA));
     }
 
     private void moverPecaPeloMouse(ActionEvent e) {
-        String numeroPeca = ((JButton) e.getSource()).getText();
-        if (numeroPeca.isEmpty()) return;
-        DirecaoMovimento direcaoMovimento = this.pegaDirecaoMovimentoMouse(Integer.parseInt(numeroPeca));
+        String valorPeca = ((JButton) e.getSource()).getText();
+        if (valorPeca.isEmpty()) return;
+        DirecaoMovimento direcaoMovimento = this.pegaDirecaoMovimentoMouse(Integer.parseInt(valorPeca));
         this.movimentaPecaEAtualiza(direcaoMovimento);
     }
 
@@ -74,7 +74,7 @@ public class JogoDosOitoUI {
     private DirecaoMovimento pegaDirecaoMovimentoMouse(int numeroPeca) {
         PosicaoPeca pPecaTocada = this.tabuleiro.encontraPosicaoPeca(new Peca(numeroPeca));
         PosicaoPeca pVazia = this.tabuleiro.pegaPosicaoVazia();
-        return DirecaoMovimento.pegaPelaPosicaoPecaTocada(pVazia, pPecaTocada);
+        return DirecaoMovimento.pegaPelaPosicaoPecaClicada(pVazia, pPecaTocada);
     }
 
     private void permiteJogarPeloTeclado() {
@@ -118,7 +118,7 @@ public class JogoDosOitoUI {
         return botao;
     }
 
-    private void adicionaComponentesJframe(Component... components) {
+    private void adicionaNoJframe(Component... components) {
         Arrays.stream(components).forEach(this.jFrame::add);
     }
 }
