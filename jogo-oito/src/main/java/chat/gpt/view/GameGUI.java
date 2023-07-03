@@ -16,17 +16,17 @@ import chat.gpt.model.ResetGameButton;
 public class GameGUI extends JFrame {
 
     private Game game;
-    private GameService gameService;
+    private GameService service;
     private ButtonPiece[][] buttons = new ButtonPiece[3][3];
 
-    public GameGUI() {
+    public GameGUI(Game game, GameService service) {
         super("Jogo dos Oito");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
         setLayout(new GridLayout(4, 3));
 
-        game = Game.getInstance();
-        gameService = new GameService(this);
+        this.game = game;
+        this.service = service;
         generateButtons();
         generateResetButton();
         windowSetUp();
@@ -36,7 +36,7 @@ public class GameGUI extends JFrame {
     }
 
     private void windowSetUp() {
-        addKeyListener(gameService);
+        addKeyListener(service);
         setFocusable(true);
         updateGrid();
     }
@@ -68,7 +68,7 @@ public class GameGUI extends JFrame {
     private void generateResetButton() {
         add(new JLabel(""));
         ResetGameButton resetButton = createResetButton();
-        resetButton.addActionListener(gameService);
+        resetButton.addActionListener(service);
         add(resetButton);
         add(new JLabel(""));
     }

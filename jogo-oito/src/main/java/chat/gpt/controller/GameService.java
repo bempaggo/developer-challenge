@@ -7,19 +7,24 @@ import chat.gpt.exception.PressedKeyDoesNothingException;
 import chat.gpt.model.Game;
 import chat.gpt.view.GameGUI;
 
-public class GameService implements KeyboardListener, ButtonActionListener {
+public class GameService implements ButtonActionListener, KeyboardListener {
 
-    private final Game game;
-    private final GameGUI view;
+    private Game game;
+    private GameGUI view;
 
-    public GameService(GameGUI view) {
+    public GameService(Game game, GameGUI view) {
+        this.game = game;
         this.view = view;
-        this.game = Game.getInstance();
     }
-    
+
+    public void setView(GameGUI view) {
+        this.view = view;
+    }
+
     public void processInput(int[] input) {
         try {
-            if (input == null) throw new PressedKeyDoesNothingException();
+            if (input == null)
+                throw new PressedKeyDoesNothingException();
             game.move(input);
             view.updateGrid();
             if (game.gameIsComplete()) {
@@ -34,7 +39,8 @@ public class GameService implements KeyboardListener, ButtonActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        game.resetGame();;
+        game.resetGame();
+        ;
         view.updateGrid();
     }
 

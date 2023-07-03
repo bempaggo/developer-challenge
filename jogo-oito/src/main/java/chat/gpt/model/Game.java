@@ -9,18 +9,14 @@ import chat.gpt.exception.EmptyPositionNotFoundException;
 
 public class Game {
 
-    private static Game instance;
     private Grid grid;
 
-    private Game() {
-        grid = new Grid();
+    public Game() {
+        this.grid = new Grid();
     }
-
-    public static Game getInstance() {
-        if (instance == null) {
-            instance = new Game();
-        }
-        return instance;
+    
+    public Game(Grid grid) {
+        this.grid = grid;
     }
 
     public void move(int[] coordinates) {
@@ -46,9 +42,8 @@ public class Game {
 
         for (int i = 0; i < GRID_LENGTH; i++) {
             for (int j = 0; j < GRID_WIDTH; j++) {
-                if (gridData[i][j] == 0) {
+                if (gridData[i][j] == 0)
                     return new int[] { i, j };
-                }
             }
         }
 
@@ -74,6 +69,10 @@ public class Game {
 
     public void resetGame() {
         grid = new Grid();
+    }
+
+    public void loadGrid(int[][] initialGrid) {
+        grid = new Grid(initialGrid);
     }
 
     public int[][] gridActualState() {
