@@ -9,15 +9,12 @@ package game;
  *
  * @author allen
  */
-import java.util.Collections;
 import model.Board;
 import model.Cell;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.List;
-import java.util.Random;
 
 public class BoardTest {
     private Board board;
