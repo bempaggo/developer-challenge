@@ -1,158 +1,154 @@
 package chat.gpt;
 
+import config.Config;
+import facade.Controller;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import model.Cell;
 
 public class JogoDosOito extends JFrame implements KeyListener {
 
-	private int[][] tabuleiro = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
-	private JButton[][] botoes = new JButton[3][3];
-	private JButton botaoReiniciar;
+    private final List<List<JButton>> buttons;
+    private final Controller controller;
+    private JButton reset;
 
-	public JogoDosOito() {
-		super("Jogo dos Oito");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(300, 300);
-		setLayout(new GridLayout(4, 3));
+    public JogoDosOito() {
+        super(Config.title);
+        this.controller = new Controller(Config.maxRows, Config.maxColumns, Config.seed);
+        this.controller.configBoard();
+        this.buttons = new ArrayList<>();
+    }
 
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				JButton botao = new JButton();
-				botao.setFont(new Font("Arial", Font.BOLD, 36));
-				botoes[i][j] = botao;
-				add(botao);
-			}
-		}
+    private void config() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(Config.maxRows * 100, Config.maxColumns * 100);
+        setLayout(new GridLayout(Config.maxRows + 1, Config.maxColumns));
+        setVisible(true);
+        addKeyListener(this);
+        setFocusable(true);
+    }
 
-		botaoReiniciar = new JButton("Reiniciar");
-		botaoReiniciar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				reiniciarJogo();
-			}
-		});
-		add(new JLabel(""));
-		add(botaoReiniciar);
-		add(new JLabel(""));
+    private void configReset() {
+        this.reset = new JButton("Reiniciar");
+        this.reset.addActionListener((ActionEvent e) -> {
+            this.resetGame();
+            SwingUtilities.getRoot(this.reset).requestFocus();
+        });
+        int position = Config.maxColumns / 2;
+        for (int index = 0; index < position; index++) {
+            add(new JLabel(""));
+        }
 
-		addKeyListener(this);
-		setFocusable(true);
-		atualizarTabuleiro();
-		setVisible(true);
-	}
+        add(this.reset);
 
-	public void keyPressed(KeyEvent e) {
-		int keyCode = e.getKeyCode();
-		switch (keyCode) {
-		case KeyEvent.VK_UP:
-			mover(1, 0);
-			break;
-		case KeyEvent.VK_DOWN:
-			mover(-1, 0);
-			break;
-		case KeyEvent.VK_LEFT:
-			mover(0, 1);
-			break;
-		case KeyEvent.VK_RIGHT:
-			mover(0, -1);
-			break;
-		}
-	}
+    }
 
-	public void keyTyped(KeyEvent e) {
-	}
+    private void resetGame() {
+        this.controller.configBoard();
+        this.updateBoard(this.controller.getMatrix());
+    }
 
-	public void keyReleased(KeyEvent e) {
-	}
+    private void createButtons() {
+        JButton button;
+        List<List<Cell>> matrix = this.controller.getMatrix();
+        for (List<Cell> rows : matrix) {
+            List<JButton> rowButtons = new ArrayList<>();
+            for (Cell cell : rows) {
+                button = this.configButton(cell);
+                add(button);
+                rowButtons.add(button);
+            }
+            this.buttons.add(rowButtons);
+        }
+    }
 
-	private void mover(int linha, int coluna) {
-		int linhaVazia = -1;
-		int colunaVazia = -1;
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (tabuleiro[i][j] == 0) {
-					linhaVazia = i;
-					colunaVazia = j;
-				}
-			}
-		}
-		int novaLinha = linhaVazia + linha;
-		int novaColuna = colunaVazia + coluna;
-		if (novaLinha < 0 || novaLinha > 2 || novaColuna < 0 || novaColuna > 2) {
-			// movimento inválido
-			return;
-		}
-		tabuleiro[linhaVazia][colunaVazia] = tabuleiro[novaLinha][novaColuna];
-		tabuleiro[novaLinha][novaColuna] = 0;
-		atualizarTabuleiro();
-		if (jogoConcluido()) {
-			JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
-			reiniciarJogo();
-		}
-	}
+    private Integer textToValue(String text) {
+        if (text.equals("")) {
+            return 0;
+        }
+        return Integer.valueOf(text);
 
-	public static void main(String[] args) {
-		new JogoDosOito();
-	}
+    }
 
-	private boolean jogoConcluido() {
-		int count = 1;
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (tabuleiro[i][j] != count % 9) {
-					return false;
-				}
-				count++;
-			}
-		}
-		return true;
-	}
+    private JButton configButton(Cell cell) {
+        JButton button = new JButton();
+        button.setFont(new Font("Arial", Font.BOLD, 36));
+        button.setText(cell.valueToText());
+        button.addActionListener((ActionEvent e) -> {
+            Integer value = this.textToValue(button.getText());
+            Cell cellFound = this.controller.findCellByValue(value);
+            if (cellFound.getValidPosition()) {
+                Cell emptyCell = this.controller.findEmptyCell();
+                this.controller.swapValue(emptyCell, cellFound);
+                this.updateBoard(this.controller.getMatrix());
+            }
+            SwingUtilities.getRoot(button).requestFocus();
 
-	private boolean movimentarPeca(int linha, int coluna) {
-		if (linha > 0 && tabuleiro[linha - 1][coluna] == 0) {
-			tabuleiro[linha - 1][coluna] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		} else if (linha < 2 && tabuleiro[linha + 1][coluna] == 0) {
-			tabuleiro[linha + 1][coluna] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		} else if (coluna > 0 && tabuleiro[linha][coluna - 1] == 0) {
-			tabuleiro[linha][coluna - 1] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		} else if (coluna < 2 && tabuleiro[linha][coluna + 1] == 0) {
-			tabuleiro[linha][coluna + 1] = tabuleiro[linha][coluna];
-			tabuleiro[linha][coluna] = 0;
-			return true;
-		}
-		return false;
-	}
+        });
+        return button;
 
-	private void atualizarTabuleiro() {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				JButton botao = botoes[i][j];
-				int valor = tabuleiro[i][j];
-				if (valor == 0) {
-					botao.setText("");
-				} else {
-					botao.setText(String.valueOf(valor));
-				}
-			}
-		}
-	}
+    }
 
-	private void reiniciarJogo() {
-		tabuleiro = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
-		atualizarTabuleiro();
-	}
+    private void motionControl(int rowMovement, int columnMovement) {
+        List<List<Cell>> matrix = this.controller.swapCells(rowMovement, columnMovement);
+        this.updateBoard(matrix);
+        if (this.controller.checkGameOver()) {
+            JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
+            this.resetGame();
+        }
+
+    }
+
+    private void updateBoard(List<List<Cell>> matrix) {
+        for (int indexRow = 0; indexRow < Config.maxRows; indexRow += 1) {
+            for (int indexColumn = 0; indexColumn < Config.maxColumns; indexColumn += 1) {
+                JButton button = this.buttons.get(indexRow).get(indexColumn);
+                String value = matrix.get(indexRow).get(indexColumn).valueToText();
+                button.setText(value);
+            }
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        switch (keyCode) {
+            case KeyEvent.VK_UP ->
+                motionControl(1, 0);
+            case KeyEvent.VK_DOWN ->
+                motionControl(-1, 0);
+            case KeyEvent.VK_LEFT ->
+                motionControl(0, 1);
+            case KeyEvent.VK_RIGHT ->
+                motionControl(0, -1);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
+    public static void main(String[] args) {
+        JogoDosOito game = new JogoDosOito();
+        game.createButtons();
+        game.configReset();
+        game.config();
+
+    }
+
 }
