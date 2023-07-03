@@ -33,14 +33,12 @@ public class Grid {
     }
 
     private boolean validSize(int[][] grid) {
-        if (grid.length != GRID_LENGTH) {
-            return false;
-        }
+        if (grid.length != GRID_LENGTH) return false;
+        
         for (int[] row : grid) {
-            if (row.length != GRID_WIDTH) {
-                return false;
-            }
+            if (row.length != GRID_WIDTH) return false;
         }
+
         return true;
     }
 
