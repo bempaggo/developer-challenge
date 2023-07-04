@@ -65,6 +65,7 @@ public class JogoService {
         int[] tabuleiro = jogo.getTabuleiro().getPosicoes();
         JButton[] botoes = jogo.getBotoes();
         int tamanhoTabuleiro = tabuleiro.length;
+        int comprimentoTabuleiro = (int) Math.sqrt(tamanhoTabuleiro);
 
         if (posicao + 1 < tamanhoTabuleiro && tabuleiro[posicao + 1] == 0) {
             JButton botaoAtual = botoes[posicao];
@@ -82,19 +83,19 @@ public class JogoService {
             botaoSucessor.setText(String.valueOf(valorBotaoAtual));
             tabuleiro[posicao] = 0;
             botaoAtual.setText("");
-        } else if (posicao + 3 < tamanhoTabuleiro && tabuleiro[posicao + 3] == 0) {
+        } else if (posicao + comprimentoTabuleiro < tamanhoTabuleiro && tabuleiro[posicao + comprimentoTabuleiro] == 0) {
             JButton botaoAtual = botoes[posicao];
-            JButton botaoSucessor = botoes[posicao + 3];
+            JButton botaoSucessor = botoes[posicao + comprimentoTabuleiro];
             int valorBotaoAtual = tabuleiro[posicao];
-            tabuleiro[posicao + 3] = valorBotaoAtual;
+            tabuleiro[posicao + comprimentoTabuleiro] = valorBotaoAtual;
             botaoSucessor.setText(String.valueOf(valorBotaoAtual));
             tabuleiro[posicao] = 0;
             botaoAtual.setText("");
-        } else if (posicao - 3 >= 0 && tabuleiro[posicao - 3] == 0) {
+        } else if (posicao - comprimentoTabuleiro >= 0 && tabuleiro[posicao - comprimentoTabuleiro] == 0) {
             JButton botaoAtual = botoes[posicao];
-            JButton botaoSucessor = botoes[posicao - 3];
+            JButton botaoSucessor = botoes[posicao - comprimentoTabuleiro];
             int valorBotaoAtual = tabuleiro[posicao];
-            tabuleiro[posicao - 3] = valorBotaoAtual;
+            tabuleiro[posicao - comprimentoTabuleiro] = valorBotaoAtual;
             botaoSucessor.setText(String.valueOf(valorBotaoAtual));
             tabuleiro[posicao] = 0;
             botaoAtual.setText("");
