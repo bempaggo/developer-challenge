@@ -32,8 +32,8 @@ public class JogoDosOitoService {
         Set<Integer> generatedNumbers = new HashSet<>();
 
         // preenche a matriz com valores aleatórios sem repetições
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < jogo.getTabuleiro().length; i++) {
+            for (int j = 0; j < jogo.getTabuleiro()[i].length; j++) {
                 int randomNumber;
                 do {
                     randomNumber = random.nextInt(9); // gera um número aleatório entre 0 e 8
@@ -46,8 +46,8 @@ public class JogoDosOitoService {
     }
 
     public void atualizarTabuleiro() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < jogo.getTabuleiro().length; i++) {
+            for (int j = 0; j < jogo.getTabuleiro()[i].length; j++) {
                 JButton botao = getBotoes()[i][j];
                 int valor = getTabuleiro()[i][j];
                 if (valor == 0) {
@@ -61,8 +61,8 @@ public class JogoDosOitoService {
 
     public boolean jogoConcluido() {
         int count = 1;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < jogo.getTabuleiro().length; i++) {
+            for (int j = 0; j < jogo.getTabuleiro()[i].length; j++) {
                 if (getTabuleiro()[i][j] != count % 9) {
                     return false;
                 }
@@ -76,6 +76,8 @@ public class JogoDosOitoService {
         gerarTabuleiro();
         atualizarTabuleiro();
     }
+
+
 
     public void mover(int indexLinha, int indexColuna) {
         int[][] tabuleiro = this.getTabuleiro();
