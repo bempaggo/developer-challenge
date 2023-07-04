@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class JogoDosOitoModel {
 
-    public int[][] tabuleiro = new int[3][3];
+    private int[][] tabuleiro = new int[3][3];
     private JButton[][] botoes = new JButton[3][3];
     private JButton botaoReiniciar;
 

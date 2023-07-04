@@ -15,7 +15,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     JogoDosOitoModel jogo = new JogoDosOitoModel();
 
-    private JogoDosOitoService service = new JogoDosOitoService(jogo);
+    private final JogoDosOitoService service = new JogoDosOitoService(jogo);
 
     public JogoDosOito() {
         super("Jogo dos Oito");
@@ -29,8 +29,8 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     // gerar e atribuir eventos aos botoes
     private void gerarBotoes() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < jogo.getTabuleiro().length; i++) {
+            for (int j = 0; j < jogo.getTabuleiro()[i].length; j++) {
                 int indexLinha = i;
                 int indexColuna = j;
 
