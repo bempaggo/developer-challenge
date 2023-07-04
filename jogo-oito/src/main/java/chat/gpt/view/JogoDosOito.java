@@ -1,6 +1,7 @@
 package chat.gpt.view;
 
 import chat.gpt.model.JogoModel;
+import chat.gpt.model.TabuleiroModel;
 import chat.gpt.service.JogoService;
 
 import java.awt.*;
@@ -14,8 +15,8 @@ import javax.swing.JLabel;
 public class JogoDosOito extends JFrame {
 
     private final JogoModel jogo;
-
     private final JogoService service;
+    private final TabuleiroModel tabuleiro;
 
     public JogoDosOito() {
         super("Jogo dos Oito");
@@ -23,10 +24,16 @@ public class JogoDosOito extends JFrame {
         setSize(300, 300);
         setLayout(new GridLayout(4, 3));
 
-        jogo = new JogoModel();
-        service = new JogoService(jogo);
+        // singleton
+        this.tabuleiro = new TabuleiroModel();
+        this.jogo = new JogoModel(tabuleiro);
+        this.service = new JogoService(jogo);
 
-        service.gerarTabuleiro();
+        // setando quantidade de botoes
+        this.jogo.setBotoes(new JButton[9]);
+        this.jogo.getTabuleiro().setPosicoes(new int[9]);
+
+        this.service.gerarTabuleiro();
         this.gerarBotoes();
     }
 

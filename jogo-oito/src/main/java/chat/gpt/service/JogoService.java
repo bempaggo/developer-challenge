@@ -19,9 +19,6 @@ public class JogoService {
         Random random = new Random();
         Set<Integer> generatedNumbers = new HashSet<>();
 
-        int[] posicoes = new int[9];
-        jogo.getTabuleiro().setPosicoes(posicoes);
-
         // preenche a matriz com valores aleatórios sem repetições
         for (int i = 0; i < jogo.getTabuleiro().getPosicoes().length; i++) {
             int randomNumber;

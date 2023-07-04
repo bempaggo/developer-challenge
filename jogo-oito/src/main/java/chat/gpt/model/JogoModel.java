@@ -6,9 +6,7 @@ import javax.swing.*;
 public class JogoModel {
 
     private TabuleiroModel tabuleiro;
-
-    // acoplamento obrigatorio com o swing
-    private JButton[] botoes = new JButton[9];
+    private JButton[] botoes;
     private JButton botaoReiniciar;
 
     public JogoModel(TabuleiroModel tabuleiro, JButton[] botoes, JButton botaoReiniciar) {
@@ -17,8 +15,8 @@ public class JogoModel {
         this.botaoReiniciar = botaoReiniciar;
     }
 
-    public JogoModel() {
-        this.tabuleiro = new TabuleiroModel();
+    public JogoModel(TabuleiroModel tabuleiro) {
+        this.tabuleiro = tabuleiro;
     }
 
     public TabuleiroModel getTabuleiro() {
