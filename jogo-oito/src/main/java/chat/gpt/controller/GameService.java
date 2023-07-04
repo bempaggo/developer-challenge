@@ -1,7 +1,5 @@
 package chat.gpt.controller;
 
-import java.awt.event.ActionEvent;
-
 import chat.gpt.exception.ImpossibleMoveException;
 import chat.gpt.exception.PressedKeyDoesNothingException;
 import chat.gpt.model.Game;
@@ -21,10 +19,10 @@ public class GameService implements ButtonActionListener, KeyboardListener {
         this.view = view;
     }
 
+    @Override
     public void processInput(int[] input) {
         try {
-            if (input == null)
-                throw new PressedKeyDoesNothingException();
+            if (input == null) throw new PressedKeyDoesNothingException();
             game.move(input);
             view.updateGrid();
             if (game.gameIsComplete()) {
@@ -36,12 +34,11 @@ public class GameService implements ButtonActionListener, KeyboardListener {
             view.showMessage(pressedKeyDoesNothingException.getMessage());
         }
     }
-
+    
     @Override
-    public void actionPerformed(ActionEvent e) {
-        game.resetGame();
-        ;
+    public void resetGame() {
+        game.resetGrid();
         view.updateGrid();
     }
-
+    
 }

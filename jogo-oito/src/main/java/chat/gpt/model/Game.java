@@ -5,7 +5,7 @@ import static chat.gpt.util.Constants.*;
 import java.util.Arrays;
 
 import chat.gpt.exception.ImpossibleMoveException;
-import chat.gpt.exception.EmptyPositionNotFoundException;
+import chat.gpt.exception.PositionNotFoundException;
 
 public class Game {
 
@@ -24,7 +24,7 @@ public class Game {
         int rowCoordinate = coordinates[0];
         int columnCoordinate = coordinates[1];
 
-        int[] emptyPosition = findEmptyPosition();
+        int[] emptyPosition = findPosition(EMPTY);
         int emptyRow = emptyPosition[0];
         int emptyColumn = emptyPosition[1];
 
@@ -37,26 +37,26 @@ public class Game {
             throw new ImpossibleMoveException();
     }
 
-    private int[] findEmptyPosition() {
+    public int[] findPosition(int Label) {
         int[][] gridData = grid.getGrid();
 
         for (int i = 0; i < GRID_LENGTH; i++) {
             for (int j = 0; j < GRID_WIDTH; j++) {
-                if (gridData[i][j] == 0)
+                if (gridData[i][j] == Label)
                     return new int[] { i, j };
             }
         }
 
-        throw new EmptyPositionNotFoundException();
+        throw new PositionNotFoundException();
     }
 
-    private boolean validPosition(int row, int column) {
+    public boolean validPosition(int row, int column) {
         return (row >= 0 && row < GRID_WIDTH) &&
                 (column >= 0 && column < GRID_LENGTH);
 
     }
 
-    private void changePositions(int row1, int column1, int row2, int column2) {
+    public void changePositions(int row1, int column1, int row2, int column2) {
         int[][] gridData = grid.getGrid();
         int temp = gridData[row1][column1];
         gridData[row1][column1] = gridData[row2][column2];
@@ -67,7 +67,7 @@ public class Game {
         return Arrays.deepEquals(grid.getGrid(), GAME_FINISHED);
     }
 
-    public void resetGame() {
+    public void resetGrid() {
         grid = new Grid();
     }
 

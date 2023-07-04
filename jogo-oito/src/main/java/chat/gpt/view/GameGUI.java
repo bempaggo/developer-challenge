@@ -67,15 +67,12 @@ public class GameGUI extends JFrame {
 
     private void generateResetButton() {
         add(new JLabel(""));
-        ResetGameButton resetButton = createResetButton();
+        ResetGameButton resetButton = new ResetGameButton();
         resetButton.addActionListener(service);
         add(resetButton);
         add(new JLabel(""));
     }
 
-    private ResetGameButton createResetButton() {
-        return new ResetGameButton();
-    }
 
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);

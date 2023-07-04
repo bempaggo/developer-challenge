@@ -14,8 +14,4 @@ public class ButtonPiece extends Button {
         setText(buttonName);
     }
 
-    public static ButtonPiece generateButton(String buttonName) {
-        return new ButtonPiece(buttonName);
-    }
-
 }

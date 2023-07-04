@@ -63,7 +63,7 @@ public class GameTest {
     @Test
     public void testResetGame() {
         int[][] gridBefore = game.gridActualState();
-        game.resetGame();
+        game.resetGrid();
         int[][] gridAfter = game.gridActualState();
         assertNotSame(gridBefore, gridAfter);
     }
