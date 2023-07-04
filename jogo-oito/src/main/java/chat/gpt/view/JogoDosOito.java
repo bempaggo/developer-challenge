@@ -39,8 +39,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
                 botao.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        int[][] tabuleiro = service.getTabuleiro();
-                        service.mover(tabuleiro ,indexLinha, indexColuna);
+                        service.mover(indexLinha, indexColuna);
                     }
 
                     @Override

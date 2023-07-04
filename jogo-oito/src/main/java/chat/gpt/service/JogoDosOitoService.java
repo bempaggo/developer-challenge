@@ -77,7 +77,8 @@ public class JogoDosOitoService {
         atualizarTabuleiro();
     }
 
-    public void mover(int[][] tabuleiro, int indexLinha, int indexColuna) {
+    public void mover(int indexLinha, int indexColuna) {
+        int[][] tabuleiro = this.getTabuleiro();
         int tamanhoTabuleiro = tabuleiro.length;
 
         if (indexLinha + 1 < tamanhoTabuleiro && tabuleiro[indexLinha + 1][indexColuna] == 0) {
@@ -113,6 +114,7 @@ public class JogoDosOitoService {
             getTabuleiro()[indexLinha][indexColuna] = 0;
             botaoAtual.setText("");
         }
+
 
         if (jogoConcluido()) {
             JOptionPane.showMessageDialog(null, "Parabéns, você venceu!");
