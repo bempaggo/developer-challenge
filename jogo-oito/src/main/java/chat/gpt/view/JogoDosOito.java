@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 
-public class JogoDosOito extends JFrame implements KeyListener {
+public class JogoDosOito extends JFrame {
 
     private final JogoModel jogo = new JogoModel();
 
@@ -73,25 +73,9 @@ public class JogoDosOito extends JFrame implements KeyListener {
         add(botaoReiniciar);
         add(new JLabel(""));
 
-        addKeyListener(this);
         setFocusable(true);
         setVisible(true);
         service.atualizarTabuleiro();
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 
 }
