@@ -2,11 +2,11 @@ package chat.gpt.model;
 
 import static chat.gpt.util.Constants.*;
 
+import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
 
 import chat.gpt.exception.ImpossibleMoveException;
-import chat.gpt.exception.PositionNotFoundException;
 
 public class Game {
 
@@ -20,47 +20,45 @@ public class Game {
         this.grid = grid;
     }
 
-    public void move(int[] coordinates) {
-        int rowCoordinate = coordinates[0];
-        int columnCoordinate = coordinates[1];
-
-        List<Integer> gridData = grid.getGrid();
-        int emptyIndex = gridData.indexOf(EMPTY);
-        int emptyRow = emptyIndex / GRID_WIDTH;
-        int emptyColumn = emptyIndex % GRID_WIDTH;
-
-        int newRow = emptyRow + rowCoordinate;
-        int newColumn = emptyColumn + columnCoordinate;
-
-        if (validPosition(newRow, newColumn)) {
-            changePositions(emptyIndex, newRow * GRID_WIDTH + newColumn);
-        } else {
-            throw new ImpossibleMoveException();
+    public void moveDown() {
+        if (grid.getEmptyIndex() >= GRID_WIDTH) {
+            swapElements(grid.getEmptyIndex() - GRID_WIDTH);
         }
     }
 
-    public int[] findPosition(int label) {
-        List<Integer> gridData = grid.getGrid();
-        int index = gridData.indexOf(label);
-
-        if (index != -1) {
-            int row = index / GRID_WIDTH;
-            int column = index % GRID_WIDTH;
-            return new int[]{row, column};
+    public void moveUp() {
+        if (grid.getEmptyIndex() < GRID_AREA - GRID_WIDTH) {
+            swapElements(grid.getEmptyIndex() + GRID_WIDTH);
         }
-
-        throw new PositionNotFoundException();
     }
 
-    public boolean validPosition(int row, int column) {
-        return (row >= 0 && row < GRID_LENGTH) && (column >= 0 && column < GRID_WIDTH);
+    public void moveLeft() {   
+        if (grid.getEmptyIndex() % GRID_WIDTH != GRID_WIDTH - 1) {
+            swapElements(grid.getEmptyIndex() + 1);
+        }
     }
 
-    public void changePositions(int index1, int index2) {
+    public void moveRight() {  
+        if (grid.getEmptyIndex() % GRID_WIDTH != 0) {
+            swapElements(grid.getEmptyIndex() - 1);
+        }
+    }
+
+    private void swapElements(int index) {
         List<Integer> gridData = grid.getGrid();
-        int temp = gridData.get(index1);
-        gridData.set(index1, gridData.get(index2));
-        gridData.set(index2, temp);
+        int temp = gridData.get(grid.getEmptyIndex());
+        gridData.set(grid.getEmptyIndex(), gridData.get(index));
+        gridData.set(index, temp);
+    }
+
+    public void move(int keyCode) {
+        switch (keyCode) {
+            case KeyEvent.VK_UP -> moveUp();
+            case KeyEvent.VK_DOWN -> moveDown();
+            case KeyEvent.VK_LEFT -> moveLeft();
+            case KeyEvent.VK_RIGHT -> moveRight();
+            default -> throw new ImpossibleMoveException();
+        }
     }
 
     public boolean gameIsComplete() {
@@ -72,18 +70,17 @@ public class Game {
         grid = new Grid();
     }
 
-
     public int[][] gridActualState() {
-    List<Integer> gridData = grid.getGrid();
-    int[][] gridArray = new int[GRID_LENGTH][GRID_WIDTH];
-    
-    for (int i = 0; i < GRID_LENGTH; i++) {
-        for (int j = 0; j < GRID_WIDTH; j++) {
-            int index = i * GRID_WIDTH + j;
-            gridArray[i][j] = gridData.get(index);
+        List<Integer> gridData = grid.getGrid();
+        int[][] gridArray = new int[GRID_LENGTH][GRID_WIDTH];
+
+        for (int i = 0; i < GRID_LENGTH; i++) {
+            for (int j = 0; j < GRID_WIDTH; j++) {
+                int index = i * GRID_WIDTH + j;
+                gridArray[i][j] = gridData.get(index);
+            }
         }
+
+        return gridArray;
     }
-    
-    return gridArray;
-}
 }

@@ -20,9 +20,9 @@ public class GameService implements ButtonActionListener, KeyboardListener {
     }
 
     @Override
-    public void processInput(int[] input) {
+    public void processInput(int input) {
         try {
-            if (input == null) throw new PressedKeyDoesNothingException();
+            if (input == 0) throw new PressedKeyDoesNothingException();
             game.move(input);
             view.updateGrid();
             if (game.gameIsComplete()) {

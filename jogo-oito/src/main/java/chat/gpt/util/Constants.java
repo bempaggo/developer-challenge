@@ -22,10 +22,10 @@ public class Constants {
     public static final int SECOND_COLUMN = 1;
     public static final int THIRD_COLUMN = 2;
 
-    public static final int[] MOVE_UP = {1, 0};
-    public static final int[] MOVE_DOWN = {-1, 0};
-    public static final int[] MOVE_LEFT = {0, 1};
-    public static final int[] MOVE_RIGHT = {0, -1};
+    public static final int MOVE_UP = 1;
+    public static final int MOVE_DOWN = 2;
+    public static final int MOVE_LEFT = 3;
+    public static final int MOVE_RIGHT = 4;
 
     public static final Font DEFAULT_FONT = new Font("Arial", Font.BOLD, 36);
     public static final Font RESTART_BUTTON_FONT = new Font("Arial", Font.BOLD, 12);
