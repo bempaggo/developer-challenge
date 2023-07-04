@@ -1,21 +1,21 @@
 package chat.gpt.view;
 
-import chat.gpt.model.JogoDosOitoModel;
-import chat.gpt.service.JogoDosOitoService;
+import chat.gpt.model.JogoModel;
+import chat.gpt.service.JogoService;
 
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+
 public class JogoDosOito extends JFrame implements KeyListener {
 
-    JogoDosOitoModel jogo = new JogoDosOitoModel();
+    private final JogoModel jogo = new JogoModel();
 
-    private final JogoDosOitoService service = new JogoDosOitoService(jogo);
+    private final JogoService service = new JogoService(jogo);
 
     public JogoDosOito() {
         super("Jogo dos Oito");
@@ -27,40 +27,38 @@ public class JogoDosOito extends JFrame implements KeyListener {
         this.gerarBotoes();
     }
 
+
     // gerar e atribuir eventos aos botoes
     private void gerarBotoes() {
-        for (int i = 0; i < jogo.getTabuleiro().length; i++) {
-            for (int j = 0; j < jogo.getTabuleiro()[i].length; j++) {
-                int indexLinha = i;
-                int indexColuna = j;
+        for (int i = 0; i < jogo.getTabuleiro().getPosicoes().length; i++) {
+            int posicao = i;
 
-                JButton botao = new JButton();
-                botao.setFont(new Font("Arial", Font.BOLD, 36));
-                botao.addMouseListener(new MouseListener() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        service.mover(indexLinha, indexColuna);
-                    }
+            JButton botao = new JButton();
+            botao.setFont(new Font("Arial", Font.BOLD, 36));
+            botao.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    service.mover(posicao);
+                }
 
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                    }
+                @Override
+                public void mousePressed(MouseEvent e) {
+                }
 
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-                    }
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                }
 
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                    }
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                }
 
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                    }
-                });
-                service.getBotoes()[i][j] = botao;
-                add(botao);
-            }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                }
+            });
+            service.getBotoes()[i] = botao;
+            add(botao);
         }
 
         JButton botaoReiniciar = new JButton("Reiniciar");
