@@ -3,50 +3,58 @@ package chat.gpt.model;
 import static chat.gpt.util.Constants.*;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import chat.gpt.exception.GridDoesNotFeatStandardsException;
 
 public class Grid {
 
-    private final int[][] grid;
+    private final List<Integer> grid;
 
-    public Grid(int[][] gridMode) {
-        gridValidate(gridMode);
-        this.grid = new int[GRID_LENGTH][GRID_WIDTH];
-        for (int i = 0; i < GRID_LENGTH; i++) {
-            System.arraycopy(gridMode[i], 0, this.grid[i], 0, GRID_WIDTH);
-        }
+    public Grid(List<Integer> gridData) {
+        gridValidate(gridData);
+        this.grid = gridData;
     }
 
     public Grid() {
-        this(DEFAULT_MODE);
+        this(createDefaultGridData());
     }
 
-    public int[][] getGrid() {
+    public List<Integer> getGrid() {
         return grid;
     }
 
-    private void gridValidate(int[][] grid) {
-        if (!validSize(grid) || !noRepeatedElements(grid)) {
+    private void gridValidate(List<Integer> gridData) {
+        if (!validSize(gridData) || !noRepeatedElements(gridData)) {
             throw new GridDoesNotFeatStandardsException();
         }
     }
 
-    private boolean validSize(int[][] grid) {
-        if (grid.length != GRID_LENGTH) return false;
-        
-        for (int[] row : grid) {
-            if (row.length != GRID_WIDTH) return false;
-        }
-
-        return true;
+    private boolean validSize(List<Integer> gridData) {
+        return gridData.size() == GRID_AREA;
     }
 
-    private boolean noRepeatedElements(int[][] grid) {
-        return Arrays.stream(grid)
+    private boolean noRepeatedElements(List<Integer> gridData) {
+        Set<Integer> uniqueElements = new HashSet<>(gridData);
+        return uniqueElements.size() == GRID_AREA;
+    }
+
+    private static List<Integer> createDefaultGridData() {
+        List<Integer> gridData = Arrays.stream(DEFAULT_MODE)
                 .flatMapToInt(Arrays::stream)
-                .distinct()
-                .count() == GRID_AREA;
+                .boxed()
+                .collect(Collectors.toList());
+
+        Collections.shuffle(gridData);
+        return gridData;
+    }
+
+    public int getEmptyIndex() {
+        return getGrid().indexOf(EMPTY);
     }
 
 }

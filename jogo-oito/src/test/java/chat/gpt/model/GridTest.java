@@ -1,112 +1,48 @@
 package chat.gpt.model;
 
-import static chat.gpt.util.Constants.*;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import chat.gpt.exception.GridDoesNotFeatStandardsException;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static chat.gpt.util.Constants.*;
+
 public class GridTest {
 
     @Test
-    public void testConstructor() {
+    public void testValidGridCreation() {
+        List<Integer> validGridData = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, EMPTY);
+        Grid grid = new Grid(validGridData);
+        Assertions.assertEquals(validGridData, grid.getGrid());
+    }
+
+    @Test
+    public void testInvalidGridCreation_InvalidSize() {
+        List<Integer> invalidGridData = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
+        Assertions.assertThrows(GridDoesNotFeatStandardsException.class, () -> new Grid(invalidGridData));
+    }
+
+    @Test
+    public void testInvalidGridCreation_DuplicateElements() {
+        List<Integer> invalidGridData = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 8);
+        Assertions.assertThrows(GridDoesNotFeatStandardsException.class, () -> new Grid(invalidGridData));
+    }
+
+    @Test
+    public void testDefaultGridCreation() {
         Grid grid = new Grid();
-
-        int[][] expected = {
-            { ONE, TWO, THREE },
-            { FOUR, FIVE, SIX },
-            { SEVEN, EIGHT, EMPTY }
-        };
-
-        int[][] actual = grid.getGrid();
-
-        Assertions.assertArrayEquals(expected, actual);
+        List<Integer> gridData = grid.getGrid();
+        Assertions.assertEquals(GRID_AREA, gridData.size());
+        Assertions.assertTrue(gridData.contains(EMPTY));
     }
 
     @Test
-    public void testConstrutorComMatrizValida() {
-        int[][] matrizValida = {
-                { 1, 2, 3 },
-                { 4, 5, 6 },
-                { 7, 8, 0 }
-        };
-
-        Grid tabuleiro = new Grid(matrizValida);
-
-        int[][] actual = tabuleiro.getGrid();
-
-        Assertions.assertArrayEquals(matrizValida, actual);
+    public void testGetEmptyIndex() {
+        List<Integer> gridData = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, EMPTY);
+        Grid grid = new Grid(gridData);
+        Assertions.assertEquals(8, grid.getEmptyIndex());
     }
-
-    @Test
-    public void testConstrutorComNumerosRepetidos() {
-        int[][] matrizInvalida = {
-                { 1, 2, 3 },
-                { 4, 5, 6 },
-                { 7, 7, 0 }
-        };
-
-        Assertions.assertThrows(GridDoesNotFeatStandardsException.class, () -> new Grid(matrizInvalida));
-    }
-
-    @Test
-    public void testConstrutorComFileiraFaltando() {
-        int[][] matrizInvalida = {
-                { 1, 2, 3 },
-                { 4, 5, 6 }
-        };
-
-        Assertions.assertThrows(GridDoesNotFeatStandardsException.class, () -> new Grid(matrizInvalida));
-    }
-
-    @Test
-    public void testConstrutorComColunaFaltando() {
-        int[][] matrizInvalida = {
-                { 1, 2 },
-                { 4, 5 },
-                { 7, 8 }
-        };
-
-        Assertions.assertThrows(GridDoesNotFeatStandardsException.class, () -> new Grid(matrizInvalida));
-    }
-
-    @Test
-    public void testConstrutorComFileiraSobrando() {
-        int[][] matrizInvalida = {
-                { 1, 2, 3 },
-                { 4, 5, 6 },
-                { 7, 8, 0 },
-                {}
-        };
-
-        Assertions.assertThrows(GridDoesNotFeatStandardsException.class, () -> new Grid(matrizInvalida));
-    }
-
-    @Test
-    public void testConstrutorComColunaSobrando() {
-        int[][] matrizInvalida = {
-                { 1, 2, 3, 0 },
-                { 4, 5, 6, 0 },
-                { 7, 8, 0, }
-        };
-
-        Assertions.assertThrows(GridDoesNotFeatStandardsException.class, () -> new Grid(matrizInvalida));
-    }
-
-    @Test
-    public void testGetTabuleiro() {
-        int[][] matriz = {
-                { 1, 3, 2 },
-                { 6, 5, 4 },
-                { 7, 8, 0 }
-        };
-
-        Grid tabuleiro = new Grid(matriz);
-
-        int[][] actual = tabuleiro.getGrid();
-
-        Assertions.assertArrayEquals(matriz, actual);
-    }
-
 }
