@@ -13,15 +13,18 @@ import javax.swing.JLabel;
 
 public class JogoDosOito extends JFrame {
 
-    private final JogoModel jogo = new JogoModel();
+    private final JogoModel jogo;
 
-    private final JogoService service = new JogoService(jogo);
+    private final JogoService service;
 
     public JogoDosOito() {
         super("Jogo dos Oito");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
         setLayout(new GridLayout(4, 3));
+
+        jogo = new JogoModel();
+        service = new JogoService(jogo);
 
         service.gerarTabuleiro();
         this.gerarBotoes();
