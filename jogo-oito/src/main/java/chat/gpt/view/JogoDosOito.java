@@ -31,7 +31,7 @@ public class JogoDosOito extends JFrame {
 
         // setando quantidade de botoes
         this.jogo.setBotoes(new JButton[9]);
-        this.jogo.getTabuleiro().setPosicoes(new int[9]);
+        this.jogo.getTabuleiro().setPosicoes(new Integer[9]);
 
         this.service.gerarTabuleiro();
         this.gerarBotoes();

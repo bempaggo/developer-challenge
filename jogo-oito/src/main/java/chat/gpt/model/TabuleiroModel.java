@@ -1,20 +1,20 @@
 package chat.gpt.model;
 
 public class TabuleiroModel {
-    private int[] posicoes;
+    private Integer[] posicoes;
 
-    public TabuleiroModel(int[] posicoes) {
+    public TabuleiroModel(Integer[] posicoes) {
         this.posicoes = posicoes;
     }
 
     public TabuleiroModel() {
     }
 
-    public int[] getPosicoes() {
+    public Integer[] getPosicoes() {
         return posicoes;
     }
 
-    public void setPosicoes(int[] posicoes) {
+    public void setPosicoes(Integer[] posicoes) {
         this.posicoes = posicoes;
     }
 }

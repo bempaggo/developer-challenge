@@ -62,7 +62,7 @@ public class JogoService {
 
 
     public void mover(int posicao) {
-        int[] tabuleiro = jogo.getTabuleiro().getPosicoes();
+        Integer[] tabuleiro = jogo.getTabuleiro().getPosicoes();
         JButton[] botoes = jogo.getBotoes();
         int tamanhoTabuleiro = tabuleiro.length;
         int comprimentoTabuleiro = (int) Math.sqrt(tamanhoTabuleiro);
