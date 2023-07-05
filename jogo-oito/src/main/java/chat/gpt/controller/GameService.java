@@ -1,6 +1,7 @@
 package chat.gpt.controller;
 
-import chat.gpt.exception.ImpossibleMoveException;
+import java.awt.event.KeyEvent;
+
 import chat.gpt.exception.PressedKeyDoesNothingException;
 import chat.gpt.model.Game;
 import chat.gpt.view.GameGUI;
@@ -21,24 +22,31 @@ public class GameService implements ButtonActionListener, KeyboardListener {
 
     @Override
     public void processInput(int input) {
+        move(input);
+        view.updateGrid();
+        if (game.gameIsComplete()) {
+            view.showMessage("Parabéns, você venceu!");
+        }
+    }
+
+    public void move(int keyCode) {
         try {
-            if (input == 0) throw new PressedKeyDoesNothingException();
-            game.move(input);
-            view.updateGrid();
-            if (game.gameIsComplete()) {
-                view.showMessage("Parabéns, você venceu!");
+            switch (keyCode) {
+                case KeyEvent.VK_UP -> game.moveUp();
+                case KeyEvent.VK_DOWN -> game.moveDown();
+                case KeyEvent.VK_LEFT -> game.moveLeft();
+                case KeyEvent.VK_RIGHT -> game.moveRight();
+                default -> throw new PressedKeyDoesNothingException();
             }
-        } catch (ImpossibleMoveException impossibleMoveException) {
-            view.showMessage(impossibleMoveException.getMessage());
         } catch (PressedKeyDoesNothingException pressedKeyDoesNothingException) {
             view.showMessage(pressedKeyDoesNothingException.getMessage());
         }
     }
-    
+
     @Override
     public void resetGame() {
         game.resetGrid();
         view.updateGrid();
     }
-    
+
 }

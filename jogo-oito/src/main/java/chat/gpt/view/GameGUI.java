@@ -7,6 +7,10 @@ import javax.swing.JOptionPane;
 import static chat.gpt.util.Constants.*;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import chat.gpt.controller.GameService;
 import chat.gpt.model.ButtonPiece;
@@ -17,7 +21,7 @@ public class GameGUI extends JFrame {
 
     private Game game;
     private GameService service;
-    private ButtonPiece[][] buttons = new ButtonPiece[3][3];
+    private List<ButtonPiece> buttons = new ArrayList<>();
 
     public GameGUI(Game game, GameService service) {
         super("Jogo dos Oito");
@@ -42,27 +46,20 @@ public class GameGUI extends JFrame {
     }
 
     public void updateGrid() {
-        int[][] grid = game.gridActualState();
+        List<Integer> gridData = game.gridActualState();
 
-        for (int i = 0; i < GRID_WIDTH; i++) {
-            for (int j = 0; j < GRID_WIDTH; j++) {
-                if (grid[i][j] == EMPTY) {
-                    buttons[i][j].setText("");
-                } else {
-                    buttons[i][j].setText(String.valueOf(grid[i][j]));
-                }
-            }
-        }
+        buttons.replaceAll(button -> {
+            int value = gridData.get(buttons.indexOf(button));
+            button.setText(value == EMPTY ? "" : String.valueOf(value));
+            return button;
+        });
     }
 
     private void generateButtons() {
-        for (int i = 0; i < GRID_LENGTH; i++) {
-            for (int j = 0; j < GRID_WIDTH; j++) {
-                ButtonPiece button = new ButtonPiece();
-                buttons[i][j] = button;
-                add(button);
-            }
-        }
+        buttons = IntStream.range(0, GRID_AREA)
+        .mapToObj(i -> new ButtonPiece())
+        .peek(this::add)
+        .collect(Collectors.toList());
     }
 
     private void generateResetButton() {
@@ -73,8 +70,8 @@ public class GameGUI extends JFrame {
         add(new JLabel(""));
     }
 
-
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
+
 }

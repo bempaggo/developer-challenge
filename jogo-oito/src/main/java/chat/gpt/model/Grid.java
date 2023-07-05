@@ -2,12 +2,12 @@ package chat.gpt.model;
 
 import static chat.gpt.util.Constants.*;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import chat.gpt.exception.GridDoesNotFeatStandardsException;
 
@@ -44,8 +44,7 @@ public class Grid {
     }
 
     private static List<Integer> createDefaultGridData() {
-        List<Integer> gridData = Arrays.stream(DEFAULT_MODE)
-                .flatMapToInt(Arrays::stream)
+        List<Integer> gridData = IntStream.range(0, GRID_AREA)
                 .boxed()
                 .collect(Collectors.toList());
 
