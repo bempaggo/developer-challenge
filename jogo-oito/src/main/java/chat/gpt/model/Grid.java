@@ -3,31 +3,25 @@ package chat.gpt.model;
 import static chat.gpt.util.Constants.*;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import chat.gpt.exception.GridDoesNotFeatStandardsException;
 
 public class Grid {
 
     private final List<Integer> grid;
 
-    public Grid(List<Integer> gridData) {
-        gridValidate(gridData);
-        this.grid = gridData;
-    }
-
     public Grid() {
-        this(createDefaultGridData());
+        this.grid = createDefaultGridData();
     }
 
     public List<Integer> getGrid() {
         return grid;
     }
 
+    /* Ao invés desses desses métodos eu posso simplesmente fazer testes unitários
+    para verificar se a grid está de acordo com os padrões
+    
     private void gridValidate(List<Integer> gridData) {
         if (!validSize(gridData) || !noRepeatedElements(gridData)) {
             throw new GridDoesNotFeatStandardsException();
@@ -37,11 +31,11 @@ public class Grid {
     private boolean validSize(List<Integer> gridData) {
         return gridData.size() == GRID_AREA;
     }
-
-    private boolean noRepeatedElements(List<Integer> gridData) {
+    
+        private boolean noRepeatedElements(List<Integer> gridData) {
         Set<Integer> uniqueElements = new HashSet<>(gridData);
         return uniqueElements.size() == GRID_AREA;
-    }
+    } */
 
     private static List<Integer> createDefaultGridData() {
         List<Integer> gridData = IntStream.range(0, GRID_AREA)
@@ -50,10 +44,10 @@ public class Grid {
 
         Collections.shuffle(gridData);
         return gridData;
-    }
+    } 
 
     public int getEmptyIndex() {
-        return getGrid().indexOf(EMPTY);
+        return getGrid().indexOf(0);
     }
 
 }

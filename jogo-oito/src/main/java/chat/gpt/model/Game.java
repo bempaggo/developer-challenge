@@ -58,4 +58,5 @@ public class Game {
     public List<Integer> gridActualState() {
         return grid.getGrid();
     }
+    
 }

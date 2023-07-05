@@ -50,7 +50,7 @@ public class GameGUI extends JFrame {
 
         buttons.replaceAll(button -> {
             int value = gridData.get(buttons.indexOf(button));
-            button.setText(value == EMPTY ? "" : String.valueOf(value));
+            button.setText(value == 0 ? "" : String.valueOf(value));
             return button;
         });
     }

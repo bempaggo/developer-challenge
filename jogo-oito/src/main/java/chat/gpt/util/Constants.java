@@ -19,12 +19,6 @@ public class Constants {
     public static final Font DEFAULT_FONT = new Font("Arial", Font.BOLD, 36);
     public static final Font RESTART_BUTTON_FONT = new Font("Arial", Font.BOLD, 12);
 
-    public static final int[][] DEFAULT_MODE = {
-        {ONE, TWO, THREE},
-        {FOUR, FIVE, SIX},
-        {SEVEN, EIGHT, EMPTY}
-    };
-
     public static final List<Integer> GAME_FINISHED = 
         Arrays.asList(ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, EMPTY);
     
