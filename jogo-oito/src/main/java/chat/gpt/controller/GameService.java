@@ -39,7 +39,7 @@ public class GameService {
     }
 
     private void swapElements(int index) {
-        List<Integer> gridData = grid.getGrid();
+        List<Integer> gridData = grid.getGridData();
         int temp = gridData.get(grid.getEmptyIndex());
         gridData.set(grid.getEmptyIndex(), gridData.get(index));
         gridData.set(index, temp);

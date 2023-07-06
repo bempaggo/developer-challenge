@@ -13,7 +13,7 @@ public class GridTest {
     @Test
     public void testDefaultGridCreation() {
         Grid grid = new Grid();
-        List<Integer> gridData = grid.getGrid();
+        List<Integer> gridData = grid.getGridData();
         Assertions.assertEquals(GRID_AREA, gridData.size());
         Assertions.assertTrue(gridData.contains(0));
     }

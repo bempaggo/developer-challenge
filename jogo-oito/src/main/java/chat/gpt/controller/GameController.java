@@ -7,8 +7,6 @@ import chat.gpt.exception.PressedKeyDoesNothingException;
 import chat.gpt.model.Grid;
 import chat.gpt.view.GameGUI;
 
-import static chat.gpt.util.Constants.*;
-
 public class GameController implements ButtonActionListener, KeyboardListener {
 
     private GameService service;
@@ -58,14 +56,13 @@ public class GameController implements ButtonActionListener, KeyboardListener {
         grid = new Grid();
     }
 
-    // controller
     public boolean gameIsComplete() {
-        return grid.getGrid().equals(GAME_FINISHED);
+        return grid.getGridData().equals(grid.getGameIsCompleteGridPattern());
     }
 
-    // controller
+    // temp method for not breaking things apart
     public List<Integer> gridActualState() {
-        return grid.getGrid();
+        return grid.getGridData();
     }
 
 }

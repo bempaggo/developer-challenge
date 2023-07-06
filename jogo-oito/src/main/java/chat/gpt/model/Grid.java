@@ -9,14 +9,16 @@ import java.util.stream.IntStream;
 
 public class Grid {
 
-    private final List<Integer> grid;
+    private final List<Integer> gridData;
+    private final List<Integer> gameIsCompleteGridPattern;
 
     public Grid() {
-        this.grid = createDefaultGridData();
+        this.gridData = this.randomizeGridData(createDefaultGridData());
+        this.gameIsCompleteGridPattern = createDefaultGridData();
     }
 
-    public List<Integer> getGrid() {
-        return grid;
+    public List<Integer> getGridData() {
+        return gridData;
     }
 
     /* Ao invés desses desses métodos eu posso simplesmente fazer testes unitários
@@ -37,17 +39,23 @@ public class Grid {
         return uniqueElements.size() == GRID_AREA;
     } */
 
-    private static List<Integer> createDefaultGridData() {
+    private List<Integer> createDefaultGridData() {
         List<Integer> gridData = IntStream.range(0, GRID_AREA)
                 .boxed()
                 .collect(Collectors.toList());
-
-        Collections.shuffle(gridData);
         return gridData;
     } 
-
-    public int getEmptyIndex() {
-        return getGrid().indexOf(0);
+    
+    private List<Integer> randomizeGridData(List<Integer> gridData) {
+        Collections.shuffle(gridData);
+        return gridData;
     }
 
+    public int getEmptyIndex() {
+        return getGridData().indexOf(0);
+    }
+
+    public List<Integer> getGameIsCompleteGridPattern() {
+        return gameIsCompleteGridPattern;
+    }
 }
