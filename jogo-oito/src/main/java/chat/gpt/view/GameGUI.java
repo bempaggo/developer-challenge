@@ -12,23 +12,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import chat.gpt.controller.GameService;
 import chat.gpt.controller.GameController;
 
 public class GameGUI extends JFrame {
 
-    private GameService game;
-    private GameController service;
+    private GameController controller;
     private List<ButtonPiece> buttons = new ArrayList<>();
 
-    public GameGUI(GameService game, GameController service) {
+    public GameGUI( GameController controller) {
         super("Jogo dos Oito");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
         setLayout(new GridLayout(4, 3));
 
-        this.game = game;
-        this.service = service;
+        
+        this.controller = controller;
         generateButtons();
         generateResetButton();
         windowSetUp();
@@ -38,13 +36,13 @@ public class GameGUI extends JFrame {
     }
 
     private void windowSetUp() {
-        addKeyListener(service);
+        addKeyListener(controller);
         setFocusable(true);
         updateGrid();
     }
 
     public void updateGrid() {
-        List<Integer> gridData = game.gridActualState();
+        List<Integer> gridData = controller.gridActualState();
 
         buttons.replaceAll(button -> {
             int value = gridData.get(buttons.indexOf(button));
@@ -63,7 +61,7 @@ public class GameGUI extends JFrame {
     private void generateResetButton() {
         add(new JLabel(""));
         ResetGameButton resetButton = new ResetGameButton();
-        resetButton.addActionListener(service);
+        resetButton.addActionListener(controller);
         add(resetButton);
         add(new JLabel(""));
     }

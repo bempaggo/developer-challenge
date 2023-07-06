@@ -1,18 +1,24 @@
 package chat.gpt.controller;
 
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import chat.gpt.exception.PressedKeyDoesNothingException;
+import chat.gpt.model.Grid;
 import chat.gpt.view.GameGUI;
+
+import static chat.gpt.util.Constants.*;
 
 public class GameController implements ButtonActionListener, KeyboardListener {
 
-    private GameService game;
+    private GameService service;
     private GameGUI view;
+    private Grid grid;
 
-    public GameController(GameService game, GameGUI view) {
-        this.game = game;
+    public GameController(GameService service, GameGUI view, Grid grid) {
+        this.service = service;
         this.view = view;
+        this.grid = grid;
     }
 
     public void setView(GameGUI view) {
@@ -23,7 +29,7 @@ public class GameController implements ButtonActionListener, KeyboardListener {
     public void processInput(int input) {
         move(input);
         view.updateGrid();
-        if (game.gameIsComplete()) {
+        if (gameIsComplete()) {
             view.showMessage("Parabéns, você venceu!");
         }
     }
@@ -31,10 +37,10 @@ public class GameController implements ButtonActionListener, KeyboardListener {
     public void move(int keyCode) {
         try {
             switch (keyCode) {
-                case KeyEvent.VK_UP -> game.moveUp();
-                case KeyEvent.VK_DOWN -> game.moveDown();
-                case KeyEvent.VK_LEFT -> game.moveLeft();
-                case KeyEvent.VK_RIGHT -> game.moveRight();
+                case KeyEvent.VK_UP -> service.moveUp();
+                case KeyEvent.VK_DOWN -> service.moveDown();
+                case KeyEvent.VK_LEFT -> service.moveLeft();
+                case KeyEvent.VK_RIGHT -> service.moveRight();
                 default -> throw new PressedKeyDoesNothingException();
             }
         } catch (PressedKeyDoesNothingException pressedKeyDoesNothingException) {
@@ -44,8 +50,22 @@ public class GameController implements ButtonActionListener, KeyboardListener {
 
     @Override
     public void resetGame() {
-        game.resetGrid();
+        resetGrid();
         view.updateGrid();
+    }
+
+    public void resetGrid() {
+        grid = new Grid();
+    }
+
+    // controller
+    public boolean gameIsComplete() {
+        return grid.getGrid().equals(GAME_FINISHED);
+    }
+
+    // controller
+    public List<Integer> gridActualState() {
+        return grid.getGrid();
     }
 
 }

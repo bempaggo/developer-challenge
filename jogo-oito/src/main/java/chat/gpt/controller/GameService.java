@@ -10,10 +10,6 @@ public class GameService {
 
     private Grid grid;
 
-    public GameService() {
-        this.grid = new Grid();
-    }
-
     public GameService(Grid grid) {
         this.grid = grid;
     }
@@ -47,21 +43,6 @@ public class GameService {
         int temp = gridData.get(grid.getEmptyIndex());
         gridData.set(grid.getEmptyIndex(), gridData.get(index));
         gridData.set(index, temp);
-    }
-
-    // controller
-    public boolean gameIsComplete() {
-        return grid.getGrid().equals(GAME_FINISHED);
-    }
-
-    // controller
-    public void resetGrid() {
-        grid = new Grid();
-    }
-
-    // controller
-    public List<Integer> gridActualState() {
-        return grid.getGrid();
     }
     
 }
