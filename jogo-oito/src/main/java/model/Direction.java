@@ -21,7 +21,7 @@ public class Direction {
         );
     }
 
-    public Boolean isValidDirection(int row, int col, int direction) {
+    public Boolean isValidDirection(Integer row, Integer col, Integer direction) {
         if (direction >= 0 && direction < conditions.size()) {
             return conditions.get(direction).test(direction == 0 || direction == 1 ? col : row);
         }

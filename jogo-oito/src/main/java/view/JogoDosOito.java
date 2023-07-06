@@ -90,7 +90,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void updateBoard() {
-        int index = 0;
+        Integer index = 0;
         for (Cell cell : this.controller.getCells()) {
             JButton button = this.buttons.get(index);
             button.setText(cell.valueToText());

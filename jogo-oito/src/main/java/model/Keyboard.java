@@ -25,15 +25,15 @@ public enum Keyboard {
         }
     }
 
-    Keyboard(int value) {
+    Keyboard(Integer value) {
         this.value = value;
     }
 
-    public int getValue() {
+    public Integer getValue() {
         return value;
     }
 
-    public static Keyboard fromValue(int value) {
+    public static Keyboard fromValue(Integer value) {
         return map.get(value);
     }
 
