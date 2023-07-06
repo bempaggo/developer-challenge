@@ -10,7 +10,7 @@ public class Controller {
     private final Integer seed;
 
     public Controller() {
-        this.seed = -1; // seed = 0: aleatório, seed < 0: gabarito, seed > 0: alimentado por semente
+        this.seed = 0; // seed = 0: aleatório, seed < 0: gabarito, seed > 0: alimentado por semente
         this.board = new Board(this.seed);
     }
 
@@ -32,20 +32,8 @@ public class Controller {
 
     }
 
-    public void clickUp() {
-        this.board.clickUp();
-    }
-
-    public void clickDown() {
-        this.board.clickDown();
-    }
-
-    public void clickLeft() {
-        this.board.clickLeft();
-    }
-
-    public void clickRight() {
-        this.board.clickRight();
+    public void click(Integer keyCode) {
+        this.board.click(keyCode);
     }
 
 }

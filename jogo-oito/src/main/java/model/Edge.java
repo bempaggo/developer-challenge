@@ -4,31 +4,33 @@
  */
 package model;
 
+import java.util.Objects;
+
 /**
  *
  * @author allen
  */
 public class Edge {
 
-    private final String sense;
+    private final Keyboard key;
     private final Cell cell;
 
-    public Edge(String sense, Cell cell) {
-        this.sense = sense;
+    public Edge(Keyboard key, Cell cell) {
+        this.key = key;
         this.cell = cell;
     }
 
-    public String getSense() {
-        return this.sense;
+    public Keyboard getKey() {
+        return this.key;
     }
-    
-    public Cell getCell(){
+
+    public Cell getCell() {
         return this.cell;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return this.sense.equals(((Edge) obj).getSense());
+        return Objects.equals(((Edge) obj).getKey(), this.getKey());
     }
 
 }

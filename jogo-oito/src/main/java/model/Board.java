@@ -11,7 +11,6 @@ public class Board {
 
     final Integer NUM_ROWS = 3;
     final Integer NUM_COLS = 3;
-
     private List<Cell> cells;
     private Cell emptyCell;
     private final Integer length;
@@ -98,44 +97,34 @@ public class Board {
         return relationshipMethods;
     }
 
+    
     private void defineLeftRelationship(Cell currentCell, int currentCellIndex) {
-        Cell leftCell = getCell(currentCellIndex - 1);
-        currentCell.defineLeft(leftCell);
-        leftCell.defineRight(currentCell);
+        Cell cell = getCell(currentCellIndex - 1);
+        currentCell.createAdjacent(Keyboard.RIGHT,cell);
+        cell.createAdjacent(Keyboard.LEFT, currentCell);
     }
 
     private void defineRightRelationship(Cell currentCell, int currentCellIndex) {
-        Cell rightCell = getCell(currentCellIndex + 1);
-        currentCell.defineRight(rightCell);
-        rightCell.defineLeft(currentCell);
+        Cell cell = getCell(currentCellIndex + 1);
+        currentCell.createAdjacent(Keyboard.LEFT, cell);
+        cell.createAdjacent(Keyboard.RIGHT, currentCell);
     }
 
     private void defineUpRelationship(Cell currentCell, int currentCellIndex) {
-        Cell upCell = getCell(currentCellIndex - this.NUM_COLS);
-        currentCell.defineUp(upCell);
-        upCell.defineDown(currentCell);
+        Cell cell = getCell(currentCellIndex - this.NUM_COLS);
+        currentCell.createAdjacent(Keyboard.DOWN, cell);
+        cell.createAdjacent(Keyboard.UP, currentCell);
     }
 
     private void defineDownRelationship(Cell currentCell, int currentCellIndex) {
-        Cell downCell = getCell(currentCellIndex + this.NUM_COLS);
-        currentCell.defineDown(downCell);
-        downCell.defineUp(currentCell);
+        Cell cell = getCell(currentCellIndex + this.NUM_COLS);
+        currentCell.createAdjacent(Keyboard.UP, cell);
+        cell.createAdjacent(Keyboard.DOWN, currentCell);
     }
 
-    public void clickUp() {
-        this.emptyCell = this.emptyCell.clickUp();
-    }
-
-    public void clickDown() {
-        this.emptyCell = this.emptyCell.clickDown();
-    }
-
-    public void clickLeft() {
-        this.emptyCell = this.emptyCell.clickLeft();
-    }
-
-    public void clickRight() {
-        this.emptyCell = this.emptyCell.clickRight();
+    public void click(Integer keyCode) {
+        Keyboard key = Keyboard.fromValue(keyCode);
+        this.emptyCell = this.emptyCell.click(key);
     }
 
     public boolean checkGameOver() {

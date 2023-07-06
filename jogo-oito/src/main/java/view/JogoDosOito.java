@@ -104,13 +104,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-        switch (keyCode) {
-            case KeyEvent.VK_UP -> this.controller.clickUp();
-            case KeyEvent.VK_DOWN -> this.controller.clickDown();
-            case KeyEvent.VK_LEFT -> this.controller.clickLeft();
-            case KeyEvent.VK_RIGHT -> this.controller.clickRight();
-        }
+        this.controller.click(e.getKeyCode());
         this.updateBoard();
         this.checkGameOver();
     }

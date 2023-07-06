@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import model.Board;
+import model.Keyboard;
 
 public class BoardTest {
 
@@ -25,37 +26,37 @@ public class BoardTest {
 
     @Test
     public void testClickDown() {
-        board.clickDown();
+        board.click(Keyboard.DOWN.getValue());
         Assertions.assertEquals(5, board.getCells().indexOf(board.getEmptyCell()));
     }
 
     @Test
     public void testClickUp() {
-        board.clickUp();
+        board.click(Keyboard.UP.getValue());
         Assertions.assertEquals(8, board.getCells().indexOf(board.getEmptyCell()));
     }
 
     @Test
     public void testClickRight() {
-        board.clickRight();
+        board.click(Keyboard.RIGHT.getValue());
         Assertions.assertEquals(7, board.getCells().indexOf(board.getEmptyCell()));
     }
 
     @Test
     public void testClickLeft() {
-        board.clickLeft();
+        board.click(Keyboard.LEFT.getValue());
         Assertions.assertEquals(8, board.getCells().indexOf(board.getEmptyCell()));
     }
 
     @Test
     public void testBoardLimit() {
-        board.clickLeft();
+        board.click(Keyboard.LEFT.getValue());
         Assertions.assertEquals(8, board.getCells().indexOf(board.getEmptyCell()));
-        board.clickLeft();
+        board.click(Keyboard.LEFT.getValue());
         Assertions.assertEquals(8, board.getCells().indexOf(board.getEmptyCell()));
-        board.clickLeft();
+        board.click(Keyboard.LEFT.getValue());
         Assertions.assertEquals(8, board.getCells().indexOf(board.getEmptyCell()));
-        board.clickLeft();
+        board.click(Keyboard.LEFT.getValue());
         Assertions.assertEquals(8, board.getCells().indexOf(board.getEmptyCell()));
     }
 

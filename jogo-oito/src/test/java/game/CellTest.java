@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import model.Cell;
 import model.Edge;
+import model.Keyboard;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,9 +25,9 @@ class CellTest {
         Cell cell3 = new Cell(15);
         Cell cell4 = new Cell(20);
 
-        cell1.defineUp(cell2);
-        cell1.defineDown(cell3);
-        cell1.defineLeft(cell4);
+        cell1.createAdjacent(Keyboard.UP, cell2);
+        cell1.createAdjacent(Keyboard.DOWN, cell3);
+        cell1.createAdjacent(Keyboard.LEFT, cell4);
 
         List<Edge> adjacents = cell1.getAdjacents();
         assertEquals(cell2, adjacents.get(0).getCell());
