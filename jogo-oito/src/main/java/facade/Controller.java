@@ -10,7 +10,7 @@ public class Controller {
     private final Integer seed;
 
     public Controller() {
-        this.seed = 0; // seed = 0: aleatório, seed < 0: gabarito, seed > 0: alimentado por semente
+        this.seed = -1; // seed = 0: aleatório, seed < 0: gabarito, seed > 0: alimentado por semente
         this.board = new Board(this.seed);
     }
 

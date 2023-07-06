@@ -2,8 +2,9 @@ package game;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
+import java.util.List;
 import model.Cell;
+import model.Edge;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,11 +28,10 @@ class CellTest {
         cell1.defineDown(cell3);
         cell1.defineLeft(cell4);
 
-        HashMap<String, Cell> adjacents = cell1.getAdjacents();
-        assertEquals(cell2, adjacents.get("UP"));
-        assertEquals(cell3, adjacents.get("DOWN"));
-        assertEquals(cell4, adjacents.get("LEFT"));
-        assertNull(adjacents.get("RIGHT"));
+        List<Edge> adjacents = cell1.getAdjacents();
+        assertEquals(cell2, adjacents.get(0).getCell());
+        assertEquals(cell3, adjacents.get(1).getCell());
+        assertEquals(cell4, adjacents.get(2).getCell());
     }
 
     @Test
