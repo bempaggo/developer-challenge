@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -14,13 +15,13 @@ public class Board {
     private List<Cell> cells;
     private Cell emptyCell;
     private final Integer length;
-    private final Integer seed;
-    
+    private final Boolean feedback;
+
     private final Direction direction;
 
-    public Board(Integer seed) {
+    public Board(Boolean feedback) {
         this.direction = new Direction(NUM_ROWS, NUM_COLS);
-        this.seed = seed;
+        this.feedback = feedback;
         this.length = this.NUM_ROWS * this.NUM_COLS;
         this.emptyCell = null;
     }
@@ -30,23 +31,26 @@ public class Board {
                 .boxed()
                 .collect(Collectors.toList());
         numbers.add(0);
-        if (this.seed > 0) Collections.shuffle(numbers, new Random(seed));
-        else if (this.seed == 0) Collections.shuffle(numbers);
-        return numbers;
+        return Optional.of(numbers)
+                .filter(list -> !this.feedback)
+                .map(list -> {
+                    Collections.shuffle(list, new Random());
+                    return list;
+                })
+                .orElse(numbers);
+
     }
 
     public void loadCells() {
         List<Integer> numbers = this.generateRandomNumbers();
-        this.cells = new ArrayList<>();
-        for (Integer number : numbers) {
-            Cell cell = new Cell(number);
-            this.cells.add(cell);
-        }
+        this.cells = numbers.stream()
+                .map(number -> new Cell(number))
+                .collect(Collectors.toList());
         this.defineEmptyCell();
     }
 
     private void defineEmptyCell() {
-         this.emptyCell = this.cells.get(this.cells.indexOf(new Cell(0)));
+        this.emptyCell = this.cells.get(this.cells.indexOf(new Cell(0)));
     }
 
     public void swap(Integer value) {
@@ -70,12 +74,11 @@ public class Board {
         IntStream.range(0, this.NUM_ROWS)
                 .forEach(row -> IntStream.range(0, this.NUM_COLS)
                 .forEach(col -> {
-                    int currentCellIndex = getCellIndex(row, col);
+                    Integer currentCellIndex = getCellIndex(row, col);
                     Cell currentCell = getCell(currentCellIndex);
                     relationshipMethods.stream()
                             .filter(method -> this.direction.isValidDirection(row, col, relationshipMethods.indexOf(method)))
                             .forEach(method -> method.apply(currentCell, currentCellIndex));
-
                 }));
     }
 
@@ -97,10 +100,9 @@ public class Board {
         return relationshipMethods;
     }
 
-    
     private void defineLeftRelationship(Cell currentCell, int currentCellIndex) {
         Cell cell = getCell(currentCellIndex - 1);
-        currentCell.createAdjacent(Keyboard.RIGHT,cell);
+        currentCell.createAdjacent(Keyboard.RIGHT, cell);
         cell.createAdjacent(Keyboard.LEFT, currentCell);
     }
 
@@ -129,7 +131,7 @@ public class Board {
 
     public Boolean checkGameOver() {
         return IntStream.range(0, this.length)
-                .allMatch(i -> this.cells.get(i).getValue() == (i + 1) % this.length);
+                .allMatch(index -> this.cells.get(index).getValue() == (index + 1) % this.length);
 
     }
 }

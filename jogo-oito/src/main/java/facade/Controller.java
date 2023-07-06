@@ -7,11 +7,11 @@ import model.Cell;
 public class Controller {
 
     private final Board board;
-    private final Integer seed;
+    private final Boolean feedback;
 
     public Controller() {
-        this.seed = 0; // seed = 0: aleatório, seed < 0: gabarito, seed > 0: alimentado por semente
-        this.board = new Board(this.seed);
+        this.feedback = Boolean.FALSE;
+        this.board = new Board(this.feedback);
     }
 
     public void configBoard() {
@@ -27,7 +27,7 @@ public class Controller {
         this.board.swap(value);
     }
 
-    public boolean checkGameOver() {
+    public Boolean checkGameOver() {
         return this.board.checkGameOver();
 
     }

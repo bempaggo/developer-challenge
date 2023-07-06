@@ -12,7 +12,7 @@ public class BoardTest {
 
     @BeforeEach
     public void setup() {
-        board = new Board(-1);
+        board = new Board(Boolean.TRUE);
         board.loadCells();
         board.defineCellRelationships();
     }
@@ -63,7 +63,7 @@ public class BoardTest {
     @Test
     public void testCheckGameOver() {
         Assertions.assertTrue(this.board.checkGameOver());
-        board = new Board(123);
+        board = new Board(Boolean.FALSE);
         board.loadCells();
         board.defineCellRelationships();
         Assertions.assertFalse(board.checkGameOver());

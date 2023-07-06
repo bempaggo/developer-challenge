@@ -5,8 +5,10 @@
 package model;
 
 import java.awt.event.KeyEvent;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public enum Keyboard {
 
@@ -17,13 +19,9 @@ public enum Keyboard {
 
     private final Integer value;
 
-    private static final Map<Integer, Keyboard> map = new HashMap<>();
+    private static final Map<Integer, Keyboard> map = Arrays.stream(Keyboard.values())
+        .collect(Collectors.toMap(Keyboard::getValue, Function.identity()));
 
-    static {
-        for (Keyboard keyboard : Keyboard.values()) {
-            map.put(keyboard.getValue(), keyboard);
-        }
-    }
 
     Keyboard(Integer value) {
         this.value = value;

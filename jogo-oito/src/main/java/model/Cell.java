@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class Cell {
 
@@ -27,13 +28,19 @@ public class Cell {
     }
 
     public String valueToText() {
-        return (this.value == 0) ? "" : String.valueOf(this.value);
+        return Optional.of(this.value)
+                .filter(v -> v != 0)
+                .map(String::valueOf)
+                .orElse("");
     }
 
     public Edge getAdjacentByKeyCode(Keyboard key) {
         Edge edge = new Edge(key, null);
         Integer indexEdge = this.adjacents.indexOf(edge);
-        return (indexEdge != -1) ? this.adjacents.get(indexEdge) : null;
+        return Optional.of(indexEdge)
+                .filter(index -> index != -1)
+                .map(this.adjacents::get)
+                .orElse(null);
     }
 
     public Cell click(Keyboard key) {
@@ -41,9 +48,11 @@ public class Cell {
         return this.movement(edge);
     }
 
-
     private Cell movement(Edge edge) {
-        return edge == null ? this : this.swapCells(edge.getCell());
+        return Optional.ofNullable(edge)
+                .map(Edge::getCell)
+                .map(this::swapCells)
+                .orElse(this);
     }
 
     private Cell swapCells(Cell movementCell) {
@@ -66,8 +75,7 @@ public class Cell {
 
     @Override
     public boolean equals(Object obj) {
-        Cell other = (Cell) obj;
-        return Objects.equals(this.value, other.value);
+        return Objects.equals(this.value, ((Cell) obj).value);
     }
 
 }

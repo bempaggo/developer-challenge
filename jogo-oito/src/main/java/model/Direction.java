@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class Direction {
@@ -22,9 +23,10 @@ public class Direction {
     }
 
     public Boolean isValidDirection(Integer row, Integer col, Integer direction) {
-        if (direction >= 0 && direction < conditions.size()) {
-            return conditions.get(direction).test(direction == 0 || direction == 1 ? col : row);
-        }
-        return false;
+        return Optional.of(direction)
+                .filter(validDirection -> validDirection >= 0 && validDirection < conditions.size())
+                .map(validDirection -> conditions.get(validDirection)
+                .test(validDirection == 0 || validDirection == 1 ? col : row))
+                .orElse(false);
     }
 }

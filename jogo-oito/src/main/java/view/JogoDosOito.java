@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.IntStream;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,17 +41,17 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void createButtons() {
-        JButton button;
-        List<Cell> cells = this.controller.getCells();
-        for (Cell cell : cells) {
-            button = this.configButton(cell);
+        this.controller.getCells().forEach(cell -> {
+            JButton button = this.configButton(cell);
             add(button);
-            this.buttons.add(button);
-        }
+            buttons.add(button);
+        });
     }
 
     private Integer textToValue(String text) {
-        return text.equals("") ? 0 : Integer.valueOf(text);
+        return Optional.ofNullable(text)
+                .map(Integer::valueOf)
+                .orElse(0);
     }
 
     private JButton configButton(Cell cell) {
@@ -67,10 +69,12 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void checkGameOver() {
-        if (this.controller.checkGameOver()) {
-            JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
-            this.resetGame();
-        }
+        Optional.ofNullable(this.controller.checkGameOver())
+                .filter(Boolean::booleanValue)
+                .ifPresent(gameOver -> {
+                    JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
+                    resetGame();
+                });
     }
 
     private void configReset() {
@@ -90,12 +94,12 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void updateBoard() {
-        Integer index = 0;
-        for (Cell cell : this.controller.getCells()) {
-            JButton button = this.buttons.get(index);
-            button.setText(cell.valueToText());
-            index += 1;
-        }
+        List<Cell> cells = this.controller.getCells();
+        IntStream.range(0, cells.size())
+                .forEach(index -> {
+                    JButton button = this.buttons.get(index);
+                    button.setText(cells.get(index).valueToText());
+                });
     }
 
     @Override
