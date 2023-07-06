@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import model.Cell;
-import model.Adjacent;
 import model.Keyboard;
 
 import static org.junit.jupiter.api.Assertions.*;

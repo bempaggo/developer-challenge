@@ -17,7 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import model.Cell;
 
 public class JogoDosOito extends JFrame implements KeyListener {
 
