@@ -1,14 +1,15 @@
 package game;
 
+import interfaces.Graph;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import model.Board;
+import util.Board;
 import model.Keyboard;
 
 public class BoardTest {
 
-    private Board board;
+    private Graph board;
 
     @BeforeEach
     public void setup() {

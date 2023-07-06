@@ -1,12 +1,13 @@
 package facade;
 
+import interfaces.Graph;
+import interfaces.Vertex;
 import java.util.List;
-import model.Board;
-import model.Cell;
+import util.Board;
 
 public class Controller {
 
-    private final Board board;
+    private final Graph board;
     private final Boolean feedback;
 
     public Controller() {
@@ -19,7 +20,7 @@ public class Controller {
         this.board.defineCellRelationships();
     }
 
-    public List<Cell> getCells() {
+    public List<Vertex> getCells() {
         return this.board.getCells();
     }
 

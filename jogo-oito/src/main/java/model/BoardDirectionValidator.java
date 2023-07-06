@@ -1,16 +1,17 @@
 package model;
 
+import interfaces.GraphDirectionValidator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class Direction {
+public class BoardDirectionValidator implements GraphDirectionValidator {
 
     private final Integer NUM_ROWS;
     private final Integer NUM_COLS;
     private final List<Predicate<Integer>> conditions;
 
-    public Direction(Integer NUM_ROWS, Integer NUM_COLS) {
+    public BoardDirectionValidator(Integer NUM_ROWS, Integer NUM_COLS) {
         this.NUM_ROWS = NUM_ROWS;
         this.NUM_COLS = NUM_COLS;
 
@@ -22,6 +23,7 @@ public class Direction {
         );
     }
 
+    @Override
     public Boolean isValidDirection(Integer row, Integer col, Integer direction) {
         return Optional.of(direction)
                 .filter(validDirection -> validDirection >= 0 && validDirection < conditions.size())

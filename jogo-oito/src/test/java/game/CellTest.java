@@ -1,10 +1,12 @@
 package game;
 
+import interfaces.Edge;
+import interfaces.Vertex;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import model.Cell;
-import model.Edge;
+import model.Adjacent;
 import model.Keyboard;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,10 +22,10 @@ class CellTest {
 
     @Test
     void defineAdjacents() {
-        Cell cell1 = new Cell(5);
-        Cell cell2 = new Cell(10);
-        Cell cell3 = new Cell(15);
-        Cell cell4 = new Cell(20);
+        Vertex cell1 = new Cell(5);
+        Vertex cell2 = new Cell(10);
+        Vertex cell3 = new Cell(15);
+        Vertex cell4 = new Cell(20);
 
         cell1.createAdjacent(Keyboard.UP, cell2);
         cell1.createAdjacent(Keyboard.DOWN, cell3);

@@ -1,6 +1,7 @@
 package view;
 
 import facade.Controller;
+import interfaces.Vertex;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -54,7 +55,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
                 .orElse(0);
     }
 
-    private JButton configButton(Cell cell) {
+    private JButton configButton(Vertex cell) {
         JButton button = new JButton();
         button.setFont(new Font("Arial", Font.BOLD, 36));
         button.setText(cell.valueToText());
@@ -94,7 +95,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void updateBoard() {
-        List<Cell> cells = this.controller.getCells();
+        List<Vertex> cells = this.controller.getCells();
         IntStream.range(0, cells.size())
                 .forEach(index -> {
                     JButton button = this.buttons.get(index);
