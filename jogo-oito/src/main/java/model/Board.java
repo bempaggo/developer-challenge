@@ -46,7 +46,7 @@ public class Board {
     }
 
     private void defineEmptyCell() {
-        this.emptyCell = this.emptyCell = this.cells.get(this.cells.indexOf(new Cell(0)));
+         this.emptyCell = this.cells.get(this.cells.indexOf(new Cell(0)));
     }
 
     public void swap(Integer value) {
