@@ -1,4 +1,4 @@
-package chat.gpt.model;
+package chat.gpt.view;
 
 import javax.swing.JButton;
 

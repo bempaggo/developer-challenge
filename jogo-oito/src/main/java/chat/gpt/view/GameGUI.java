@@ -13,17 +13,15 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import chat.gpt.controller.GameService;
-import chat.gpt.model.ButtonPiece;
-import chat.gpt.model.Game;
-import chat.gpt.model.ResetGameButton;
+import chat.gpt.controller.GameController;
 
 public class GameGUI extends JFrame {
 
-    private Game game;
-    private GameService service;
+    private GameService game;
+    private GameController service;
     private List<ButtonPiece> buttons = new ArrayList<>();
 
-    public GameGUI(Game game, GameService service) {
+    public GameGUI(GameService game, GameController service) {
         super("Jogo dos Oito");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);

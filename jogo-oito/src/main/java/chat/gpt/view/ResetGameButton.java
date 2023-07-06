@@ -1,4 +1,4 @@
-package chat.gpt.model;
+package chat.gpt.view;
 
 import static chat.gpt.util.Constants.RESTART_BUTTON_FONT;
 

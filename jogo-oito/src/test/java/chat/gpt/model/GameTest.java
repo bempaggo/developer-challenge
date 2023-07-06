@@ -3,15 +3,17 @@ package chat.gpt.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import chat.gpt.controller.GameService;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
 
-    private Game game;
+    private GameService game;
 
     @BeforeEach
     void setUp() {
-        game = new Game();
+        game = new GameService();
     }   
 
     @Test

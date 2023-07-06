@@ -1,52 +1,67 @@
 package chat.gpt.controller;
 
-import java.awt.event.KeyEvent;
+import static chat.gpt.util.Constants.*;
 
-import chat.gpt.exception.PressedKeyDoesNothingException;
-import chat.gpt.model.Game;
-import chat.gpt.view.GameGUI;
+import java.util.List;
 
-public class GameService implements ButtonActionListener, KeyboardListener {
+import chat.gpt.model.Grid;
 
-    private Game game;
-    private GameGUI view;
+public class GameService {
 
-    public GameService(Game game, GameGUI view) {
-        this.game = game;
-        this.view = view;
+    private Grid grid;
+
+    public GameService() {
+        this.grid = new Grid();
     }
 
-    public void setView(GameGUI view) {
-        this.view = view;
+    public GameService(Grid grid) {
+        this.grid = grid;
     }
 
-    @Override
-    public void processInput(int input) {
-        move(input);
-        view.updateGrid();
-        if (game.gameIsComplete()) {
-            view.showMessage("Parabéns, você venceu!");
+    public void moveDown() {
+        if (grid.getEmptyIndex() >= GRID_WIDTH)
+            swapElements(grid.getEmptyIndex() - GRID_WIDTH);
+
+    }
+
+    public void moveUp() {
+        if (grid.getEmptyIndex() < GRID_AREA - GRID_WIDTH)
+            swapElements(grid.getEmptyIndex() + GRID_WIDTH);
+
+    }
+
+    public void moveLeft() {
+        if (grid.getEmptyIndex() % GRID_WIDTH != GRID_WIDTH - 1) {
+            swapElements(grid.getEmptyIndex() + 1);
         }
     }
 
-    public void move(int keyCode) {
-        try {
-            switch (keyCode) {
-                case KeyEvent.VK_UP -> game.moveUp();
-                case KeyEvent.VK_DOWN -> game.moveDown();
-                case KeyEvent.VK_LEFT -> game.moveLeft();
-                case KeyEvent.VK_RIGHT -> game.moveRight();
-                default -> throw new PressedKeyDoesNothingException();
-            }
-        } catch (PressedKeyDoesNothingException pressedKeyDoesNothingException) {
-            view.showMessage(pressedKeyDoesNothingException.getMessage());
+    public void moveRight() {
+        if (grid.getEmptyIndex() % GRID_WIDTH != 0) {
+            swapElements(grid.getEmptyIndex() - 1);
         }
     }
 
-    @Override
-    public void resetGame() {
-        game.resetGrid();
-        view.updateGrid();
+    private void swapElements(int index) {
+        List<Integer> gridData = grid.getGrid();
+        int temp = gridData.get(grid.getEmptyIndex());
+        gridData.set(grid.getEmptyIndex(), gridData.get(index));
+        gridData.set(index, temp);
     }
 
+    // controller
+    public boolean gameIsComplete() {
+        return grid.getGrid().equals(GAME_FINISHED);
+    }
+
+    // controller
+    public void resetGrid() {
+        grid = new Grid();
+    }
+
+    // controller
+    public List<Integer> gridActualState() {
+        return grid.getGrid();
+    }
+    
 }
