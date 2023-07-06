@@ -5,8 +5,8 @@ import java.util.function.Predicate;
 
 public class Direction {
 
-    private final int NUM_ROWS;
-    private final int NUM_COLS;
+    private final Integer NUM_ROWS;
+    private final Integer NUM_COLS;
     private final List<Predicate<Integer>> conditions;
 
     public Direction(Integer NUM_ROWS, Integer NUM_COLS) {
@@ -21,7 +21,7 @@ public class Direction {
         );
     }
 
-    public boolean isValidDirection(int row, int col, int direction) {
+    public Boolean isValidDirection(int row, int col, int direction) {
         if (direction >= 0 && direction < conditions.size()) {
             return conditions.get(direction).test(direction == 0 || direction == 1 ? col : row);
         }

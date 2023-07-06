@@ -57,7 +57,7 @@ public class Board {
         return this.cells;
     }
 
-    private int getCellIndex(int row, int col) {
+    private Integer getCellIndex(int row, int col) {
         return row * NUM_COLS + col;
     }
 
@@ -127,7 +127,7 @@ public class Board {
         this.emptyCell = this.emptyCell.click(key);
     }
 
-    public boolean checkGameOver() {
+    public Boolean checkGameOver() {
         return IntStream.range(0, this.length)
                 .allMatch(i -> this.cells.get(i).getValue() == (i + 1) % this.length);
 

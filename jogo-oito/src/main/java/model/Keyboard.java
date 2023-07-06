@@ -15,7 +15,7 @@ public enum Keyboard {
     LEFT(KeyEvent.VK_LEFT),
     RIGHT(KeyEvent.VK_RIGHT);
 
-    private final int value;
+    private final Integer value;
 
     private static final Map<Integer, Keyboard> map = new HashMap<>();
 

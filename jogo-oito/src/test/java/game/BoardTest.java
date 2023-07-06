@@ -19,7 +19,7 @@ public class BoardTest {
 
     @Test
     public void testSwap() {
-        int value = 6;
+        Integer value = 6;
         board.swap(value);
         Assertions.assertEquals(value, board.getCells().get(board.getCells().size() - 1).getValue());
     }
