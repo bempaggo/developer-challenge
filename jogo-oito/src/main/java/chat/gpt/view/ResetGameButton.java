@@ -1,6 +1,6 @@
 package chat.gpt.view;
 
-import static chat.gpt.util.Constants.RESTART_BUTTON_FONT;
+import chat.gpt.util.Fonts;
 
 
 public class ResetGameButton extends Button {
@@ -9,7 +9,7 @@ public class ResetGameButton extends Button {
 
     public ResetGameButton() {
         super(restartButtonName);
-        this.setFont(RESTART_BUTTON_FONT);
+        this.setFont(Fonts.RESTART_BUTTON_FONT.getFont());
     }
 
 }

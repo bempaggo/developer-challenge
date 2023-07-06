@@ -1,12 +1,12 @@
 package chat.gpt.view;
 
-import static chat.gpt.util.Constants.DEFAULT_FONT;
+import chat.gpt.util.Fonts;
 
 public class ButtonPiece extends Button {
 
     public ButtonPiece() {
         super();
-        setFont(DEFAULT_FONT); 
+        setFont(Fonts.DEFAULT_FONT.getFont()); 
     }
 
     public ButtonPiece(String buttonName) {
