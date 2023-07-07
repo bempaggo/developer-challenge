@@ -39,11 +39,13 @@ public class Grid {
         }
     }
     
-
     private List<Integer> createDefaultGridData(int gridSize) {
-        List<Integer> gridData = IntStream.range(0, gridSize)
+        List<Integer> gridData = IntStream.range(1, gridSize)
                 .boxed()
                 .collect(Collectors.toList());
+
+        gridData.add(0);
+
         return gridData;
     } 
 
