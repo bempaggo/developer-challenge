@@ -3,8 +3,6 @@ package chat.gpt.view;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import static chat.gpt.util.Constants.*;
-
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import chat.gpt.controller.GameController;
+import chat.gpt.util.Constants;
 import chat.gpt.util.Fonts;
 
 public class GameGUI extends JFrame {
@@ -52,7 +51,7 @@ public class GameGUI extends JFrame {
     }
 
     private void generateButtons() {
-        buttons = IntStream.range(0, GRID_AREA)
+        buttons = IntStream.range(0, Constants.GRID_SIZE.getMeasure())
                 .mapToObj(i -> new Button().withText("").withFont(Fonts.DEFAULT_FONT.getFont()))
                 .collect(Collectors.toList());
         buttons.forEach(this::add);

@@ -1,10 +1,9 @@
 package chat.gpt.controller;
 
-import static chat.gpt.util.Constants.*;
-
 import java.util.List;
 
 import chat.gpt.model.Grid;
+import chat.gpt.util.Constants;
 
 public class GameService {
     
@@ -18,25 +17,25 @@ public class GameService {
     }
 
     public void moveDown() {
-        if (grid.getEmptyIndex() >= GRID_WIDTH)
-            swapElements(grid.getEmptyIndex() - GRID_WIDTH);
+        if (grid.getEmptyIndex() >= Constants.GRID_WIDTH.getMeasure())
+            swapElements(grid.getEmptyIndex() - Constants.GRID_WIDTH.getMeasure());
 
     }
 
     public void moveUp() {
-        if (grid.getEmptyIndex() < GRID_AREA - GRID_WIDTH)
-            swapElements(grid.getEmptyIndex() + GRID_WIDTH);
+        if (grid.getEmptyIndex() < Constants.GRID_SIZE.getMeasure() - Constants.GRID_WIDTH.getMeasure())
+            swapElements(grid.getEmptyIndex() + Constants.GRID_WIDTH.getMeasure());
 
     }
 
     public void moveLeft() {
-        if (grid.getEmptyIndex() % GRID_WIDTH != GRID_WIDTH - 1) {
+        if (grid.getEmptyIndex() % Constants.GRID_WIDTH.getMeasure() != Constants.GRID_WIDTH.getMeasure() - 1) {
             swapElements(grid.getEmptyIndex() + 1);
         }
     }
 
     public void moveRight() {
-        if (grid.getEmptyIndex() % GRID_WIDTH != 0) {
+        if (grid.getEmptyIndex() % Constants.GRID_WIDTH.getMeasure() != 0) {
             swapElements(grid.getEmptyIndex() - 1);
         }
     }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import chat.gpt.exception.PressedKeyDoesNothingException;
 import chat.gpt.model.Grid;
+import chat.gpt.util.Constants;
 import chat.gpt.util.MessagePopUp;
 import chat.gpt.view.GameGUI;
 
@@ -54,8 +55,9 @@ public class GameController implements ButtonActionListener, KeyboardListener {
     }
 
     public void resetGrid() {
-        grid = new Grid();
-        service.setGrid(grid);
+        int gridSize = Constants.GRID_SIZE.getMeasure();
+        boolean randomGrid = Constants.RANDOM_GRID.useRandomGrid();
+        grid.reset(gridSize, randomGrid);
     }
 
     public boolean gameIsComplete() {
