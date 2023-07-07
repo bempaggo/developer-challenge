@@ -24,8 +24,8 @@ public class Controller {
         return this.board.getCells();
     }
 
-    public void swap(Integer value) {
-        this.board.swap(value);
+    public void swap(Integer keyCode) {
+        this.board.swap(keyCode);
     }
 
     public Boolean checkGameOver() {
@@ -33,8 +33,8 @@ public class Controller {
 
     }
 
-    public void click(Integer keyCode) {
-        this.board.click(keyCode);
+    public void click(Integer cellValue ) {
+        this.board.click(cellValue);
     }
 
 }

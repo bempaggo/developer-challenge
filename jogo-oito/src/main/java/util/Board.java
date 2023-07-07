@@ -55,8 +55,14 @@ public class Board implements Graph {
     }
 
     @Override
-    public void swap(Integer value) {
-        this.emptyCell = this.emptyCell.swapCells(value);
+    public void click(Integer cellValue) {
+        this.emptyCell = this.emptyCell.swapCells(cellValue);
+    }
+    
+    @Override
+    public void swap(Integer keyCode) {
+        Keyboard key = Keyboard.fromValue(keyCode);
+        this.emptyCell = this.emptyCell.click(key);
     }
 
     @Override
@@ -102,11 +108,6 @@ public class Board implements Graph {
                 });
     }
 
-    @Override
-    public void click(Integer keyCode) {
-        Keyboard key = Keyboard.fromValue(keyCode);
-        this.emptyCell = this.emptyCell.click(key);
-    }
 
     @Override
     public Boolean checkGameOver() {

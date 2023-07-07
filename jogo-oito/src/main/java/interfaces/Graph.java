@@ -14,7 +14,7 @@ public interface Graph {
 
     void loadCells();
 
-    void swap(Integer value);
+    void swap(Integer keyCode);
 
     List<Vertex> getCells();
 
@@ -22,7 +22,7 @@ public interface Graph {
 
     Vertex getEmptyCell();
 
-    void click(Integer keyCode);
+    void click(Integer cellValue);
 
     Boolean checkGameOver();
 }

@@ -58,7 +58,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
         button.setFont(new Font("Arial", Font.BOLD, 36));
         button.setText(cell.valueToText());
         button.addActionListener((ActionEvent e) -> {
-            this.controller.swap(this.textToValue(button.getText()));
+            this.controller.click(this.textToValue(button.getText()));
             this.updateBoard();
             this.checkGameOver();
             SwingUtilities.getRoot(button).requestFocus();
@@ -107,7 +107,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        this.controller.click(e.getKeyCode());
+        this.controller.swap(e.getKeyCode());
         this.updateBoard();
         this.checkGameOver();
     }
