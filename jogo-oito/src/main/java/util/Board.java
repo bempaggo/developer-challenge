@@ -10,10 +10,9 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import model.Cell;
-import model.BoardDirectionValidator;
 import model.Keyboard;
 
-public class Board implements Graph{
+public class Board implements Graph {
 
     final Integer NUM_ROWS = 3;
     final Integer NUM_COLS = 3;
@@ -22,10 +21,7 @@ public class Board implements Graph{
     private final Integer length;
     private final Boolean feedback;
 
-    private final BoardDirectionValidator direction;
-
     public Board(Boolean feedback) {
-        this.direction = new BoardDirectionValidator(NUM_ROWS, NUM_COLS);
         this.feedback = feedback;
         this.length = this.NUM_ROWS * this.NUM_COLS;
         this.emptyCell = null;
@@ -69,26 +65,14 @@ public class Board implements Graph{
         return this.cells;
     }
 
-    private Integer getCellIndex(Integer row, Integer col) {
-        return row * NUM_COLS + col;
-    }
-
     private Vertex getCell(Integer index) {
         return this.cells.get(index);
     }
 
     @Override
     public void defineCellRelationships() {
-        List<CellRelationshipFunction> relationshipMethods = this.defineFunctionsRelationship();
-        IntStream.range(0, this.NUM_ROWS)
-                .forEach(row -> IntStream.range(0, this.NUM_COLS)
-                .forEach(col -> {
-                    Integer currentCellIndex = getCellIndex(row, col);
-                    Vertex currentCell = getCell(currentCellIndex);
-                    relationshipMethods.stream()
-                            .filter(method -> this.direction.isValidDirection(row, col, relationshipMethods.indexOf(method)))
-                            .forEach(method -> method.apply(currentCell, currentCellIndex));
-                }));
+        this.defineHorizontalRelationship();
+        this.defineVerticalRelationship();
     }
 
     @Override
@@ -96,42 +80,27 @@ public class Board implements Graph{
         return this.emptyCell;
     }
 
-    interface CellRelationshipFunction {
-
-        void apply(Vertex currentCell, Integer currentCellIndex);
+    private void defineHorizontalRelationship() {
+        IntStream.range(1, cells.size() - 1)
+                .filter(i -> i % 3 == 1)
+                .forEach(i -> {
+                    Vertex previous = this.getCell(i - 1);
+                    Vertex next = this.getCell(i + 1);
+                    Vertex current = this.getCell(i);
+                    next.creatingHorizontalAdjacent(current);
+                    current.creatingHorizontalAdjacent(previous);
+                });
     }
 
-    private List<CellRelationshipFunction> defineFunctionsRelationship() {
-        List<CellRelationshipFunction> relationshipMethods = new ArrayList<>();
-        relationshipMethods.add(this::defineLeftRelationship);
-        relationshipMethods.add(this::defineRightRelationship);
-        relationshipMethods.add(this::defineUpRelationship);
-        relationshipMethods.add(this::defineDownRelationship);
-        return relationshipMethods;
-    }
-
-    private void defineLeftRelationship(Vertex currentCell, Integer currentCellIndex) {
-        Vertex cell = getCell(currentCellIndex - 1);
-        currentCell.createAdjacent(Keyboard.RIGHT, cell);
-        cell.createAdjacent(Keyboard.LEFT, currentCell);
-    }
-
-    private void defineRightRelationship(Vertex currentCell, Integer currentCellIndex) {
-        Vertex cell = getCell(currentCellIndex + 1);
-        currentCell.createAdjacent(Keyboard.LEFT, cell);
-        cell.createAdjacent(Keyboard.RIGHT, currentCell);
-    }
-
-    private void defineUpRelationship(Vertex currentCell, Integer currentCellIndex) {
-        Vertex cell = getCell(currentCellIndex - this.NUM_COLS);
-        currentCell.createAdjacent(Keyboard.DOWN, cell);
-        cell.createAdjacent(Keyboard.UP, currentCell);
-    }
-
-    private void defineDownRelationship(Vertex currentCell, Integer currentCellIndex) {
-        Vertex cell = getCell(currentCellIndex + this.NUM_COLS);
-        currentCell.createAdjacent(Keyboard.UP, cell);
-        cell.createAdjacent(Keyboard.DOWN, currentCell);
+    private void defineVerticalRelationship() {
+        IntStream.range(3, 6)
+                .forEach(i -> {
+                    Vertex previous = this.getCell(i - 3);
+                    Vertex next = this.getCell(i + 3);
+                    Vertex current = this.getCell(i);
+                    next.creatingVerticalAdjacent(current);
+                    current.creatingVerticalAdjacent(previous);
+                });
     }
 
     @Override

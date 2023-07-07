@@ -28,9 +28,16 @@ public class Cell implements Vertex{
     }
 
     @Override
-    public void createAdjacent(Keyboard key, Vertex cell) {
-        this.adjacents.add(new Adjacent(key, cell));
-    }
+    public void creatingHorizontalAdjacent(Vertex cell) {
+        this.adjacents.add(new Adjacent(Keyboard.RIGHT, cell));
+        cell.getAdjacents().add(new Adjacent(Keyboard.LEFT, this));
+    } 
+    
+    @Override
+    public void creatingVerticalAdjacent(Vertex cell) {
+        this.adjacents.add(new Adjacent(Keyboard.DOWN, cell));
+        cell.getAdjacents().add(new Adjacent(Keyboard.UP, this));
+    }   
 
     @Override
     public String valueToText() {
@@ -81,6 +88,11 @@ public class Cell implements Vertex{
     @Override
     public List<Edge> getAdjacents() {
         return this.adjacents;
+    }
+    
+    @Override
+    public void addAdjacents(Edge edge){
+         this.adjacents.add(edge);
     }
 
     @Override

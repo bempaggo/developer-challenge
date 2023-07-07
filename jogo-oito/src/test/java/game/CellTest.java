@@ -26,9 +26,9 @@ class CellTest {
         Vertex cell3 = new Cell(15);
         Vertex cell4 = new Cell(20);
 
-        cell1.createAdjacent(Keyboard.UP, cell2);
-        cell1.createAdjacent(Keyboard.DOWN, cell3);
-        cell1.createAdjacent(Keyboard.LEFT, cell4);
+        cell1.creatingVerticalAdjacent(cell2);
+        cell1.creatingVerticalAdjacent(cell3);
+        cell1.creatingHorizontalAdjacent(cell4);
 
         List<Edge> adjacents = cell1.getAdjacents();
         assertEquals(cell2, adjacents.get(0).getCell());

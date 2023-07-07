@@ -17,7 +17,9 @@ public interface Vertex {
 
     Integer getValue();
 
-    void createAdjacent(Keyboard key, Vertex cell);
+    void creatingHorizontalAdjacent(Vertex cell);
+
+    void creatingVerticalAdjacent(Vertex cell);
 
     String valueToText();
 
@@ -26,6 +28,8 @@ public interface Vertex {
     Vertex click(Keyboard key);
 
     List<Edge> getAdjacents();
+    
+    void addAdjacents(Edge edge);
     
     Vertex swapCells(Integer value);
 
