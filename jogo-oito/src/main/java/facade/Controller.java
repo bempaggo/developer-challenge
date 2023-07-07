@@ -11,7 +11,7 @@ public class Controller {
     private final Boolean feedback;
 
     public Controller() {
-        this.feedback = Boolean.TRUE;
+        this.feedback = Boolean.FALSE;
         this.board = new Board(this.feedback);
     }
 

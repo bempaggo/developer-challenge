@@ -2,7 +2,6 @@ package util;
 
 import interfaces.Graph;
 import interfaces.Vertex;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +13,8 @@ import model.Keyboard;
 
 public class Board implements Graph {
 
-    final Integer NUM_ROWS = 3;
-    final Integer NUM_COLS = 3;
+    private final Integer NUM_ROWS = 3;
+    private final Integer NUM_COLS = 3;
     private List<Vertex> cells;
     private Vertex emptyCell;
     private final Integer length;
