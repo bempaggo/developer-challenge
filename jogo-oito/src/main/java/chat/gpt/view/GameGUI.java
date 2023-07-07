@@ -2,7 +2,6 @@ package chat.gpt.view;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import static chat.gpt.util.Constants.*;
 
@@ -13,11 +12,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import chat.gpt.controller.GameController;
+import chat.gpt.util.Fonts;
 
 public class GameGUI extends JFrame {
 
     private GameController controller;
-    private List<ButtonPiece> buttons = new ArrayList<>();
+    private List<Button> buttons = new ArrayList<>();
 
     public GameGUI( GameController controller) {
         super("Jogo dos Oito");
@@ -53,21 +53,17 @@ public class GameGUI extends JFrame {
 
     private void generateButtons() {
         buttons = IntStream.range(0, GRID_AREA)
-        .mapToObj(i -> new ButtonPiece())
-        .peek(this::add)
-        .collect(Collectors.toList());
+                .mapToObj(i -> new Button().withText("").withFont(Fonts.DEFAULT_FONT.getFont()))
+                .collect(Collectors.toList());
+        buttons.forEach(this::add);
     }
 
     private void generateResetButton() {
         add(new JLabel(""));
-        ResetGameButton resetButton = new ResetGameButton();
+        Button resetButton = new Button().withText("Reiniciar").withFont(Fonts.RESTART_BUTTON_FONT.getFont());
         resetButton.addActionListener(controller);
         add(resetButton);
         add(new JLabel(""));
-    }
-
-    public void showMessage(String message) {
-        JOptionPane.showMessageDialog(this, message);
     }
 
 }

@@ -9,9 +9,11 @@ public class GameStart {
 
     public static void startGame() {
         Grid grid = new Grid();
-        GameService gameService = new GameService(grid);
+        GameService gameService = new GameService();
         GameController gameController = new GameController(gameService, null, grid);
         GameGUI gameGUI = new GameGUI(gameController);
+
+        gameService.setGrid(grid);
         gameController.setView(gameGUI);
     }
 

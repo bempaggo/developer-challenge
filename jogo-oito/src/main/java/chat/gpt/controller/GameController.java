@@ -5,6 +5,7 @@ import java.util.List;
 
 import chat.gpt.exception.PressedKeyDoesNothingException;
 import chat.gpt.model.Grid;
+import chat.gpt.util.MessagePopUp;
 import chat.gpt.view.GameGUI;
 
 public class GameController implements ButtonActionListener, KeyboardListener {
@@ -28,7 +29,7 @@ public class GameController implements ButtonActionListener, KeyboardListener {
         move(input);
         view.updateGrid();
         if (gameIsComplete()) {
-            view.showMessage("Parabéns, você venceu!");
+            MessagePopUp.showMessage("Parabéns, você venceu!");
         }
     }
 
@@ -42,7 +43,7 @@ public class GameController implements ButtonActionListener, KeyboardListener {
                 default -> throw new PressedKeyDoesNothingException();
             }
         } catch (PressedKeyDoesNothingException pressedKeyDoesNothingException) {
-            view.showMessage(pressedKeyDoesNothingException.getMessage());
+            MessagePopUp.showMessage(pressedKeyDoesNothingException.getMessage());
         }
     }
 
@@ -54,6 +55,7 @@ public class GameController implements ButtonActionListener, KeyboardListener {
 
     public void resetGrid() {
         grid = new Grid();
+        service.setGrid(grid);
     }
 
     public boolean gameIsComplete() {

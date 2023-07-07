@@ -7,10 +7,13 @@ import java.util.List;
 import chat.gpt.model.Grid;
 
 public class GameService {
-
+    
     private Grid grid;
-
-    public GameService(Grid grid) {
+    
+    public GameService() {
+    }
+    
+    public void setGrid(Grid grid) {
         this.grid = grid;
     }
 
@@ -44,5 +47,6 @@ public class GameService {
         gridData.set(grid.getEmptyIndex(), gridData.get(index));
         gridData.set(index, temp);
     }
+
     
 }

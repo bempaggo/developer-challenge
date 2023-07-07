@@ -21,24 +21,6 @@ public class Grid {
         return gridData;
     }
 
-    /* Ao invés desses desses métodos eu posso simplesmente fazer testes unitários
-    para verificar se a grid está de acordo com os padrões
-    
-    private void gridValidate(List<Integer> gridData) {
-        if (!validSize(gridData) || !noRepeatedElements(gridData)) {
-            throw new GridDoesNotFeatStandardsException();
-        }
-    }
-
-    private boolean validSize(List<Integer> gridData) {
-        return gridData.size() == GRID_AREA;
-    }
-    
-        private boolean noRepeatedElements(List<Integer> gridData) {
-        Set<Integer> uniqueElements = new HashSet<>(gridData);
-        return uniqueElements.size() == GRID_AREA;
-    } */
-
     private List<Integer> createDefaultGridData() {
         List<Integer> gridData = IntStream.range(0, GRID_AREA)
                 .boxed()
