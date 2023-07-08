@@ -32,13 +32,12 @@ public class Grid {
 
     public void reset(int gridSize, boolean randomGrid) {
         gridData.clear();
-    
-        createDefaultGridData(gridSize);
+        gridData.addAll(createDefaultGridData(gridSize));
         if (randomGrid) {
             randomizeGridData();
         }
     }
-    
+
     private List<Integer> createDefaultGridData(int gridSize) {
         List<Integer> gridData = IntStream.range(1, gridSize)
                 .boxed()
@@ -47,7 +46,7 @@ public class Grid {
         gridData.add(0);
 
         return gridData;
-    } 
+    }
 
     private void randomizeGridData() {
         Collections.shuffle(this.gridData);

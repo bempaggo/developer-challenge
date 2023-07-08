@@ -1,15 +1,15 @@
 package chat.gpt.util;
 
-public enum Constants {
+public enum GridConstants  {
     
     GRID_WIDTH(3),
     GRID_HEIGHT(3),
     GRID_SIZE(GRID_HEIGHT.getMeasure() * GRID_WIDTH.getMeasure()),
-    RANDOM_GRID(false);
+    RANDOM_GRID(true);
 
     private final Object value;
 
-    Constants(Object value) {
+    GridConstants(Object value) {
         this.value = value;
     }
 

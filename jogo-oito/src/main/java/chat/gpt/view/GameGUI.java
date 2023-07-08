@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import chat.gpt.controller.GameController;
-import chat.gpt.util.Constants;
+import chat.gpt.util.GridConstants;
 import chat.gpt.util.Fonts;
 
 public class GameGUI extends JFrame {
@@ -18,13 +18,12 @@ public class GameGUI extends JFrame {
     private GameController controller;
     private List<Button> buttons = new ArrayList<>();
 
-    public GameGUI( GameController controller) {
+    public GameGUI(GameController controller) {
         super("Jogo dos Oito");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
         setLayout(new GridLayout(4, 3));
 
-        
         this.controller = controller;
         generateButtons();
         generateResetButton();
@@ -51,15 +50,19 @@ public class GameGUI extends JFrame {
     }
 
     private void generateButtons() {
-        buttons = IntStream.range(0, Constants.GRID_SIZE.getMeasure())
-                .mapToObj(i -> new Button().withText("").withFont(Fonts.DEFAULT_FONT.getFont()))
+        buttons = IntStream.range(0, GridConstants.GRID_SIZE.getMeasure() )
+                .mapToObj(i -> new Button()
+                        .withText("")
+                        .withFont(Fonts.DEFAULT_FONT.getFont()))
                 .collect(Collectors.toList());
         buttons.forEach(this::add);
     }
 
     private void generateResetButton() {
         add(new JLabel(""));
-        Button resetButton = new Button().withText("Reiniciar").withFont(Fonts.RESTART_BUTTON_FONT.getFont());
+        Button resetButton = new Button()
+                .withText("Reiniciar")
+                .withFont(Fonts.RESTART_BUTTON_FONT.getFont());
         resetButton.addActionListener(controller);
         add(resetButton);
         add(new JLabel(""));
