@@ -22,11 +22,12 @@ public class JogoDosOito extends JFrame implements KeyListener {
     private final List<JButton> buttons;
     private final Controller controller;
     private JButton reset;
+    private JButton feedback;
 
     public JogoDosOito() {
         super("Jogo dos Oito");
         this.controller = new Controller();
-        this.controller.configBoard();
+        this.controller.setting();
         this.buttons = new ArrayList<>();
     }
 
@@ -76,19 +77,40 @@ public class JogoDosOito extends JFrame implements KeyListener {
                 });
     }
 
-    private void configReset() {
-        this.reset = new JButton("Reiniciar");
-        this.reset.addActionListener((ActionEvent e) -> {
-            this.resetGame();
-            SwingUtilities.getRoot(this.reset).requestFocus();
-        });
-        add(new JLabel(""));
+    private void configMenu() {
+        this.reset = this.configReset();
+        this.feedback = this.configFeedback();
+        add(this.feedback);
         add(this.reset);
         add(new JLabel(""));
     }
 
+    private JButton configReset() {
+        JButton buttonReset = new JButton("Reiniciar");
+        buttonReset.addActionListener((ActionEvent e) -> {
+            this.resetGame();
+            SwingUtilities.getRoot(buttonReset).requestFocus();
+        });
+        return buttonReset;
+    }
+    
+    private JButton configFeedback() {
+        JButton buttonFeedback = new JButton("Gabarito");
+        buttonFeedback.addActionListener((ActionEvent e) -> {
+            this.showFeedback();
+            SwingUtilities.getRoot(buttonFeedback).requestFocus();
+        });
+        return buttonFeedback;
+    }
+
+
     private void resetGame() {
-        this.controller.configBoard();
+        this.controller.setting();
+        this.updateBoard();
+    }
+    
+    private void showFeedback() {
+        this.controller.feedback();
         this.updateBoard();
     }
 
@@ -119,7 +141,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
     public static void main(String[] args) {
         JogoDosOito game = new JogoDosOito();
         game.createButtons();
-        game.configReset();
+        game.configMenu();
         game.configureInterface();
 
     }

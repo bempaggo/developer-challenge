@@ -8,16 +8,17 @@ import util.Board;
 public class Controller {
 
     private final Graph board;
-    private final Boolean feedback;
 
     public Controller() {
-        this.feedback = Boolean.FALSE;
-        this.board = new Board(this.feedback);
+        this.board = new Board();
+    }
+    
+    public void feedback() {
+        this.board.feedback();
     }
 
-    public void configBoard() {
-        this.board.loadCells();
-        this.board.defineCellRelationships();
+    public void setting() {
+        this.board.setting();
     }
 
     public List<Vertex> getCells() {
@@ -33,7 +34,7 @@ public class Controller {
 
     }
 
-    public void click(Integer cellValue ) {
+    public void click(Integer cellValue) {
         this.board.click(cellValue);
     }
 

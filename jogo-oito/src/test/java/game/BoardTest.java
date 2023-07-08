@@ -26,9 +26,8 @@ public class BoardTest {
 
     @BeforeEach
     public void setUp() {
-        board = new Board(Boolean.TRUE);
-        board.loadCells();
-        board.defineCellRelationships();
+        board = new Board();
+        board.feedback();
     }
 
     @Test
@@ -78,9 +77,8 @@ public class BoardTest {
     @Test
     public void testCheckGameOver() {
         Assertions.assertTrue(this.board.checkGameOver());
-        board = new Board(Boolean.FALSE);
-        board.loadCells();
-        board.defineCellRelationships();
+        board = new Board();
+        board.setting();
         Assertions.assertFalse(board.checkGameOver());
 
     }
@@ -92,8 +90,8 @@ public class BoardTest {
 
         cell1.creatingHorizontalAdjacent(cell2);
 
-        Edge adjacent1 = cell1.getAdjacentByKeyCode(model.Keyboard.RIGHT);
-        Edge adjacent2 = cell2.getAdjacentByKeyCode(model.Keyboard.LEFT);
+        Edge adjacent1 = cell1.getAdjacentByKeyCode(model.Keyboard.LEFT);
+        Edge adjacent2 = cell2.getAdjacentByKeyCode(model.Keyboard.RIGHT);
 
         assertEquals(cell2, adjacent1.getCell());
         assertEquals(cell1, adjacent2.getCell());
@@ -106,8 +104,8 @@ public class BoardTest {
 
         cell1.creatingVerticalAdjacent(cell2);
 
-        Edge adjacent1 = cell1.getAdjacentByKeyCode(model.Keyboard.DOWN);
-        Edge adjacent2 = cell2.getAdjacentByKeyCode(model.Keyboard.UP);
+        Edge adjacent1 = cell1.getAdjacentByKeyCode(model.Keyboard.UP);
+        Edge adjacent2 = cell2.getAdjacentByKeyCode(model.Keyboard.DOWN);
 
         assertEquals(cell2, adjacent1.getCell());
         assertEquals(cell1, adjacent2.getCell());
@@ -129,7 +127,7 @@ public class BoardTest {
 
         cell1.creatingHorizontalAdjacent(cell2);
 
-        Edge adjacent = cell1.getAdjacentByKeyCode(model.Keyboard.RIGHT);
+        Edge adjacent = cell1.getAdjacentByKeyCode(model.Keyboard.LEFT);
         assertEquals(cell2, adjacent.getCell());
     }
     

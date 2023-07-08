@@ -7,13 +7,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class Cell implements Vertex{
+public class Cell implements Vertex {
 
     private Integer value;
     private final List<Edge> adjacents;
+    public static Integer content;
 
     public Cell(Integer value) {
         this.value = value;
+        this.adjacents = new ArrayList<>();
+    }
+
+    public Cell() {
+        this.value = Cell.content++;
         this.adjacents = new ArrayList<>();
     }
 
@@ -29,20 +35,20 @@ public class Cell implements Vertex{
 
     @Override
     public void creatingHorizontalAdjacent(Vertex cell) {
-        this.adjacents.add(new Adjacent(Keyboard.RIGHT, cell));
-        cell.getAdjacents().add(new Adjacent(Keyboard.LEFT, this));
-    } 
-    
+        this.adjacents.add(new Adjacent(Keyboard.LEFT, cell));
+        cell.getAdjacents().add(new Adjacent(Keyboard.RIGHT, this));
+    }
+
     @Override
     public void creatingVerticalAdjacent(Vertex cell) {
-        this.adjacents.add(new Adjacent(Keyboard.DOWN, cell));
-        cell.getAdjacents().add(new Adjacent(Keyboard.UP, this));
-    }   
+        this.adjacents.add(new Adjacent(Keyboard.UP, cell));
+        cell.getAdjacents().add(new Adjacent(Keyboard.DOWN, this));
+    }
 
     @Override
     public String valueToText() {
         return Optional.of(this.value)
-                .filter(v -> v != 0)
+                .filter(value -> value != 0)
                 .map(String::valueOf)
                 .orElse("");
     }
@@ -89,10 +95,10 @@ public class Cell implements Vertex{
     public List<Edge> getAdjacents() {
         return this.adjacents;
     }
-    
+
     @Override
-    public void addAdjacents(Edge edge){
-         this.adjacents.add(edge);
+    public void addAdjacents(Edge edge) {
+        this.adjacents.add(edge);
     }
 
     @Override

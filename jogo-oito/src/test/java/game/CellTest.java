@@ -66,7 +66,7 @@ public class CellTest{
         Vertex cell2 = new Cell(2);
         cell1.creatingHorizontalAdjacent(cell2);
 
-        assertEquals(cell2, cell1.getAdjacentByKeyCode(Keyboard.RIGHT).getCell());
+        assertEquals(cell2, cell1.getAdjacentByKeyCode(Keyboard.LEFT).getCell());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class CellTest{
         Vertex cell2 = new Cell(2);
         cell1.creatingHorizontalAdjacent(cell2);
 
-        assertEquals(cell2, cell1.click(Keyboard.RIGHT));
+        assertEquals(cell2, cell1.click(Keyboard.LEFT));
     }
 
     @Test

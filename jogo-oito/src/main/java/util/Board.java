@@ -2,55 +2,67 @@ package util;
 
 import interfaces.Graph;
 import interfaces.Vertex;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import model.Cell;
 import model.Keyboard;
+import model.Matrix;
 
 public class Board implements Graph {
 
-    private final Integer NUM_ROWS = 3;
-    private final Integer NUM_COLS = 3;
     private List<Vertex> cells;
     private Vertex emptyCell;
-    private final Integer length;
-    private final Boolean feedback;
+    private Integer length;
+    private Matrix matrix;
 
-    public Board(Boolean feedback) {
-        this.feedback = feedback;
-        this.length = this.NUM_ROWS * this.NUM_COLS;
-        this.emptyCell = null;
-    }
-
-    private List<Integer> generateRandomNumbers() {
-        List<Integer> numbers = IntStream.range(1, this.length)
-                .boxed()
-                .collect(Collectors.toList());
-        numbers.add(0);
-        return Optional.of(numbers)
-                .filter(list -> !this.feedback)
-                .map(list -> {
-                    Collections.shuffle(list, new Random());
-                    return list;
-                })
-                .orElse(numbers);
-
+    public Board() {
     }
 
     @Override
-    public void loadCells() {
-        List<Integer> numbers = this.generateRandomNumbers();
-        this.cells = numbers.stream()
-                .map(number -> new Cell(number))
-                .collect(Collectors.toList());
+    public void feedback() {
+        this.matrix = new Matrix();
+        this.cells = this.matrix.getCells();
+        this.length = cells.size();
         this.defineEmptyCell();
     }
 
+    @Override
+    public void setting() {
+        this.matrix = new Matrix();
+        this.cells = this.matrix.getCells();
+        this.length = cells.size();
+        this.shuffleCell();
+        this.defineEmptyCell();
+
+    }
+
+    private void shuffleCell() {
+        Iterator<Integer> iterator = this.shuffleValues().iterator();
+        this.cells.stream()
+                .forEach(vertex -> vertex.setValue(iterator.next()));
+    }
+
+    private List<Integer> shuffleValues() {
+        List<Integer> values = new ArrayList<>();
+        this.cells.stream()
+                .map(Vertex::getValue)
+                .forEach(values::add);
+        Collections.shuffle(values);
+        return values;
+    }
+
     private void defineEmptyCell() {
+        Optional<Vertex> minCell = cells.stream()
+                .min(Comparator.comparing(cell -> cell.getValue()));
+        minCell.ifPresent(cell -> {
+            this.emptyCell = cell;
+        });
+
         this.emptyCell = this.cells.get(this.cells.indexOf(new Cell(0)));
     }
 
@@ -58,7 +70,7 @@ public class Board implements Graph {
     public void click(Integer cellValue) {
         this.emptyCell = this.emptyCell.swapCells(cellValue);
     }
-    
+
     @Override
     public void swap(Integer keyCode) {
         Keyboard key = Keyboard.fromValue(keyCode);
@@ -70,44 +82,10 @@ public class Board implements Graph {
         return this.cells;
     }
 
-    private Vertex getCell(Integer index) {
-        return this.cells.get(index);
-    }
-
-    @Override
-    public void defineCellRelationships() {
-        this.defineHorizontalRelationship();
-        this.defineVerticalRelationship();
-    }
-
     @Override
     public Vertex getEmptyCell() {
         return this.emptyCell;
     }
-
-    private void defineHorizontalRelationship() {
-        IntStream.range(1, cells.size() - 1)
-                .filter(i -> i % 3 == 1)
-                .forEach(i -> {
-                    Vertex previous = this.getCell(i - 1);
-                    Vertex next = this.getCell(i + 1);
-                    Vertex current = this.getCell(i);
-                    next.creatingHorizontalAdjacent(current);
-                    current.creatingHorizontalAdjacent(previous);
-                });
-    }
-
-    private void defineVerticalRelationship() {
-        IntStream.range(3, 6)
-                .forEach(i -> {
-                    Vertex previous = this.getCell(i - 3);
-                    Vertex next = this.getCell(i + 3);
-                    Vertex current = this.getCell(i);
-                    next.creatingVerticalAdjacent(current);
-                    current.creatingVerticalAdjacent(previous);
-                });
-    }
-
 
     @Override
     public Boolean checkGameOver() {
@@ -115,4 +93,5 @@ public class Board implements Graph {
                 .allMatch(index -> this.cells.get(index).getValue() == (index + 1) % this.length);
 
     }
+
 }

@@ -12,13 +12,13 @@ import java.util.List;
  */
 public interface Graph {
 
-    void loadCells();
+    void feedback();
+    
+    void setting();
 
     void swap(Integer keyCode);
 
     List<Vertex> getCells();
-
-    void defineCellRelationships();
 
     Vertex getEmptyCell();
 

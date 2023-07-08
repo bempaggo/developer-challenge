@@ -6,7 +6,6 @@ import model.Keyboard;
 import interfaces.Edge;
 import interfaces.Vertex;
 import org.junit.jupiter.api.Test;
-import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AdjacentTest {
