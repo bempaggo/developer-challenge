@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import java.awt.GridLayout;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,14 +18,16 @@ public class GameGUI extends JFrame {
 
     private GameController controller;
     private List<Button> buttons = new ArrayList<>();
+    private KeyListener keyboardAdapter;
 
-    public GameGUI(GameController controller) {
+    public GameGUI(GameController controller, KeyListener keyboardAdapter) {
         super("Jogo dos Oito");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
         setLayout(new GridLayout(4, 3));
 
         this.controller = controller;
+        this.keyboardAdapter = keyboardAdapter;
         generateButtons();
         generateResetButton();
         windowSetUp();
@@ -34,7 +37,7 @@ public class GameGUI extends JFrame {
     }
 
     private void windowSetUp() {
-        addKeyListener(controller);
+        addKeyListener(this.keyboardAdapter);
         setFocusable(true);
         updateGrid();
     }
