@@ -10,8 +10,10 @@ public class Grid implements GridInterface {
     private final List<Integer> gridData;
     private final List<Integer> gameIsCompleteGridPattern;
     private final int gridSize;
+    private final boolean randomGrid;
 
     public Grid(int gridSize, boolean randomGrid) {
+        this.randomGrid = randomGrid;
         this.gridSize = gridSize;
         this.gridData = createDefaultGridData(gridSize);
         this.gameIsCompleteGridPattern = createDefaultGridData(gridSize);
@@ -46,10 +48,10 @@ public class Grid implements GridInterface {
     }
 
     @Override
-    public void reset(int gridSize, boolean randomGrid) {
+    public void reset() {
         gridData.clear();
-        gridData.addAll(createDefaultGridData(gridSize));
-        if (randomGrid) {
+        gridData.addAll(createDefaultGridData(this.gridSize));
+        if (this.randomGrid) {
             randomizeGridData();
         }
     }

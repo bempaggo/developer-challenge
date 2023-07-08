@@ -3,39 +3,42 @@ package chat.gpt.controller;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
+import chat.gpt.exception.ImpossibleMoveException;
 import chat.gpt.exception.PressedKeyDoesNothingException;
-import chat.gpt.model.Grid;
 import chat.gpt.model.GridInterface;
-import chat.gpt.util.GridConstants;
 import chat.gpt.util.MessagePopUp;
 import chat.gpt.view.GameGUI;
 
 public class GameController implements ButtonActionListener, KeyboardListener {
 
-    private GameService service;
+    private MovementInterface service;
     private GameGUI view;
     private GridInterface grid;
 
-    public GameController(GameService service, GameGUI view, Grid grid) {
+    public GameController(MovementInterface service, GameGUI view, GridInterface grid) {
         this.service = service;
         this.view = view;
         this.grid = grid;
     }
 
-    public void setView(GameGUI view) {
+    public void setButtons(GameGUI view) {
         this.view = view;
     }
 
     @Override
     public void processInput(int input) {
-        move(input);
-        view.updateGrid();
-        if (gameIsComplete()) {
-            MessagePopUp.showMessage("Parabéns, você venceu!");
+        try {
+            move(input);
+            view.updateGrid();
+            if (gameIsComplete()) {
+                MessagePopUp.showMessage("Parabéns, você venceu!");
+            }
+        } catch (ImpossibleMoveException impossibleMoveException) {
+            // impede checar se o jogo foi completado
         }
     }
 
-    public void move(int keyCode) {
+    public void move(int keyCode) throws ImpossibleMoveException {
         try {
             switch (keyCode) {
                 case KeyEvent.VK_UP -> service.moveUp();
@@ -46,19 +49,13 @@ public class GameController implements ButtonActionListener, KeyboardListener {
             }
         } catch (PressedKeyDoesNothingException pressedKeyDoesNothingException) {
             MessagePopUp.showMessage(pressedKeyDoesNothingException.getMessage());
-        }
+        } 
     }
 
     @Override
     public void resetGame() {
-        resetGrid();
+        grid.reset();
         view.updateGrid();
-    }
-
-    public void resetGrid() {
-        int gridSize = GridConstants.GRID_SIZE.getMeasure();
-        boolean randomGrid = GridConstants.RANDOM_GRID.useRandomGrid();
-        grid.reset(gridSize, randomGrid);
     }
 
     public boolean gameIsComplete() {

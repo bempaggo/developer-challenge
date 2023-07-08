@@ -6,6 +6,6 @@ public interface GridInterface extends ListInfoInterface {
 
     List<Integer> getGameIsCompleteGridPattern();
 
-    void reset(int gridSize, boolean randomGrid);
+    void reset();
 
 }

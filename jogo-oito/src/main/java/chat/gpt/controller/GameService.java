@@ -2,38 +2,46 @@ package chat.gpt.controller;
 
 import java.util.List;
 
+import chat.gpt.exception.ImpossibleMoveException;
 import chat.gpt.model.ListInfoInterface;
 
-public class GameService {
-    
+public class GameService implements MovementInterface {
+
     private ListInfoInterface list;
-    
+
     public GameService(ListInfoInterface list) {
         this.list = list;
     }
 
+    @Override
     public void moveDown() {
-        if (list.getEmptySlotIndex() >= list.getGridWidth())
-            swapElements(list.getEmptySlotIndex() - list.getGridWidth());
-
+        validateMove(list.getEmptySlotIndex() >= list.getGridWidth(), 
+                list.getEmptySlotIndex() - list.getGridWidth());
     }
 
+    @Override
     public void moveUp() {
-        if (list.getEmptySlotIndex() < list.getGridSize() - list.getGridWidth())
-            swapElements(list.getEmptySlotIndex() + list.getGridWidth());
-
+        validateMove(list.getEmptySlotIndex() < list.getGridSize() - list.getGridWidth(),
+                list.getEmptySlotIndex() + list.getGridWidth());
     }
 
+    @Override
     public void moveLeft() {
-        if (list.getEmptySlotIndex() % list.getGridWidth() != list.getGridWidth() - 1) {
-            swapElements(list.getEmptySlotIndex() + 1);
-        }
+        validateMove(list.getEmptySlotIndex() % list.getGridWidth() != list.getGridWidth() - 1,
+                list.getEmptySlotIndex() + 1);
     }
 
+    @Override
     public void moveRight() {
-        if (list.getEmptySlotIndex() % list.getGridWidth() != 0) {
-            swapElements(list.getEmptySlotIndex() - 1);
+        validateMove(list.getEmptySlotIndex() % list.getGridWidth() != 0,
+                list.getEmptySlotIndex() - 1);
+    }
+
+    private void validateMove(boolean condition, int swapIndex) {
+        if (!condition) {
+            throw new ImpossibleMoveException();
         }
+        swapElements(swapIndex);
     }
 
     private void swapElements(int index) {
