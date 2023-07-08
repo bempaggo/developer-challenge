@@ -2,10 +2,10 @@ package chat.gpt.util;
 
 public enum GridConstants  {
     
+    RANDOM_GRID(false),
     GRID_WIDTH(3),
     GRID_HEIGHT(3),
-    GRID_SIZE(GRID_HEIGHT.getMeasure() * GRID_WIDTH.getMeasure()),
-    RANDOM_GRID(true);
+    GRID_SIZE(GRID_HEIGHT.getMeasure() * GRID_WIDTH.getMeasure());
 
     private final Object value;
 
