@@ -18,24 +18,34 @@ public class GameGUI extends JFrame {
 
     public GameGUI(GameController controller, KeyListener keyboardAdapter) {
         super("Jogo dos Oito");
+        this.controller = controller;
+        this.keyboardAdapter = keyboardAdapter;
+        setupWindow();
+        setupKeyListener();
+        initializeComponents();
+        showWindow();
+    }
+
+    private void setupWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
         setLayout(new GridLayout(4, 3));
-
-        this.controller = controller;
-        this.keyboardAdapter = keyboardAdapter;
-        controller.generateButtons(this);
-        controller.generateResetButton(this);
-        windowSetUp();
-
-        setVisible(true);
-        requestFocus();
     }
 
-    private void windowSetUp() {
-        addKeyListener(this.keyboardAdapter);
+    private void setupKeyListener() {
+        addKeyListener(keyboardAdapter);
         setFocusable(true);
+    }
+
+    private void initializeComponents() {
+        controller.generateButtons(this);
+        controller.generateResetButton(this);
         controller.updateGrid(this);
     }
 
+    private void showWindow() {
+        setVisible(true);
+        requestFocus();
+    }
 }
+
