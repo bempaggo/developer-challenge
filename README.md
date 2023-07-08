@@ -1,4 +1,4 @@
-# [REMOTO] Desafio para vaga de desenvolvedor Sênior, Pleno e Estágio.
+# [REMOTO] Desafio para vaga de desenvolvedor [Sênior, em processo de contrataçao], Pleno e Estágio.
 
 ![image](https://user-images.githubusercontent.com/5315184/228086966-4b4b41cc-276c-4d04-96b8-5d37317a89e8.png)
 
@@ -10,7 +10,7 @@ A Bempaggo é uma empresa do setor de pagamentos.
 
 -> Vaga para trabalho remoto (Residir no Brasil por mais de 6 meses no ano).
 
--> R$ 16K (inicial) - Desenvolvedor Sênior.
+-> R$ 16K (inicial) - Desenvolvedor Sênior (em processo de contrataçao).
 
 -> R$ 7K (inicial) - Desenvolvedor Pleno.
 
