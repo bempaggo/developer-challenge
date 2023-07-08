@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Grid {
+public class Grid implements GridInterface {
 
     private final List<Integer> gridData;
     private final List<Integer> gameIsCompleteGridPattern;
+    private final int gridSize;
 
     public Grid(int gridSize, boolean randomGrid) {
+        this.gridSize = gridSize;
         this.gridData = createDefaultGridData(gridSize);
         this.gameIsCompleteGridPattern = createDefaultGridData(gridSize);
         if (randomGrid) {
@@ -18,18 +20,32 @@ public class Grid {
         }
     }
 
+    @Override
+    public int getGridSize() {
+        return gridSize;
+    }
+
+    @Override
+    public int getGridWidth() {
+        return (int) Math.sqrt(gridSize);
+    }
+
+    @Override
     public List<Integer> getGridData() {
         return this.gridData;
     }
 
-    public int getEmptyIndex() {
+    @Override
+    public int getEmptySlotIndex() {
         return getGridData().indexOf(0);
     }
 
+    @Override
     public List<Integer> getGameIsCompleteGridPattern() {
         return gameIsCompleteGridPattern;
     }
 
+    @Override
     public void reset(int gridSize, boolean randomGrid) {
         gridData.clear();
         gridData.addAll(createDefaultGridData(gridSize));
@@ -51,5 +67,6 @@ public class Grid {
     private void randomizeGridData() {
         Collections.shuffle(this.gridData);
     }
+
 
 }

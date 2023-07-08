@@ -5,6 +5,7 @@ import java.util.List;
 
 import chat.gpt.exception.PressedKeyDoesNothingException;
 import chat.gpt.model.Grid;
+import chat.gpt.model.GridInterface;
 import chat.gpt.util.GridConstants;
 import chat.gpt.util.MessagePopUp;
 import chat.gpt.view.GameGUI;
@@ -13,7 +14,7 @@ public class GameController implements ButtonActionListener, KeyboardListener {
 
     private GameService service;
     private GameGUI view;
-    private Grid grid;
+    private GridInterface grid;
 
     public GameController(GameService service, GameGUI view, Grid grid) {
         this.service = service;

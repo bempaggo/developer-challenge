@@ -2,51 +2,45 @@ package chat.gpt.controller;
 
 import java.util.List;
 
-import chat.gpt.model.Grid;
-import chat.gpt.util.GridConstants;
+import chat.gpt.model.ListInfoInterface;
 
 public class GameService {
     
-    private Grid grid;
+    private ListInfoInterface list;
     
-    public GameService() {
-        
-    }
-    
-    public void setGrid(Grid grid) {
-        this.grid = grid;
+    public GameService(ListInfoInterface list) {
+        this.list = list;
     }
 
     public void moveDown() {
-        if (grid.getEmptyIndex() >= GridConstants.GRID_WIDTH.getMeasure())
-            swapElements(grid.getEmptyIndex() - GridConstants.GRID_WIDTH.getMeasure());
+        if (list.getEmptySlotIndex() >= list.getGridWidth())
+            swapElements(list.getEmptySlotIndex() - list.getGridWidth());
 
     }
 
     public void moveUp() {
-        if (grid.getEmptyIndex() < GridConstants.GRID_SIZE.getMeasure() - GridConstants.GRID_WIDTH.getMeasure())
-            swapElements(grid.getEmptyIndex() + GridConstants.GRID_WIDTH.getMeasure());
+        if (list.getEmptySlotIndex() < list.getGridSize() - list.getGridWidth())
+            swapElements(list.getEmptySlotIndex() + list.getGridWidth());
 
     }
 
     public void moveLeft() {
-        if (grid.getEmptyIndex() % GridConstants.GRID_WIDTH.getMeasure() != GridConstants.GRID_WIDTH.getMeasure() - 1) {
-            swapElements(grid.getEmptyIndex() + 1);
+        if (list.getEmptySlotIndex() % list.getGridWidth() != list.getGridWidth() - 1) {
+            swapElements(list.getEmptySlotIndex() + 1);
         }
     }
 
     public void moveRight() {
-        if (grid.getEmptyIndex() % GridConstants.GRID_WIDTH.getMeasure() != 0) {
-            swapElements(grid.getEmptyIndex() - 1);
+        if (list.getEmptySlotIndex() % list.getGridWidth() != 0) {
+            swapElements(list.getEmptySlotIndex() - 1);
         }
     }
 
     private void swapElements(int index) {
-        List<Integer> gridData = grid.getGridData();
-        int temp = gridData.get(grid.getEmptyIndex());
-        gridData.set(grid.getEmptyIndex(), gridData.get(index));
+        List<Integer> gridData = list.getGridData();
+        int temp = gridData.get(list.getEmptySlotIndex());
+        gridData.set(list.getEmptySlotIndex(), gridData.get(index));
         gridData.set(index, temp);
     }
 
-    
 }
