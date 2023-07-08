@@ -47,7 +47,7 @@ __https://github.com/bempaggo/developer-challenge__
 ## 2 - Melhore o nosso projeto inicial.
 
 
-_Esperamos que você seja melhor que o ChatGPT._
+_Esperamos que você seja melhor que o ChatGPT e do Allan._
 
 _Valorizamos código com qualidade, ausência de dívidas técnicas..._
 
