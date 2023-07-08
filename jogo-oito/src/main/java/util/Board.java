@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
-import model.Cell;
 import model.Keyboard;
 import model.Matrix;
 
@@ -57,13 +56,11 @@ public class Board implements Graph {
     }
 
     private void defineEmptyCell() {
-        Optional<Vertex> minCell = cells.stream()
+        Optional<Vertex> minCell = this.cells.stream()
                 .min(Comparator.comparing(cell -> cell.getValue()));
         minCell.ifPresent(cell -> {
             this.emptyCell = cell;
         });
-
-        this.emptyCell = this.cells.get(this.cells.indexOf(new Cell(0)));
     }
 
     @Override
