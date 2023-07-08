@@ -10,7 +10,7 @@ A Bempaggo é uma empresa do setor de pagamentos.
 
 -> Vaga para trabalho remoto (Residir no Brasil por mais de 6 meses no ano).
 
--> R$ 16K (inicial) - Desenvolvedor Sênior (em processo de contrataçao).
+-> R$ 16K (inicial) - Desenvolvedor Sênior (em processo de contrataçâo).
 
 -> R$ 7K (inicial) - Desenvolvedor Pleno.
 
@@ -47,7 +47,7 @@ __https://github.com/bempaggo/developer-challenge__
 ## 2 - Melhore o nosso projeto inicial.
 
 
-_Esperamos que você seja melhor que o ChatGPT e do Allan._
+_Esperamos que você seja melhor que o ChatGPT e do @AllenHichard ._
 
 _Valorizamos código com qualidade, ausência de dívidas técnicas..._
 
