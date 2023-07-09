@@ -10,11 +10,6 @@ import chat.gpt.util.GridConstants;
 
 public class GameGUI extends JFrame {
 
-    private static final int WINDOW_WIDTH = 300;
-    private static final int WINDOW_HEIGHT = 300;
-    private static final int GRID_COLUMNS = GridConstants.GRID_WIDTH.getMeasure();
-    private static final int GRID_ROWS = GridConstants.GRID_WIDTH.getMeasure() + 1;
-
     public ControllerInterface controller;
     private KeyListener keyboardAdapter;
 
@@ -30,8 +25,10 @@ public class GameGUI extends JFrame {
 
     private void setupWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-        setLayout(new GridLayout(GRID_ROWS, GRID_COLUMNS));
+        setSize(WindowSize.WINDOW_WIDTH.getMeasure(), 
+                WindowSize.WINDOW_WIDTH.getMeasure());
+        setLayout(new GridLayout(GridConstants.GRID_WIDTH.getMeasure() + 1,
+                GridConstants.GRID_WIDTH.getMeasure()));
         setLocationRelativeTo(null);
     }
 
