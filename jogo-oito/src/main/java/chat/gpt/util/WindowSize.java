@@ -1,4 +1,4 @@
-package chat.gpt.view;
+package chat.gpt.util;
 
 public enum WindowSize {
     WINDOW_WIDTH(300),

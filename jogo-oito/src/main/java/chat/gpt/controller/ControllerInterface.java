@@ -4,8 +4,6 @@ import javax.swing.JFrame;
 
 public interface ControllerInterface {
 
-    void setView(JFrame view);
-
     void notifyMove();
 
     void resetGame();
@@ -14,6 +12,6 @@ public interface ControllerInterface {
 
     void generateButtons(JFrame view);
 
-    void updateGrid(JFrame view);
+    void updateGrid();
 
 }

@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 
 import chat.gpt.controller.ControllerInterface;
 import chat.gpt.util.GridConstants;
+import chat.gpt.util.WindowSize;
 
 public class GameGUI extends JFrame {
 
@@ -40,7 +41,7 @@ public class GameGUI extends JFrame {
     private void initializeComponents() {
         controller.generateButtons(this);
         controller.generateResetButton(this);
-        controller.updateGrid(this);
+        controller.updateGrid();
     }
 
     private void showWindow() {

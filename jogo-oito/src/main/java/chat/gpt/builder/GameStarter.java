@@ -1,5 +1,7 @@
 package chat.gpt.builder;
 
+import java.awt.event.KeyAdapter;
+
 import chat.gpt.controller.ControllerInterface;
 import chat.gpt.controller.GameController;
 import chat.gpt.controller.GameService;
@@ -10,30 +12,27 @@ import chat.gpt.model.GridInterface;
 import chat.gpt.util.GridConstants;
 import chat.gpt.view.GameGUI;
 
-public class GameStart {
+public class GameStarter {
 
     public static void startGame() {
 
         // inicia o Grid com base nas constantes do enum Grid
         GridInterface grid = new Grid(GridConstants.GRID_SIZE.getMeasure(), GridConstants.RANDOM_GRID.useRandomGrid());
 
-        /* inicia o GameService, que precisa do ListInfoInterface para saber a posição do espaço vazio 
+        /* inicia o GameService, que precisa do GridInterface para receber índices e o estado da lista
         para poder movimentar as peças */
         MovementInterface gameService = new GameService(grid);
 
         /* inicia o GameController, que precisa do GameService e do Grid para, com base no input do usuário,
         movimentar as peças e atualizar a tela */
-        ControllerInterface gameController = new GameController(null, grid);
+        ControllerInterface gameController = new GameController(grid);
 
         /* inicializa o KeyboardAdapter, que precisa do MovimentInterface para chamar os métodos de movimentação
          e tem de avisar o Controller que fez isso */
-        KeyboardAdapter keyboardAdapter = new KeyboardAdapter(gameService, gameController);
+        KeyAdapter keyboardAdapter = new KeyboardAdapter(gameService, gameController);
 
-        /* inicia o GameGUI, que precisa do GameController para poder inserir o listener do botão reiniciar(?)
-        e do KeyboardAdapter para poder inserir o listener do teclado */
-        GameGUI view = new GameGUI(gameController, keyboardAdapter);
+        new GameGUI(gameController, keyboardAdapter);
 
-        gameController.setView(view);
     }
 
 }

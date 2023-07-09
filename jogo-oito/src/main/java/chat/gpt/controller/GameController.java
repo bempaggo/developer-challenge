@@ -8,31 +8,24 @@ import java.util.stream.IntStream;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import chat.gpt.model.Button;
 import chat.gpt.model.GridInterface;
 import chat.gpt.util.Fonts;
 import chat.gpt.util.GridConstants;
 import chat.gpt.util.MessagePopUp;
+import chat.gpt.view.Button;
 
 public class GameController implements ButtonActionListener, ControllerInterface {
 
-    private JFrame view;
     private GridInterface grid;
-    public List<Button> buttons = new ArrayList<>();
+    private List<Button> buttons = new ArrayList<>();
 
-    public GameController(JFrame view, GridInterface grid) {
-        this.view = view;
+    public GameController(GridInterface grid) {
         this.grid = grid;
     }
 
     @Override
-    public void setView(JFrame view) {
-        this.view = view;
-    }
-
-    @Override
     public void notifyMove() {
-        updateGrid(view);
+        updateGrid();
         if (gameIsComplete()) {
             MessagePopUp.showMessage("Parabéns, você venceu!");
         }
@@ -41,7 +34,7 @@ public class GameController implements ButtonActionListener, ControllerInterface
     @Override
     public void resetGame() {
         grid.reset();
-        updateGrid(view);
+        updateGrid();
     }
 
     @Override
@@ -66,7 +59,7 @@ public class GameController implements ButtonActionListener, ControllerInterface
     }
 
     @Override
-    public void updateGrid(JFrame view) {
+    public void updateGrid() {
         List<Integer> gridData = grid.getGridData();
     
         buttons.replaceAll(button -> {

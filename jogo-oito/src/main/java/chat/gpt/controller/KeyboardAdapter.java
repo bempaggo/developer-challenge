@@ -35,7 +35,7 @@ public class KeyboardAdapter extends KeyAdapter {
         } catch (PressedKeyDoesNothingException pressedKeyDoesNothingException) {
             MessagePopUp.showMessage(pressedKeyDoesNothingException.getMessage());
         } catch (ImpossibleMoveException impossibleMoveException) {
-            MessagePopUp.showMessage(impossibleMoveException.getMessage());
+            // interrompe o fluxo de execução do método, não é necessário fazer nada além disso
         }
     }
 }

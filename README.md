@@ -15,20 +15,22 @@ _**Work In Progress**_
 A aplicação original foi separada da seguinte forma:
 
 - Pacote .application, responsável por iniciar a aplicação;
+- Pacote .builder, responsável por construir a aplicação criando as instâncias e injetando dependências
 - Pacote .model, responsável por regras de negócio e design das classes;
 - Pacote .view, responsável pela parte gráfica da aplicação;
 - Pacote .controller, responsável por receber inputs e fazer as chamadas necessárias;
-- Pacote .util, para armazenar constantes e evitar números mágicos;
+- Pacote .util, para armazenar constantes e classes utilitárias;
 - Pacote .exception, com exceções personalizadas para lidar com cenários atípicos;
 
 Com essa arquitetura, é esperado uma divisão clara entre as responsabilidades de cada parte do projeto, o que permite um entendimento rápido e acessível sobre cada funcionalidade, bem como modificações fáceis e modularizadas
 
-A estratégia para movimentação pelo teclado foi:
- - na classe [Grid](jogo-oito/src/main/java/chat/gpt/model/Grid.java) definir uma lista ordenada de inteiros como L = [1, 2, 3, ..., n, n + 0], onde n é o tamanho da lista;
- - na classe [GameService](jogo-oito/src/main/java/chat/gpt/controller/GameService.java) definir os algoritmos de manipulação do elemento inteiro 0 com base na sua posição na lista e na raiz do tamanho da lista (funciona para qualquer lista tal que o tamanho dela tenha uma raiz positiva inteira);
- - na classe [GameController](jogo-oito/src/main/java/chat/gpt/controller/GameController.java), usar um observer para o teclado e, com base na tecla direcional pressionada pelo usuário, chamar o método correspondente na classe Game;
-- Um detalhe é que, embora visualmente se movimento um botão numerado para o lugar vazio (representado por 0), a referência é o elemento vazio; portanto, a lógica da movimentação pode parecer espelhada (moveUp "move" o zero para baixo e assim por diante) já que o método é nomeado com base no movimento que o usuário deseja fazer
-- É importante citar que a escolha do tipo List<Integer\> serve para reduzir a quantidade de código digitado e permite que eu reutilize a lista para dar nomes aos botões; embora seja perfeitamente possível aplicar a mesma lógica com qualquer coleção<T\> indexável, no contexto eu só preciso de inteiros (e não quero criar instância de coleção imutável para cada input no teclado).
+A estratégia para movimentação pelo teclado foi definir uma lista L = [1,2,3,...,f. L + 0], sendo f a quantidade de elementos da lista, então definir as trocas de posição do com base no índice de 0, na raiz de n e no input do usuário de forma a emular a movimentação num tabuleiro; é plenamente funcional para qualquer tabuleiro n por n, sendo n um número natural maior ou igual a 2. 
+
+A complexidade assintótica de qualquer troca é linear.
+
+Repare que a lógica de movimentação definida na classe [GameService](jogo-oito/src/main/java/chat/gpt/controller/GameService.java) pode parecer invertida em relação ao controles; isso ocorre pois visualmente se move um botão numerado para o espaço vazio, mas o algoritmo troca os elementos com base no índice do 0.
+
+Então, a instância [KeyboardAdapter] recebe o input do usuário por meio do método keyPressed() da sua superclasse, valida a input e chama o método correto de [GameService] a partir de um matching pattern e faz um callback para o [GameController], que por sua vez requisita instância de [Grid] a lista de inteiros e atualiza os botões na tela com base nela
 
 Jogar com mouse carece de implementação
   
