@@ -4,19 +4,21 @@ import javax.swing.JFrame;
 
 import java.awt.GridLayout;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.List;
 
-import chat.gpt.controller.GameController;
-import chat.gpt.model.Button;
+import chat.gpt.controller.ControllerInterface;
+import chat.gpt.util.GridConstants;
 
 public class GameGUI extends JFrame {
 
-    public GameController controller;
-    public List<Button> buttons = new ArrayList<>();
+    private static final int WINDOW_WIDTH = 300;
+    private static final int WINDOW_HEIGHT = 300;
+    private static final int GRID_COLUMNS = GridConstants.GRID_WIDTH.getMeasure();
+    private static final int GRID_ROWS = GridConstants.GRID_WIDTH.getMeasure() + 1;
+
+    public ControllerInterface controller;
     private KeyListener keyboardAdapter;
 
-    public GameGUI(GameController controller, KeyListener keyboardAdapter) {
+    public GameGUI(ControllerInterface controller, KeyListener keyboardAdapter) {
         super("Jogo dos Oito");
         this.controller = controller;
         this.keyboardAdapter = keyboardAdapter;
@@ -28,8 +30,9 @@ public class GameGUI extends JFrame {
 
     private void setupWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 300);
-        setLayout(new GridLayout(4, 3));
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setLayout(new GridLayout(GRID_ROWS, GRID_COLUMNS));
+        setLocationRelativeTo(null);
     }
 
     private void setupKeyListener() {
@@ -48,4 +51,3 @@ public class GameGUI extends JFrame {
         requestFocus();
     }
 }
-

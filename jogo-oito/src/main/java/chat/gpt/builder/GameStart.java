@@ -1,5 +1,6 @@
 package chat.gpt.builder;
 
+import chat.gpt.controller.ControllerInterface;
 import chat.gpt.controller.GameController;
 import chat.gpt.controller.GameService;
 import chat.gpt.controller.KeyboardAdapter;
@@ -22,7 +23,7 @@ public class GameStart {
 
         /* inicia o GameController, que precisa do GameService e do Grid para, com base no input do usuário,
         movimentar as peças e atualizar a tela */
-        GameController gameController = new GameController(null, grid);
+        ControllerInterface gameController = new GameController(null, grid);
 
         /* inicializa o KeyboardAdapter, que precisa do MovimentInterface para chamar os métodos de movimentação
          e tem de avisar o Controller que fez isso */

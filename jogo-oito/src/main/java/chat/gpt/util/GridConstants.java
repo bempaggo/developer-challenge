@@ -4,8 +4,7 @@ public enum GridConstants  {
     
     RANDOM_GRID(false),
     GRID_WIDTH(3),
-    GRID_HEIGHT(3),
-    GRID_SIZE(GRID_HEIGHT.getMeasure() * GRID_WIDTH.getMeasure());
+    GRID_SIZE(GRID_WIDTH.getMeasure() * GRID_WIDTH.getMeasure());
 
     private final Object value;
 

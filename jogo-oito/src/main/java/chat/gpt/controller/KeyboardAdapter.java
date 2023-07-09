@@ -9,9 +9,9 @@ import chat.gpt.util.MessagePopUp;
 
 public class KeyboardAdapter extends KeyAdapter {
     private final MovementInterface service;
-    private final GameController controller;
+    private final ControllerInterface controller;
 
-    public KeyboardAdapter(MovementInterface service, GameController controller) {
+    public KeyboardAdapter(MovementInterface service, ControllerInterface controller) {
         this.service = service;
         this.controller = controller;
     }
