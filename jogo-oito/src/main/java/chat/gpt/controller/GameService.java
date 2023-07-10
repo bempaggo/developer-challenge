@@ -13,28 +13,56 @@ public class GameService implements MovementInterface {
         this.grid = grid;
     }
 
-    @Override
-    public void moveDown() {
-        validateMove(grid.getEmptySlotIndex() >= grid.getGridWidth(), 
-                grid.getEmptySlotIndex() - grid.getGridWidth());
+    public void move(int value) {
+        List<Integer> gridData = grid.getGridData();
+        int emptySlotIndex = grid.getEmptySlotIndex();
+        int valueIndex = gridData.indexOf(value);
+
+        boolean isValidMove = validateDelta(emptySlotIndex, valueIndex) ||
+                validateAdjacentDelta(emptySlotIndex, valueIndex);
+
+        validateMove(isValidMove, valueIndex);
     }
 
     @Override
     public void moveUp() {
-        validateMove(grid.getEmptySlotIndex() < grid.getGridSize() - grid.getGridWidth(),
-                grid.getEmptySlotIndex() + grid.getGridWidth());
+        try {
+            int value = grid.getGridData().get(grid.getEmptySlotIndex() + grid.getGridWidth());
+            move(value);
+        } catch (IndexOutOfBoundsException e) {
+            // Tratar a exceção
+        }
+
+    }
+
+    @Override
+    public void moveDown() {
+        try {
+            int value = grid.getGridData().get(grid.getEmptySlotIndex() - grid.getGridWidth());
+            move(value);
+        } catch (IndexOutOfBoundsException e) {
+            // Tratar a exceção
+        }
     }
 
     @Override
     public void moveLeft() {
-        validateMove(grid.getEmptySlotIndex() % grid.getGridWidth() != grid.getGridWidth() - 1,
-                grid.getEmptySlotIndex() + 1);
+        try {
+            int value = grid.getGridData().get(grid.getEmptySlotIndex() + 1);
+            move(value);
+        } catch (IndexOutOfBoundsException e) {
+            // Tratar a exceção
+        }
     }
 
     @Override
     public void moveRight() {
-        validateMove(grid.getEmptySlotIndex() % grid.getGridWidth() != 0,
-                grid.getEmptySlotIndex() - 1);
+        try {
+            int value = grid.getGridData().get(grid.getEmptySlotIndex() - 1);
+            move(value);
+        } catch (IndexOutOfBoundsException e) {
+            // Tratar a exceção
+        }
     }
 
     private void validateMove(boolean condition, int swapIndex) {
@@ -43,6 +71,28 @@ public class GameService implements MovementInterface {
         }
         swapElements(swapIndex);
     }
+
+    private boolean validateDelta(int emptySlotIndex, int valueIndex) {
+        int gridSize = grid.getGridSize();
+        int sqrtN = (int) Math.sqrt(gridSize);
+        int rowEmpty = emptySlotIndex / sqrtN;
+        int rowValue = valueIndex / sqrtN;
+        int colEmpty = emptySlotIndex % sqrtN;
+        int colValue = valueIndex % sqrtN;
+        return Math.abs(rowEmpty - rowValue) + Math.abs(colEmpty - colValue) == 1;
+    }
+    
+    private boolean validateAdjacentDelta(int emptySlotIndex, int valueIndex) {
+        int gridSize = grid.getGridSize();
+        int sqrtN = (int) Math.sqrt(gridSize);
+        int rowEmpty = emptySlotIndex / sqrtN;
+        int rowValue = valueIndex / sqrtN;
+        int colEmpty = emptySlotIndex % sqrtN;
+        int colValue = valueIndex % sqrtN;
+        return Math.abs(rowEmpty - rowValue) == 1 && colEmpty == colValue
+                || Math.abs(colEmpty - colValue) == 1 && rowEmpty == rowValue;
+    }
+    
 
     private void swapElements(int index) {
         List<Integer> gridData = grid.getGridData();
