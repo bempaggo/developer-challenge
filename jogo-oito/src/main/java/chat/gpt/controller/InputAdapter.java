@@ -14,6 +14,8 @@ import chat.gpt.view.ResetButton;
 
 public class InputAdapter extends KeyAdapter implements ActionListener {
 
+    // TODO: retirar essas pseudo-validações daqui e mandar pro MoveRuleset
+
     private final MovementInterface moveRuleset;
     private final ControllerInterface controller;
 
@@ -69,5 +71,5 @@ public class InputAdapter extends KeyAdapter implements ActionListener {
             // interrompe o fluxo de execução do método;
         }
     }
-    
+
 }

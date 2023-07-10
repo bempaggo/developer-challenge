@@ -7,6 +7,7 @@ import chat.gpt.exception.ImpossibleMoveException;
 public class MoveRuleset implements MovementInterface {
 
     private GridInterface grid;
+    private ValidateMove validate = new ValidateMove();
 
     public MoveRuleset(GridInterface grid) {
         this.grid = grid;
@@ -18,10 +19,10 @@ public class MoveRuleset implements MovementInterface {
         int emptySlotIndex = grid.getEmptySlotIndex();
         int valueIndex = gridData.indexOf(buttonValue);
 
-        boolean isValidMove = validateDelta(emptySlotIndex, valueIndex) ||
-                validateAdjacentDelta(emptySlotIndex, valueIndex);
+        boolean isValidMove = validate.delta(emptySlotIndex, valueIndex) ||
+                validate.adjacentDelta(emptySlotIndex, valueIndex);
 
-        validateMove(isValidMove, valueIndex);
+        validate.move(isValidMove, valueIndex);
     }
 
     @Override
@@ -49,39 +50,43 @@ public class MoveRuleset implements MovementInterface {
         move(value);
     }
 
-    private void validateMove(boolean condition, int swapIndex) {
-        if (!condition) {
-            throw new ImpossibleMoveException();
-        }
-        swapElements(swapIndex);
-    }
-
-    private boolean validateDelta(int emptySlotIndex, int valueIndex) {
-        int gridSize = grid.getGridSize();
-        int sqrtN = (int) Math.sqrt(gridSize);
-        int rowEmpty = emptySlotIndex / sqrtN;
-        int rowValue = valueIndex / sqrtN;
-        int colEmpty = emptySlotIndex % sqrtN;
-        int colValue = valueIndex % sqrtN;
-        return Math.abs(rowEmpty - rowValue) + Math.abs(colEmpty - colValue) == 1;
-    }
-
-    private boolean validateAdjacentDelta(int emptySlotIndex, int valueIndex) {
-        int gridSize = grid.getGridSize();
-        int sqrtN = (int) Math.sqrt(gridSize);
-        int rowEmpty = emptySlotIndex / sqrtN;
-        int rowValue = valueIndex / sqrtN;
-        int colEmpty = emptySlotIndex % sqrtN;
-        int colValue = valueIndex % sqrtN;
-        return Math.abs(rowEmpty - rowValue) == 1 && colEmpty == colValue
-                || Math.abs(colEmpty - colValue) == 1 && rowEmpty == rowValue;
-    }
-
     private void swapElements(int index) {
         List<Integer> gridData = grid.getGridData();
         int temp = gridData.get(grid.getEmptySlotIndex());
         gridData.set(grid.getEmptySlotIndex(), gridData.get(index));
         gridData.set(index, temp);
+    }
+
+    private class ValidateMove {
+        // TODO: implementar classe interna de validação para retirar validações da classe principal
+
+        void move(boolean condition, int swapIndex) {
+            if (!condition) {
+                throw new ImpossibleMoveException();
+            }
+            swapElements(swapIndex);
+        }
+
+        boolean delta(int emptySlotIndex, int valueIndex) {
+            int gridSize = grid.getGridSize();
+            int sqrtN = (int) Math.sqrt(gridSize);
+            int rowEmpty = emptySlotIndex / sqrtN;
+            int rowValue = valueIndex / sqrtN;
+            int colEmpty = emptySlotIndex % sqrtN;
+            int colValue = valueIndex % sqrtN;
+            return Math.abs(rowEmpty - rowValue) + Math.abs(colEmpty - colValue) == 1;
+        }
+
+        private boolean adjacentDelta(int emptySlotIndex, int valueIndex) {
+            int gridSize = grid.getGridSize();
+            int sqrtN = (int) Math.sqrt(gridSize);
+            int rowEmpty = emptySlotIndex / sqrtN;
+            int rowValue = valueIndex / sqrtN;
+            int colEmpty = emptySlotIndex % sqrtN;
+            int colValue = valueIndex % sqrtN;
+            return Math.abs(rowEmpty - rowValue) == 1 && colEmpty == colValue
+                    || Math.abs(colEmpty - colValue) == 1 && rowEmpty == rowValue;
+        }
     }
 
 }
