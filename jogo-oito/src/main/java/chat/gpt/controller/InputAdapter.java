@@ -27,7 +27,7 @@ public class InputAdapter extends KeyAdapter implements ActionListener {
         processInput(e.getKeyCode());
     }
 
-    private void processInput(int keyCode) throws ImpossibleMoveException {
+    private void processInput(int keyCode) {
         try {
             switch (keyCode) {
                 case KeyEvent.VK_UP -> moveRuleset.moveUp();
@@ -42,6 +42,8 @@ public class InputAdapter extends KeyAdapter implements ActionListener {
             MessagePopUp.showMessage(pressedKeyDoesNothingException.getMessage());
         } catch (ImpossibleMoveException impossibleMoveException) {
             // interrompe o fluxo de execução do método
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            // interrompe o fluxo de execução do método;
         }
     }
 
@@ -52,11 +54,20 @@ public class InputAdapter extends KeyAdapter implements ActionListener {
             return;
         }
 
-        // Obter o valor do botão clicado
-        Button button = (Button) e.getSource();
-        int value = Integer.parseInt(button.getText());
-        
-        moveRuleset.move(value);
-        controller.notifyMove();
+        try {
+            // Obter o valor do botão clicado
+            Button button = (Button) e.getSource();
+            int value = Integer.parseInt(button.getText());
+
+            moveRuleset.move(value);
+            controller.notifyMove();
+        } catch (ImpossibleMoveException impossibleMoveException) {
+            // interrompe o fluxo de execução do método
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            // interrompe o fluxo de execução do método;
+        } catch (NumberFormatException numberFormatException) {
+            // interrompe o fluxo de execução do método;
+        }
     }
+    
 }

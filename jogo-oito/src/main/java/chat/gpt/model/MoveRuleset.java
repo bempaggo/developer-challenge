@@ -13,7 +13,7 @@ public class MoveRuleset implements MovementInterface {
     }
 
     @Override
-    public void move(int buttonValue) {
+    public void move(int buttonValue) throws IndexOutOfBoundsException {
         List<Integer> gridData = grid.getGridData();
         int emptySlotIndex = grid.getEmptySlotIndex();
         int valueIndex = gridData.indexOf(buttonValue);
@@ -25,48 +25,28 @@ public class MoveRuleset implements MovementInterface {
     }
 
     @Override
-    public void moveUp() {
-        try {
-            int value = grid.getGridData().get(grid.getEmptySlotIndex() + grid.getGridWidth());
-            System.out.println(value);
-            move(value);
-        } catch (IndexOutOfBoundsException e) {
-            // Tratar a exceção
-        }
+    public void moveUp() throws IndexOutOfBoundsException {
+        int value = grid.getGridData().get(grid.getEmptySlotIndex() + grid.getGridWidth());
+        move(value);
 
     }
 
     @Override
-    public void moveDown() {
-        try {
-            int value = grid.getGridData().get(grid.getEmptySlotIndex() - grid.getGridWidth());
-            System.out.println(value);
-            move(value);
-        } catch (IndexOutOfBoundsException e) {
-            // Tratar a exceção
-        }
+    public void moveDown() throws IndexOutOfBoundsException {
+        int value = grid.getGridData().get(grid.getEmptySlotIndex() - grid.getGridWidth());
+        move(value);
     }
 
     @Override
-    public void moveLeft() {
-        try {
-            int value = grid.getGridData().get(grid.getEmptySlotIndex() + 1);
-            System.out.println(value);
-            move(value);
-        } catch (IndexOutOfBoundsException e) {
-            // Tratar a exceção
-        }
+    public void moveLeft() throws IndexOutOfBoundsException {
+        int value = grid.getGridData().get(grid.getEmptySlotIndex() + 1);
+        move(value);
     }
 
     @Override
-    public void moveRight() {
-        try {
-            int value = grid.getGridData().get(grid.getEmptySlotIndex() - 1);
-            System.out.println(value);
-            move(value);
-        } catch (IndexOutOfBoundsException e) {
-            // Tratar a exceção
-        }
+    public void moveRight() throws IndexOutOfBoundsException {
+        int value = grid.getGridData().get(grid.getEmptySlotIndex() - 1);
+        move(value);
     }
 
     private void validateMove(boolean condition, int swapIndex) {
@@ -85,7 +65,7 @@ public class MoveRuleset implements MovementInterface {
         int colValue = valueIndex % sqrtN;
         return Math.abs(rowEmpty - rowValue) + Math.abs(colEmpty - colValue) == 1;
     }
-    
+
     private boolean validateAdjacentDelta(int emptySlotIndex, int valueIndex) {
         int gridSize = grid.getGridSize();
         int sqrtN = (int) Math.sqrt(gridSize);
@@ -96,7 +76,6 @@ public class MoveRuleset implements MovementInterface {
         return Math.abs(rowEmpty - rowValue) == 1 && colEmpty == colValue
                 || Math.abs(colEmpty - colValue) == 1 && rowEmpty == rowValue;
     }
-    
 
     private void swapElements(int index) {
         List<Integer> gridData = grid.getGridData();
