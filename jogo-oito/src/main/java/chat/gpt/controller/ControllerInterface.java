@@ -1,5 +1,7 @@
 package chat.gpt.controller;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 
 public interface ControllerInterface {
@@ -8,9 +10,9 @@ public interface ControllerInterface {
 
     void resetGame();
 
-    void generateResetButton(JFrame view);
+    void generateResetButton(JFrame view, ActionListener resetButtonListener);
 
-    void generateButtons(JFrame view);
+    void generateButtons(JFrame view, ActionListener buttonListener);
 
     void updateGrid();
 

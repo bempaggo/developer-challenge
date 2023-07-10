@@ -3,6 +3,7 @@ package chat.gpt.view;
 import javax.swing.JFrame;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
 import chat.gpt.controller.ControllerInterface;
@@ -13,11 +14,13 @@ public class GameGUI extends JFrame {
 
     public ControllerInterface controller;
     private KeyListener keyboardAdapter;
+    private ActionListener buttonListener;
 
-    public GameGUI(ControllerInterface controller, KeyListener keyboardAdapter) {
+    public GameGUI(ControllerInterface controller, KeyListener inputAdapter, ActionListener buttonListener) {
         super("Jogo dos Oito");
         this.controller = controller;
-        this.keyboardAdapter = keyboardAdapter;
+        this.keyboardAdapter = inputAdapter;
+        this.buttonListener = buttonListener;
         setupWindow();
         setupKeyListener();
         initializeComponents();
@@ -39,8 +42,8 @@ public class GameGUI extends JFrame {
     }
 
     private void initializeComponents() {
-        controller.generateButtons(this);
-        controller.generateResetButton(this);
+        controller.generateButtons(this, buttonListener);
+        controller.generateResetButton(this, buttonListener);
         controller.updateGrid();
     }
 

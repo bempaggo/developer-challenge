@@ -16,4 +16,5 @@ public interface GridInterface {
 
     void reset();
 
+
 }
