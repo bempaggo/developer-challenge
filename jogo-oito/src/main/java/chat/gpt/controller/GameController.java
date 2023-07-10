@@ -14,7 +14,7 @@ import chat.gpt.util.GridConstants;
 import chat.gpt.util.MessagePopUp;
 import chat.gpt.view.Button;
 
-public class GameController implements ButtonActionListener, ControllerInterface {
+public class GameController implements ControllerInterface {
 
     private GridInterface grid;
     private List<Button> buttons = new ArrayList<>();
@@ -31,7 +31,6 @@ public class GameController implements ButtonActionListener, ControllerInterface
         }
     }
 
-    @Override
     public void resetGame() {
         grid.reset();
         updateGrid();
@@ -43,7 +42,7 @@ public class GameController implements ButtonActionListener, ControllerInterface
         Button resetButton = new Button()
                 .withText("Reiniciar")
                 .withFont(Fonts.RESTART_BUTTON_FONT.getFont());
-        resetButton.addActionListener(this);
+        resetButton.addActionListener(e -> resetGame());
         view.add(resetButton);
         view.add(new JLabel(""));
     }
