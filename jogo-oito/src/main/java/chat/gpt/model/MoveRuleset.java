@@ -1,22 +1,22 @@
-package chat.gpt.controller;
+package chat.gpt.model;
 
 import java.util.List;
 
 import chat.gpt.exception.ImpossibleMoveException;
-import chat.gpt.model.GridInterface;
 
-public class GameService implements MovementInterface {
+public class MoveRuleset implements MovementInterface {
 
     private GridInterface grid;
 
-    public GameService(GridInterface grid) {
+    public MoveRuleset(GridInterface grid) {
         this.grid = grid;
     }
 
-    public void move(int value) {
+    @Override
+    public void move(int buttonValue) {
         List<Integer> gridData = grid.getGridData();
         int emptySlotIndex = grid.getEmptySlotIndex();
-        int valueIndex = gridData.indexOf(value);
+        int valueIndex = gridData.indexOf(buttonValue);
 
         boolean isValidMove = validateDelta(emptySlotIndex, valueIndex) ||
                 validateAdjacentDelta(emptySlotIndex, valueIndex);
@@ -28,6 +28,7 @@ public class GameService implements MovementInterface {
     public void moveUp() {
         try {
             int value = grid.getGridData().get(grid.getEmptySlotIndex() + grid.getGridWidth());
+            System.out.println(value);
             move(value);
         } catch (IndexOutOfBoundsException e) {
             // Tratar a exceção
@@ -39,6 +40,7 @@ public class GameService implements MovementInterface {
     public void moveDown() {
         try {
             int value = grid.getGridData().get(grid.getEmptySlotIndex() - grid.getGridWidth());
+            System.out.println(value);
             move(value);
         } catch (IndexOutOfBoundsException e) {
             // Tratar a exceção
@@ -49,6 +51,7 @@ public class GameService implements MovementInterface {
     public void moveLeft() {
         try {
             int value = grid.getGridData().get(grid.getEmptySlotIndex() + 1);
+            System.out.println(value);
             move(value);
         } catch (IndexOutOfBoundsException e) {
             // Tratar a exceção
@@ -59,6 +62,7 @@ public class GameService implements MovementInterface {
     public void moveRight() {
         try {
             int value = grid.getGridData().get(grid.getEmptySlotIndex() - 1);
+            System.out.println(value);
             move(value);
         } catch (IndexOutOfBoundsException e) {
             // Tratar a exceção

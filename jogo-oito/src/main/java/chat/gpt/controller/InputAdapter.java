@@ -7,15 +7,18 @@ import java.awt.event.KeyEvent;
 
 import chat.gpt.exception.ImpossibleMoveException;
 import chat.gpt.exception.PressedKeyDoesNothingException;
+import chat.gpt.model.MovementInterface;
 import chat.gpt.util.MessagePopUp;
+import chat.gpt.view.Button;
 import chat.gpt.view.ResetButton;
 
 public class InputAdapter extends KeyAdapter implements ActionListener {
-    private final MovementInterface service;
+
+    private final MovementInterface moveRuleset;
     private final ControllerInterface controller;
 
-    public InputAdapter(MovementInterface service, ControllerInterface controller) {
-        this.service = service;
+    public InputAdapter(MovementInterface moveRuleset, ControllerInterface controller) {
+        this.moveRuleset = moveRuleset;
         this.controller = controller;
     }
 
@@ -27,10 +30,10 @@ public class InputAdapter extends KeyAdapter implements ActionListener {
     private void processInput(int keyCode) throws ImpossibleMoveException {
         try {
             switch (keyCode) {
-                case KeyEvent.VK_UP -> service.moveUp();
-                case KeyEvent.VK_DOWN -> service.moveDown();
-                case KeyEvent.VK_LEFT -> service.moveLeft();
-                case KeyEvent.VK_RIGHT -> service.moveRight();
+                case KeyEvent.VK_UP -> moveRuleset.moveUp();
+                case KeyEvent.VK_DOWN -> moveRuleset.moveDown();
+                case KeyEvent.VK_LEFT -> moveRuleset.moveLeft();
+                case KeyEvent.VK_RIGHT -> moveRuleset.moveRight();
                 default -> throw new PressedKeyDoesNothingException();
             }
             controller.notifyMove();
@@ -38,7 +41,7 @@ public class InputAdapter extends KeyAdapter implements ActionListener {
         } catch (PressedKeyDoesNothingException pressedKeyDoesNothingException) {
             MessagePopUp.showMessage(pressedKeyDoesNothingException.getMessage());
         } catch (ImpossibleMoveException impossibleMoveException) {
-            // interrompe o fluxo de execução do método, não é necessário fazer nada além disso
+            // interrompe o fluxo de execução do método
         }
     }
 
@@ -48,5 +51,12 @@ public class InputAdapter extends KeyAdapter implements ActionListener {
             controller.resetGame();
             return;
         }
+
+        // Obter o valor do botão clicado
+        Button button = (Button) e.getSource();
+        int value = Integer.parseInt(button.getText());
+        
+        moveRuleset.move(value);
+        controller.notifyMove();
     }
 }

@@ -5,11 +5,11 @@ import java.awt.event.KeyListener;
 
 import chat.gpt.controller.ControllerInterface;
 import chat.gpt.controller.GameController;
-import chat.gpt.controller.GameService;
 import chat.gpt.controller.InputAdapter;
-import chat.gpt.controller.MovementInterface;
 import chat.gpt.model.Grid;
 import chat.gpt.model.GridInterface;
+import chat.gpt.model.MoveRuleset;
+import chat.gpt.model.MovementInterface;
 import chat.gpt.util.GridConstants;
 import chat.gpt.view.GameGUI;
 
@@ -22,7 +22,7 @@ public class GameStarter {
 
         /* inicia o GameService, que precisa do GridInterface para receber índices e o estado da lista
         para poder movimentar as peças */
-        MovementInterface gameService = new GameService(grid);
+        MovementInterface gameService = new MoveRuleset(grid);
 
         /* inicia o GameController, que precisa do GameService e do Grid para, com base no input do usuário,
         movimentar as peças e atualizar a tela */

@@ -1,6 +1,8 @@
-package chat.gpt.controller;
+package chat.gpt.model;
 
 public interface MovementInterface {
+
+    public void move(int buttonValue);
 
     void moveDown();
 

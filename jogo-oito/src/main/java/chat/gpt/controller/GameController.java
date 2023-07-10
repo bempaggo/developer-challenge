@@ -49,12 +49,19 @@ public class GameController implements ControllerInterface {
 
     @Override
     public void generateButtons(JFrame view, ActionListener buttonListener) {
+        List<Integer> gridData = grid.getGridData();
+
         buttons = IntStream.range(0, GridConstants.GRID_SIZE.getMeasure())
-                .mapToObj(i -> new Button()
-                        .withText("")
-                        .withFont(Fonts.DEFAULT_FONT.getFont())
-                        .withActionListener(buttonListener))
+                .mapToObj(i -> {
+                    int value = gridData.get(i);
+                    Button button = new Button()
+                            .withText(value == 0 ? "" : String.valueOf(value))
+                            .withFont(Fonts.DEFAULT_FONT.getFont())
+                            .withActionListener(buttonListener);
+                    return button;
+                })
                 .collect(Collectors.toList());
+
         buttons.forEach(view::add);
     }
 
