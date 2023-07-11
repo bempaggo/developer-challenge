@@ -32,6 +32,10 @@ Jogar com o mouse foi implementado; para tanto basta clicar em um botão adjacen
 
 ### **Testes**
 
+Usei JUnit 5 e Mockito para implementar os testes de unidade. Como fui para uma estratégia de implementar interfaces para tudo para fazer a injeção de dependências sem uso de framework, fica um pouco complicado de testar sem basicamente criar um mock com classe anônima, por isso optei pelo Mockito.
+
+Há testes bem simples para validar comportamentos básicos dos métodos das camadas mais baixas. Não houve nenhum teste indireto específico para métodos privados.
+
 ### **Novas Funcionalidades**
 
 - Agora é possível jogar com o mouse ou teclado;
@@ -59,6 +63,8 @@ Jogar com o mouse foi implementado; para tanto basta clicar em um botão adjacen
 - [Zsh](https://www.zsh.org/)
 - [asdf](https://asdf-vm.com/)
 - [OpenJDK-18](https://openjdk.org/)
+- [JUnit 5](https://junit.org/junit5/)
+- [Mockito](https://site.mockito.org/)
 
 ### _Contato_
 
