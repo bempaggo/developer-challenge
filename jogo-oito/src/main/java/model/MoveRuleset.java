@@ -73,10 +73,9 @@ public class MoveRuleset implements MovementInterface {
     }
 
     private Integer getByIndex(Integer index) {
-        List<Integer> gridData = grid.getGridData();
-        if (index < 0 || index >= gridData.size()) {
-            return null;
-        }
-        return gridData.get(index);
+        return grid.getGridData().stream()
+                .skip(index)
+                .findFirst()
+                .orElse(null);
     }
 }
