@@ -1,15 +1,12 @@
-package chat.gpt.model;
+package model;
 
 public interface MovementInterface {
 
-    public void move(int buttonValue);
-
+    void move(Integer buttonValue);
     void moveDown();
-
     void moveUp();
-
     void moveLeft();
-
     void moveRight();
+    void setGrid(GridInterface grid);
 
 }

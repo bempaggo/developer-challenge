@@ -24,31 +24,28 @@ A aplicação original foi separada da seguinte forma:
 
 Com essa arquitetura, é esperado uma divisão clara entre as responsabilidades de cada parte do projeto, o que permite um entendimento rápido e acessível sobre cada funcionalidade, bem como modificações fáceis e modularizadas
 
-A estratégia para movimentação pelo teclado foi definir uma lista L = [1,2,3,...,f. L + 0], sendo f a quantidade de elementos da lista, então definir as trocas de posição do com base no índice de 0, na raiz de n e no input do usuário de forma a emular a movimentação num tabuleiro; é plenamente funcional para qualquer tabuleiro n por n, sendo n um número natural maior ou igual a 2. 
+A estratégia para movimentação pelo teclado foi definir uma lista L = [1,2,3,...,f. L + 0], sendo f a quantidade de elementos da lista, então definir as trocas de posição simulando coordenadas cartesianas com base no índice de 0, na raiz de n e no input do usuário de forma a emular a movimentação num tabuleiro; é plenamente funcional para tabuleiros n por n sendo n maior ou igual a 3, testado até 10. É de bom tom citar que o botão reiniciar vai ficar deslocado do centro em qualquer configuração diferente de 3x3. 
 
 A complexidade assintótica de qualquer troca é linear.
 
-Repare que a lógica de movimentação definida na classe [GameService](jogo-oito/src/main/java/chat/gpt/controller/GameService.java) pode parecer invertida em relação ao controles; isso ocorre pois visualmente se move um botão numerado para o espaço vazio, mas o algoritmo troca os elementos com base no índice do 0.
-
-Então, a instância [KeyboardAdapter] recebe o input do usuário por meio do método keyPressed() da sua superclasse, valida a input e chama o método correto de [GameService] a partir de um matching pattern e faz um callback para o [GameController], que por sua vez requisita instância de [Grid] a lista de inteiros e atualiza os botões na tela com base nela
-
-Jogar com mouse carece de implementação
-  
+Jogar com o mouse foi implementado; para tanto basta clicar em um botão adjacente ao botão vazio e ele ocupará o lugar do botão vazio.
 
 ### **Testes**
 
 ### **Novas Funcionalidades**
 
+- Agora é possível jogar com o mouse ou teclado;
 - O jogo notifica quando você ganhou;
 - O jogo informa quando a tecla pressionada é inválida;
-- É possível modificar o jogo para o tabuleiro começar numa posição aleatória. Para isso, é necessário modificar o valor de RANDOM_GRID no arquivo [GridConstants](jogo-oito/src/main/java/chat/gpt/util/GridConstants.java) (coloque "true" para aleatório e "false" para o tabuleiro na ordem, sem aspas)
+- É possível modificar o jogo para o tabuleiro começar numa posição aleatória. Para isso, é necessário modificar o valor de RANDOM_GRID no arquivo [GridConstants](jogo-oito/src/main/java/util/GridConstants.java) (coloque "true" para aleatório e "false" para o tabuleiro na ordem, sem aspas);
+- é possível configurar tamanhos personalizados para o tabuleiro. Para isso, é necessário modificar o valor de GRID_WIDTH no arquivo [GridConstants](jogo-oito/src/main/java/util/GridConstants.java) (coloque qualquer valor inteiro igual ou maior que 3);
 
 ### **Correção de Bugs**
 
 - Tentar fazer um movimento inválido com o tabuleiro na posição final não ativa mais o evento de finalizar o jogo
 - Clicar em um botão não seleciona mais o texto do botão
 - Clicar em um botão não impede mais que o usuário continue jogando com o teclado
-- O botão reiniciar agora reinicia corretamente o tabuleiro. É importante mencionar que, ao clicar no botão reiniciar com o tabuleiro na posição inicial quando o modo aleatório está desativado, embora aparentemente não atualize visualmente o tabuleiro, a lista que o define é reiniciada
+- O botão reiniciar agora reinicia corretamente o tabuleiro. É importante mencionar que, ao clicar no botão reiniciar com o tabuleiro na posição inicial quando o modo aleatório está desativado, embora aparentemente não atualize visualmente o tabuleiro, a lista que o define é reiniciada; isso pode ser verificado no modo aleatório.
 
 ---
 

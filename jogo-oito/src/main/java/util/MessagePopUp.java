@@ -1,4 +1,4 @@
-package chat.gpt.util;
+package util;
 
 import javax.swing.JOptionPane;
 

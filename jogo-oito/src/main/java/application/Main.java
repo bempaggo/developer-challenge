@@ -1,6 +1,6 @@
-package chat.gpt.application;
+package application;
 
-import chat.gpt.builder.GameStarter;
+import builder.GameStarter;
 
 public class Main {
 

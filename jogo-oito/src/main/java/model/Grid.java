@@ -1,4 +1,4 @@
-package chat.gpt.model;
+package model;
 
 import java.util.Collections;
 import java.util.List;
@@ -9,27 +9,27 @@ public class Grid implements GridInterface {
 
     private final List<Integer> gridData;
     private final List<Integer> gameIsCompleteGridPattern;
-    private final int gridSize;
-    private final boolean randomGrid;
+    private final Integer gridSize;
+    private final Integer gridWidth;
+    private final Boolean randomGrid;
 
-    public Grid(int gridSize, boolean randomGrid) {
+    public Grid(Integer gridSize, Integer gridWidth, Boolean randomGrid) {
         this.randomGrid = randomGrid;
         this.gridSize = gridSize;
+        this.gridWidth = gridWidth;
         this.gridData = createDefaultGridData(gridSize);
         this.gameIsCompleteGridPattern = createDefaultGridData(gridSize);
-        if (randomGrid) {
-            randomizeGridData();
-        }
+        if (this.randomGrid) randomizeGridData();
     }
 
     @Override
-    public int getGridSize() {
+    public Integer getGridSize() {
         return gridSize;
     }
 
     @Override
-    public int getGridWidth() {
-        return (int) Math.sqrt(gridSize);
+    public Integer getGridWidth() {
+        return gridWidth;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Grid implements GridInterface {
     }
 
     @Override
-    public int getEmptySlotIndex() {
+    public Integer getEmptySlotIndex() {
         return getGridData().indexOf(0);
     }
 
@@ -69,6 +69,5 @@ public class Grid implements GridInterface {
     private void randomizeGridData() {
         Collections.shuffle(this.gridData);
     }
-
 
 }

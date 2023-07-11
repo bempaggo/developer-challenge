@@ -1,4 +1,4 @@
-package chat.gpt.view;
+package view;
 
 import javax.swing.JButton;
 import java.awt.Font;

@@ -1,16 +1,16 @@
-package chat.gpt.model;
+package model;
 
 import java.util.List;
 
 public interface GridInterface {
 
-    int getGridSize();
+    Integer getGridSize();
 
-    int getGridWidth();
+    Integer getGridWidth();
 
     List<Integer> getGridData();
 
-    int getEmptySlotIndex();
+    Integer getEmptySlotIndex();
 
     List<Integer> getGameIsCompleteGridPattern();
 
