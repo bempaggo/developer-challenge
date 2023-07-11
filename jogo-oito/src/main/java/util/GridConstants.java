@@ -2,9 +2,9 @@ package util;
 
 public enum GridConstants {
 
-    RANDOM_GRID(true),
-    GRID_WIDTH(3),
-    GRID_SIZE(GRID_WIDTH.getMeasure() * GRID_WIDTH.getMeasure());
+    RANDOMNESS(true),
+    WIDTH(3),
+    SIZE(WIDTH.getMeasure() * WIDTH.getMeasure());
 
     private final Object value;
 

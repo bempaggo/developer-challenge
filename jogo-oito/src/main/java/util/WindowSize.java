@@ -1,12 +1,12 @@
 package util;
 
 public enum WindowSize {
-    WINDOW_WIDTH(300),
-    WINDOW_HEIGHT(300);
+    WIDTH(300),
+    HEIGHT(300);
 
-    private final Object value;
+    private final Integer value;
 
-    WindowSize(Object value) {
+    WindowSize(Integer value) {
         this.value = value;
     }
 

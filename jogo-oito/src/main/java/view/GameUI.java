@@ -58,10 +58,10 @@ public class GameUI extends JFrame {
 
     private void setupWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(WindowSize.WINDOW_WIDTH.getMeasure(),
-                WindowSize.WINDOW_WIDTH.getMeasure());
-        setLayout(new GridLayout(GridConstants.GRID_WIDTH.getMeasure() + 1,
-                GridConstants.GRID_WIDTH.getMeasure()));
+        setSize(WindowSize.WIDTH.getMeasure(),
+                WindowSize.HEIGHT.getMeasure());
+        setLayout(new GridLayout(GridConstants.WIDTH.getMeasure() + 1,
+                GridConstants.WIDTH.getMeasure()));
         setLocationRelativeTo(null);
     }
 
@@ -94,7 +94,7 @@ public class GameUI extends JFrame {
     private void generateButtons() {
         List<Integer> gridData = controller.gridData();
 
-        buttons = IntStream.range(0, GridConstants.GRID_SIZE.getMeasure())
+        buttons = IntStream.range(0, GridConstants.SIZE.getMeasure())
                 .mapToObj(i -> {
                     int value = gridData.get(i);
                     Button button = new Button()

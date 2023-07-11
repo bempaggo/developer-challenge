@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Optional;
 
 public class MoveRuleset implements MovementInterface {
 
@@ -52,15 +53,12 @@ public class MoveRuleset implements MovementInterface {
     }
 
     private void validateMove(Integer buttonValue) {
-        List<Integer> gridData = grid.getGridData();
-        Integer emptySlotIndex = grid.getEmptySlotIndex();
-        Integer valueIndex = gridData.indexOf(buttonValue);
+        Integer valueIndex = grid.getGridData().indexOf(buttonValue);
+        
+        Optional.of(valueIndex)
+                .filter(i -> moveValidator.isValidMove(grid.getEmptySlotIndex(), i))
+                .ifPresent(this::swapElements);
 
-        if (!moveValidator.isValidMove(emptySlotIndex, valueIndex)) {
-            return;
-        }
-
-        swapElements(valueIndex);
     }
 
     private void swapElements(Integer index) {

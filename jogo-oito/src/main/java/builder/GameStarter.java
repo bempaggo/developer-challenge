@@ -14,9 +14,9 @@ public class GameStarter {
 
     public static void startGame() {
 
-        GridInterface grid = new Grid(GridConstants.GRID_SIZE.getMeasure(),
-                GridConstants.GRID_WIDTH.getMeasure(),
-                GridConstants.RANDOM_GRID.useRandomGrid());
+        GridInterface grid = new Grid(GridConstants.SIZE.getMeasure(),
+                GridConstants.WIDTH.getMeasure(),
+                GridConstants.RANDOMNESS.useRandomGrid());
     
         MovementInterface moveRuleset = new MoveRuleset();
         ControllerInterface gameController = new GameController();

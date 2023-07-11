@@ -8,8 +8,8 @@ public class Coordinates {
     private Integer col;
 
     public Coordinates(Integer value) {
-        this.row = value / GridConstants.GRID_WIDTH.getMeasure();
-        this.col = value % GridConstants.GRID_WIDTH.getMeasure();
+        this.row = value / GridConstants.WIDTH.getMeasure();
+        this.col = value % GridConstants.WIDTH.getMeasure();
     }
 
     Integer getRow() {
