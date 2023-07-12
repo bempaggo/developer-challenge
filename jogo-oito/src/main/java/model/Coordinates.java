@@ -4,8 +4,8 @@ import util.GridConstants;
 
 public class Coordinates {
     
-    private Integer row;
-    private Integer col;
+    private final Integer row;
+    private final Integer col;
 
     public Coordinates(Integer value) {
         this.row = value / GridConstants.WIDTH.getMeasure();

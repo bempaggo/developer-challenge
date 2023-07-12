@@ -97,11 +97,10 @@ public class GameUI extends JFrame {
         buttons = IntStream.range(0, GridConstants.SIZE.getMeasure())
                 .mapToObj(i -> {
                     int value = gridData.get(i);
-                    Button button = new Button()
+                    return new Button()
                             .withText(value == 0 ? "" : String.valueOf(value))
                             .withFont(Fonts.DEFAULT_FONT.getFont())
                             .withActionListener(buttonListener);
-                    return button;
                 })
                 .collect(Collectors.toList());
 

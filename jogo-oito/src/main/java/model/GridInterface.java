@@ -4,8 +4,6 @@ import java.util.List;
 
 public interface GridInterface {
 
-    Integer getGridSize();
-
     Integer getGridWidth();
 
     List<Integer> getGridData();

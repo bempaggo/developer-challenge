@@ -15,7 +15,7 @@ public class InputAdapter extends KeyAdapter implements ActionListener {
 
     private MovementInterface moveRuleset;
     private ControllerInterface controller;
-    private Map<Keyboard, Runnable> keyToActionMap = new EnumMap<>(Keyboard.class);
+    private final Map<Keyboard, Runnable> keyToActionMap = new EnumMap<>(Keyboard.class);
 
     private static final Runnable DO_NOTHING = () -> {
     };

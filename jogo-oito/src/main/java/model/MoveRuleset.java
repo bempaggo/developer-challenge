@@ -6,7 +6,7 @@ import java.util.Optional;
 public class MoveRuleset implements MovementInterface {
 
     private GridInterface grid;
-    private MoveValidator moveValidator = new MoveValidator();
+    private final MoveValidator moveValidator = new MoveValidator();
 
     public MoveRuleset() {
     }

@@ -18,17 +18,17 @@ public class GameStarter {
                 GridConstants.WIDTH.getMeasure(),
                 GridConstants.RANDOMNESS.useRandomGrid());
     
-        MovementInterface moveRuleset = new MoveRuleset();
+        MovementInterface moveRuleSet = new MoveRuleset();
         ControllerInterface gameController = new GameController();
         GameUI view = new GameUI();
         InputAdapter inputAdapter = new InputAdapter();
         
-        moveRuleset.setGrid(grid);
+        moveRuleSet.setGrid(grid);
 
         gameController.setGrid(grid);
         gameController.setView(view);
     
-        inputAdapter.setMovementInterface(moveRuleset);
+        inputAdapter.setMovementInterface(moveRuleSet);
         inputAdapter.setControllerInterface(gameController);
     
         view.setControllerInterface(gameController);

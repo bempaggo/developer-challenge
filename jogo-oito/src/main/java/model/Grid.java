@@ -22,7 +22,6 @@ public class Grid implements GridInterface {
         if (this.randomGrid) randomizeGridData();
     }
 
-    @Override
     public Integer getGridSize() {
         return gridSize;
     }

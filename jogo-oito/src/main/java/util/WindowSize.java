@@ -11,6 +11,6 @@ public enum WindowSize {
     }
 
     public Integer getMeasure() {
-        return (Integer) value;
+        return value;
     }
 }
