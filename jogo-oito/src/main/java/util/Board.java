@@ -85,7 +85,7 @@ public class Board implements Graph {
     }
 
     @Override
-    public Boolean checkGameOver() {
+    public Boolean checkVictory() {
         return IntStream.range(0, this.length)
                 .allMatch(index -> this.cells.get(index).getValue() == (index + 1) % this.length);
 

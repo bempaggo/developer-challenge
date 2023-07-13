@@ -73,7 +73,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void checkVictory() {
-        Optional.ofNullable(this.controller.checkGameOver())
+        Optional.ofNullable(this.controller.checkVicory())
                 .filter(Boolean::booleanValue)
                 .ifPresent(gameOver -> {
                     JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");

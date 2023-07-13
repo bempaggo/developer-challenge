@@ -29,8 +29,8 @@ public class Controller {
         this.board.swap(keyCode);
     }
 
-    public Boolean checkGameOver() {
-        return this.board.checkGameOver();
+    public Boolean checkVicory() {
+        return this.board.checkVictory();
 
     }
 

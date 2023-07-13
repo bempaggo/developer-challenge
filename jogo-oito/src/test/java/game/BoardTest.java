@@ -76,10 +76,10 @@ public class BoardTest {
 
     @Test
     public void testCheckGameOver() {
-        Assertions.assertTrue(this.board.checkGameOver());
+        Assertions.assertTrue(this.board.checkVictory());
         board = new Board();
         board.setting();
-        Assertions.assertFalse(board.checkGameOver());
+        Assertions.assertFalse(board.checkVictory());
 
     }
 
