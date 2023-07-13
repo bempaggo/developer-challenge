@@ -2,6 +2,8 @@ package view;
 
 import facade.Controller;
 import interfaces.Vertex;
+import util.Board;
+
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -26,7 +28,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     public JogoDosOito() {
         super("Jogo dos Oito");
-        this.controller = new Controller();
+        this.controller = new Controller(new Board());
         this.controller.setting();
         this.buttons = new ArrayList<>();
         createButtons();

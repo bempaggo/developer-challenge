@@ -9,8 +9,8 @@ public class Controller {
 
     private final Graph board;
 
-    public Controller() {
-        this.board = new Board();
+    public Controller(Graph graph) {
+        this.board = graph;
     }
     
     public void feedback() {
