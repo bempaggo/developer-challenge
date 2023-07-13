@@ -66,14 +66,13 @@ public class JogoDosOito extends JFrame implements KeyListener {
         button.addActionListener((ActionEvent e) -> {
             this.controller.click(this.textToValue(button.getText()));
             this.updateBoard();
-            this.checkGameOver();
+            this.checkVictory();
             SwingUtilities.getRoot(button).requestFocus();
         });
         return button;
-
     }
 
-    private void checkGameOver() {
+    private void checkVictory() {
         Optional.ofNullable(this.controller.checkGameOver())
                 .filter(Boolean::booleanValue)
                 .ifPresent(gameOver -> {
@@ -136,7 +135,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
     public void keyPressed(KeyEvent e) {
         this.controller.swap(e.getKeyCode());
         this.updateBoard();
-        this.checkGameOver();
+        this.checkVictory();
     }
 
     @Override
