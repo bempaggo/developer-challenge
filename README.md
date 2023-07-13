@@ -60,7 +60,7 @@ _Precisamos jogar o jogo com mouse._
 ## 2.1 Histórico do desenvolvimento
 1° - Chat Gpt gerou um código Java para um jogo do 8, o código aparentava estruturas monolíticas.
 
-2° - Allan incluiu uma versao Orientada Objetos, contudo muito codigo funcional.
+2° - Allan incluiu uma versão Orientada Objetos, contudo com muito código funcional.
 
 3° - Estamos agoardando ansiosos por adicionar mais nomes de desenvolvedores ou desenvolvedoras aqui. 
 
