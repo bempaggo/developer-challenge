@@ -29,6 +29,9 @@ public class JogoDosOito extends JFrame implements KeyListener {
         this.controller = new Controller();
         this.controller.setting();
         this.buttons = new ArrayList<>();
+        createButtons();
+        configMenu();
+        configureInterface();
     }
 
     private void configureInterface() {
@@ -136,13 +139,5 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-    }
-
-    public static void main(String[] args) {
-        JogoDosOito game = new JogoDosOito();
-        game.createButtons();
-        game.configMenu();
-        game.configureInterface();
-
     }
 }
