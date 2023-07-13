@@ -57,12 +57,20 @@ _Aplicar programação orientada aos objetos é uma exigência para esta vaga._
 
 _Precisamos jogar o jogo com mouse._
 
+## 2.1 Histórico do desenvolvimento
+1° - Chat Gpt gerou um código Java para um jogo do 8, o código aparentava estruturas monolíticas.
+
+2° - Allan incluiu uma versao Orientada Objetos, contudo muito codigo funcional.
+
+3° - Gostariamos de uma versão tendendo à POO pura. Onde pode melhorar? 
+  São diversos pontos, alguns mais evidentes: Melhorar as abstrações, incluido nomes e conceitos do jogo de 8. Reduzir o volume de código. Aplicar Padrões de Projetos de Software.    
 
 ## 3 - Faça um pull request ao nosso projeto.
 
 _Indique o nível da vaga na mensagem de pull request._
 
-_Aceitamos apenas um pull request de cada usuário, então capriche._
+_Sugerimos que capriche sempre que pedir um pull request, reveja o que os outros já fizeram isso ajuda a revisão._
+
 
 ## 4 - Aguarde uma revisão.
 
