@@ -62,7 +62,8 @@ _Precisamos jogar o jogo com mouse._
 
 2° - Allan incluiu uma versao Orientada Objetos, contudo muito codigo funcional.
 
-3° - Gostariamos de uma versão tendendo à POO pura. Onde pode melhorar? 
+## 2.2 Melhorias
+Gostariamos de uma versão tendendo à POO pura. Onde pode melhorar? 
   São diversos pontos, alguns mais evidentes: Melhorar as abstrações, incluido nomes e conceitos do jogo de 8. Reduzir o volume de código. Aplicar Padrões de Projetos de Software.    
 
 ## 3 - Faça um pull request ao nosso projeto.
