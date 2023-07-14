@@ -56,7 +56,6 @@ public final class Matrix {
         private final int NUMBER_OF_CELLS = 3;
         public Row() {
             this.cells = new ArrayList<>();
-            
             for(int i = 0; i < NUMBER_OF_CELLS; i++){
                 this.cells.add(new Cell());
             }
@@ -75,6 +74,5 @@ public final class Matrix {
                 leftCell.creatingHorizontalAdjacent(rightCell);
             }
         }
-
     }
 }
