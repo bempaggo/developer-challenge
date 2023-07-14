@@ -4,6 +4,7 @@
  */
 package model;
 
+import interfaces.DefinableAdjacent;
 import interfaces.Vertex;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author allen
  */
-public final class Matrix {
+public final class Matrix implements DefinableAdjacent{
 
     private List<Row> rows;
     private final int NUMBER_OF_ROWS = 3;
@@ -28,7 +29,7 @@ public final class Matrix {
         this.defineAdjacent();
     }
 
-    private void defineAdjacent() {
+    public void defineAdjacent() {
         for(int i = 0; i < NUMBER_OF_ROWS - 1; i++){
             Row upRow = rows.get(i);
             Row downRow = rows.get(i + 1);
@@ -50,7 +51,11 @@ public final class Matrix {
         return Matrix.cells;
     }
 
-    private final class Row {
+    public List<Row> getRows() {
+        return this.rows;
+    }
+
+    private final class Row implements DefinableAdjacent{
 
         private List<Vertex> cells;
         private final int NUMBER_OF_CELLS = 3;
