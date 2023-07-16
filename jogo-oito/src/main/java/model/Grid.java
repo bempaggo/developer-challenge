@@ -2,6 +2,7 @@ package model;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -18,8 +19,8 @@ public class Grid implements GridInterface {
         this.gridSize = gridSize;
         this.gridWidth = gridWidth;
         this.gridData = createDefaultGridData(gridSize);
-        this.gameIsCompleteGridPattern = createDefaultGridData(gridSize);
-        if (this.randomGrid) randomizeGridData();
+        this.gameIsCompleteGridPattern = List.copyOf(gridData);
+        this.randomizeGridData(this.randomGrid);
     }
 
     @Override
@@ -51,23 +52,21 @@ public class Grid implements GridInterface {
     public void reset() {
         gridData.clear();
         gridData.addAll(createDefaultGridData(this.gridSize));
-        if (this.randomGrid) {
-            randomizeGridData();
-        }
+        randomizeGridData(this.randomGrid);
     }
 
     private List<Integer> createDefaultGridData(int gridSize) {
         List<Integer> gridData = IntStream.range(1, gridSize)
                 .boxed()
                 .collect(Collectors.toList());
-
         gridData.add(0);
-
         return gridData;
     }
 
-    private void randomizeGridData() {
-        Collections.shuffle(this.gridData);
+    private void randomizeGridData(Boolean randomGrid) {
+        Optional.ofNullable(randomGrid)
+                .filter(Boolean::booleanValue)
+                .ifPresent(ignored -> Collections.shuffle(this.gridData));
     }
 
 }

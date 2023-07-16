@@ -50,7 +50,7 @@ public class GameUI extends JFrame {
         List<Integer> gridData = controller.gridData();
 
         buttons.replaceAll(button -> {
-            int value = gridData.get(buttons.indexOf(button));
+            Integer value = gridData.get(buttons.indexOf(button));
             button.setText(value == 0 ? "" : String.valueOf(value));
             return button;
         });
