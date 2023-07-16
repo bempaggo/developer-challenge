@@ -31,25 +31,19 @@ public class MoveRuleset implements MovementInterface {
     @Override
     public void moveDown() {
         Integer targetValueToSwap = getByIndex(grid.getEmptySlotIndex() - grid.getGridWidth());
-        if (targetValueToSwap != null) {
-            move(targetValueToSwap);
-        }
+        move(targetValueToSwap);
     }
 
     @Override
     public void moveLeft() {
         Integer targetValueToSwap = getByIndex(grid.getEmptySlotIndex() + 1);
-        if (targetValueToSwap != null) {
-            move(targetValueToSwap);
-        }
+        move(targetValueToSwap);    
     }
 
     @Override
     public void moveRight() {
         Integer targetValueToSwap = getByIndex(grid.getEmptySlotIndex() - 1);
-        if (targetValueToSwap != null) {
-            move(targetValueToSwap);
-        }
+        move(targetValueToSwap);
     }
 
     private void validateMove(Integer buttonValue) {
