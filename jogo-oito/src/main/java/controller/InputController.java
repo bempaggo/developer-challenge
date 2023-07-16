@@ -11,7 +11,7 @@ import model.MovementInterface;
 import util.Keyboard;
 import view.Button;
 
-public class InputAdapter extends KeyAdapter implements ActionListener {
+public class InputController extends KeyAdapter implements ActionListener {
 
     private MovementInterface moveRuleset;
     private ControllerInterface controller;
@@ -20,7 +20,7 @@ public class InputAdapter extends KeyAdapter implements ActionListener {
     private static final Runnable DO_NOTHING = () -> {
     };
 
-    public InputAdapter() {
+    public InputController() {
     }
 
     public void configurate() {

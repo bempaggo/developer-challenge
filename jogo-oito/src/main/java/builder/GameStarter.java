@@ -2,7 +2,7 @@ package builder;
 
 import controller.ControllerInterface;
 import controller.GameController;
-import controller.InputAdapter;
+import controller.InputController;
 import model.Board;
 import model.BoardInterface;
 import model.MoveRuleset;
@@ -21,7 +21,7 @@ public class GameStarter {
         MovementInterface moveRuleset = new MoveRuleset();
         ControllerInterface gameController = new GameController();
         GameUI view = new GameUI();
-        InputAdapter inputAdapter = new InputAdapter();
+        InputController inputAdapter = new InputController();
         
         moveRuleset.setGrid(board);
 

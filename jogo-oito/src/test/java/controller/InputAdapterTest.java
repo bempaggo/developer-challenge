@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 
 class InputAdapterTest {
 
-    private InputAdapter inputAdapter;
+    private InputController inputAdapter;
 
     @Mock
     private MovementInterface moveRuleset;
@@ -26,7 +26,7 @@ class InputAdapterTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        inputAdapter = new InputAdapter();
+        inputAdapter = new InputController();
         inputAdapter.setMovementInterface(moveRuleset);
         inputAdapter.setControllerInterface(controller);
         inputAdapter.configurate();
