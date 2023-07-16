@@ -1,11 +1,11 @@
 package controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import model.BoardInterface;
 import util.MessagePopUp;
 import view.GameUI;
-
 
 public class GameController implements ControllerInterface {
 
@@ -26,9 +26,10 @@ public class GameController implements ControllerInterface {
     @Override
     public void notifyMove() {
         view.updateBoard();
-        if (gameIsComplete()) {
-            MessagePopUp.showMessage("Parabéns, você venceu!");
-        }
+    
+        Optional.of(gameIsComplete())
+                .filter(Boolean::booleanValue)
+                .ifPresent(isComplete -> MessagePopUp.showMessage("Parabéns, você venceu!"));
     }
 
     @Override
@@ -51,6 +52,5 @@ public class GameController implements ControllerInterface {
     private boolean gameIsComplete() {
         return board.getBoardData().equals(board.getGameIsCompleteBoardPattern());
     }
-
 
 }
