@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import controller.ControllerInterface;
 import util.Fonts;
@@ -46,8 +45,8 @@ public class GameUI extends JFrame {
         this.buttonListener = buttonListener;
     }
 
-    public void updateGrid() {
-        List<Integer> gridData = controller.gridData();
+    public void updateBoard() {
+        List<Integer> gridData = controller.boardData();
 
         buttons.replaceAll(button -> {
             Integer value = gridData.get(buttons.indexOf(button));
@@ -72,8 +71,9 @@ public class GameUI extends JFrame {
 
     private void initializeComponents() {
         generateButtons();
+        generateBoardSolutionButton();
         generateResetButton();
-        updateGrid();
+        updateBoard();
     }
 
     private void showWindow() {
@@ -81,25 +81,31 @@ public class GameUI extends JFrame {
         requestFocus();
     }
 
+    private void generateBoardSolutionButton() {
+        Button boardSolutionButton = new Button()
+                .withText("Gabarito")
+                .withFont(Fonts.TEXTUAL_BUTTON_FONT.getFont())
+                .withActionListener(e -> controller.boardSolution());
+        add(boardSolutionButton);
+    }
+
     private void generateResetButton() {
-        add(new JLabel(""));
         Button resetButton = new Button()
                 .withText("Reiniciar")
-                .withFont(Fonts.RESTART_BUTTON_FONT.getFont())
+                .withFont(Fonts.TEXTUAL_BUTTON_FONT.getFont())
                 .withActionListener(e -> controller.resetGame());
         add(resetButton);
-        add(new JLabel(""));
     }
 
     private void generateButtons() {
-        List<Integer> gridData = controller.gridData();
+        List<Integer> gridData = controller.boardData();
 
         buttons = IntStream.range(0, GridConstants.SIZE.getMeasure())
                 .mapToObj(i -> {
                     int value = gridData.get(i);
                     Button button = new Button()
                             .withText(value == 0 ? "" : String.valueOf(value))
-                            .withFont(Fonts.DEFAULT_FONT.getFont())
+                            .withFont(Fonts.NUMBER_BUTTON_FONT.getFont())
                             .withActionListener(buttonListener);
                     return button;
                 })

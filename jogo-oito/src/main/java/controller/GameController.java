@@ -2,21 +2,21 @@ package controller;
 
 import java.util.List;
 
-import model.GridInterface;
+import model.BoardInterface;
 import util.MessagePopUp;
 import view.GameUI;
 
 
 public class GameController implements ControllerInterface {
 
-    private GridInterface grid;
+    private BoardInterface board;
     private GameUI view;
 
     public GameController() {
     }
 
-    public void setGrid(GridInterface grid) {
-        this.grid = grid;
+    public void setBoard(BoardInterface board) {
+        this.board = board;
     }
 
     public void setView(GameUI view) {
@@ -25,25 +25,32 @@ public class GameController implements ControllerInterface {
 
     @Override
     public void notifyMove() {
-        view.updateGrid();
+        view.updateBoard();
         if (gameIsComplete()) {
             MessagePopUp.showMessage("Parabéns, você venceu!");
         }
     }
 
     @Override
-    public void resetGame() {
-        grid.reset();
-        view.updateGrid();
+    public void boardSolution() {
+        board.solution();
+        view.updateBoard();
     }
 
     @Override
-    public List<Integer> gridData() {
-        return grid.getGridData();
+    public void resetGame() {
+        board.reset();
+        view.updateBoard();
+    }
+
+    @Override
+    public List<Integer> boardData() {
+        return board.getBoardData();
     }
 
     private boolean gameIsComplete() {
-        return grid.getGridData().equals(grid.getGameIsCompleteGridPattern());
+        return board.getBoardData().equals(board.getGameIsCompleteBoardPattern());
     }
+
 
 }

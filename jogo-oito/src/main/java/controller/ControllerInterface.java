@@ -2,7 +2,7 @@ package controller;
 
 import java.util.List;
 
-import model.GridInterface;
+import model.BoardInterface;
 import view.GameUI;
 
 public interface ControllerInterface {
@@ -11,10 +11,12 @@ public interface ControllerInterface {
 
     void resetGame();
 
-    List<Integer> gridData();
+    List<Integer> boardData();
 
     void setView(GameUI view);
 
-    void setGrid(GridInterface grid);
+    void setBoard(BoardInterface board);
+
+    void boardSolution();
 
 }

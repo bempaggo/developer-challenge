@@ -5,13 +5,13 @@ import java.util.Optional;
 
 public class MoveRuleset implements MovementInterface {
 
-    private GridInterface grid;
+    private BoardInterface grid;
     private MoveValidator moveValidator = new MoveValidator();
 
     public MoveRuleset() {
     }
 
-    public void setGrid(GridInterface grid) {
+    public void setGrid(BoardInterface grid) {
         this.grid = grid;
     }
 
@@ -22,7 +22,7 @@ public class MoveRuleset implements MovementInterface {
 
     @Override
     public void moveUp() {
-        Integer targetValueToSwap = getByIndex(grid.getEmptySlotIndex() + grid.getGridWidth());
+        Integer targetValueToSwap = getByIndex(grid.getEmptySlotIndex() + grid.getBoardWidth());
         if (targetValueToSwap != null) {
             move(targetValueToSwap);
         }
@@ -30,7 +30,7 @@ public class MoveRuleset implements MovementInterface {
 
     @Override
     public void moveDown() {
-        Integer targetValueToSwap = getByIndex(grid.getEmptySlotIndex() - grid.getGridWidth());
+        Integer targetValueToSwap = getByIndex(grid.getEmptySlotIndex() - grid.getBoardWidth());
         move(targetValueToSwap);
     }
 
@@ -47,7 +47,7 @@ public class MoveRuleset implements MovementInterface {
     }
 
     private void validateMove(Integer buttonValue) {
-        Integer valueIndex = grid.getGridData().indexOf(buttonValue);
+        Integer valueIndex = grid.getBoardData().indexOf(buttonValue);
         
         Optional.of(valueIndex)
                 .filter(i -> moveValidator.isValidMove(grid.getEmptySlotIndex(), i))
@@ -56,7 +56,7 @@ public class MoveRuleset implements MovementInterface {
     }
 
     private void swapElements(Integer index) {
-        List<Integer> gridData = grid.getGridData();
+        List<Integer> gridData = grid.getBoardData();
         Integer emptySlotIndex = grid.getEmptySlotIndex();
 
         Integer temp = gridData.get(emptySlotIndex);
@@ -65,7 +65,7 @@ public class MoveRuleset implements MovementInterface {
     }
 
     private Integer getByIndex(Integer index) {
-        return grid.getGridData().stream()
+        return grid.getBoardData().stream()
                 .skip(index)
                 .findFirst()
                 .orElse(null);

@@ -3,8 +3,8 @@ package builder;
 import controller.ControllerInterface;
 import controller.GameController;
 import controller.InputAdapter;
-import model.Grid;
-import model.GridInterface;
+import model.Board;
+import model.BoardInterface;
 import model.MoveRuleset;
 import model.MovementInterface;
 import util.GridConstants;
@@ -14,7 +14,7 @@ public class GameStarter {
 
     public static void startGame() {
 
-        GridInterface grid = new Grid(GridConstants.SIZE.getMeasure(),
+        BoardInterface board = new Board(GridConstants.SIZE.getMeasure(),
                 GridConstants.WIDTH.getMeasure(),
                 GridConstants.RANDOMNESS.useRandomGrid());
     
@@ -23,9 +23,9 @@ public class GameStarter {
         GameUI view = new GameUI();
         InputAdapter inputAdapter = new InputAdapter();
         
-        moveRuleset.setGrid(grid);
+        moveRuleset.setGrid(board);
 
-        gameController.setGrid(grid);
+        gameController.setBoard(board);
         gameController.setView(view);
     
         inputAdapter.setMovementInterface(moveRuleset);
@@ -37,7 +37,7 @@ public class GameStarter {
     
         inputAdapter.configurate();
         view.configurate();
-        view.updateGrid();
+        view.updateBoard();
     }
     
 }

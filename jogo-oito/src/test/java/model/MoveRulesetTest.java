@@ -15,7 +15,7 @@ class MoveRulesetTest {
     private MoveRuleset moveRuleset;
 
     @Mock
-    private GridInterface grid;
+    private BoardInterface grid;
 
     @BeforeEach
     void setUp() {
@@ -28,54 +28,54 @@ class MoveRulesetTest {
     @Test
     void testMoveUp() {
         when(grid.getEmptySlotIndex()).thenReturn(4);
-        when(grid.getGridWidth()).thenReturn(3);
-        when(grid.getGridData()).thenReturn(Arrays.asList(1, 2, 3, 4, 0, 5, 6, 7, 8));
+        when(grid.getBoardWidth()).thenReturn(3);
+        when(grid.getBoardData()).thenReturn(Arrays.asList(1, 2, 3, 4, 0, 5, 6, 7, 8));
 
         moveRuleset.moveUp();
 
         verify(grid,times(3)).getEmptySlotIndex();
-        verify(grid).getGridWidth();
-        verify(grid,times(3)).getGridData();
+        verify(grid).getBoardWidth();
+        verify(grid,times(3)).getBoardData();
     }
 
     @Test
     void testMoveDown() {
         when(grid.getEmptySlotIndex()).thenReturn(4);
-        when(grid.getGridWidth()).thenReturn(3);
-        when(grid.getGridData()).thenReturn(Arrays.asList(1, 2, 3, 4, 0, 5, 6, 7, 8));
+        when(grid.getBoardWidth()).thenReturn(3);
+        when(grid.getBoardData()).thenReturn(Arrays.asList(1, 2, 3, 4, 0, 5, 6, 7, 8));
 
         moveRuleset.moveDown();
 
         verify(grid, times(3)).getEmptySlotIndex();
-        verify(grid).getGridWidth();
-        verify(grid,times(3)).getGridData();
+        verify(grid).getBoardWidth();
+        verify(grid,times(3)).getBoardData();
     }
 
     @Test
     void testMoveLeft() {
         when(grid.getEmptySlotIndex()).thenReturn(4);
-        when(grid.getGridData()).thenReturn(Arrays.asList(1, 2, 3, 4, 0, 5, 6, 7, 8));
+        when(grid.getBoardData()).thenReturn(Arrays.asList(1, 2, 3, 4, 0, 5, 6, 7, 8));
 
         moveRuleset.moveLeft();
 
         verify(grid, times(3)).getEmptySlotIndex();
-        verify(grid, times(3)).getGridData();
+        verify(grid, times(3)).getBoardData();
     }
 
     @Test
     void testMoveRight() {
         when(grid.getEmptySlotIndex()).thenReturn(4);
-        when(grid.getGridData()).thenReturn(Arrays.asList(1, 2, 3, 0, 4, 5, 6, 7, 8));
+        when(grid.getBoardData()).thenReturn(Arrays.asList(1, 2, 3, 0, 4, 5, 6, 7, 8));
 
         moveRuleset.moveRight();
 
         verify(grid, times(3)).getEmptySlotIndex();
-        verify(grid, times(3)).getGridData();
+        verify(grid, times(3)).getBoardData();
     }
 
     @Test
     void testMoveInvalidButtonValue() {
-        when(grid.getGridData()).thenReturn(Arrays.asList(1, 2, 0));
+        when(grid.getBoardData()).thenReturn(Arrays.asList(1, 2, 0));
 
         assertThrows(IndexOutOfBoundsException.class,
                 () -> moveRuleset.move(10));
