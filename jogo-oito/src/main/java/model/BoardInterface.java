@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import util.BoardDataObserver;
+
 public interface BoardInterface {
 
     Integer getBoardSize();
@@ -19,5 +21,7 @@ public interface BoardInterface {
     void solution();
 
     void swapElements(Integer index);
+
+    void registerObserver(BoardDataObserver observer);
         
 }

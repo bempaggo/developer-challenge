@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import controller.ControllerInterface;
 import util.Fonts;
 import util.BoardConstants;
+import util.BoardDataObserver;
 import util.WindowSize;
 
 import java.awt.GridLayout;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class GameUI extends JFrame {
+public class GameUI extends JFrame implements BoardDataObserver{
 
     public ControllerInterface controller;
     private KeyListener keyboardAdapter;
@@ -112,6 +113,11 @@ public class GameUI extends JFrame {
                 .collect(Collectors.toList());
 
         buttons.forEach(this::add);
+    }
+
+    @Override
+    public void boardDataChanged(List<Integer> newBoardData) {
+        updateBoard();
     }
 
 }

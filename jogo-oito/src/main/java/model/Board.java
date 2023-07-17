@@ -76,6 +76,7 @@ public class Board implements BoardInterface {
         Integer temp = boardData.get(emptySlotIndex);
         boardData.set(emptySlotIndex, boardData.get(index));
         boardData.set(index, temp);
+        notifyObservers();
     }
 
     private List<Integer> createDefaultBoardData(int boardSize) {

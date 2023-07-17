@@ -21,7 +21,8 @@ public class GameInitializer {
         ControllerInterface gameController = new GameController();
         GameUI view = new GameUI();
         InputController inputAdapter = new InputController();
-        
+
+        board.registerObserver(view);
         moveRuleset.setBoard(board);
 
         gameController.setBoard(board);
@@ -36,7 +37,7 @@ public class GameInitializer {
     
         inputAdapter.configurate();
         view.configurate();
-        view.updateBoard();
+        
     }
     
 }

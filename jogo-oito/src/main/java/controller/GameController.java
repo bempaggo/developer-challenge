@@ -24,9 +24,7 @@ public class GameController implements ControllerInterface {
     }
 
     @Override
-    public void notifyMove() {
-        view.updateBoard();
-    
+    public void notifyMove() {   
         Optional.of(gameIsComplete())
                 .filter(Boolean::booleanValue)
                 .ifPresent(isComplete -> MessagePopUp.showMessage("Parabéns, você venceu!"));
@@ -35,13 +33,11 @@ public class GameController implements ControllerInterface {
     @Override
     public void boardSolution() {
         board.solution();
-        view.updateBoard();
     }
 
     @Override
     public void resetGame() {
         board.reset();
-        view.updateBoard();
     }
 
     @Override
@@ -52,5 +48,6 @@ public class GameController implements ControllerInterface {
     private boolean gameIsComplete() {
         return board.getBoardData().equals(board.getGameIsCompleteBoardPattern());
     }
+
 
 }
