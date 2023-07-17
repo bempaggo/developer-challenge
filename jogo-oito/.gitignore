@@ -1,1 +1,5 @@
 /target/
+
+.vscode/
+TODO.md
+.tool-versions
