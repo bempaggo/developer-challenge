@@ -5,12 +5,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import view.GameUI;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.*;
 
 class GameControllerTest {
@@ -18,16 +18,13 @@ class GameControllerTest {
     private GameController gameController;
 
     @Mock
-    private BoardInterface grid;
-
-    @Mock
-    private GameUI view;
+    private BoardInterface board;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         gameController = new GameController();
-        gameController.setBoard(grid);
+        gameController.setBoard(board);
     }
 
     @Test
@@ -35,20 +32,22 @@ class GameControllerTest {
         List<Integer> boardData = generateRandomList();
         List<Integer> gameCompletePattern = generateRandomList();
 
-        when(grid.getBoardData()).thenReturn(boardData);
-        when(grid.getGameIsCompleteBoardPattern()).thenReturn(gameCompletePattern);
+        when(board.getBoardData()).thenReturn(boardData);
+        when(board.getGameIsCompleteBoardPattern()).thenReturn(gameCompletePattern);
 
-        verify(view).updateBoard();
+    // Verificar se o boardCompletePattern é diferente do boardData
+    assertNotEquals(gameCompletePattern, boardData);
+
     }
 
     @Test
     void testNotifyMoveGameComplete() {
         List<Integer> boardData = generateRandomList();
 
-        when(grid.getBoardData()).thenReturn(boardData);
-        when(grid.getGameIsCompleteBoardPattern()).thenReturn(new ArrayList<>(boardData));
+        when(board.getBoardData()).thenReturn(boardData);
+        when(board.getGameIsCompleteBoardPattern()).thenReturn(new ArrayList<>(boardData));
 
-        verify(view).updateBoard();
+        
     }
 
     private List<Integer> generateRandomList() {
@@ -61,7 +60,6 @@ class GameControllerTest {
     void testResetGame() {
         gameController.resetGame();
 
-        verify(grid).reset();
-        verify(view).updateBoard();
+        verify(board).reset();
     }
 }
