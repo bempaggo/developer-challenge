@@ -15,8 +15,7 @@ public class GameInitializer {
     public static void startGame() {
 
         BoardInterface board = new Board(BoardConstants.SIZE.getMeasure(),
-                BoardConstants.WIDTH.getMeasure(),
-                BoardConstants.RANDOMNESS.useRandomGrid());
+                BoardConstants.WIDTH.getMeasure());
     
         MovementInterface moveRuleset = new MoveRuleset();
         ControllerInterface gameController = new GameController();

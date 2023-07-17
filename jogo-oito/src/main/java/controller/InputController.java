@@ -9,18 +9,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import model.MovementInterface;
-import util.Keyboard;
 import view.Button;
 
 public class InputController extends KeyAdapter implements ActionListener {
 
     private MovementInterface moveRuleset;
     private ControllerInterface controller;
-    private Map<Keyboard, Runnable> keyToActionMap = new EnumMap<>(Keyboard.class);
+    private Map<Integer, Runnable> keyToActionMap = new HashMap<>();
 
     private static final Runnable DO_NOTHING = () -> {
     };
@@ -41,15 +40,14 @@ public class InputController extends KeyAdapter implements ActionListener {
     }    
 
     private void initializeKeyToActionMap() {
-        keyToActionMap.put(Keyboard.UP, moveRuleset::moveUp);
-        keyToActionMap.put(Keyboard.DOWN, moveRuleset::moveDown);
-        keyToActionMap.put(Keyboard.LEFT, moveRuleset::moveLeft);
-        keyToActionMap.put(Keyboard.RIGHT, moveRuleset::moveRight);
+        keyToActionMap.put(KeyEvent.VK_UP, moveRuleset::moveUp);
+        keyToActionMap.put(KeyEvent.VK_DOWN, moveRuleset::moveDown);
+        keyToActionMap.put(KeyEvent.VK_LEFT, moveRuleset::moveLeft);
+        keyToActionMap.put(KeyEvent.VK_RIGHT, moveRuleset::moveRight);
     }
 
     private void processInput(int keyCode) {
-        Keyboard key = Keyboard.fromValue(keyCode);
-        Runnable action = keyToActionMap.getOrDefault(key, DO_NOTHING);
+        Runnable action = keyToActionMap.getOrDefault(keyCode, DO_NOTHING);
         action.run();
         controller.notifyMove();
     }

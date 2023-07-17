@@ -31,7 +31,7 @@ class BoardTest {
     void setUp() {
         Integer boardWidth = getRandomGridWidth(MIN_BOARD_WIDTH, MAX_BOARD_WIDTH);
         Integer boardSize = boardWidth * boardWidth;
-        board = new Board(boardSize, boardWidth, true);
+        board = new Board(boardSize, boardWidth);
     }
 
     @RepeatedTest(5)

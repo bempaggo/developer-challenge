@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -15,16 +14,14 @@ public class Board implements BoardInterface {
     private final List<Integer> gameIsCompleteGridPattern;
     private final Integer boardSize;
     private final Integer boardWidth;
-    private final Boolean randomBoard;
     private List<BoardDataObserver> observers = new ArrayList<>();
 
-    public Board(Integer boardSize, Integer boardWidth, Boolean randomGrid) {
-        this.randomBoard = randomGrid;
+    public Board(Integer boardSize, Integer boardWidth) {
         this.boardSize = boardSize;
         this.boardWidth = boardWidth;
         this.boardData = createDefaultBoardData(boardSize);
         this.gameIsCompleteGridPattern = List.copyOf(boardData);
-        this.randomizeGridData(this.randomBoard);
+        this.randomizeGridData();
         notifyObservers();
     }
 
@@ -68,7 +65,7 @@ public class Board implements BoardInterface {
     public void reset() {
         boardData.clear();
         boardData.addAll(createDefaultBoardData(this.boardSize));
-        randomizeGridData(this.randomBoard);
+        randomizeGridData();
         notifyObservers();
     }
 
@@ -89,10 +86,8 @@ public class Board implements BoardInterface {
         return gridData;
     }
 
-    private void randomizeGridData(Boolean randomBoard) {
-        Optional.ofNullable(randomBoard)
-                .filter(Boolean::booleanValue)
-                .ifPresent(ignored -> Collections.shuffle(this.boardData));
+    private void randomizeGridData() {
+        Collections.shuffle(this.boardData);
     }
 
     private void notifyObservers() {

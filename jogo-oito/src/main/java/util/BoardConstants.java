@@ -2,7 +2,6 @@ package util;
 
 public enum BoardConstants {
 
-    RANDOMNESS(true),
     WIDTH(3),
     SIZE(WIDTH.getMeasure() * WIDTH.getMeasure());
 
@@ -16,7 +15,4 @@ public enum BoardConstants {
         return (Integer) value;
     }
 
-    public Boolean useRandomGrid() {
-        return (Boolean) value;
-    }
 }
