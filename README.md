@@ -8,7 +8,17 @@ Originalmente, temos todo o código dentro da mesma classe, com métodos ociosos
 
 ## Melhorias
 
-_**Work In Progress**_
+Em relação ao último pull request:
+- Segui a orientação de não usar estruturas condicionais do paradigma estruturado;
+- Melhorei os testes para evitar números mágicos;
+
+Em relação a melhorias no projeto em si
+- Diminui a quantidade de programação funcional, embora ainda use algumas as quais vou explicar melhor;
+- Percebi que havia uma estrutura esquisita para atualizar a interface do usuário após eventos que modificavam o estado do tabuleiro;
+
+Implementei um Observer, que notifica a UI e o Controller de mudanças do estado do jogo, assim a UI atualiza a disposição dos botões do jogo e o Controller faz a checagem para chegar o fim do jogo e fazer os callbacks.
+
+Me limitei a fazer checagens com Optional.of e usar IntStream para fazer loops.
 
 ### **Arquitetura**
 
@@ -28,6 +38,8 @@ A estratégia para movimentação pelo teclado foi definir uma lista L = [1,2,3,
 
 A complexidade assintótica de qualquer troca é linear.
 
+Decidi não implementar a estratégia de movimentação por grafos. Isso aumentaria substancialmente a quantidade de código sem deixá-lo menos funcional
+
 Jogar com o mouse foi implementado; para tanto basta clicar em um botão adjacente ao botão vazio e ele ocupará o lugar do botão vazio.
 
 ### **Testes**
@@ -41,6 +53,7 @@ Há testes bem simples para validar comportamentos básicos dos métodos das cam
 - Agora é possível jogar com o mouse ou teclado;
 - O jogo notifica quando você ganhou;
 - O jogo informa quando a tecla pressionada é inválida;
+- Foi implementado um botão "Gabarito", que mostra que o jogo foi concluído;
 - É possível modificar o jogo para o tabuleiro começar numa posição aleatória. Para isso, é necessário modificar o valor de RANDOM_GRID no arquivo [GridConstants](jogo-oito/src/main/java/util/GridConstants.java) (coloque "true" para aleatório e "false" para o tabuleiro na ordem, sem aspas);
 - é possível configurar tamanhos personalizados para o tabuleiro. Para isso, é necessário modificar o valor de GRID_WIDTH no arquivo [GridConstants](jogo-oito/src/main/java/util/GridConstants.java) (coloque qualquer valor inteiro igual ou maior que 3);
 
@@ -49,7 +62,7 @@ Há testes bem simples para validar comportamentos básicos dos métodos das cam
 - Tentar fazer um movimento inválido com o tabuleiro na posição final não ativa mais o evento de finalizar o jogo
 - Clicar em um botão não seleciona mais o texto do botão
 - Clicar em um botão não impede mais que o usuário continue jogando com o teclado
-- O botão reiniciar agora reinicia corretamente o tabuleiro. É importante mencionar que, ao clicar no botão reiniciar com o tabuleiro na posição inicial quando o modo aleatório está desativado, embora aparentemente não atualize visualmente o tabuleiro, a lista que o define é reiniciada; isso pode ser verificado no modo aleatório.
+- O botão reiniciar agora reinicia corretamente o tabuleiro. É importante mencionar que, ao clicar no botão reiniciar com o tabuleiro na posição inicial quando o modo aleatório está desativado, embora aparentemente não atualize visualmente o tabuleiro, a lista que o define é reiniciada;
 
 ---
 

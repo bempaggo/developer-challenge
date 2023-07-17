@@ -40,7 +40,7 @@ public class GameController implements ControllerInterface, BoardDataObserver {
                 .ifPresent(isComplete -> MessagePopUp.showMessage("Parabéns, você venceu!"));
     }
 
-    private boolean gameIsComplete() {
+    private Boolean gameIsComplete() {
         return board.getBoardData().equals(board.getGameIsCompleteBoardPattern());
     }
 

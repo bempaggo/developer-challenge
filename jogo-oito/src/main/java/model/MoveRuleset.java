@@ -45,9 +45,8 @@ public class MoveRuleset implements MovementInterface {
     }
 
     private void validateMove(Integer buttonValue) {
-        Integer valueIndex = board.getBoardData().indexOf(buttonValue);
 
-        Optional.of(valueIndex)
+        Optional.of(board.getBoardData().indexOf(buttonValue))
                 .filter(i -> moveValidator.isValidMove(board.getEmptySlotIndex(), i))
                 .ifPresent(board::swapElements);
 
@@ -55,10 +54,7 @@ public class MoveRuleset implements MovementInterface {
 
     public Integer getByIndex(Integer index) {
         try {
-            return board.getBoardData().stream()
-                    .skip(index)
-                    .findFirst()
-                    .orElse(null);
+            return board.getBoardData().get(index);
         } catch (IndexOutOfBoundsException e) {
             // Interrompe o fluxo da aplicação apenas
         }

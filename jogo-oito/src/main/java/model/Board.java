@@ -71,12 +71,15 @@ public class Board implements BoardInterface {
 
     @Override
     public void swapElements(Integer index) {
-        Integer emptySlotIndex = getEmptySlotIndex();
-
-        Integer temp = boardData.get(emptySlotIndex);
-        boardData.set(emptySlotIndex, boardData.get(index));
-        boardData.set(index, temp);
-        notifyObservers();
+        try {
+            Integer emptySlotIndex = getEmptySlotIndex();
+            Integer temp = boardData.get(emptySlotIndex);
+            boardData.set(emptySlotIndex, boardData.get(index));
+            boardData.set(index, temp);
+            notifyObservers();
+        } catch (IndexOutOfBoundsException e) {
+            // interrompe o fluxo do método
+        }
     }
 
     private List<Integer> createDefaultBoardData(int boardSize) {
