@@ -12,7 +12,9 @@ Em relação ao último pull request:
 - Segui a orientação de não usar estruturas condicionais do paradigma estruturado;
 - Melhorei os testes para evitar números mágicos;
 
--> R$ 16K (inicial) - Desenvolvedor Sênior.
+Em relação a melhorias no projeto em si
+- Diminui a quantidade de programação funcional, embora ainda use algumas as quais vou explicar melhor;
+- Percebi que havia uma estrutura esquisita para atualizar a interface do usuário após eventos que modificavam o estado do tabuleiro;
 
 Implementei um Observer, que notifica a UI e o Controller de mudanças do estado do jogo, assim a UI atualiza a disposição dos botões do jogo e o Controller faz a checagem para chegar o fim do jogo e fazer os callbacks.
 
@@ -64,7 +66,7 @@ Há testes bem simples para validar comportamentos básicos dos métodos das cam
 
 ---
 
-_Esperamos que você seja melhor que o ChatGPT._
+### _Ambiente e Ferramentas usadas_
 
 - [Git](https://git-scm.com/)
 - [Visual Studio Code](https://code.visualstudio.com/docs)
@@ -79,42 +81,5 @@ _Esperamos que você seja melhor que o ChatGPT._
 
 ### _Contato_
 
-_Aplicar programação orientada aos objetos é uma exigência para esta vaga._
-
-_Precisamos jogar o jogo com mouse._
-
-
-## 3 - Faça um pull request ao nosso projeto.
-
-_Indique o nível da vaga na mensagem de pull request._
-
-_Aceitamos apenas um pull request de cada usuário, então capriche._
-
-## 4 - Aguarde uma revisão.
-
-_Caso rejeitado, apontaremos apenas um problema._
-
-## 5 - O que é avaliado no desafio?
-
--> Avaliamos o domínio de Programação Orientada aos Objetos.
-
-### Dicas do avaliador:
-
--> A empresa utiliza essencialmente Java e TypeScript como linguagem.
-
--> Orienta-se utilização da linguagem que domine para resolver o desafio (especialmente se quiser concorrer à vaga de estágio. Eu não tenho preferência por linguagem).
-
--> Neste momento, a quantidade de tecnologias que têm contato/domine/goste é indiferente.
-
--> Disciplinas de: Matemática, Português, Inglês e Física são desejáveis.
-
--> Programação Orientada aos Objetos não se refere às tecnologias.
-
--> Caso utilize testes automatizados, a chance do candidato ter o _pull request_ aceito aumenta significativamente.
-
--> Respire. Leia atentamente a Seção 5.
-
--> [Se liga ](https://refactoring.guru/)https://refactoring.guru/
-
-
-
+- [LinkedIn](https://www.linkedin.com/in/pedro-aredes/)
+- [Email](mailto:pedro.aredes@hotmail.com)
