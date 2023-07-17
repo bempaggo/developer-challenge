@@ -99,21 +99,6 @@ class MoveRulesetTest {
 
     }
 
-
-    @Test
-    @RepeatedTest(5)
-    void testMoveInvalidButtonValueIsNotValidatedByThisClass() {
-        List<Integer> boardData = generateRandomBoardData();
-
-        when(board.getBoardData()).thenReturn(boardData);
-
-        assertThrows(IndexOutOfBoundsException.class, () -> moveRuleset.move(-1));
-
-        verify(board, atLeastOnce()).getEmptySlotIndex();
-        verify(board, atLeastOnce()).getBoardData();
-
-    }
-
     private List<Integer> generateRandomBoardData() {
         Integer boardSize = getRandomGridWidth(MIN_BOARD_WIDTH, MAX_BOARD_WIDTH);  // Define o tamanho do tabuleiro aleatoriamente
         Integer emptySlotIndex = ThreadLocalRandom.current().nextInt(boardSize);  // Define o índice do espaço vazio aleatoriamente

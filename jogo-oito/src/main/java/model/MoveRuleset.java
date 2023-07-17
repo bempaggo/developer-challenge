@@ -1,6 +1,5 @@
 package model;
 
-import java.util.List;
 import java.util.Optional;
 
 public class MoveRuleset implements MovementInterface {
@@ -50,20 +49,11 @@ public class MoveRuleset implements MovementInterface {
 
         Optional.of(valueIndex)
                 .filter(i -> moveValidator.isValidMove(board.getEmptySlotIndex(), i))
-                .ifPresent(this::swapElements);
+                .ifPresent(board::swapElements);
 
     }
 
-    private void swapElements(Integer index) {
-        List<Integer> boardData = board.getBoardData();
-        Integer emptySlotIndex = board.getEmptySlotIndex();
-
-        Integer temp = boardData.get(emptySlotIndex);
-        boardData.set(emptySlotIndex, boardData.get(index));
-        boardData.set(index, temp);
-    }
-
-    private Integer getByIndex(Integer index) {
+    public Integer getByIndex(Integer index) {
         try {
             return board.getBoardData().stream()
                     .skip(index)

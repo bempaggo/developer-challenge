@@ -1,6 +1,6 @@
 package util;
 
-public enum GridConstants {
+public enum BoardConstants {
 
     RANDOMNESS(true),
     WIDTH(3),
@@ -8,7 +8,7 @@ public enum GridConstants {
 
     private final Object value;
 
-    GridConstants(Object value) {
+    BoardConstants(Object value) {
         this.value = value;
     }
 

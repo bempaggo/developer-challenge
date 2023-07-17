@@ -1,3 +1,8 @@
+/*  Essa classe é um controlador intermediário entre a UI, as regras de movimentação e o controlador do jogo;
+Ela mapeia as entradas do usuário para as ações correspondentes e as encaminha para a lógica do jogo.
+Especificamente, ela captura eventos do teclado e ações dos botões e os mapeia para as ações de movimentação
+e notifica o Controller do jogo sobre uma possível mudança de estado do jogo.
+*/
 package controller;
 
 import java.awt.event.ActionEvent;

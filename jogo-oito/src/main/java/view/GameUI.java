@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 import controller.ControllerInterface;
 import util.Fonts;
-import util.GridConstants;
+import util.BoardConstants;
 import util.WindowSize;
 
 import java.awt.GridLayout;
@@ -59,8 +59,8 @@ public class GameUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WindowSize.WIDTH.getMeasure(),
                 WindowSize.HEIGHT.getMeasure());
-        setLayout(new GridLayout(GridConstants.WIDTH.getMeasure() + 1,
-                GridConstants.WIDTH.getMeasure()));
+        setLayout(new GridLayout(BoardConstants.WIDTH.getMeasure() + 1,
+                BoardConstants.WIDTH.getMeasure()));
         setLocationRelativeTo(null);
     }
 
@@ -100,7 +100,7 @@ public class GameUI extends JFrame {
     private void generateButtons() {
         List<Integer> gridData = controller.boardData();
 
-        buttons = IntStream.range(0, GridConstants.SIZE.getMeasure())
+        buttons = IntStream.range(0, BoardConstants.SIZE.getMeasure())
                 .mapToObj(i -> {
                     int value = gridData.get(i);
                     Button button = new Button()

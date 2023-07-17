@@ -1,6 +1,6 @@
 package model;
 
-import util.GridConstants;
+import util.BoardConstants;
 
 public class Coordinates {
     
@@ -8,8 +8,8 @@ public class Coordinates {
     private Integer col;
 
     public Coordinates(Integer value) {
-        this.row = value / GridConstants.WIDTH.getMeasure();
-        this.col = value % GridConstants.WIDTH.getMeasure();
+        this.row = value / BoardConstants.WIDTH.getMeasure();
+        this.col = value % BoardConstants.WIDTH.getMeasure();
     }
 
     public Integer getRow() {

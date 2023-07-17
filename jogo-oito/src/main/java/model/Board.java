@@ -1,10 +1,13 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import util.BoardDataObserver;
 
 public class Board implements BoardInterface {
 
@@ -13,6 +16,7 @@ public class Board implements BoardInterface {
     private final Integer boardSize;
     private final Integer boardWidth;
     private final Boolean randomBoard;
+    private List<BoardDataObserver> observers = new ArrayList<>();
 
     public Board(Integer boardSize, Integer boardWidth, Boolean randomGrid) {
         this.randomBoard = randomGrid;
@@ -21,6 +25,7 @@ public class Board implements BoardInterface {
         this.boardData = createDefaultBoardData(boardSize);
         this.gameIsCompleteGridPattern = List.copyOf(boardData);
         this.randomizeGridData(this.randomBoard);
+        notifyObservers();
     }
 
     @Override
@@ -43,6 +48,10 @@ public class Board implements BoardInterface {
         return getBoardData().indexOf(0);
     }
 
+    public void registerObserver(BoardDataObserver observer) {
+        observers.add(observer);
+    }
+
     @Override
     public List<Integer> getGameIsCompleteBoardPattern() {
         return gameIsCompleteGridPattern;
@@ -52,6 +61,7 @@ public class Board implements BoardInterface {
     public void solution() {
         boardData.clear();
         boardData.addAll(getGameIsCompleteBoardPattern());
+        notifyObservers();
     }
 
     @Override
@@ -59,6 +69,16 @@ public class Board implements BoardInterface {
         boardData.clear();
         boardData.addAll(createDefaultBoardData(this.boardSize));
         randomizeGridData(this.randomBoard);
+        notifyObservers();
+    }
+
+    @Override
+    public void swapElements(Integer index) {
+        Integer emptySlotIndex = getEmptySlotIndex();
+
+        Integer temp = boardData.get(emptySlotIndex);
+        boardData.set(emptySlotIndex, boardData.get(index));
+        boardData.set(index, temp);
     }
 
     private List<Integer> createDefaultBoardData(int boardSize) {
@@ -73,6 +93,12 @@ public class Board implements BoardInterface {
         Optional.ofNullable(randomBoard)
                 .filter(Boolean::booleanValue)
                 .ifPresent(ignored -> Collections.shuffle(this.boardData));
+    }
+
+    private void notifyObservers() {
+        for (BoardDataObserver observer : observers) {
+            observer.boardDataChanged(boardData);
+        }
     }
 
 }

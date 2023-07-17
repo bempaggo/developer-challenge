@@ -7,16 +7,16 @@ import model.Board;
 import model.BoardInterface;
 import model.MoveRuleset;
 import model.MovementInterface;
-import util.GridConstants;
+import util.BoardConstants;
 import view.GameUI;
 
 public class GameInitializer {
 
     public static void startGame() {
 
-        BoardInterface board = new Board(GridConstants.SIZE.getMeasure(),
-                GridConstants.WIDTH.getMeasure(),
-                GridConstants.RANDOMNESS.useRandomGrid());
+        BoardInterface board = new Board(BoardConstants.SIZE.getMeasure(),
+                BoardConstants.WIDTH.getMeasure(),
+                BoardConstants.RANDOMNESS.useRandomGrid());
     
         MovementInterface moveRuleset = new MoveRuleset();
         ControllerInterface gameController = new GameController();

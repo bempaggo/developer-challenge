@@ -18,4 +18,6 @@ public interface BoardInterface {
 
     void solution();
 
+    void swapElements(Integer index);
+        
 }
