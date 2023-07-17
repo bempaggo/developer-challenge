@@ -28,7 +28,6 @@ class GameControllerTest {
         MockitoAnnotations.openMocks(this);
         gameController = new GameController();
         gameController.setBoard(grid);
-        gameController.setView(view);
     }
 
     @Test
@@ -39,7 +38,6 @@ class GameControllerTest {
         when(grid.getBoardData()).thenReturn(boardData);
         when(grid.getGameIsCompleteBoardPattern()).thenReturn(gameCompletePattern);
 
-        gameController.notifyMove();
         verify(view).updateBoard();
     }
 
@@ -49,8 +47,6 @@ class GameControllerTest {
 
         when(grid.getBoardData()).thenReturn(boardData);
         when(grid.getGameIsCompleteBoardPattern()).thenReturn(new ArrayList<>(boardData));
-
-        gameController.notifyMove();
 
         verify(view).updateBoard();
     }

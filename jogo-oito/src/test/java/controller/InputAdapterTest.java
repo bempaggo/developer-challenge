@@ -28,7 +28,6 @@ class InputAdapterTest {
         MockitoAnnotations.openMocks(this);
         inputAdapter = new InputController();
         inputAdapter.setMovementInterface(moveRuleset);
-        inputAdapter.setControllerInterface(controller);
         inputAdapter.configurate();
     }
 
@@ -41,7 +40,6 @@ class InputAdapterTest {
         inputAdapter.actionPerformed(e);
 
         verify(moveRuleset).move(1);
-        verify(controller).notifyMove();
     }
 
     @Test
@@ -51,7 +49,6 @@ class InputAdapterTest {
         inputAdapter.keyPressed(e);
 
         verify(moveRuleset).moveUp();
-        verify(controller).notifyMove();
     }
 
     @Test
@@ -61,7 +58,6 @@ class InputAdapterTest {
         inputAdapter.keyPressed(e);
 
         verify(moveRuleset).moveDown();
-        verify(controller).notifyMove();
     }
 
     @Test
@@ -71,7 +67,6 @@ class InputAdapterTest {
         inputAdapter.keyPressed(e);
 
         verify(moveRuleset).moveLeft();
-        verify(controller).notifyMove();
     }
 
     @Test
@@ -81,6 +76,5 @@ class InputAdapterTest {
         inputAdapter.keyPressed(e);
 
         verify(moveRuleset).moveRight();
-        verify(controller).notifyMove();
     }
 }

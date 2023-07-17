@@ -1,6 +1,5 @@
 package initializer;
 
-import controller.ControllerInterface;
 import controller.GameController;
 import controller.InputController;
 import model.Board;
@@ -18,18 +17,17 @@ public class GameInitializer {
                 BoardConstants.WIDTH.getMeasure());
     
         MovementInterface moveRuleset = new MoveRuleset();
-        ControllerInterface gameController = new GameController();
+        GameController gameController = new GameController();
         GameUI view = new GameUI();
         InputController inputAdapter = new InputController();
 
         board.registerObserver(view);
+        board.registerObserver(gameController);
         moveRuleset.setBoard(board);
 
         gameController.setBoard(board);
-        gameController.setView(view);
     
         inputAdapter.setMovementInterface(moveRuleset);
-        inputAdapter.setControllerInterface(gameController);
     
         view.setControllerInterface(gameController);
         view.setKeyboardAdapter(inputAdapter);

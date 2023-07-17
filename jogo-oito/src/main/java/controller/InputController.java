@@ -18,7 +18,6 @@ import view.Button;
 public class InputController extends KeyAdapter implements ActionListener {
 
     private MovementInterface moveRuleset;
-    private ControllerInterface controller;
     private Map<Integer, Runnable> keyToActionMap = new HashMap<>();
 
     private static final Runnable DO_NOTHING = () -> {
@@ -33,11 +32,7 @@ public class InputController extends KeyAdapter implements ActionListener {
 
     public void setMovementInterface(MovementInterface moveRuleset) {
         this.moveRuleset = moveRuleset;
-    }
-
-    public void setControllerInterface(ControllerInterface controller) {
-        this.controller = controller;
-    }    
+    }   
 
     private void initializeKeyToActionMap() {
         keyToActionMap.put(KeyEvent.VK_UP, moveRuleset::moveUp);
@@ -49,7 +44,6 @@ public class InputController extends KeyAdapter implements ActionListener {
     private void processInput(int keyCode) {
         Runnable action = keyToActionMap.getOrDefault(keyCode, DO_NOTHING);
         action.run();
-        controller.notifyMove();
     }
 
     @Override
@@ -60,7 +54,6 @@ public class InputController extends KeyAdapter implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         moveRuleset.move(Integer.parseInt(((Button) e.getSource()).getText()));
-        controller.notifyMove();
     }
 
 }
