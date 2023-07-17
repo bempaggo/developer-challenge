@@ -12,11 +12,11 @@ public class Coordinates {
         this.col = value % GridConstants.WIDTH.getMeasure();
     }
 
-    Integer getRow() {
+    public Integer getRow() {
         return row;
     }
 
-    Integer getCol() {
+    public Integer getCol() {
         return col;
     }
 

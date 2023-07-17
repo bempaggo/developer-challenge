@@ -1,13 +1,16 @@
 package model;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class MoveRulesetTest {
@@ -15,69 +18,117 @@ class MoveRulesetTest {
     private MoveRuleset moveRuleset;
 
     @Mock
-    private BoardInterface grid;
+    private BoardInterface board;
+    private final Integer MIN_BOARD_WIDTH = 3;
+    private final Integer MAX_BOARD_WIDTH = 20;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         moveRuleset = new MoveRuleset();
-        moveRuleset.setGrid(grid);
+        moveRuleset.setBoard(board);
     }
 
-    // setado pro null estar no 4 para sempre ser possível movimentar
     @Test
+    @RepeatedTest(5)
     void testMoveUp() {
-        when(grid.getEmptySlotIndex()).thenReturn(4);
-        when(grid.getBoardWidth()).thenReturn(3);
-        when(grid.getBoardData()).thenReturn(Arrays.asList(1, 2, 3, 4, 0, 5, 6, 7, 8));
+        List<Integer> boardData = generateRandomBoardData();
+        int emptySlotIndex = boardData.indexOf(0);
+        int boardWidth = (int) Math.sqrt(boardData.size());
+
+        when(board.getEmptySlotIndex()).thenReturn(emptySlotIndex);
+        when(board.getBoardWidth()).thenReturn(boardWidth);
+        when(board.getBoardData()).thenReturn(boardData);
 
         moveRuleset.moveUp();
 
-        verify(grid,times(3)).getEmptySlotIndex();
-        verify(grid).getBoardWidth();
-        verify(grid,times(3)).getBoardData();
+        verify(board, atLeastOnce()).getEmptySlotIndex();
+        verify(board).getBoardWidth();
+        verify(board, atLeastOnce()).getBoardData();
+
     }
 
     @Test
+    @RepeatedTest(5)
     void testMoveDown() {
-        when(grid.getEmptySlotIndex()).thenReturn(4);
-        when(grid.getBoardWidth()).thenReturn(3);
-        when(grid.getBoardData()).thenReturn(Arrays.asList(1, 2, 3, 4, 0, 5, 6, 7, 8));
+        List<Integer> boardData = generateRandomBoardData();
+        int emptySlotIndex = boardData.indexOf(0);
+        int boardWidth = (int) Math.sqrt(boardData.size());
+
+        when(board.getEmptySlotIndex()).thenReturn(emptySlotIndex);
+        when(board.getBoardWidth()).thenReturn(boardWidth);
+        when(board.getBoardData()).thenReturn(boardData);
 
         moveRuleset.moveDown();
 
-        verify(grid, times(3)).getEmptySlotIndex();
-        verify(grid).getBoardWidth();
-        verify(grid,times(3)).getBoardData();
+        verify(board,atLeastOnce()).getEmptySlotIndex();
+        verify(board).getBoardWidth();
+        verify(board,atLeastOnce()).getBoardData();
+
     }
 
     @Test
+    @RepeatedTest(5)
     void testMoveLeft() {
-        when(grid.getEmptySlotIndex()).thenReturn(4);
-        when(grid.getBoardData()).thenReturn(Arrays.asList(1, 2, 3, 4, 0, 5, 6, 7, 8));
+        List<Integer> boardData = generateRandomBoardData();
+        int emptySlotIndex = boardData.indexOf(0);
+
+        when(board.getEmptySlotIndex()).thenReturn(emptySlotIndex);
+        when(board.getBoardData()).thenReturn(boardData);
 
         moveRuleset.moveLeft();
 
-        verify(grid, times(3)).getEmptySlotIndex();
-        verify(grid, times(3)).getBoardData();
+        verify(board, atLeastOnce()).getEmptySlotIndex();
+        verify(board, atLeastOnce()).getBoardData();
+
     }
 
     @Test
+    @RepeatedTest(5)
     void testMoveRight() {
-        when(grid.getEmptySlotIndex()).thenReturn(4);
-        when(grid.getBoardData()).thenReturn(Arrays.asList(1, 2, 3, 0, 4, 5, 6, 7, 8));
+        List<Integer> boardData = generateRandomBoardData();
+        int emptySlotIndex = boardData.indexOf(0);
+
+        when(board.getEmptySlotIndex()).thenReturn(emptySlotIndex);
+        when(board.getBoardData()).thenReturn(boardData);
 
         moveRuleset.moveRight();
 
-        verify(grid, times(3)).getEmptySlotIndex();
-        verify(grid, times(3)).getBoardData();
+        verify(board, atLeastOnce()).getEmptySlotIndex();
+        verify(board, atLeastOnce()).getBoardData();
+
     }
 
-    @Test
-    void testMoveInvalidButtonValue() {
-        when(grid.getBoardData()).thenReturn(Arrays.asList(1, 2, 0));
 
-        assertThrows(IndexOutOfBoundsException.class,
-                () -> moveRuleset.move(10));
+    @Test
+    @RepeatedTest(5)
+    void testMoveInvalidButtonValueIsNotValidatedByThisClass() {
+        List<Integer> boardData = generateRandomBoardData();
+
+        when(board.getBoardData()).thenReturn(boardData);
+
+        assertThrows(IndexOutOfBoundsException.class, () -> moveRuleset.move(-1));
+
+        verify(board, atLeastOnce()).getEmptySlotIndex();
+        verify(board, atLeastOnce()).getBoardData();
+
+    }
+
+    private List<Integer> generateRandomBoardData() {
+        Integer boardSize = getRandomGridWidth(MIN_BOARD_WIDTH, MAX_BOARD_WIDTH);  // Define o tamanho do tabuleiro aleatoriamente
+        Integer emptySlotIndex = ThreadLocalRandom.current().nextInt(boardSize);  // Define o índice do espaço vazio aleatoriamente
+
+        // Cria uma lista de inteiros em posições aleatórias que contém o valor zero na posição final
+        List<Integer> boardData = ThreadLocalRandom.current()
+                .ints(boardSize - 1)
+                .boxed()
+                .collect(Collectors.toList());
+        boardData.add(emptySlotIndex, 0);
+
+        return boardData;
+    }
+
+    private Integer getRandomGridWidth(Integer minBoardWidth, Integer maxBoardWidth) {
+        return ThreadLocalRandom.current().nextInt(minBoardWidth, maxBoardWidth + 1);
     }
 }

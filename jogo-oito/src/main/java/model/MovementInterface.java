@@ -7,6 +7,6 @@ public interface MovementInterface {
     void moveUp();
     void moveLeft();
     void moveRight();
-    void setGrid(BoardInterface grid);
+    void setBoard(BoardInterface board);
 
 }

@@ -1,3 +1,11 @@
+/* 
+essas Costantes representam valores para o qual minha aplicação deve funcionar, importante citar 
+que não existem um valor limite teórico para o tamanho da fileira do tabuleiro além d, mas
+não existe a necessidade de testar ele para valores maiores que 20 (que já é um tamanho absurdo).
+Tamanhos muito grandes tornam os testes extremamente lentos, e é importante se atentar aos limites 
+de memória do java
+*/
+
 package model;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -16,12 +24,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class BoardTest {
 
     private Board board;
-    private Integer MIN_BOARD_SIZE = 3;
-    private Integer MAX_BOARD_SIZE = 20;
+    private final Integer MIN_BOARD_WIDTH = 3;
+    private final Integer MAX_BOARD_WIDTH = 20;
 
     @BeforeEach
     void setUp() {
-        Integer boardWidth = getRandomGridWidth(MIN_BOARD_SIZE, MAX_BOARD_SIZE);
+        Integer boardWidth = getRandomGridWidth(MIN_BOARD_WIDTH, MAX_BOARD_WIDTH);
         Integer boardSize = boardWidth * boardWidth;
         board = new Board(boardSize, boardWidth, true);
     }
@@ -75,6 +83,5 @@ class BoardTest {
     private Integer getRandomGridWidth(Integer minBoardWidth, Integer maxBoardWidth) {
         return ThreadLocalRandom.current().nextInt(minBoardWidth, maxBoardWidth + 1);
     }
-
     
 }

@@ -1,4 +1,4 @@
-package builder;
+package initializer;
 
 import controller.ControllerInterface;
 import controller.GameController;
@@ -10,7 +10,7 @@ import model.MovementInterface;
 import util.GridConstants;
 import view.GameUI;
 
-public class GameStarter {
+public class GameInitializer {
 
     public static void startGame() {
 
@@ -23,7 +23,7 @@ public class GameStarter {
         GameUI view = new GameUI();
         InputController inputAdapter = new InputController();
         
-        moveRuleset.setGrid(board);
+        moveRuleset.setBoard(board);
 
         gameController.setBoard(board);
         gameController.setView(view);

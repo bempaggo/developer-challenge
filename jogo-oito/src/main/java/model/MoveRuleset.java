@@ -5,14 +5,14 @@ import java.util.Optional;
 
 public class MoveRuleset implements MovementInterface {
 
-    private BoardInterface grid;
+    private BoardInterface board;
     private MoveValidator moveValidator = new MoveValidator();
 
     public MoveRuleset() {
     }
 
-    public void setGrid(BoardInterface grid) {
-        this.grid = grid;
+    public void setBoard(BoardInterface board) {
+        this.board = board;
     }
 
     @Override
@@ -22,52 +22,56 @@ public class MoveRuleset implements MovementInterface {
 
     @Override
     public void moveUp() {
-        Integer targetValueToSwap = getByIndex(grid.getEmptySlotIndex() + grid.getBoardWidth());
-        if (targetValueToSwap != null) {
-            move(targetValueToSwap);
-        }
+        Integer targetValueToSwap = getByIndex(board.getEmptySlotIndex() + board.getBoardWidth());
+        move(targetValueToSwap);
     }
 
     @Override
     public void moveDown() {
-        Integer targetValueToSwap = getByIndex(grid.getEmptySlotIndex() - grid.getBoardWidth());
+        Integer targetValueToSwap = getByIndex(board.getEmptySlotIndex() - board.getBoardWidth());
         move(targetValueToSwap);
+
     }
 
     @Override
     public void moveLeft() {
-        Integer targetValueToSwap = getByIndex(grid.getEmptySlotIndex() + 1);
-        move(targetValueToSwap);    
+        Integer targetValueToSwap = getByIndex(board.getEmptySlotIndex() + 1);
+        move(targetValueToSwap);
     }
 
     @Override
     public void moveRight() {
-        Integer targetValueToSwap = getByIndex(grid.getEmptySlotIndex() - 1);
+        Integer targetValueToSwap = getByIndex(board.getEmptySlotIndex() - 1);
         move(targetValueToSwap);
     }
 
     private void validateMove(Integer buttonValue) {
-        Integer valueIndex = grid.getBoardData().indexOf(buttonValue);
-        
+        Integer valueIndex = board.getBoardData().indexOf(buttonValue);
+
         Optional.of(valueIndex)
-                .filter(i -> moveValidator.isValidMove(grid.getEmptySlotIndex(), i))
+                .filter(i -> moveValidator.isValidMove(board.getEmptySlotIndex(), i))
                 .ifPresent(this::swapElements);
 
     }
 
     private void swapElements(Integer index) {
-        List<Integer> gridData = grid.getBoardData();
-        Integer emptySlotIndex = grid.getEmptySlotIndex();
+        List<Integer> boardData = board.getBoardData();
+        Integer emptySlotIndex = board.getEmptySlotIndex();
 
-        Integer temp = gridData.get(emptySlotIndex);
-        gridData.set(emptySlotIndex, gridData.get(index));
-        gridData.set(index, temp);
+        Integer temp = boardData.get(emptySlotIndex);
+        boardData.set(emptySlotIndex, boardData.get(index));
+        boardData.set(index, temp);
     }
 
     private Integer getByIndex(Integer index) {
-        return grid.getBoardData().stream()
-                .skip(index)
-                .findFirst()
-                .orElse(null);
+        try {
+            return board.getBoardData().stream()
+                    .skip(index)
+                    .findFirst()
+                    .orElse(null);
+        } catch (IndexOutOfBoundsException e) {
+            // Interrompe o fluxo da aplicação apenas
+        }
+        return null;
     }
 }

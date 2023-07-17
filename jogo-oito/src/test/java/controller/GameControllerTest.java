@@ -7,7 +7,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import view.GameUI;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.mockito.Mockito.*;
 
@@ -31,22 +33,32 @@ class GameControllerTest {
 
     @Test
     void testNotifyMoveGameNotComplete() {
-        when(grid.getBoardData()).thenReturn(Arrays.asList(1, 2, 3, 4, 0, 5, 6, 7, 8));
-        when(grid.getGameIsCompleteBoardPattern()).thenReturn(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 0));
+        List<Integer> boardData = generateRandomList();
+        List<Integer> gameCompletePattern = generateRandomList();
+
+        when(grid.getBoardData()).thenReturn(boardData);
+        when(grid.getGameIsCompleteBoardPattern()).thenReturn(gameCompletePattern);
+
+        gameController.notifyMove();
+        verify(view).updateBoard();
+    }
+
+    @Test
+    void testNotifyMoveGameComplete() {
+        List<Integer> boardData = generateRandomList();
+
+        when(grid.getBoardData()).thenReturn(boardData);
+        when(grid.getGameIsCompleteBoardPattern()).thenReturn(new ArrayList<>(boardData));
 
         gameController.notifyMove();
 
         verify(view).updateBoard();
     }
 
-    @Test
-    void testNotifyMoveGameComplete() {
-        when(grid.getBoardData()).thenReturn(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 0));
-        when(grid.getGameIsCompleteBoardPattern()).thenReturn(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 0));
-
-        gameController.notifyMove();
-
-        verify(view).updateBoard();
+    private List<Integer> generateRandomList() {
+        List<Integer> list = new ArrayList<>();
+        list.add(ThreadLocalRandom.current().nextInt()); // Adiciona um valor aleatório à lista
+        return list;
     }
 
     @Test
@@ -57,4 +69,3 @@ class GameControllerTest {
         verify(view).updateBoard();
     }
 }
-
