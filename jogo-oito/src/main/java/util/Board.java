@@ -79,7 +79,7 @@ public class Board implements Graph {
         return this.cells;
     }
 
-    @Override
+    // esse método só é usado nos testes, entenda como um shortcut para defineEmptyCell()
     public Vertex getEmptyCell() {
         return this.emptyCell;
     }

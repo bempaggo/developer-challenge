@@ -20,8 +20,6 @@ public interface Graph {
 
     List<Vertex> getCells();
 
-    Vertex getEmptyCell();
-
     void click(Integer cellValue);
 
     Boolean checkGameOver();
