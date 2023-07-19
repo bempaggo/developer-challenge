@@ -1,16 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package game;
 
-/**
- *
- * @author allen
- */
 import model.Cell;
 import util.Board;
-import interfaces.Edge;
 import interfaces.Vertex;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,11 +46,11 @@ public class BoardTest {
         Vertex cell1 = board.getCells().get(1);
         Vertex cell2 = board.getCells().get(2);
 
-        Edge adjacent1 = cell1.getAdjacentByKeyCode(model.Keyboard.LEFT);
-        Edge adjacent2 = cell2.getAdjacentByKeyCode(model.Keyboard.RIGHT);
+        Vertex adjacent1 = cell1.getAdjacentByKeyCode(Keyboard.LEFT);
+        Vertex adjacent2 = cell2.getAdjacentByKeyCode(Keyboard.RIGHT);
 
-        assertEquals(cell2, adjacent1.getCell());
-        assertEquals(cell1, adjacent2.getCell());
+        assertEquals(cell2, adjacent1);
+        assertEquals(cell1, adjacent2);
     }
 
     @Test
@@ -90,11 +81,11 @@ public class BoardTest {
 
         cell1.creatingHorizontalAdjacent(cell2);
 
-        Edge adjacent1 = cell1.getAdjacentByKeyCode(model.Keyboard.LEFT);
-        Edge adjacent2 = cell2.getAdjacentByKeyCode(model.Keyboard.RIGHT);
+        Vertex adjacent1 = cell1.getAdjacentByKeyCode(model.Keyboard.LEFT);
+        Vertex adjacent2 = cell2.getAdjacentByKeyCode(model.Keyboard.RIGHT);
 
-        assertEquals(cell2, adjacent1.getCell());
-        assertEquals(cell1, adjacent2.getCell());
+        assertEquals(cell2, adjacent1);
+        assertEquals(cell1, adjacent2);
     }
 
     @Test
@@ -104,11 +95,11 @@ public class BoardTest {
 
         cell1.creatingVerticalAdjacent(cell2);
 
-        Edge adjacent1 = cell1.getAdjacentByKeyCode(model.Keyboard.UP);
-        Edge adjacent2 = cell2.getAdjacentByKeyCode(model.Keyboard.DOWN);
+        Vertex adjacent1 = cell1.getAdjacentByKeyCode(model.Keyboard.UP);
+        Vertex adjacent2 = cell2.getAdjacentByKeyCode(model.Keyboard.DOWN);
 
-        assertEquals(cell2, adjacent1.getCell());
-        assertEquals(cell1, adjacent2.getCell());
+        assertEquals(cell2, adjacent1);
+        assertEquals(cell1, adjacent2);
     }
 
     @Test
@@ -127,8 +118,8 @@ public class BoardTest {
 
         cell1.creatingHorizontalAdjacent(cell2);
 
-        Edge adjacent = cell1.getAdjacentByKeyCode(model.Keyboard.LEFT);
-        assertEquals(cell2, adjacent.getCell());
+        Vertex adjacent = cell1.getAdjacentByKeyCode(Keyboard.LEFT);
+        assertEquals(cell2, adjacent);
     }
     
     @Test

@@ -24,4 +24,6 @@ public interface Vertex {
 
   boolean equals(Object obj);  
 
+  Vertex getAdjacentByKeyCode(Keyboard key);
+
 }

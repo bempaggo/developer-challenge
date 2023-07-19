@@ -61,7 +61,8 @@ public class Cell implements Vertex {
                 .orElse(this);
     }
 
-    private Vertex getAdjacentByKeyCode(Keyboard key) {
+    @Override
+    public Vertex getAdjacentByKeyCode(Keyboard key) {
         return adjacents.get(key);
     }
 
