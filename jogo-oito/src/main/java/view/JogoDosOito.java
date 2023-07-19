@@ -129,6 +129,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
+    // alguma coisa esquisita aqui no keyPressed, mas eu não sei dizer o que é
     @Override
     public void keyPressed(KeyEvent e) {
         this.board.swap(e.getKeyCode());

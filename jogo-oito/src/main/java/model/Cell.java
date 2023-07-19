@@ -35,21 +35,21 @@ public class Cell implements Vertex {
 
     @Override
     public void creatingHorizontalAdjacent(Vertex cell) {
-        adjacents.put(Keyboard.LEFT, cell);
+        this.adjacents.put(Keyboard.LEFT, cell);
         cell.getAdjacents().put(Keyboard.RIGHT, this);
     }
 
     @Override
     public void creatingVerticalAdjacent(Vertex cell) {
-        adjacents.put(Keyboard.UP, cell);
+        this.adjacents.put(Keyboard.UP, cell);
         cell.getAdjacents().put(Keyboard.DOWN, this);
 
     }
 
     @Override
     public String valueToText() {
-        return Optional.ofNullable(value)
-                .filter(v -> v != 0)
+        return Optional.of(this.value)
+                .filter(value -> value != 0)
                 .map(String::valueOf)
                 .orElse("");
     }
@@ -77,7 +77,7 @@ public class Cell implements Vertex {
         return adjacents.values().stream()
                 .filter(adjacent -> Objects.equals(adjacent.getValue(), value))
                 .findFirst()
-                .map(cell -> this.swapCells((Cell) cell))
+                .map(cell -> this.swapCells(cell))
                 .orElse(this);
     }
 
