@@ -22,8 +22,6 @@ public interface Vertex {
 
   Map<Keyboard, Vertex> getAdjacents();
 
-  boolean equals(Object obj);
-
-  int hashCode();
+  boolean equals(Object obj);  
 
 }

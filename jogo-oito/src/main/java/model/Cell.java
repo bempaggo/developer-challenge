@@ -35,18 +35,15 @@ public class Cell implements Vertex {
 
     @Override
     public void creatingHorizontalAdjacent(Vertex cell) {
-        if (cell instanceof Cell) {
-            adjacents.put(Keyboard.LEFT, (Cell) cell);
-            ((Cell) cell).getAdjacents().put(Keyboard.RIGHT, this);
-        }
+        adjacents.put(Keyboard.LEFT, cell);
+        cell.getAdjacents().put(Keyboard.RIGHT, this);
     }
 
     @Override
     public void creatingVerticalAdjacent(Vertex cell) {
-        if (cell instanceof Cell) {
-            adjacents.put(Keyboard.UP, (Cell) cell);
-            ((Cell) cell).getAdjacents().put(Keyboard.DOWN, this);
-        }
+        adjacents.put(Keyboard.UP, cell);
+        cell.getAdjacents().put(Keyboard.DOWN, this);
+
     }
 
     @Override
@@ -59,18 +56,16 @@ public class Cell implements Vertex {
 
     @Override
     public Vertex click(Keyboard key) {
-        Vertex adjacent = this.getAdjacentByKeyCode(key);
-        if (adjacent != null && adjacent instanceof Cell) {
-            return swapCells((Cell) adjacent);
-        }
-        return this;
+        return Optional.ofNullable(getAdjacentByKeyCode(key))
+                .map(this::swapCells)
+                .orElse(this);
     }
 
     private Vertex getAdjacentByKeyCode(Keyboard key) {
         return adjacents.get(key);
     }
 
-    private Vertex swapCells(Cell movementCell) {
+    private Vertex swapCells(Vertex movementCell) {
         this.setValue(movementCell.getValue());
         movementCell.setValue(0);
         return movementCell;
@@ -85,7 +80,6 @@ public class Cell implements Vertex {
                 .orElse(this);
     }
 
-
     @Override
     public boolean equals(Object obj) {
         return Objects.equals(this.value, ((Cell) obj).value);
@@ -94,9 +88,5 @@ public class Cell implements Vertex {
     public Map<Keyboard, Vertex> getAdjacents() {
         return adjacents;
     }
-
-    
-
-    
 
 }
