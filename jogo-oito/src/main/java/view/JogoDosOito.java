@@ -1,7 +1,9 @@
 package view;
 
-import facade.Controller;
+import interfaces.Graph;
 import interfaces.Vertex;
+import util.Board;
+
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -20,14 +22,14 @@ import javax.swing.SwingUtilities;
 public class JogoDosOito extends JFrame implements KeyListener {
 
     private final List<JButton> buttons;
-    private final Controller controller;
+    private final Graph board;
     private JButton reset;
     private JButton feedback;
 
     public JogoDosOito() {
         super("Jogo dos Oito");
-        this.controller = new Controller();
-        this.controller.setting();
+        this.board = new Board();
+        this.board.setting();
         this.buttons = new ArrayList<>();
     }
 
@@ -41,7 +43,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void createButtons() {
-        this.controller.getCells().forEach(cell -> {
+        this.board.getCells().forEach(cell -> {
             JButton button = this.configButton(cell);
             add(button);
             buttons.add(button);
@@ -59,7 +61,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
         button.setFont(new Font("Arial", Font.BOLD, 36));
         button.setText(cell.valueToText());
         button.addActionListener((ActionEvent e) -> {
-            this.controller.click(this.textToValue(button.getText()));
+            this.board.click(this.textToValue(button.getText()));
             this.updateBoard();
             this.checkGameOver();
             SwingUtilities.getRoot(button).requestFocus();
@@ -69,7 +71,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void checkGameOver() {
-        Optional.ofNullable(this.controller.checkGameOver())
+        Optional.ofNullable(this.board.checkGameOver())
                 .filter(Boolean::booleanValue)
                 .ifPresent(gameOver -> {
                     JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
@@ -105,17 +107,17 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
 
     private void resetGame() {
-        this.controller.setting();
+        this.board.setting();
         this.updateBoard();
     }
     
     private void showFeedback() {
-        this.controller.feedback();
+        this.board.feedback();
         this.updateBoard();
     }
 
     private void updateBoard() {
-        List<Vertex> cells = this.controller.getCells();
+        List<Vertex> cells = this.board.getCells();
         IntStream.range(0, cells.size())
                 .forEach(index -> {
                     JButton button = this.buttons.get(index);
@@ -129,7 +131,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        this.controller.swap(e.getKeyCode());
+        this.board.swap(e.getKeyCode());
         this.updateBoard();
         this.checkGameOver();
     }
