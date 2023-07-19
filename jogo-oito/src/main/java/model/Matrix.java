@@ -53,9 +53,9 @@ public final class Matrix {
 
     private final class Row {
 
-        public final Cell initial;
-        public final Cell center;
-        public final Cell last;
+        public final Vertex initial;
+        public final Vertex center;
+        public final Vertex last;
 
         public Row() {
             this.initial = new Cell();

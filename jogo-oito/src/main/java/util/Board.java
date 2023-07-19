@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.IntStream;
 import model.Keyboard;
 import model.Matrix;
@@ -55,12 +54,11 @@ public class Board implements Graph {
         return values;
     }
 
+    // não é necessário chamar Optional
     private void defineEmptyCell() {
-        Optional<Vertex> minCell = this.cells.stream()
-                .min(Comparator.comparing(cell -> cell.getValue()));
-        minCell.ifPresent(cell -> {
-            this.emptyCell = cell;
-        });
+        this.emptyCell = cells.stream()
+                .min(Comparator.comparing(Vertex::getValue))
+                .orElse(null);
     }
 
     @Override
@@ -79,7 +77,7 @@ public class Board implements Graph {
         return this.cells;
     }
 
-    // esse método só é usado nos testes, entenda como um shortcut para defineEmptyCell()
+    // esse método só é usado nos testes
     public Vertex getEmptyCell() {
         return this.emptyCell;
     }

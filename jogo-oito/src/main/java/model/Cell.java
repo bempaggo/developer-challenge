@@ -1,26 +1,26 @@
 package model;
 
-import interfaces.Edge;
 import interfaces.Vertex;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
 public class Cell implements Vertex {
 
     private Integer value;
-    private final List<Edge> adjacents;
+    private Map<Keyboard, Vertex> adjacents;
     public static Integer content;
 
     public Cell(Integer value) {
         this.value = value;
-        this.adjacents = new ArrayList<>();
+        this.adjacents = new HashMap<>();
     }
 
     public Cell() {
         this.value = Cell.content++;
-        this.adjacents = new ArrayList<>();
+        this.adjacents = new HashMap<>();
     }
 
     @Override
@@ -35,48 +35,42 @@ public class Cell implements Vertex {
 
     @Override
     public void creatingHorizontalAdjacent(Vertex cell) {
-        this.adjacents.add(new Adjacent(Keyboard.LEFT, cell));
-        cell.getAdjacents().add(new Adjacent(Keyboard.RIGHT, this));
+        if (cell instanceof Cell) {
+            adjacents.put(Keyboard.LEFT, (Cell) cell);
+            ((Cell) cell).getAdjacents().put(Keyboard.RIGHT, this);
+        }
     }
 
     @Override
     public void creatingVerticalAdjacent(Vertex cell) {
-        this.adjacents.add(new Adjacent(Keyboard.UP, cell));
-        cell.getAdjacents().add(new Adjacent(Keyboard.DOWN, this));
+        if (cell instanceof Cell) {
+            adjacents.put(Keyboard.UP, (Cell) cell);
+            ((Cell) cell).getAdjacents().put(Keyboard.DOWN, this);
+        }
     }
 
     @Override
     public String valueToText() {
-        return Optional.of(this.value)
-                .filter(value -> value != 0)
+        return Optional.ofNullable(value)
+                .filter(v -> v != 0)
                 .map(String::valueOf)
                 .orElse("");
     }
 
     @Override
-    public Edge getAdjacentByKeyCode(Keyboard key) {
-        Adjacent edge = new Adjacent(key, null);
-        Integer indexEdge = this.adjacents.indexOf(edge);
-        return Optional.of(indexEdge)
-                .filter(index -> index != -1)
-                .map(this.adjacents::get)
-                .orElse(null);
-    }
-
-    @Override
     public Vertex click(Keyboard key) {
-        Edge adjacent = this.getAdjacentByKeyCode(key);
-        return this.movement(adjacent);
+        Vertex adjacent = this.getAdjacentByKeyCode(key);
+        if (adjacent != null && adjacent instanceof Cell) {
+            return swapCells((Cell) adjacent);
+        }
+        return this;
     }
 
-    private Vertex movement(Edge adjacent) {
-        return Optional.ofNullable(adjacent)
-                .map(Edge::getCell)
-                .map(this::swapCells)
-                .orElse(this);
+    private Vertex getAdjacentByKeyCode(Keyboard key) {
+        return adjacents.get(key);
     }
 
-    private Vertex swapCells(Vertex movementCell) {
+    private Vertex swapCells(Cell movementCell) {
         this.setValue(movementCell.getValue());
         movementCell.setValue(0);
         return movementCell;
@@ -84,26 +78,25 @@ public class Cell implements Vertex {
 
     @Override
     public Vertex swapCells(Integer value) {
-        return this.adjacents.stream()
-                .filter(adjacent -> Objects.equals(adjacent.getCell().getValue(), value))
+        return adjacents.values().stream()
+                .filter(adjacent -> Objects.equals(adjacent.getValue(), value))
                 .findFirst()
-                .map(this::movement)
+                .map(cell -> this.swapCells((Cell) cell))
                 .orElse(this);
     }
 
-    @Override
-    public List<Edge> getAdjacents() {
-        return this.adjacents;
-    }
-
-    @Override
-    public void addAdjacents(Edge edge) {
-        this.adjacents.add(edge);
-    }
 
     @Override
     public boolean equals(Object obj) {
         return Objects.equals(this.value, ((Cell) obj).value);
     }
+
+    public Map<Keyboard, Vertex> getAdjacents() {
+        return adjacents;
+    }
+
+    
+
+    
 
 }

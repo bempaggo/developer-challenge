@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.awt.event.KeyEvent;
@@ -20,8 +16,7 @@ public enum Keyboard {
     private final Integer value;
 
     private static final Map<Integer, Keyboard> map = Arrays.stream(Keyboard.values())
-        .collect(Collectors.toMap(Keyboard::getValue, Function.identity()));
-
+            .collect(Collectors.toMap(Keyboard::getValue, Function.identity()));
 
     Keyboard(Integer value) {
         this.value = value;
@@ -34,5 +29,4 @@ public enum Keyboard {
     public static Keyboard fromValue(Integer value) {
         return map.get(value);
     }
-
 }
