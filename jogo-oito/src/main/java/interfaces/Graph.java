@@ -12,15 +12,15 @@ import java.util.List;
  */
 public interface Graph {
 
-    void feedback();
+    void showSolvedBoard();
     
-    void setting();
+    void setUpNewBoard();
 
-    void swap(Integer keyCode);
+    void moveWithCellKey(Integer keyCode);
 
     List<Vertex> getCells();
 
-    void click(Integer cellValue);
+    void moveWithCellValue(Integer cellValue);
 
     Boolean checkGameOver();
 }

@@ -16,9 +16,9 @@ public interface Vertex {
 
   String valueToText();
 
-  Vertex click(Keyboard key);
+  Vertex swapByAdjacentCellKey(Keyboard key);
 
-  Vertex swapCells(Integer value);
+  Vertex swapByAdjacentCellValue(Integer value);
 
   Map<Keyboard, Vertex> getAdjacents();
 

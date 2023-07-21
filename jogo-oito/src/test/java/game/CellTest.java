@@ -72,7 +72,7 @@ public class CellTest {
         Cell cell2 = new Cell(2);
         cell1.creatingHorizontalAdjacent(cell2);
 
-        assertEquals(cell2, cell1.click(Keyboard.LEFT));
+        assertEquals(cell2, cell1.swapByAdjacentCellKey(Keyboard.LEFT));
     }
 
     @Test
@@ -81,7 +81,7 @@ public class CellTest {
         Cell cell2 = new Cell(2);
         cell1.creatingHorizontalAdjacent(cell2);
 
-        cell1.swapCells(cell2.getValue());
+        cell1.swapByAdjacentCellValue(cell2.getValue());
 
         assertEquals(2, cell1.getValue());
         assertEquals(0, cell2.getValue());
@@ -94,7 +94,7 @@ public class CellTest {
         Cell cell3 = new Cell(3);
         cell1.creatingHorizontalAdjacent(cell2);
 
-        assertEquals(cell2, cell2.swapCells(cell3.getValue()));
+        assertEquals(cell2, cell2.swapByAdjacentCellValue(cell3.getValue()));
     }
 
 }

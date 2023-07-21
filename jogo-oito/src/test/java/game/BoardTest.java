@@ -18,7 +18,7 @@ public class BoardTest {
     @BeforeEach
     public void setUp() {
         board = new Board();
-        board.feedback();
+        board.showSolvedBoard();
     }
 
     @Test
@@ -27,7 +27,7 @@ public class BoardTest {
         Vertex cell = board.getCells().get(7);
         Integer cellValue = cell.getValue();
 
-        board.click(cellValue);
+        board.moveWithCellValue(cellValue);
 
         assertEquals(cellValue, emptyCell.getValue());
         assertEquals(0, cell.getValue());
@@ -59,7 +59,7 @@ public class BoardTest {
         Vertex cell = board.getCells().get(7);
         Integer cellValue = cell.getValue();
 
-        board.click(cellValue);
+        board.moveWithCellValue(cellValue);
 
         assertEquals(cellValue, emptyCell.getValue());
         assertEquals(0, cell.getValue());
@@ -69,7 +69,7 @@ public class BoardTest {
     public void testCheckGameOver() {
         Assertions.assertTrue(this.board.checkGameOver());
         board = new Board();
-        board.setting();
+        board.setUpNewBoard();
         Assertions.assertFalse(board.checkGameOver());
 
     }
@@ -124,25 +124,25 @@ public class BoardTest {
     
     @Test
     public void testClickDown() {
-        board.swap(Keyboard.DOWN.getValue());
+        board.moveWithCellKey(Keyboard.DOWN.getValue());
         Assertions.assertEquals(5, board.getCells().indexOf(board.getEmptyCell()));
     }
 
     @Test
     public void testClickUp() {
-        board.swap(Keyboard.UP.getValue());
+        board.moveWithCellKey(Keyboard.UP.getValue());
         Assertions.assertEquals(8, board.getCells().indexOf(board.getEmptyCell()));
     }
 
     @Test
     public void testClickRight() {
-        board.swap(Keyboard.RIGHT.getValue());
+        board.moveWithCellKey(Keyboard.RIGHT.getValue());
         Assertions.assertEquals(7, board.getCells().indexOf(board.getEmptyCell()));
     }
 
     @Test
     public void testClickLeft() {
-        board.swap(Keyboard.LEFT.getValue());
+        board.moveWithCellKey(Keyboard.LEFT.getValue());
         Assertions.assertEquals(8, board.getCells().indexOf(board.getEmptyCell()));
     }
 

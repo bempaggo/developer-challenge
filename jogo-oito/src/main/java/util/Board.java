@@ -22,7 +22,7 @@ public class Board implements Graph {
     }
 
     @Override
-    public void feedback() {
+    public void showSolvedBoard() {
         this.matrix = new Matrix();
         this.cells = this.matrix.getCells();
         this.length = cells.size();
@@ -30,16 +30,16 @@ public class Board implements Graph {
     }
 
     @Override
-    public void setting() {
+    public void setUpNewBoard() {
         this.matrix = new Matrix();
         this.cells = this.matrix.getCells();
         this.length = cells.size();
-        this.shuffleCell();
+        this.shuffleCells();
         this.defineEmptyCell();
 
     }
 
-    private void shuffleCell() {
+    private void shuffleCells() {
         Iterator<Integer> iterator = this.shuffleValues().iterator();
         this.cells.stream()
                 .forEach(vertex -> vertex.setValue(iterator.next()));
@@ -62,14 +62,14 @@ public class Board implements Graph {
     }
 
     @Override
-    public void click(Integer cellValue) {
-        this.emptyCell = this.emptyCell.swapCells(cellValue);
+    public void moveWithCellValue(Integer cellValue) {
+        this.emptyCell = this.emptyCell.swapByAdjacentCellValue(cellValue);
     }
 
     @Override
-    public void swap(Integer keyCode) {
+    public void moveWithCellKey(Integer keyCode) {
         Keyboard key = Keyboard.fromValue(keyCode);
-        this.emptyCell = this.emptyCell.click(key);
+        this.emptyCell = this.emptyCell.swapByAdjacentCellKey(key);
     }
 
     @Override

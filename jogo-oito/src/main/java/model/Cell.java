@@ -34,6 +34,11 @@ public class Cell implements Vertex {
     }
 
     @Override
+    public Map<Keyboard, Vertex> getAdjacents() {
+        return adjacents;
+    }
+
+    @Override
     public void creatingHorizontalAdjacent(Vertex cell) {
         this.adjacents.put(Keyboard.LEFT, cell);
         cell.getAdjacents().put(Keyboard.RIGHT, this);
@@ -47,23 +52,24 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public String valueToText() {
-        return Optional.of(this.value)
-                .filter(value -> value != 0)
-                .map(String::valueOf)
-                .orElse("");
+    public Vertex getAdjacentByKeyCode(Keyboard key) {
+        return adjacents.get(key);
     }
 
     @Override
-    public Vertex click(Keyboard key) {
-        return Optional.ofNullable(getAdjacentByKeyCode(key))
+    public Vertex swapByAdjacentCellValue(Integer value) {
+        return adjacents.values().stream()
+                .filter(adjacent -> Objects.equals(adjacent.getValue(), value))
+                .findFirst()
                 .map(this::swapCells)
                 .orElse(this);
     }
 
     @Override
-    public Vertex getAdjacentByKeyCode(Keyboard key) {
-        return adjacents.get(key);
+    public Vertex swapByAdjacentCellKey(Keyboard key) {
+        return Optional.ofNullable(getAdjacentByKeyCode(key))
+                .map(this::swapCells)
+                .orElse(this);
     }
 
     private Vertex swapCells(Vertex movementCell) {
@@ -73,21 +79,16 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public Vertex swapCells(Integer value) {
-        return adjacents.values().stream()
-                .filter(adjacent -> Objects.equals(adjacent.getValue(), value))
-                .findFirst()
-                .map(cell -> this.swapCells(cell))
-                .orElse(this);
-    }
-
-    @Override
     public boolean equals(Object obj) {
         return Objects.equals(this.value, ((Cell) obj).value);
     }
 
-    public Map<Keyboard, Vertex> getAdjacents() {
-        return adjacents;
+    @Override
+    public String valueToText() {
+        return Optional.of(this.value)
+                .filter(value -> value != 0)
+                .map(String::valueOf)
+                .orElse("");
     }
 
 }

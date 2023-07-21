@@ -29,7 +29,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
     public JogoDosOito() {
         super("Jogo dos Oito");
         this.board = new Board();
-        this.board.setting();
+        this.board.setUpNewBoard();
         this.buttons = new ArrayList<>();
     }
 
@@ -61,13 +61,39 @@ public class JogoDosOito extends JFrame implements KeyListener {
         button.setFont(new Font("Arial", Font.BOLD, 36));
         button.setText(cell.valueToText());
         button.addActionListener((ActionEvent e) -> {
-            this.board.click(this.textToValue(button.getText()));
+            this.board.moveWithCellValue(this.textToValue(button.getText()));
             this.updateBoard();
             this.checkGameOver();
             SwingUtilities.getRoot(button).requestFocus();
         });
         return button;
 
+    }
+
+    private void configMenu() {
+        this.reset = this.configResetGameButton();
+        this.feedback = this.configGameSolutionButton();
+        add(this.feedback);
+        add(this.reset);
+        add(new JLabel(""));
+    }
+
+    private JButton configResetGameButton() {
+        JButton buttonReset = new JButton("Reiniciar");
+        buttonReset.addActionListener((ActionEvent e) -> {
+            this.resetGame();
+            SwingUtilities.getRoot(buttonReset).requestFocus();
+        });
+        return buttonReset;
+    }
+    
+    private JButton configGameSolutionButton() {
+        JButton buttonFeedback = new JButton("Gabarito");
+        buttonFeedback.addActionListener((ActionEvent e) -> {
+            this.showGameSolution();
+            SwingUtilities.getRoot(buttonFeedback).requestFocus();
+        });
+        return buttonFeedback;
     }
 
     private void checkGameOver() {
@@ -79,40 +105,14 @@ public class JogoDosOito extends JFrame implements KeyListener {
                 });
     }
 
-    private void configMenu() {
-        this.reset = this.configReset();
-        this.feedback = this.configFeedback();
-        add(this.feedback);
-        add(this.reset);
-        add(new JLabel(""));
-    }
-
-    private JButton configReset() {
-        JButton buttonReset = new JButton("Reiniciar");
-        buttonReset.addActionListener((ActionEvent e) -> {
-            this.resetGame();
-            SwingUtilities.getRoot(buttonReset).requestFocus();
-        });
-        return buttonReset;
-    }
-    
-    private JButton configFeedback() {
-        JButton buttonFeedback = new JButton("Gabarito");
-        buttonFeedback.addActionListener((ActionEvent e) -> {
-            this.showFeedback();
-            SwingUtilities.getRoot(buttonFeedback).requestFocus();
-        });
-        return buttonFeedback;
-    }
-
 
     private void resetGame() {
-        this.board.setting();
+        this.board.setUpNewBoard();
         this.updateBoard();
     }
     
-    private void showFeedback() {
-        this.board.feedback();
+    private void showGameSolution() {
+        this.board.showSolvedBoard();
         this.updateBoard();
     }
 
@@ -132,7 +132,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
     // alguma coisa esquisita aqui no keyPressed, mas eu não sei dizer o que é
     @Override
     public void keyPressed(KeyEvent e) {
-        this.board.swap(e.getKeyCode());
+        this.board.moveWithCellKey(e.getKeyCode());
         this.updateBoard();
         this.checkGameOver();
     }
