@@ -39,6 +39,19 @@ public class Cell implements Vertex {
     }
 
     @Override
+    public Vertex getAdjacentByKeyCode(Keyboard key) {
+        return adjacents.get(key);
+    }
+    
+    @Override
+    public Vertex getAdjacentByValue(Integer value) {
+        return adjacents.values().stream()
+                .filter(adjacent -> Objects.equals(adjacent.getValue(), value))
+                .findFirst()
+                .orElse(null);
+    }    
+
+    @Override
     public void creatingHorizontalAdjacent(Vertex cell) {
         this.adjacents.put(Keyboard.LEFT, cell);
         cell.getAdjacents().put(Keyboard.RIGHT, this);
@@ -52,27 +65,7 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public Vertex getAdjacentByKeyCode(Keyboard key) {
-        return adjacents.get(key);
-    }
-
-    @Override
-    public Vertex swapByAdjacentCellValue(Integer value) {
-        return adjacents.values().stream()
-                .filter(adjacent -> Objects.equals(adjacent.getValue(), value))
-                .findFirst()
-                .map(this::swapCells)
-                .orElse(this);
-    }
-
-    @Override
-    public Vertex swapByAdjacentCellKey(Keyboard key) {
-        return Optional.ofNullable(getAdjacentByKeyCode(key))
-                .map(this::swapCells)
-                .orElse(this);
-    }
-
-    private Vertex swapCells(Vertex movementCell) {
+    public Vertex swapCells(Vertex movementCell) {
         this.setValue(movementCell.getValue());
         movementCell.setValue(0);
         return movementCell;

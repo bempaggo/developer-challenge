@@ -10,20 +10,21 @@ public interface Vertex {
 
   Integer getValue();
 
+  Vertex getAdjacentByKeyCode(Keyboard key);
+  
+  Vertex getAdjacentByValue(Integer value);
+
   void creatingHorizontalAdjacent(Vertex cell);
 
   void creatingVerticalAdjacent(Vertex cell);
 
   String valueToText();
 
-  Vertex swapByAdjacentCellKey(Keyboard key);
-
-  Vertex swapByAdjacentCellValue(Integer value);
+  Vertex swapCells(Vertex movementCell);
 
   Map<Keyboard, Vertex> getAdjacents();
 
   boolean equals(Object obj);  
 
-  Vertex getAdjacentByKeyCode(Keyboard key);
-
+  
 }
