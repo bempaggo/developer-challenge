@@ -141,10 +141,10 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     private void centerFrameInTheScreen(JFrame frame) {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        int w = frame.getSize().width;
-        int h = frame.getSize().height;
-        int x = (dim.width - w) / 2;
-        int y = (dim.height - h) / 2;
+        int width = frame.getSize().width;
+        int height = frame.getSize().height;
+        int x = (dim.width - width) / 2;
+        int y = (dim.height - height) / 2;
         frame.setLocation(x, y);
     }
 

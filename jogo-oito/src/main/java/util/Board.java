@@ -24,7 +24,7 @@ public class Board implements Graph {
 
     @Override
     public void setting() {
-        resetMatrix();
+        this.resetMatrix();
         this.shuffleCell();
         this.defineEmptyCell();
     }

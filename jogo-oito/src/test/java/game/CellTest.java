@@ -31,7 +31,7 @@ class CellTest{
     }
 
     @Test
-    void testCreatingHorizontalAdjacent() {
+    void testCreateHorizontalAdjacent() {
         Vertex cell1 = Cell.of(1);
         Vertex cell2 = Cell.of(2);
 
@@ -42,7 +42,7 @@ class CellTest{
     }
 
     @Test
-    void testCreatingVerticalAdjacent() {
+    void testCreateVerticalAdjacent() {
         Vertex cell1 = Cell.of(1);
         Vertex cell2 = Cell.of(2);
 

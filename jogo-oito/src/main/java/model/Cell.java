@@ -34,6 +34,14 @@ public class Cell implements Vertex {
     }
 
     @Override
+    public String valueToText() {
+        return Optional.of(this.value)
+                .filter(value -> value != 0)
+                .map(String::valueOf)
+                .orElse("");
+    }
+
+    @Override
     public void setValue(Integer value) {
         this.value = value;
     }
@@ -56,16 +64,8 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public String valueToText() {
-        return Optional.of(this.value)
-                .filter(value -> value != 0)
-                .map(String::valueOf)
-                .orElse("");
-    }
-
-    @Override
     public Edge getAdjacentByKeyCode(Keyboard key) {
-        Adjacent edge = Adjacent.of(key, null);
+        Edge edge = Adjacent.of(key, null);
         Integer indexEdge = this.adjacents.indexOf(edge);
         return Optional.of(indexEdge)
                 .filter(index -> index != -1)
@@ -116,6 +116,11 @@ public class Cell implements Vertex {
     @Override
     public boolean equals(Object obj) {
         return Objects.equals(this.value, ((Cell) obj).value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 
 }
