@@ -103,15 +103,6 @@ public class BoardTest {
     }
 
     @Test
-    public void testValueToText() {
-        Vertex cell = new Cell(0);
-        assertEquals("", cell.valueToText());
-
-        cell.setValue(5);
-        assertEquals("5", cell.valueToText());
-    }
-
-    @Test
     public void testGetAdjacentByKeyCode() {
         Vertex cell1 = new Cell(1);
         Vertex cell2 = new Cell(2);

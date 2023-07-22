@@ -4,7 +4,6 @@ import model.Cell;
 import model.Keyboard;
 import org.junit.jupiter.api.Test;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CellTest {
@@ -53,7 +52,7 @@ public class CellTest {
         Cell cell1 = new Cell(0);
         Cell cell2 = new Cell(5);
 
-        assertEquals("", cell1.valueToText());
+        assertEquals("0", cell1.valueToText());
         assertEquals("5", cell2.valueToText());
     }
 
@@ -67,12 +66,12 @@ public class CellTest {
     }
 
     @Test
-    public void testClick() {
+    public void testGetAdjacentByValue() {
         Cell cell1 = new Cell(1);
         Cell cell2 = new Cell(2);
         cell1.creatingHorizontalAdjacent(cell2);
 
-        assertEquals(cell2, cell1.swapByAdjacentCellKey(Keyboard.LEFT));
+        assertEquals(cell2, cell1.getAdjacentByValue(2));
     }
 
     @Test
@@ -81,20 +80,10 @@ public class CellTest {
         Cell cell2 = new Cell(2);
         cell1.creatingHorizontalAdjacent(cell2);
 
-        cell1.swapByAdjacentCellValue(cell2.getValue());
+        cell1.swapCells(cell2);
 
         assertEquals(2, cell1.getValue());
         assertEquals(0, cell2.getValue());
-    }
-
-    @Test
-    public void testSwapCells_NotFound() {
-        Cell cell1 = new Cell(1);
-        Cell cell2 = new Cell(2);
-        Cell cell3 = new Cell(3);
-        cell1.creatingHorizontalAdjacent(cell2);
-
-        assertEquals(cell2, cell2.swapByAdjacentCellValue(cell3.getValue()));
     }
 
 }
