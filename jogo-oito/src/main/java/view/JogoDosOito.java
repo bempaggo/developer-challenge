@@ -1,5 +1,6 @@
 package view;
 
+import builder.JogoDosOitoBuilder;
 import facade.Controller;
 import interfaces.Vertex;
 
@@ -27,7 +28,23 @@ public class JogoDosOito extends JFrame implements KeyListener {
         this.buttons = new ArrayList<>();
     }
 
-    private void configureInterface() {
+    public void createButtons() {
+        this.controller.getCells().forEach(cell -> {
+            JButton button = this.configureButton(cell);
+            add(button);
+            buttons.add(button);
+        });
+    }
+
+    public void configureMenu() {
+        this.reset = this.configureReset();
+        this.feedback = this.configureFeedback();
+        add(this.feedback);
+        add(this.reset);
+        add(new JLabel(""));
+    }
+
+    public void configureInterface() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
         setLayout(new GridLayout(4, 3));
@@ -36,19 +53,16 @@ public class JogoDosOito extends JFrame implements KeyListener {
         setFocusable(true);
     }
 
-    private void createButtons() {
-        this.controller.getCells().forEach(cell -> {
-            JButton button = this.configureButton(cell);
-            add(button);
-            buttons.add(button);
-        });
+    public List<JButton> getButtons() {
+        return this.buttons;
     }
 
-    private Integer textToValue(String text) {
-        return Optional.ofNullable(text)
-                .filter(textValue -> textValue != "")
-                .map(Integer::valueOf)
-                .orElse(0);
+    public JButton getReset() {
+        return this.reset;
+    }
+
+    public JButton getFeedback() {
+        return this.feedback;
     }
 
     private JButton configureButton(Vertex cell) {
@@ -65,6 +79,13 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     }
 
+    private Integer textToValue(String text) {
+        return Optional.ofNullable(text)
+                .filter(textValue -> textValue != "")
+                .map(Integer::valueOf)
+                .orElse(0);
+    }
+
     private void checkGameOver() {
         Optional.ofNullable(this.controller.checkGameOver())
                 .filter(Boolean::booleanValue)
@@ -72,14 +93,6 @@ public class JogoDosOito extends JFrame implements KeyListener {
                     JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
                     resetGame();
                 });
-    }
-
-    private void configureMenu() {
-        this.reset = this.configureReset();
-        this.feedback = this.configureFeedback();
-        add(this.feedback);
-        add(this.reset);
-        add(new JLabel(""));
     }
 
     private JButton configureReset() {
@@ -136,10 +149,11 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     public static void main(String[] args) {
-        JogoDosOito game = new JogoDosOito();
-        game.createButtons();
-        game.configureMenu();
-        game.configureInterface();
+        new JogoDosOitoBuilder()
+                .createButtons()
+                .configureMenu()
+                .configureInterface()
+                .build();
     }
 
 }
