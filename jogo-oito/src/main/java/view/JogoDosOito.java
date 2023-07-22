@@ -148,12 +148,4 @@ public class JogoDosOito extends JFrame implements KeyListener {
     public void keyReleased(KeyEvent event) {
     }
 
-    public static void main(String[] args) {
-        new JogoDosOitoBuilder()
-                .createButtons()
-                .configureMenu()
-                .configureInterface()
-                .build();
-    }
-
 }
