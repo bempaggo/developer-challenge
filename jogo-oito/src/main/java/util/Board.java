@@ -2,15 +2,9 @@ package util;
 
 import interfaces.Graph;
 import interfaces.Vertex;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.IntStream;
-import model.Keyboard;
 import model.Matrix;
+
+import java.util.*;
 
 public class Board implements Graph {
 
@@ -24,33 +18,37 @@ public class Board implements Graph {
 
     @Override
     public void feedback() {
-        this.matrix = new Matrix();
-        this.cells = this.matrix.getCells();
-        this.length = cells.size();
+        resetMatrix();
         this.defineEmptyCell();
     }
 
     @Override
     public void setting() {
+        resetMatrix();
+        this.shuffleCell();
+        this.defineEmptyCell();
+    }
+
+    private void resetMatrix() {
         this.matrix = new Matrix();
         this.cells = this.matrix.getCells();
         this.length = cells.size();
-        this.shuffleCell();
-        this.defineEmptyCell();
-
     }
 
     private void shuffleCell() {
-        Iterator<Integer> iterator = this.shuffleValues().iterator();
-        this.cells.stream()
-                .forEach(vertex -> vertex.setValue(iterator.next()));
+        List<Integer> shuffledValues = this.shuffleValues();
+        for (int index = 0; index < this.cells.size(); index++) {
+            Vertex cell = this.cells.get(index);
+            cell.setValue(shuffledValues.get(index));
+        }
     }
 
     private List<Integer> shuffleValues() {
         List<Integer> values = new ArrayList<>();
-        this.cells.stream()
-                .map(Vertex::getValue)
-                .forEach(values::add);
+        for (int index = 0; index < this.cells.size(); index++) {
+            Integer value = this.cells.get(index).getValue();
+            values.add(value);
+        }
         Collections.shuffle(values);
         return values;
     }
@@ -69,12 +67,6 @@ public class Board implements Graph {
     }
 
     @Override
-    public void swap(Integer keyCode) {
-        Keyboard key = Keyboard.fromValue(keyCode);
-        this.emptyCell = this.emptyCell.click(key);
-    }
-
-    @Override
     public List<Vertex> getCells() {
         return this.cells;
     }
@@ -86,9 +78,29 @@ public class Board implements Graph {
 
     @Override
     public Boolean checkGameOver() {
-        return IntStream.range(0, this.length)
-                .allMatch(index -> this.cells.get(index).getValue() == (index + 1) % this.length);
+        for (int index = 0; index < this.length; index++) {
+            if (getCellValueByIndex(index) != (index + 1) % this.length) {
+                return false;
+            }
+        }
+        return true;
+    }
 
+    private Integer getCellValueByIndex(int index) {
+        return this.cells.get(index).getValue();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Board board = (Board) o;
+        return cells.equals(board.cells);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cells);
     }
 
 }

@@ -16,8 +16,6 @@ public interface Graph {
     
     void setting();
 
-    void swap(Integer keyCode);
-
     List<Vertex> getCells();
 
     Vertex getEmptyCell();
