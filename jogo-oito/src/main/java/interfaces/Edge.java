@@ -15,5 +15,6 @@ public interface Edge {
     Keyboard getKey();
 
     Vertex getCell();
-    
+
+    Boolean cellValueIsEqual(Integer value);
 }

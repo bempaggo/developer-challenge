@@ -17,9 +17,13 @@ public class Adjacent implements Edge{
     private final Keyboard key;
     private final Vertex cell;
 
-    public Adjacent(Keyboard key, Vertex cell) {
+    private Adjacent(Keyboard key, Vertex cell) {
         this.key = key;
         this.cell = cell;
+    }
+
+    public static Adjacent of(Keyboard key, Vertex cell) {
+        return new Adjacent(key, cell);
     }
 
     @Override
@@ -30,6 +34,11 @@ public class Adjacent implements Edge{
     @Override
     public Vertex getCell() {
         return this.cell;
+    }
+
+    @Override
+    public Boolean cellValueIsEqual(Integer value) {
+        return this.getCell().getValue().equals(value);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package view;
 
-import builder.JogoDosOitoBuilder;
 import facade.Controller;
 import interfaces.Vertex;
+import model.Cell;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,6 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.IntStream;
 
 public class JogoDosOito extends JFrame implements KeyListener {
 
@@ -65,6 +64,10 @@ public class JogoDosOito extends JFrame implements KeyListener {
         return this.feedback;
     }
 
+    private List<Vertex> getCells() {
+        return this.controller.getCells();
+    }
+
     private JButton configureButton(Vertex cell) {
         JButton button = new JButton();
         button.setFont(new Font("Arial", Font.BOLD, 36));
@@ -76,7 +79,6 @@ public class JogoDosOito extends JFrame implements KeyListener {
             SwingUtilities.getRoot(button).requestFocus();
         });
         return button;
-
     }
 
     private Integer textToValue(String text) {
@@ -113,7 +115,6 @@ public class JogoDosOito extends JFrame implements KeyListener {
         return buttonFeedback;
     }
 
-
     private void resetGame() {
         this.controller.setting();
         this.updateBoard();
@@ -125,12 +126,11 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void updateBoard() {
-        List<Vertex> cells = this.controller.getCells();
-        IntStream.range(0, cells.size())
-                .forEach(index -> {
-                    JButton button = this.buttons.get(index);
-                    button.setText(cells.get(index).valueToText());
-                });
+        List<Vertex> cells = getCells();
+        for (int index = 0; index < cells.size(); index++) {
+            JButton button = this.buttons.get(index);
+            button.setText(Cell.valueToText(cells, index));
+        }
     }
 
     @Override

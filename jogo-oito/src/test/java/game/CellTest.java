@@ -6,33 +6,34 @@ package game;
 
 import interfaces.Edge;
 import interfaces.Vertex;
-import java.util.List;
 import model.Adjacent;
 import model.Cell;
 import model.Keyboard;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
-public class CellTest{
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class CellTest{
 
     @Test
-    public void testSetValue() {
-        Vertex cell = new Cell(0);
+    void testSetValue() {
+        Vertex cell = Cell.of(0);
         cell.setValue(5);
         assertEquals(5, cell.getValue());
     }
 
     @Test
-    public void testGetValue() {
-        Vertex cell = new Cell(10);
+    void testGetValue() {
+        Vertex cell = Cell.of(10);
         assertEquals(10, cell.getValue());
     }
 
     @Test
-    public void testCreatingHorizontalAdjacent() {
-        Vertex cell1 = new Cell(1);
-        Vertex cell2 = new Cell(2);
+    void testCreatingHorizontalAdjacent() {
+        Vertex cell1 = Cell.of(1);
+        Vertex cell2 = Cell.of(2);
 
         cell1.creatingHorizontalAdjacent(cell2);
 
@@ -41,9 +42,9 @@ public class CellTest{
     }
 
     @Test
-    public void testCreatingVerticalAdjacent() {
-        Vertex cell1 = new Cell(1);
-        Vertex cell2 = new Cell(2);
+    void testCreatingVerticalAdjacent() {
+        Vertex cell1 = Cell.of(1);
+        Vertex cell2 = Cell.of(2);
 
         cell1.creatingVerticalAdjacent(cell2);
 
@@ -52,36 +53,36 @@ public class CellTest{
     }
 
     @Test
-    public void testValueToText() {
-        Vertex cell1 = new Cell(0);
-        Vertex cell2 = new Cell(5);
+    void testValueToText() {
+        Vertex cell1 = Cell.of(0);
+        Vertex cell2 = Cell.of(5);
 
         assertEquals("", cell1.valueToText());
         assertEquals("5", cell2.valueToText());
     }
 
     @Test
-    public void testGetAdjacentByKeyCode() {
-        Vertex cell1 = new Cell(1);
-        Vertex cell2 = new Cell(2);
+    void testGetAdjacentByKeyCode() {
+        Vertex cell1 = Cell.of(1);
+        Vertex cell2 = Cell.of(2);
         cell1.creatingHorizontalAdjacent(cell2);
 
         assertEquals(cell2, cell1.getAdjacentByKeyCode(Keyboard.LEFT).getCell());
     }
 
     @Test
-    public void testClick() {
-        Vertex cell1 = new Cell(1);
-        Vertex cell2 = new Cell(2);
+    void testClick() {
+        Vertex cell1 = Cell.of(1);
+        Vertex cell2 = Cell.of(2);
         cell1.creatingHorizontalAdjacent(cell2);
 
         assertEquals(cell2, cell1.click(Keyboard.LEFT));
     }
 
     @Test
-    public void testSwapCells() {
-        Vertex cell1 = new Cell(0);
-        Vertex cell2 = new Cell(2);
+    void testSwapCells() {
+        Vertex cell1 = Cell.of(0);
+        Vertex cell2 = Cell.of(2);
         cell1.creatingHorizontalAdjacent(cell2);
 
         cell1.swapCells(cell2.getValue());
@@ -91,10 +92,10 @@ public class CellTest{
     }
 
     @Test
-    public void testAddAdjacents() {
-        Vertex cell1 = new Cell(1);
-        Vertex cell2 = new Cell(2);
-        Edge edge = new Adjacent(Keyboard.RIGHT, cell2);
+    void testAddAdjacents() {
+        Vertex cell1 = Cell.of(1);
+        Vertex cell2 = Cell.of(2);
+        Edge edge = Adjacent.of(Keyboard.RIGHT, cell2);
 
         cell1.addAdjacents(edge);
 
@@ -104,11 +105,11 @@ public class CellTest{
     }
 
     @Test
-    public void defineAdjacents() {
-        Vertex cell1 = new Cell(5);
-        Vertex cell2 = new Cell(10);
-        Vertex cell3 = new Cell(15);
-        Vertex cell4 = new Cell(20);
+    void testCreateAdjacents() {
+        Vertex cell1 = Cell.of(5);
+        Vertex cell2 = Cell.of(10);
+        Vertex cell3 = Cell.of(15);
+        Vertex cell4 = Cell.of(20);
 
         cell1.creatingVerticalAdjacent(cell2);
         cell1.creatingVerticalAdjacent(cell3);
@@ -119,4 +120,33 @@ public class CellTest{
         assertEquals(cell3, adjacents.get(1).getCell());
         assertEquals(cell4, adjacents.get(2).getCell());
     }
+
+    @Test
+    void testOf() {
+        Vertex cell1 = Cell.of(5);
+        Vertex cell2 = Cell.of(10);
+        Vertex cell3 = Cell.of(15);
+        Vertex cell4 = Cell.of(20);
+
+        assertEquals(cell1.getValue(), 5);
+        assertEquals(cell2.getValue(), 10);
+        assertEquals(cell3.getValue(), 15);
+        assertEquals(cell4.getValue(), 20);
+    }
+
+    @Test
+    void testStaticValueToText() {
+        Vertex cell1 = Cell.of(5);
+        Vertex cell2 = Cell.of(10);
+        Vertex cell3 = Cell.of(15);
+        Vertex cell4 = Cell.of(20);
+
+        List<Vertex> cells = List.of(cell1, cell2, cell3, cell4);
+
+        assertEquals(Cell.valueToText(cells, 0), "5");
+        assertEquals(Cell.valueToText(cells, 1), "10");
+        assertEquals(Cell.valueToText(cells, 2), "15");
+        assertEquals(Cell.valueToText(cells, 3), "20");
+    }
+
 }
