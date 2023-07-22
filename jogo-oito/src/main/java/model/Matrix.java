@@ -31,7 +31,7 @@ public final class Matrix {
 
     private void defineAdjacent() {
         createVerticalAdjacentInTheInitialCell();
-        createVerticalAdjacentInTheCenterCell();
+        createVerticalAdjacentInTheCentralCell();
         createVerticalAdjacentInTheLastCell();
         this.changePositionToValidateTemplate();
     }
@@ -41,7 +41,7 @@ public final class Matrix {
         this.secondRow.last.createVerticalAdjacent(thirdRow.last);
     }
 
-    private void createVerticalAdjacentInTheCenterCell() {
+    private void createVerticalAdjacentInTheCentralCell() {
         this.firstRow.center.createVerticalAdjacent(secondRow.center);
         this.secondRow.center.createVerticalAdjacent(thirdRow.center);
     }

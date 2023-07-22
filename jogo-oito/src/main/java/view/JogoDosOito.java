@@ -28,11 +28,10 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     public void createButtons() {
-        this.controller.getCells().forEach(cell -> {
-            JButton button = this.configureButton(cell);
-            add(button);
-            buttons.add(button);
-        });
+        for (int index = 0; index < this.getCells().size(); index++) {
+            Vertex cell = this.getCells().get(index);
+            this.createButton(cell);
+        }
     }
 
     public void configureMenu() {
@@ -50,6 +49,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
         setVisible(true);
         addKeyListener(this);
         setFocusable(true);
+        centerFrameInTheScreen(this);
     }
 
     public List<JButton> getButtons() {
@@ -68,6 +68,19 @@ public class JogoDosOito extends JFrame implements KeyListener {
         return this.controller.getCells();
     }
 
+    private void createButton(Vertex cell) {
+        JButton button = this.configureButton(cell);
+        add(button);
+        buttons.add(button);
+    }
+
+    private Integer textToValue(String text) {
+        return Optional.ofNullable(text)
+                .filter(textValue -> textValue != "")
+                .map(Integer::valueOf)
+                .orElse(0);
+    }
+
     private JButton configureButton(Vertex cell) {
         JButton button = new JButton();
         button.setFont(new Font("Arial", Font.BOLD, 36));
@@ -79,13 +92,6 @@ public class JogoDosOito extends JFrame implements KeyListener {
             SwingUtilities.getRoot(button).requestFocus();
         });
         return button;
-    }
-
-    private Integer textToValue(String text) {
-        return Optional.ofNullable(text)
-                .filter(textValue -> textValue != "")
-                .map(Integer::valueOf)
-                .orElse(0);
     }
 
     private void checkGameOver() {
@@ -131,6 +137,15 @@ public class JogoDosOito extends JFrame implements KeyListener {
             JButton button = this.buttons.get(index);
             button.setText(Cell.valueToText(cells, index));
         }
+    }
+
+    private void centerFrameInTheScreen(JFrame frame) {
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        int w = frame.getSize().width;
+        int h = frame.getSize().height;
+        int x = (dim.width - w) / 2;
+        int y = (dim.height - h) / 2;
+        frame.setLocation(x, y);
     }
 
     @Override
