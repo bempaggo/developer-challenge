@@ -44,13 +44,13 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public void creatingHorizontalAdjacent(Vertex cell) {
+    public void createHorizontalAdjacent(Vertex cell) {
         this.adjacents.add(Adjacent.of(Keyboard.LEFT, cell));
         cell.addAdjacents(Adjacent.of(Keyboard.RIGHT, this));
     }
 
     @Override
-    public void creatingVerticalAdjacent(Vertex cell) {
+    public void createVerticalAdjacent(Vertex cell) {
         this.adjacents.add(Adjacent.of(Keyboard.UP, cell));
         cell.addAdjacents(Adjacent.of(Keyboard.DOWN, this));
     }

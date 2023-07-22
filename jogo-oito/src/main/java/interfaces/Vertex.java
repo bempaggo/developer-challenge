@@ -17,9 +17,9 @@ public interface Vertex {
 
     Integer getValue();
 
-    void creatingHorizontalAdjacent(Vertex cell);
+    void createHorizontalAdjacent(Vertex cell);
 
-    void creatingVerticalAdjacent(Vertex cell);
+    void createVerticalAdjacent(Vertex cell);
 
     String valueToText();
 

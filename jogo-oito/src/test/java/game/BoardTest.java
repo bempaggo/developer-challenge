@@ -79,7 +79,7 @@ class BoardTest {
         Vertex cell1 = Cell.of(1);
         Vertex cell2 = Cell.of(2);
 
-        cell1.creatingHorizontalAdjacent(cell2);
+        cell1.createHorizontalAdjacent(cell2);
 
         Edge adjacent1 = cell1.getAdjacentByKeyCode(Keyboard.LEFT);
         Edge adjacent2 = cell2.getAdjacentByKeyCode(Keyboard.RIGHT);
@@ -93,7 +93,7 @@ class BoardTest {
         Vertex cell1 = Cell.of(1);
         Vertex cell2 = Cell.of(2);
 
-        cell1.creatingVerticalAdjacent(cell2);
+        cell1.createVerticalAdjacent(cell2);
 
         Edge adjacent1 = cell1.getAdjacentByKeyCode(Keyboard.UP);
         Edge adjacent2 = cell2.getAdjacentByKeyCode(Keyboard.DOWN);
@@ -116,7 +116,7 @@ class BoardTest {
         Vertex cell1 = Cell.of(1);
         Vertex cell2 = Cell.of(2);
 
-        cell1.creatingHorizontalAdjacent(cell2);
+        cell1.createHorizontalAdjacent(cell2);
 
         Edge adjacent = cell1.getAdjacentByKeyCode(Keyboard.LEFT);
         assertEquals(cell2, adjacent.getCell());

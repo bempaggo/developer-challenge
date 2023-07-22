@@ -5,6 +5,7 @@
 package model;
 
 import interfaces.Vertex;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,7 @@ public final class Matrix {
     private final Row firstRow;
     private final Row secondRow;
     private final Row thirdRow;
-    public static List<Vertex> cells;
-
+    protected static List<Vertex> cells;
 
     public Matrix() {
         Matrix.cells = new ArrayList<>();
@@ -30,16 +30,25 @@ public final class Matrix {
     }
 
     private void defineAdjacent() {
-        this.firstRow.initial.creatingVerticalAdjacent(secondRow.initial);
-        this.secondRow.initial.creatingVerticalAdjacent(thirdRow.initial);
-
-        this.firstRow.center.creatingVerticalAdjacent(secondRow.center);
-        this.secondRow.center.creatingVerticalAdjacent(thirdRow.center);
-
-        this.firstRow.last.creatingVerticalAdjacent(secondRow.last);
-        this.secondRow.last.creatingVerticalAdjacent(thirdRow.last);
-        
+        createVerticalAdjacentInTheInitialCell();
+        createVerticalAdjacentInTheCenterCell();
+        createVerticalAdjacentInTheLastCell();
         this.changePositionToValidateTemplate();
+    }
+
+    private void createVerticalAdjacentInTheLastCell() {
+        this.firstRow.last.createVerticalAdjacent(secondRow.last);
+        this.secondRow.last.createVerticalAdjacent(thirdRow.last);
+    }
+
+    private void createVerticalAdjacentInTheCenterCell() {
+        this.firstRow.center.createVerticalAdjacent(secondRow.center);
+        this.secondRow.center.createVerticalAdjacent(thirdRow.center);
+    }
+
+    private void createVerticalAdjacentInTheInitialCell() {
+        this.firstRow.initial.createVerticalAdjacent(secondRow.initial);
+        this.secondRow.initial.createVerticalAdjacent(thirdRow.initial);
     }
     
     private void changePositionToValidateTemplate(){
@@ -72,9 +81,9 @@ public final class Matrix {
         }
 
         public void defineAdjacent() {
-            this.initial.creatingHorizontalAdjacent(this.center);
-            this.center.creatingHorizontalAdjacent(this.last);
+            this.initial.createHorizontalAdjacent(this.center);
+            this.center.createHorizontalAdjacent(this.last);
         }
-
     }
+
 }

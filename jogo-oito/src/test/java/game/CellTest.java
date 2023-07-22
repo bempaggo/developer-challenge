@@ -4,11 +4,11 @@
  */
 package game;
 
+import enums.Keyboard;
 import interfaces.Edge;
 import interfaces.Vertex;
 import model.Adjacent;
 import model.Cell;
-import enums.Keyboard;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -35,7 +35,7 @@ class CellTest{
         Vertex cell1 = Cell.of(1);
         Vertex cell2 = Cell.of(2);
 
-        cell1.creatingHorizontalAdjacent(cell2);
+        cell1.createHorizontalAdjacent(cell2);
 
         assertEquals(1, cell1.getAdjacents().size());
         assertEquals(1, cell2.getAdjacents().size());
@@ -46,7 +46,7 @@ class CellTest{
         Vertex cell1 = Cell.of(1);
         Vertex cell2 = Cell.of(2);
 
-        cell1.creatingVerticalAdjacent(cell2);
+        cell1.createVerticalAdjacent(cell2);
 
         assertEquals(1, cell1.getAdjacents().size());
         assertEquals(1, cell2.getAdjacents().size());
@@ -65,7 +65,7 @@ class CellTest{
     void testGetAdjacentByKeyCode() {
         Vertex cell1 = Cell.of(1);
         Vertex cell2 = Cell.of(2);
-        cell1.creatingHorizontalAdjacent(cell2);
+        cell1.createHorizontalAdjacent(cell2);
 
         assertEquals(cell2, cell1.getAdjacentByKeyCode(Keyboard.LEFT).getCell());
     }
@@ -74,7 +74,7 @@ class CellTest{
     void testClick() {
         Vertex cell1 = Cell.of(1);
         Vertex cell2 = Cell.of(2);
-        cell1.creatingHorizontalAdjacent(cell2);
+        cell1.createHorizontalAdjacent(cell2);
 
         assertEquals(cell2, cell1.click(Keyboard.LEFT));
     }
@@ -83,7 +83,7 @@ class CellTest{
     void testSwapCells() {
         Vertex cell1 = Cell.of(0);
         Vertex cell2 = Cell.of(2);
-        cell1.creatingHorizontalAdjacent(cell2);
+        cell1.createHorizontalAdjacent(cell2);
 
         cell1.swapCells(cell2.getValue());
 
@@ -111,9 +111,9 @@ class CellTest{
         Vertex cell3 = Cell.of(15);
         Vertex cell4 = Cell.of(20);
 
-        cell1.creatingVerticalAdjacent(cell2);
-        cell1.creatingVerticalAdjacent(cell3);
-        cell1.creatingHorizontalAdjacent(cell4);
+        cell1.createVerticalAdjacent(cell2);
+        cell1.createVerticalAdjacent(cell3);
+        cell1.createHorizontalAdjacent(cell4);
 
         List<Edge> adjacents = cell1.getAdjacents();
         assertEquals(cell2, adjacents.get(0).getCell());
