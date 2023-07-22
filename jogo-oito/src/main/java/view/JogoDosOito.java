@@ -2,8 +2,9 @@ package view;
 
 import facade.Controller;
 import interfaces.Vertex;
-import java.awt.Font;
-import java.awt.GridLayout;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -11,11 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 public class JogoDosOito extends JFrame implements KeyListener {
 
@@ -42,7 +38,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     private void createButtons() {
         this.controller.getCells().forEach(cell -> {
-            JButton button = this.configButton(cell);
+            JButton button = this.configureButton(cell);
             add(button);
             buttons.add(button);
         });
@@ -55,7 +51,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
                 .orElse(0);
     }
 
-    private JButton configButton(Vertex cell) {
+    private JButton configureButton(Vertex cell) {
         JButton button = new JButton();
         button.setFont(new Font("Arial", Font.BOLD, 36));
         button.setText(cell.valueToText());
@@ -78,15 +74,15 @@ public class JogoDosOito extends JFrame implements KeyListener {
                 });
     }
 
-    private void configMenu() {
-        this.reset = this.configReset();
-        this.feedback = this.configFeedback();
+    private void configureMenu() {
+        this.reset = this.configureReset();
+        this.feedback = this.configureFeedback();
         add(this.feedback);
         add(this.reset);
         add(new JLabel(""));
     }
 
-    private JButton configReset() {
+    private JButton configureReset() {
         JButton buttonReset = new JButton("Reiniciar");
         buttonReset.addActionListener((ActionEvent e) -> {
             this.resetGame();
@@ -95,7 +91,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
         return buttonReset;
     }
     
-    private JButton configFeedback() {
+    private JButton configureFeedback() {
         JButton buttonFeedback = new JButton("Gabarito");
         buttonFeedback.addActionListener((ActionEvent e) -> {
             this.showFeedback();
@@ -125,25 +121,25 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent event) {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        this.controller.swap(e.getKeyCode());
+    public void keyPressed(KeyEvent event) {
+        this.controller.swap(event.getKeyCode());
         this.updateBoard();
         this.checkGameOver();
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent event) {
     }
 
     public static void main(String[] args) {
         JogoDosOito game = new JogoDosOito();
         game.createButtons();
-        game.configMenu();
+        game.configureMenu();
         game.configureInterface();
-
     }
+
 }
