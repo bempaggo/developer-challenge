@@ -8,6 +8,7 @@
         <junit-jupiter-api.version>5.9.2</junit-jupiter-api.version>
         <junit.version>4.13.2</junit.version>
         <assertj-core.version>3.24.2</assertj-core.version>
+        <jtattoo.version>1.6.13</jtattoo.version>
     </properties>
     <build>
         <finalName>rest-unity-test</finalName>
@@ -59,6 +60,11 @@
             <artifactId>assertj-core</artifactId>
             <version>${assertj-core.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jtattoo</groupId>
+            <artifactId>JTattoo</artifactId>
+            <version>${jtattoo.version}</version>
         </dependency>
     </dependencies>
 </project>
