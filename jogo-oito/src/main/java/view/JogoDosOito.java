@@ -51,24 +51,32 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private Integer textToValue(String text) {
-        return Optional.ofNullable(text)
-                .map(Integer::valueOf)
-                .orElse(0);
+        return Integer.valueOf(text);
     }
 
+    // TODO: trouxe essa feiura pra cá, vou arrumar isso com uma subclasse para botão
     private JButton configButton(Vertex cell) {
-        JButton button = new JButton();
+        JButton button = new JButton() {
+            @Override
+            public void setText(String text) {
+                // Configura o texto do botão apenas se o valor for diferente de "0"
+                super.setText("0".equals(text) ? "" : text);
+            }
+        };
+        
         button.setFont(new Font("Arial", Font.BOLD, 36));
         button.setText(cell.valueToText());
+    
         button.addActionListener((ActionEvent e) -> {
             this.board.moveWithCellValue(this.textToValue(button.getText()));
             this.updateBoard();
             this.checkGameOver();
             SwingUtilities.getRoot(button).requestFocus();
         });
+    
         return button;
-
     }
+    
 
     private void configMenu() {
         this.reset = this.configResetGameButton();

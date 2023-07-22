@@ -5,7 +5,6 @@ import interfaces.Vertex;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 public class Cell implements Vertex {
 
@@ -40,7 +39,7 @@ public class Cell implements Vertex {
 
     @Override
     public Vertex getAdjacentByKeyCode(Keyboard key) {
-        return adjacents.get(key);
+        return adjacents.getOrDefault(key, this);
     }
     
     @Override
@@ -48,7 +47,7 @@ public class Cell implements Vertex {
         return adjacents.values().stream()
                 .filter(adjacent -> Objects.equals(adjacent.getValue(), value))
                 .findFirst()
-                .orElse(null);
+                .orElse(this);
     }    
 
     @Override
@@ -61,13 +60,15 @@ public class Cell implements Vertex {
     public void creatingVerticalAdjacent(Vertex cell) {
         this.adjacents.put(Keyboard.UP, cell);
         cell.getAdjacents().put(Keyboard.DOWN, this);
-
     }
 
+    /* a variável intermediária resolve a gambiarra do zero mágico que só funcionava porque
+    a classe Board baseia as trocas de células no valor 0 */
     @Override
     public Vertex swapCells(Vertex movementCell) {
+        Integer tempValue = this.getValue();
         this.setValue(movementCell.getValue());
-        movementCell.setValue(0);
+        movementCell.setValue(tempValue);
         return movementCell;
     }
 
@@ -76,12 +77,10 @@ public class Cell implements Vertex {
         return Objects.equals(this.value, ((Cell) obj).value);
     }
 
+    // Gambiarra retirada, o front que deve lidar com o texto do botão
     @Override
     public String valueToText() {
-        return Optional.of(this.value)
-                .filter(value -> value != 0)
-                .map(String::valueOf)
-                .orElse("");
+        return String.valueOf(this.value);
     }
 
 }

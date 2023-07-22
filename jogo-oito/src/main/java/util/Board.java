@@ -64,13 +64,13 @@ public class Board implements Graph {
     @Override
     public void moveWithCellValue(Integer cellValue) {
         Vertex cell = this.emptyCell.getAdjacentByValue(cellValue);
-        if (cell != null) this.emptyCell = this.emptyCell.swapCells(cell);
+        this.emptyCell = this.emptyCell.swapCells(cell);
     }
 
     @Override
     public void moveWithCellKey(Integer keyCode) {
         Vertex cell = this.emptyCell.getAdjacentByKeyCode(Keyboard.fromValue(keyCode));
-        if (cell != null) this.emptyCell = this.emptyCell.swapCells(cell);
+        this.emptyCell = this.emptyCell.swapCells(cell);
     }
 
     @Override
