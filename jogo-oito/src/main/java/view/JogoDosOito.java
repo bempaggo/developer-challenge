@@ -50,6 +50,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     private Integer textToValue(String text) {
         return Optional.ofNullable(text)
+                .filter(textValue -> textValue != "")
                 .map(Integer::valueOf)
                 .orElse(0);
     }
