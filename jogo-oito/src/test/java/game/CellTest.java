@@ -8,7 +8,7 @@ import interfaces.Edge;
 import interfaces.Vertex;
 import model.Adjacent;
 import model.Cell;
-import model.Keyboard;
+import enums.Keyboard;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

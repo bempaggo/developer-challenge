@@ -2,8 +2,9 @@ package facade;
 
 import interfaces.Graph;
 import interfaces.Vertex;
-import java.util.List;
 import util.Board;
+
+import java.util.List;
 
 public class Controller {
 

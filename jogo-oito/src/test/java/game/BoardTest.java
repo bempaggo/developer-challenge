@@ -8,17 +8,20 @@ package game;
  *
  * @author allen
  */
-import model.Cell;
-import util.Board;
+
+import enums.Keyboard;
 import interfaces.Edge;
 import interfaces.Vertex;
+import model.Cell;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import util.Board;
 
 import java.util.List;
-import model.Keyboard;
-import org.junit.jupiter.api.Assertions;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class BoardTest {
 

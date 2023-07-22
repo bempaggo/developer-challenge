@@ -4,7 +4,7 @@
  */
 package interfaces;
 
-import model.Keyboard;
+import enums.Keyboard;
 
 /**
  *

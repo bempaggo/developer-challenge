@@ -1,5 +1,6 @@
 package model;
 
+import enums.Keyboard;
 import interfaces.Edge;
 import interfaces.Vertex;
 

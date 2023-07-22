@@ -5,7 +5,7 @@
 package interfaces;
 
 import java.util.List;
-import model.Keyboard;
+import enums.Keyboard;
 
 /**
  *

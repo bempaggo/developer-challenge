@@ -4,8 +4,10 @@
  */
 package model;
 
+import enums.Keyboard;
 import interfaces.Edge;
 import interfaces.Vertex;
+
 import java.util.Objects;
 
 /**
@@ -44,6 +46,11 @@ public class Adjacent implements Edge{
     @Override
     public boolean equals(Object obj) {
         return Objects.equals(((Adjacent) obj).getKey(), this.getKey());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(key);
     }
 
 }
