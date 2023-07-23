@@ -16,11 +16,11 @@ public interface Graph {
     
     void setUpNewBoard();
 
-    void moveWithCellKey(Integer keyCode);
+    void moveCellByKey(Integer keyCode);
 
     List<Vertex> getCells();
 
-    void moveWithCellValue(Integer cellValue);
+    void moveCellByValue(Integer cellValue);
 
     Boolean checkGameOver();
 }

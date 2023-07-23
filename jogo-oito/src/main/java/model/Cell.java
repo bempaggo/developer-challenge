@@ -45,7 +45,7 @@ public class Cell implements Vertex {
     @Override
     public Vertex getAdjacentByValue(Integer value) {
         return adjacents.values().stream()
-                .filter(adjacent -> Objects.equals(adjacent.getValue(), value))
+                .filter(adjacent -> adjacent.getValue().equals(value))
                 .findFirst()
                 .orElse(this);
     }    
@@ -61,9 +61,7 @@ public class Cell implements Vertex {
         this.adjacents.put(Keyboard.UP, cell);
         cell.getAdjacents().put(Keyboard.DOWN, this);
     }
-
-    /* a variável intermediária resolve a gambiarra do zero mágico que só funcionava porque
-    a classe Board baseia as trocas de células no valor 0 */
+    
     @Override
     public Vertex swapCells(Vertex movementCell) {
         Integer tempValue = this.getValue();
@@ -77,7 +75,6 @@ public class Cell implements Vertex {
         return Objects.equals(this.value, ((Cell) obj).value);
     }
 
-    // Gambiarra retirada, o front que deve lidar com o texto do botão
     @Override
     public String valueToText() {
         return String.valueOf(this.value);

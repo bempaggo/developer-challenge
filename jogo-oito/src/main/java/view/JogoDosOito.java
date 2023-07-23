@@ -68,7 +68,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
         button.setText(cell.valueToText());
     
         button.addActionListener((ActionEvent e) -> {
-            this.board.moveWithCellValue(this.textToValue(button.getText()));
+            this.board.moveCellByValue(this.textToValue(button.getText()));
             this.updateBoard();
             this.checkGameOver();
             SwingUtilities.getRoot(button).requestFocus();
@@ -140,7 +140,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
     // alguma coisa esquisita aqui no keyPressed, mas eu não sei dizer o que é
     @Override
     public void keyPressed(KeyEvent e) {
-        this.board.moveWithCellKey(e.getKeyCode());
+        this.board.moveCellByKey(e.getKeyCode());
         this.updateBoard();
         this.checkGameOver();
     }

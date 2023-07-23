@@ -27,7 +27,7 @@ public class BoardTest {
         Vertex cell = board.getCells().get(7);
         Integer cellValue = cell.getValue();
 
-        board.moveWithCellValue(cellValue);
+        board.moveCellByValue(cellValue);
 
         assertEquals(cellValue, emptyCell.getValue());
         assertEquals(0, cell.getValue());
@@ -59,7 +59,7 @@ public class BoardTest {
         Vertex cell = board.getCells().get(7);
         Integer cellValue = cell.getValue();
 
-        board.moveWithCellValue(cellValue);
+        board.moveCellByValue(cellValue);
 
         assertEquals(cellValue, emptyCell.getValue());
         assertEquals(0, cell.getValue());
@@ -115,25 +115,25 @@ public class BoardTest {
     
     @Test
     public void testClickDown() {
-        board.moveWithCellKey(Keyboard.DOWN.getValue());
+        board.moveCellByKey(Keyboard.DOWN.getValue());
         Assertions.assertEquals(5, board.getCells().indexOf(board.getEmptyCell()));
     }
 
     @Test
     public void testClickUp() {
-        board.moveWithCellKey(Keyboard.UP.getValue());
+        board.moveCellByKey(Keyboard.UP.getValue());
         Assertions.assertEquals(8, board.getCells().indexOf(board.getEmptyCell()));
     }
 
     @Test
     public void testClickRight() {
-        board.moveWithCellKey(Keyboard.RIGHT.getValue());
+        board.moveCellByKey(Keyboard.RIGHT.getValue());
         Assertions.assertEquals(7, board.getCells().indexOf(board.getEmptyCell()));
     }
 
     @Test
     public void testClickLeft() {
-        board.moveWithCellKey(Keyboard.LEFT.getValue());
+        board.moveCellByKey(Keyboard.LEFT.getValue());
         Assertions.assertEquals(8, board.getCells().indexOf(board.getEmptyCell()));
     }
 

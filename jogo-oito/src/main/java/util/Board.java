@@ -2,11 +2,10 @@ package util;
 
 import interfaces.Graph;
 import interfaces.Vertex;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import model.Keyboard;
 import model.Matrix;
@@ -36,51 +35,47 @@ public class Board implements Graph {
         this.length = cells.size();
         this.shuffleCells();
         this.defineEmptyCell();
+    }
 
+    public Vertex getEmptyCell() {
+        return this.emptyCell;
     }
 
     private void shuffleCells() {
-        Iterator<Integer> iterator = this.shuffleValues().iterator();
-        this.cells.stream()
-                .forEach(vertex -> vertex.setValue(iterator.next()));
-    }
-
-    private List<Integer> shuffleValues() {
-        List<Integer> values = new ArrayList<>();
-        this.cells.stream()
+        List<Integer> values = cells.stream()
                 .map(Vertex::getValue)
-                .forEach(values::add);
+                .collect(Collectors.toList());
         Collections.shuffle(values);
-        return values;
+    
+        Iterator<Vertex> cellIterator = cells.iterator();
+        values.forEach(value -> cellIterator.next().setValue(value));
     }
-
-    // não é necessário chamar Optional
+    
+    /* o método buscava a célula de menor valor e retornava ela, se não achasse(ou seja, lista vazia),
+    retornava null. Funciona mas não é o ideal. Aqui busca diretamente a célula de valor certo
+    e solta exception se não tiver, pois nesse caso não há celula vazia e tem erro na lógica */
     private void defineEmptyCell() {
         this.emptyCell = cells.stream()
-                .min(Comparator.comparing(Vertex::getValue))
-                .orElse(null);
+                .filter(cell -> cell.getValue().equals(0))
+                .findFirst()
+                .get();
     }
 
     @Override
-    public void moveWithCellValue(Integer cellValue) {
-        Vertex cell = this.emptyCell.getAdjacentByValue(cellValue);
-        this.emptyCell = this.emptyCell.swapCells(cell);
+    public void moveCellByValue(Integer cellValue) {
+        Vertex targetCell = this.emptyCell.getAdjacentByValue(cellValue);
+        this.emptyCell = this.emptyCell.swapCells(targetCell);
     }
 
     @Override
-    public void moveWithCellKey(Integer keyCode) {
-        Vertex cell = this.emptyCell.getAdjacentByKeyCode(Keyboard.fromValue(keyCode));
-        this.emptyCell = this.emptyCell.swapCells(cell);
+    public void moveCellByKey(Integer keyCode) {
+        Vertex targetCell = this.emptyCell.getAdjacentByKeyCode(Keyboard.fromValue(keyCode));
+        this.emptyCell = this.emptyCell.swapCells(targetCell);
     }
 
     @Override
     public List<Vertex> getCells() {
         return this.cells;
-    }
-
-    // esse método só é usado nos testes
-    public Vertex getEmptyCell() {
-        return this.emptyCell;
     }
 
     @Override
