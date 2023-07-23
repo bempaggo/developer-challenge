@@ -51,9 +51,6 @@ public class Board implements Graph {
         values.forEach(value -> cellIterator.next().setValue(value));
     }
     
-    /* o método buscava a célula de menor valor e retornava ela, se não achasse(ou seja, lista vazia),
-    retornava null. Funciona mas não é o ideal. Aqui busca diretamente a célula de valor certo
-    e solta exception se não tiver, pois nesse caso não há celula vazia e tem erro na lógica */
     private void defineEmptyCell() {
         this.emptyCell = cells.stream()
                 .filter(cell -> cell.getValue().equals(0))
@@ -63,14 +60,12 @@ public class Board implements Graph {
 
     @Override
     public void moveCellByValue(Integer cellValue) {
-        Vertex targetCell = this.emptyCell.getAdjacentByValue(cellValue);
-        this.emptyCell = this.emptyCell.swapCells(targetCell);
+        this.emptyCell = emptyCell.swapCells(emptyCell.getAdjacentByValue(cellValue));
     }
 
     @Override
     public void moveCellByKey(Integer keyCode) {
-        Vertex targetCell = this.emptyCell.getAdjacentByKeyCode(Keyboard.fromValue(keyCode));
-        this.emptyCell = this.emptyCell.swapCells(targetCell);
+        this.emptyCell = emptyCell.swapCells(emptyCell.getAdjacentByKeyCode(Keyboard.fromValue(keyCode)));
     }
 
     @Override
