@@ -6,25 +6,24 @@ import model.Keyboard;
 
 public interface Vertex {
 
-  void setValue(Integer value);
+    void setValue(Integer value);
 
-  Integer getValue();
+    Integer getValue();
 
-  Vertex getAdjacentByKeyCode(Keyboard key);
-  
-  Vertex getAdjacentByValue(Integer value);
+    Vertex getAdjacentByKeyCode(Keyboard key);
 
-  void creatingHorizontalAdjacent(Vertex cell);
+    Vertex getAdjacentByValue(Integer value);
 
-  void creatingVerticalAdjacent(Vertex cell);
+    void creatingHorizontalAdjacent(Vertex cell);
 
-  String valueToText();
+    void creatingVerticalAdjacent(Vertex cell);
 
-  Vertex swapCells(Vertex movementCell);
+    String valueToText();
 
-  Map<Keyboard, Vertex> getAdjacents();
+    Vertex swapCells(Vertex movementCell);
 
-  boolean equals(Object obj);  
+    Map<Keyboard, Vertex> getAdjacents();
 
-  
+    boolean equals(Object obj);
+
 }

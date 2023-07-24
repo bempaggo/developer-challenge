@@ -86,4 +86,29 @@ public class CellTest {
         assertEquals(0, cell2.getValue());
     }
 
+    @Test
+    public void testNullValue() {
+        Cell cell = new Cell(null);
+        assertNull(cell.getValue());
+    }
+
+    @Test
+    public void testNonExistentAdjacent() {
+        Cell cell1 = new Cell(1);
+
+        // célula retorna ela mesma se não achar adjacente, evita null checks no código
+        assertEquals(cell1, cell1.getAdjacentByKeyCode(Keyboard.LEFT));
+        assertEquals(cell1, cell1.getAdjacentByValue(2));
+    }
+
+    @Test
+    public void testEqualsMethod() {
+        Cell cell1 = new Cell(1);
+        Cell cell2 = new Cell(1);
+        Cell cell3 = new Cell(3);
+
+        assertTrue(cell1.equals(cell2));
+        assertFalse(cell1.equals(cell3));
+    }
+
 }

@@ -16,7 +16,7 @@ public enum Keyboard {
     private final Integer value;
 
     private static final Map<Integer, Keyboard> map = Arrays.stream(Keyboard.values())
-        .collect(Collectors.toMap(Keyboard::getValue, Function.identity()));
+            .collect(Collectors.toMap(Keyboard::getValue, Function.identity()));
 
     Keyboard(Integer value) {
         this.value = value;

@@ -46,11 +46,11 @@ public class Board implements Graph {
                 .map(Vertex::getValue)
                 .collect(Collectors.toList());
         Collections.shuffle(values);
-    
+
         Iterator<Vertex> cellIterator = cells.iterator();
         values.forEach(value -> cellIterator.next().setValue(value));
     }
-    
+
     private void defineEmptyCell() {
         this.emptyCell = cells.stream()
                 .filter(cell -> cell.getValue().equals(0))

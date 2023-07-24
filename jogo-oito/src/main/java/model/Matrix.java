@@ -19,7 +19,6 @@ public final class Matrix {
     private final Row thirdRow;
     public static List<Vertex> cells;
 
-
     public Matrix() {
         Matrix.cells = new ArrayList<>();
         Cell.content = 1;
@@ -38,14 +37,13 @@ public final class Matrix {
 
         this.firstRow.last.creatingVerticalAdjacent(secondRow.last);
         this.secondRow.last.creatingVerticalAdjacent(thirdRow.last);
-        
+
         this.changePositionToValidateTemplate();
     }
-    
-    private void changePositionToValidateTemplate(){
+
+    private void changePositionToValidateTemplate() {
         this.thirdRow.last.setValue(0);
     }
-    
 
     public List<Vertex> getCells() {
         return Matrix.cells;
@@ -53,11 +51,11 @@ public final class Matrix {
 
     private final class Row {
 
-        public final Vertex initial;
-        public final Vertex center;
-        public final Vertex last;
+        private final Vertex initial;
+        private final Vertex center;
+        private final Vertex last;
 
-        public Row() {
+        private Row() {
             this.initial = new Cell();
             this.center = new Cell();
             this.last = new Cell();
@@ -65,13 +63,13 @@ public final class Matrix {
             this.loadCells();
         }
 
-        public void loadCells() {
+        private void loadCells() {
             Matrix.cells.add(this.initial);
             Matrix.cells.add(this.center);
             Matrix.cells.add(this.last);
         }
 
-        public void defineAdjacent() {
+        private void defineAdjacent() {
             this.initial.creatingHorizontalAdjacent(this.center);
             this.center.creatingHorizontalAdjacent(this.last);
         }

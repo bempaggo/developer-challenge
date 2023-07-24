@@ -112,7 +112,7 @@ public class BoardTest {
         Vertex adjacent = cell1.getAdjacentByKeyCode(Keyboard.LEFT);
         assertEquals(cell2, adjacent);
     }
-    
+
     @Test
     public void testClickDown() {
         board.moveCellByKey(Keyboard.DOWN.getValue());
@@ -135,6 +135,29 @@ public class BoardTest {
     public void testClickLeft() {
         board.moveCellByKey(Keyboard.LEFT.getValue());
         Assertions.assertEquals(8, board.getCells().indexOf(board.getEmptyCell()));
+    }
+
+    @Test
+    public void testShuffleCells() {
+        board.setUpNewBoard();
+        List<Vertex> cells = board.getCells();
+        assertFalse(board.checkGameOver());
+
+        Integer sumBeforeShuffle = cells.stream().mapToInt(Vertex::getValue).sum();
+        board.setUpNewBoard();
+        Integer sumAfterShuffle = cells.stream().mapToInt(Vertex::getValue).sum();
+        assertEquals(sumBeforeShuffle, sumAfterShuffle);
+    }
+
+    @Test
+    public void testMoveCellOutOfBounds() {
+        board.getCells().forEach(cell -> cell.setValue(board.getCells().indexOf(cell)));
+
+        board.moveCellByKey(Keyboard.LEFT.getValue());
+        assertEquals(board.getEmptyCell().getValue(), board.getCells().get(0).getValue());
+
+        board.moveCellByKey(Keyboard.UP.getValue());
+        assertEquals(board.getEmptyCell().getValue(), board.getCells().get(0).getValue());
     }
 
 }

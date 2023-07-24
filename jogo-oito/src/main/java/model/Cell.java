@@ -41,14 +41,14 @@ public class Cell implements Vertex {
     public Vertex getAdjacentByKeyCode(Keyboard key) {
         return adjacents.getOrDefault(key, this);
     }
-    
+
     @Override
     public Vertex getAdjacentByValue(Integer value) {
         return adjacents.values().stream()
                 .filter(adjacent -> adjacent.getValue().equals(value))
                 .findFirst()
                 .orElse(this);
-    }    
+    }
 
     @Override
     public void creatingHorizontalAdjacent(Vertex cell) {
@@ -61,7 +61,7 @@ public class Cell implements Vertex {
         this.adjacents.put(Keyboard.UP, cell);
         cell.getAdjacents().put(Keyboard.DOWN, this);
     }
-    
+
     @Override
     public Vertex swapCells(Vertex movementCell) {
         Integer tempValue = this.getValue();

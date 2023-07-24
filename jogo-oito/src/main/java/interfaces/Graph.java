@@ -13,7 +13,7 @@ import java.util.List;
 public interface Graph {
 
     void showSolvedBoard();
-    
+
     void setUpNewBoard();
 
     void moveCellByKey(Integer keyCode);
