@@ -14,7 +14,6 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.IntStream;
 
 public class JogoDosOito extends JFrame implements KeyListener {
 
@@ -34,10 +33,11 @@ public class JogoDosOito extends JFrame implements KeyListener {
         configWindow();
         createButtons();
         configMenu();
-        
+
         updateBoard();
         revalidate();
     }
+
     private void configWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
@@ -48,11 +48,11 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void createButtons() {
-        this.board.getCells().forEach(cell -> {
+        for (Vertex cell : this.board.getCells()) {
             ButtonBuilder button = configButton(cell);
             add(button);
             buttons.add(button);
-        });
+        }
     }
 
     private ButtonBuilder configButton(Vertex cell) {
@@ -102,12 +102,10 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void updateBoard() {
-        List<Vertex> cells = this.board.getCells();
-        IntStream.range(0, cells.size())
-                .forEach(index -> {
-                    ButtonBuilder button = (ButtonBuilder) this.buttons.get(index);
-                    button.withText(cells.get(index).valueToText());
-                });
+        for (Vertex cell : this.board.getCells()) {
+            this.buttons.get(this.board.getCells().indexOf(cell))
+                    .setText(cell.valueToText());
+        }
     }
 
     private void checkGameOver() {
@@ -133,7 +131,6 @@ public class JogoDosOito extends JFrame implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
     }
-
 
     public static void main(String[] args) {
         JogoDosOito game = new JogoDosOito();

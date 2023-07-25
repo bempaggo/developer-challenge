@@ -13,17 +13,22 @@ public class ButtonBuilder extends JButton {
     }
 
     public ButtonBuilder withActionListener(ActionListener listener) {
-        addActionListener(listener);
+        super.addActionListener(listener);
         return this;
     }
 
     public ButtonBuilder withText(String text) {
-        setText("0".equals(text) ? "" : text);
+        this.setText(text);
         return this;
     }
 
     public ButtonBuilder withFont(Font font) {
-        setFont(font);
+        super.setFont(font);
         return this;
+    }
+
+    @Override
+    public void setText(String text) {
+        super.setText("0".equals(text) ? "" : text);
     }
 }
