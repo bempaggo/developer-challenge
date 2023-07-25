@@ -1,5 +1,6 @@
 package util;
 
+import interfaces.Action;
 import interfaces.Graph;
 import interfaces.Vertex;
 import model.Matrix;
@@ -64,7 +65,7 @@ public class Board implements Graph {
 
     @Override
     public void click(Integer cellValue) {
-        Movement movement = new Movement(emptyCell);
+        Action movement = new Movement(emptyCell);
         this.emptyCell = movement.swapCells(cellValue);
     }
 
