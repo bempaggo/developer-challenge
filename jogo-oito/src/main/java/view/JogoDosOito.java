@@ -56,17 +56,14 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private ButtonBuilder configButton(Vertex cell) {
-        ButtonBuilder button = new ButtonBuilder();
-        button.setFont(new Font("Arial", Font.BOLD, 36));
-        button.withText(cell.valueToText());
-
-        button.addActionListener((ActionEvent e) -> {
-            this.board.moveCellByValue(Integer.valueOf(button.getText()));
-            this.updateBoard();
-            this.checkGameOver();
-        });
-
-        return button;
+        return new ButtonBuilder()
+                .withFont(new Font("Arial", Font.BOLD, 36))
+                .withText(cell.valueToText())
+                .withActionListener((ActionEvent e) -> {
+                    this.board.moveCellByValue(Integer.valueOf(e.getActionCommand()));
+                    this.updateBoard();
+                    this.checkGameOver();
+                });
     }
 
     private void configMenu() {
@@ -78,17 +75,15 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private ButtonBuilder configResetGameButton() {
-        ButtonBuilder buttonReset = new ButtonBuilder()
+        return new ButtonBuilder()
                 .withText("Reiniciar")
                 .withActionListener(e -> resetGame());
-        return buttonReset;
     }
 
     private ButtonBuilder configGameSolutionButton() {
-        ButtonBuilder buttonFeedback = new ButtonBuilder()
+        return new ButtonBuilder()
                 .withText("Gabarito")
                 .withActionListener(e -> showGameSolution());
-        return buttonFeedback;
     }
 
     private void resetGame() {
