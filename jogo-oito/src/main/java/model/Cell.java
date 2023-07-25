@@ -14,15 +14,18 @@ public class Cell implements Vertex {
     private Integer value;
     private final List<Edge> adjacents;
     protected static Integer content;
+    private final Movement movement;
 
     private Cell(Integer value) {
         this.value = value;
         this.adjacents = new ArrayList<>();
+        this.movement = new Movement(this);
     }
 
     public Cell() {
         this.value = Cell.content++;
         this.adjacents = new ArrayList<>();
+        this.movement = new Movement(this);
     }
 
     public static Cell of(Integer value) {
@@ -71,36 +74,6 @@ public class Cell implements Vertex {
                 .filter(index -> index != -1)
                 .map(this.adjacents::get)
                 .orElse(null);
-    }
-
-    @Override
-    public Vertex click(Keyboard key) {
-        Edge adjacent = this.getAdjacentByKeyCode(key);
-        return this.movement(adjacent);
-    }
-
-    private Vertex movement(Edge adjacent) {
-        return Optional.ofNullable(adjacent)
-                .map(Edge::getCell)
-                .map(this::swapCells)
-                .orElse(this);
-    }
-
-    private Vertex swapCells(Vertex movementCell) {
-        this.setValue(movementCell.getValue());
-        movementCell.setValue(0);
-        return movementCell;
-    }
-
-    @Override
-    public Vertex swapCells(Integer value) {
-        for (int index = 0; index < this.adjacents.size(); index++) {
-            Edge adjacent = this.adjacents.get(index);
-            if (adjacent.cellValueIsEqual(value)) {
-                return this.movement(adjacent);
-            }
-        }
-        return this;
     }
 
     @Override

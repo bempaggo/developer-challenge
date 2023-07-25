@@ -76,7 +76,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     private Integer textToValue(String text) {
         return Optional.ofNullable(text)
-                .filter(textValue -> textValue != "")
+                .filter(textValue -> !textValue.equals(""))
                 .map(Integer::valueOf)
                 .orElse(0);
     }
@@ -111,7 +111,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
         });
         return buttonReset;
     }
-    
+
     private JButton configureFeedback() {
         JButton buttonFeedback = new JButton("Gabarito");
         buttonFeedback.addActionListener((ActionEvent e) -> {

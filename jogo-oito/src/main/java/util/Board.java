@@ -3,6 +3,7 @@ package util;
 import interfaces.Graph;
 import interfaces.Vertex;
 import model.Matrix;
+import model.Movement;
 
 import java.util.*;
 
@@ -63,7 +64,8 @@ public class Board implements Graph {
 
     @Override
     public void click(Integer cellValue) {
-        this.emptyCell = this.emptyCell.swapCells(cellValue);
+        Movement movement = new Movement(emptyCell);
+        this.emptyCell = movement.swapCells(cellValue);
     }
 
     @Override

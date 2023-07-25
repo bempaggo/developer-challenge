@@ -27,13 +27,13 @@ class AdjacentTest {
     @Test
     void testEquals() {
         Vertex cell1 = Cell.of(1);
-        Vertex cell2 = Cell.of(2);
+        Vertex cell2 = Cell.of(1);
 
         Edge edge1 = Adjacent.of(Keyboard.RIGHT, cell2);
-        Edge edge2 = Adjacent.of(Keyboard.LEFT, cell1);
+        Edge edge2 = Adjacent.of(Keyboard.RIGHT, cell1);
 
-        assertEquals(edge1.getCell().click(Keyboard.RIGHT), cell2);
-        assertEquals(edge2.getCell().click(Keyboard.LEFT), cell1);
+        assertTrue(edge1.getCell().equals(cell2));
+        assertTrue(edge2.getCell().equals(cell1));
     }
 
     @Test

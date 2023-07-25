@@ -71,27 +71,6 @@ class CellTest{
     }
 
     @Test
-    void testClick() {
-        Vertex cell1 = Cell.of(1);
-        Vertex cell2 = Cell.of(2);
-        cell1.createHorizontalAdjacent(cell2);
-
-        assertEquals(cell2, cell1.click(Keyboard.LEFT));
-    }
-
-    @Test
-    void testSwapCells() {
-        Vertex cell1 = Cell.of(0);
-        Vertex cell2 = Cell.of(2);
-        cell1.createHorizontalAdjacent(cell2);
-
-        cell1.swapCells(cell2.getValue());
-
-        assertEquals(2, cell1.getValue());
-        assertEquals(0, cell2.getValue());
-    }
-
-    @Test
     void testAddAdjacents() {
         Vertex cell1 = Cell.of(1);
         Vertex cell2 = Cell.of(2);
