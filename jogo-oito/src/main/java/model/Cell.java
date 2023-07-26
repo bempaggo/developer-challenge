@@ -14,18 +14,15 @@ public class Cell implements Vertex {
     private Integer value;
     private final List<Edge> adjacents;
     protected static Integer content;
-    private final Movement movement;
 
     private Cell(Integer value) {
         this.value = value;
         this.adjacents = new ArrayList<>();
-        this.movement = new Movement(this);
     }
 
     public Cell() {
         this.value = Cell.content++;
         this.adjacents = new ArrayList<>();
-        this.movement = new Movement(this);
     }
 
     public static Cell of(Integer value) {
