@@ -10,7 +10,6 @@ public class Board implements Graph {
 
     private List<Vertex> cells;
     private Vertex emptyCell;
-    private Integer length;
     private Matrix matrix;
 
     public Board() {
@@ -18,7 +17,7 @@ public class Board implements Graph {
 
     @Override
     public void feedback() {
-        resetMatrix();
+        this.resetMatrix();
         this.defineEmptyCell();
     }
 
@@ -32,7 +31,6 @@ public class Board implements Graph {
     private void resetMatrix() {
         this.matrix = new Matrix();
         this.cells = this.matrix.getCells();
-        this.length = cells.size();
     }
 
     private void shuffleCell() {
