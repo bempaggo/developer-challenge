@@ -1,10 +1,8 @@
 package util;
 
-import interfaces.Action;
 import interfaces.Graph;
 import interfaces.Vertex;
 import model.Matrix;
-import model.Movement;
 
 import java.util.*;
 
@@ -64,12 +62,6 @@ public class Board implements Graph {
     }
 
     @Override
-    public void click(Integer cellValue) {
-        Action movement = new Movement(emptyCell);
-        this.emptyCell = movement.swapCells(cellValue);
-    }
-
-    @Override
     public List<Vertex> getCells() {
         return this.cells;
     }
@@ -80,17 +72,8 @@ public class Board implements Graph {
     }
 
     @Override
-    public Boolean checkGameOver() {
-        for (int index = 0; index < this.length; index++) {
-            if (getCellValueByIndex(index) != (index + 1) % this.length) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private Integer getCellValueByIndex(int index) {
-        return this.cells.get(index).getValue();
+    public void setEmptyCell(Vertex cell) {
+        this.emptyCell = cell;
     }
 
     @Override

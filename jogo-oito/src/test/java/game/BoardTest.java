@@ -54,27 +54,6 @@ class BoardTest {
     }
 
     @Test
-    void testClick() {
-        Vertex emptyCell = board.getEmptyCell();
-        Vertex cell = board.getCells().get(7);
-        Integer cellValue = cell.getValue();
-
-        board.click(cellValue);
-
-        assertEquals(cellValue, emptyCell.getValue());
-        assertEquals(0, cell.getValue());
-    }
-
-    @Test
-    void testCheckGameOver() {
-        Assertions.assertTrue(this.board.checkGameOver());
-        board = new Board();
-        board.setting();
-        Assertions.assertFalse(board.checkGameOver());
-
-    }
-
-    @Test
     void testCellCreateHorizontalAdjacent() {
         Vertex cell1 = Cell.of(1);
         Vertex cell2 = Cell.of(2);
