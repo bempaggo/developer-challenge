@@ -10,8 +10,12 @@ public class Movement implements Action {
 
     private final Vertex emptyCell;
 
-    public Movement(Vertex emptyCell) {
+    private Movement(Vertex emptyCell) {
         this.emptyCell = emptyCell;
+    }
+
+    public static Movement of(Vertex emptyCell) {
+        return new Movement(emptyCell);
     }
 
     public Vertex swapCells(Integer value) {

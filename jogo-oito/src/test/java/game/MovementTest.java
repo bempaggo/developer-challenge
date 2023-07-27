@@ -16,7 +16,7 @@ public class MovementTest {
     @BeforeEach
     void setUp() {
         emptyCell = Cell.of(0);
-        movement = new Movement(emptyCell);
+        movement = Movement.of(emptyCell);
     }
 
     @Test

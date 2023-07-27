@@ -17,7 +17,7 @@ public class Click {
     }
 
     public void execute(Integer cellValue) {
-        Action movement = new Movement(this.board.getEmptyCell());
+        Action movement = Movement.of(this.board.getEmptyCell());
         this.board.setEmptyCell(movement.swapCells(cellValue));
     }
 
