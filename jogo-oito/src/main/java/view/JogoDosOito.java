@@ -2,6 +2,7 @@ package view;
 
 import facade.Controller;
 import interfaces.Vertex;
+import model.JFrameCustom;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-public class JogoDosOito extends JFrame implements KeyListener {
+public class JogoDosOito extends JFrameCustom implements KeyListener {
 
     private final List<JButton> buttons;
     private final Controller controller;
@@ -135,15 +136,6 @@ public class JogoDosOito extends JFrame implements KeyListener {
         for (JButton button : this.buttons) {
             button.setText(iterator.next().valueToText());
         }
-    }
-
-    private void centerFrameInTheScreen(JFrame frame) {
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = frame.getSize().width;
-        int height = frame.getSize().height;
-        int x = (dim.width - width) / 2;
-        int y = (dim.height - height) / 2;
-        frame.setLocation(x, y);
     }
 
     @Override
