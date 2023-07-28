@@ -34,18 +34,16 @@ public class Board implements Graph {
     }
 
     private void shuffleCell() {
-        List<Integer> shuffledValues = this.shuffleValues();
-        for (int index = 0; index < this.cells.size(); index++) {
-            Vertex cell = this.cells.get(index);
-            cell.setValue(shuffledValues.get(index));
+        Iterator<Integer> iterator = this.shuffleValues().iterator();
+        for (Vertex cell : this.cells) {
+            cell.setValue(iterator.next());
         }
     }
 
     private List<Integer> shuffleValues() {
         List<Integer> values = new ArrayList<>();
-        for (int index = 0; index < this.cells.size(); index++) {
-            Integer value = this.cells.get(index).getValue();
-            values.add(value);
+        for (Vertex cell : this.cells) {
+            values.add(cell.getValue());
         }
         Collections.shuffle(values);
         return values;

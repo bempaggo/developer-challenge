@@ -2,7 +2,6 @@ package view;
 
 import facade.Controller;
 import interfaces.Vertex;
-import model.Cell;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,8 +28,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     public void createButtons() {
-        for (int index = 0; index < this.getCells().size(); index++) {
-            Vertex cell = this.getCells().get(index);
+        for (Vertex cell : this.getCells()) {
             this.createButton(cell);
         }
     }
@@ -132,10 +131,9 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void updateBoard() {
-        List<Vertex> cells = getCells();
-        for (int index = 0; index < cells.size(); index++) {
-            JButton button = this.buttons.get(index);
-            button.setText(Cell.valueToText(cells, index));
+        Iterator<Vertex> iterator = getCells().iterator();
+        for (JButton button : this.buttons) {
+            button.setText(iterator.next().valueToText());
         }
     }
 
