@@ -13,7 +13,6 @@ import enums.Keyboard;
 import interfaces.Edge;
 import interfaces.Vertex;
 import model.Cell;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.Board;

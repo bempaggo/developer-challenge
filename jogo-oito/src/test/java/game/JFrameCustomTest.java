@@ -7,7 +7,7 @@ import java.awt.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class JFrameCustomTest {
+class JFrameCustomTest {
 
     @Test
     public void testCenterFrameInTheScreen() {

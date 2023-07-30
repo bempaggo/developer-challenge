@@ -1,10 +1,10 @@
 package game;
 
+import enums.Keyboard;
 import interfaces.Edge;
 import interfaces.Vertex;
 import model.Adjacent;
 import model.Cell;
-import enums.Keyboard;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

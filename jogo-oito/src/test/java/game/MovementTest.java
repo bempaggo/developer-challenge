@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MovementTest {
+class MovementTest {
 
     private Movement movement;
     private Vertex emptyCell;
@@ -32,4 +32,5 @@ public class MovementTest {
         assertEquals(0, cell.getValue());
         assertEquals(2, emptyCell.getValue());
     }
+
 }

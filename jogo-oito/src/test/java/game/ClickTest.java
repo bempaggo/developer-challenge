@@ -9,7 +9,7 @@ import util.Click;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ClickTest {
+class ClickTest {
 
     private Click click;
     private Graph board;

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import util.Board;
 import util.GameStatus;
 
-public class GameStatusTest {
+class GameStatusTest {
 
     private GameStatus gameStatus;
     private Graph board;
