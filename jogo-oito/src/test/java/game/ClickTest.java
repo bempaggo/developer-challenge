@@ -1,5 +1,6 @@
 package game;
 
+import command.Command;
 import interfaces.Graph;
 import interfaces.Vertex;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ClickTest {
 
-    private Click click;
+    private Command click;
     private Graph board;
 
     @BeforeEach

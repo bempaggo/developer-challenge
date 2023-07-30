@@ -18,4 +18,5 @@ public class Application {
         }
         java.awt.EventQueue.invokeLater(() -> new JogoDosOito().setVisible(true));
     }
+
 }

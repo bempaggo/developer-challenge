@@ -1,6 +1,7 @@
 package game;
 
 import interfaces.Graph;
+import interfaces.Status;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,7 @@ import util.GameStatus;
 
 class GameStatusTest {
 
-    private GameStatus gameStatus;
+    private Status gameStatus;
     private Graph board;
 
     @BeforeEach

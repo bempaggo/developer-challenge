@@ -1,12 +1,13 @@
 package util;
 
 import interfaces.Graph;
+import interfaces.Status;
 import interfaces.Vertex;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class GameStatus {
+public class GameStatus implements Status {
 
     private final Graph board;
 
@@ -18,6 +19,7 @@ public class GameStatus {
         return new GameStatus(board);
     }
 
+    @Override
     public Boolean isOver() {
         Integer size = getCells().size();
         return IntStream.range(0, size)
@@ -31,4 +33,5 @@ public class GameStatus {
     private List<Vertex> getCells() {
         return this.board.getCells();
     }
+
 }

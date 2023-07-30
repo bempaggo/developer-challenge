@@ -11,6 +11,7 @@ package game;
 
 import enums.Keyboard;
 import interfaces.Edge;
+import interfaces.Graph;
 import interfaces.Vertex;
 import model.Cell;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class BoardTest {
 
-    private Board board;
+    private Graph board;
 
     @BeforeEach
     void setUp() {

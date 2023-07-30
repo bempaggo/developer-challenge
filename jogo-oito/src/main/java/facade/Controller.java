@@ -1,6 +1,8 @@
 package facade;
 
+import command.Command;
 import interfaces.Graph;
+import interfaces.Status;
 import interfaces.Vertex;
 import util.Board;
 import util.Click;
@@ -11,8 +13,8 @@ import java.util.List;
 public class Controller {
 
     private final Graph board;
-    private final GameStatus gameStatus;
-    private final Click click;
+    private final Status gameStatus;
+    private final Command click;
 
     public Controller() {
         this.board = new Board();
