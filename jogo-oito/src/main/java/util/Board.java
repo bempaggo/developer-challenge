@@ -11,6 +11,7 @@ public class Board implements Graph {
     private List<Vertex> cells;
     private Vertex emptyCell;
     private Matrix matrix;
+    private Integer currentCellValue;
 
     public Board() {
     }
@@ -70,6 +71,16 @@ public class Board implements Graph {
     @Override
     public void setEmptyCell(Vertex cell) {
         this.emptyCell = cell;
+    }
+
+    @Override
+    public Integer getCurrentCellValue() {
+        return this.currentCellValue;
+    }
+
+    @Override
+    public void setCurrentCellValue(Integer currentCellValue) {
+        this.currentCellValue = currentCellValue;
     }
 
     @Override

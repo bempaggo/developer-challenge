@@ -6,16 +6,16 @@ import interfaces.Graph;
 import interfaces.Vertex;
 import model.Movement;
 
-public class SwapCell implements Command {
+public class Click implements Command {
 
     private final Graph board;
 
-    private SwapCell(Graph board) {
+    private Click(Graph board) {
         this.board = board;
     }
 
-    public static SwapCell of(Graph board) {
-        return new SwapCell(board);
+    public static Click of(Graph board) {
+        return new Click(board);
     }
 
     public void execute() {

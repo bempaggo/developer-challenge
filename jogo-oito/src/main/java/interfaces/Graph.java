@@ -22,4 +22,8 @@ public interface Graph {
 
     void setEmptyCell(Vertex cell);
 
+    void setCurrentCellValue(Integer cellValue);
+
+    Integer getCurrentCellValue();
+
 }

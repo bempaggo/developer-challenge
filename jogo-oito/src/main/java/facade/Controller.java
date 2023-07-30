@@ -36,8 +36,9 @@ public class Controller {
         return this.gameStatus.isOver();
     }
 
-    public void click(Integer cellValue) {
-        this.click.execute(cellValue);
+    public void click(Integer currentCellValue) {
+        this.board.setCurrentCellValue(currentCellValue);
+        this.click.execute();
     }
 
 }
