@@ -5,31 +5,32 @@ import interfaces.Vertex;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.Board;
-import util.Click;
+import util.SwapCell;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ClickTest {
+public class SwapCellTest {
 
-    private Click click;
+    private SwapCell swapCell;
     private Graph board;
 
     @BeforeEach
     void setUp() {
         board = new Board();
         board.feedback();
-        click = Click.of(board);
+        swapCell = SwapCell.of(board);
     }
 
     @Test
     void testClick() {
         Vertex emptyCell = board.getEmptyCell();
         Vertex cell = board.getCells().get(7);
-        Integer cellValue = cell.getValue();
+        Integer currentCellValue = cell.getValue();
+        board.setCurrentCellValue(currentCellValue);
 
-        click.execute(cellValue);
+        swapCell.execute();
 
-        assertEquals(cellValue, emptyCell.getValue());
+        assertEquals(currentCellValue, emptyCell.getValue());
         assertEquals(0, cell.getValue());
     }
 }

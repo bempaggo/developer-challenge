@@ -24,7 +24,10 @@ class JogoDosOitoBuilderTest {
                 .createButtons()
                 .build();
 
-        assertThat(jogoDosOito.getButtons()).hasSize(9);
+        assertThat(jogoDosOito.getButtons()).
+                hasSize(9)
+                .extracting("text")
+                .containsExactlyInAnyOrder("1","2","3", "4", "5", "6", "7", "8", "");
     }
 
     @Test
