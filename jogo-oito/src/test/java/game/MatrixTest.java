@@ -3,17 +3,20 @@ package game;
 import model.Matrix;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class MatrixTest {
 
     @Test
-    void testgetCells() {
+    void testGetCells() {
         Matrix matrix = new Matrix();
 
         assertNotNull(matrix.getCells());
-        assertEquals(matrix.getCells().size(), 9);
+        assertThat(matrix.getCells())
+                .hasSize(9)
+                .extracting("value")
+                .containsExactly(1 ,2, 3, 4, 5, 6, 7, 8, 0);
     }
 
 }
