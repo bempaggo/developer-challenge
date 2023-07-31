@@ -2,5 +2,6 @@ package interfaces;
 
 public interface Action {
 
-    Vertex swapCells(Integer value);
+    Vertex swapCells(Integer currentCellValue);
+
 }

@@ -18,9 +18,9 @@ public class Movement implements Action {
         return new Movement(emptyCell);
     }
 
-    public Vertex swapCells(Integer value) {
+    public Vertex swapCells(Integer currentCellValue) {
         for (Edge adjacent : emptyCell.getAdjacents()) {
-            if (adjacent.cellValueIsEqual(value)) {
+            if (adjacent.cellValueIsEqual(currentCellValue)) {
                 return swapCells(adjacent);
             }
         }
@@ -34,10 +34,10 @@ public class Movement implements Action {
                 .orElse(emptyCell);
     }
 
-    private Vertex swapCells(Vertex movementCell) {
-        emptyCell.setValue(movementCell.getValue());
-        movementCell.setValue(0);
-        return movementCell;
+    private Vertex swapCells(Vertex currentCell) {
+        emptyCell.setValue(currentCell.getValue());
+        currentCell.setValue(0);
+        return currentCell;
     }
 
 }
