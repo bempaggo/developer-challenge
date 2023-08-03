@@ -3,7 +3,7 @@ package model;
 import javax.swing.*;
 import java.awt.*;
 
-public class JFrameCustom extends JFrame {
+public class JFrameCustom extends JFrameAbstractCustom {
 
     private Integer width;
     private Integer height;

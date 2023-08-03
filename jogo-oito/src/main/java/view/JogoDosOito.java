@@ -8,13 +8,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-public class JogoDosOito extends JFrameCustom implements KeyListener {
+public class JogoDosOito extends JFrameCustom {
 
     private final List<JButton> buttons;
     private final Controller controller;
@@ -139,17 +138,9 @@ public class JogoDosOito extends JFrameCustom implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent event) {
-    }
-
-    @Override
     public void keyPressed(KeyEvent event) {
         this.updateBoard();
         this.checkGameOver();
-    }
-
-    @Override
-    public void keyReleased(KeyEvent event) {
     }
 
 }
