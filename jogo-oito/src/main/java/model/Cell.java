@@ -36,8 +36,7 @@ public class Cell implements Vertex {
                 .orElse("");
     }
 
-    @Override
-    public Edge getAdjacentByKeyCode(Keyboard key) {
+    private Edge getAdjacentByKeyCode(Keyboard key) {
         Adjacent edge = new Adjacent(key, null);
         Integer indexEdge = this.adjacents.indexOf(edge);
         return Optional.of(indexEdge)
@@ -47,9 +46,18 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public Vertex click(Keyboard key) {
+    public Vertex swapByKeycode(Keyboard key) {
         Edge adjacent = this.getAdjacentByKeyCode(key);
         return this.movement(adjacent);
+    }
+
+    @Override
+    public Vertex swapByCellValue(Integer value) {
+        return this.adjacents.stream()
+                .filter(adjacent -> Objects.equals(adjacent.cell().getValue(), value))
+                .findFirst()
+                .map(this::movement)
+                .orElse(this);
     }
 
     private Vertex movement(Edge adjacent) {
@@ -65,14 +73,6 @@ public class Cell implements Vertex {
         return movementCell;
     }
 
-    @Override
-    public Vertex swapCells(Integer value) {
-        return this.adjacents.stream()
-                .filter(adjacent -> Objects.equals(adjacent.cell().getValue(), value))
-                .findFirst()
-                .map(this::movement)
-                .orElse(this);
-    }
     @Override
     public void addAdjacents(Edge edge) {
         this.adjacents.add(edge);

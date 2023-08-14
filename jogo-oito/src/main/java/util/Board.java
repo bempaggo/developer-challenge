@@ -62,23 +62,18 @@ public class Board implements Graph {
 
     @Override
     public void click(Integer cellValue) {
-        this.emptyCell = this.emptyCell.swapCells(cellValue);
+        this.emptyCell = this.emptyCell.swapByCellValue(cellValue);
     }
 
     @Override
     public void swap(Integer keyCode) {
         Keyboard key = Keyboard.fromValue(keyCode);
-        this.emptyCell = this.emptyCell.click(key);
+        this.emptyCell = this.emptyCell.swapByKeycode(key);
     }
 
     @Override
     public List<Vertex> getCells() {
         return this.cells;
-    }
-
-    @Override
-    public Vertex getEmptyCell() {
-        return this.emptyCell;
     }
 
     @Override

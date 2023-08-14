@@ -18,12 +18,10 @@ public interface Vertex {
 
     String valueToText();
 
-    Edge getAdjacentByKeyCode(Keyboard key);
-
-    Vertex click(Keyboard key);
+    Vertex swapByKeycode(Keyboard key);
     
     void addAdjacents(Edge edge);
     
-    Vertex swapCells(Integer value);
+    Vertex swapByCellValue(Integer value);
 
 }

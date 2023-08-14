@@ -11,14 +11,10 @@ public class GameFactoryImpl implements GameFactory {
     }
 
     @Override
-    public Edge createAdjacentUp(Vertex cell) {
-        return new Adjacent(Keyboard.UP, cell);
-    }
+    public Edge createAdjacentUp(Vertex cell) { return new Adjacent(Keyboard.UP, cell); }
 
     @Override
-    public Edge createAdjacentDown(Vertex cell) {
-        return new Adjacent(Keyboard.DOWN, cell);
-    }
+    public Edge createAdjacentDown(Vertex cell) { return new Adjacent(Keyboard.DOWN, cell); }
 
     @Override
     public Edge createAdjacentLeft(Vertex cell) {
