@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author allen
  */
-public class Adjacent implements Edge{
+public class Adjacent implements Edge {
 
     private final Keyboard key;
     private final Vertex cell;

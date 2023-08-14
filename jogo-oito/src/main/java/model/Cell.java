@@ -13,11 +13,6 @@ public class Cell implements Vertex {
     private final List<Edge> adjacents;
     public static Integer content;
 
-    public Cell(Integer value) {
-        this.value = value;
-        this.adjacents = new ArrayList<>();
-    }
-
     public Cell() {
         this.value = Cell.content++;
         this.adjacents = new ArrayList<>();
@@ -31,18 +26,6 @@ public class Cell implements Vertex {
     @Override
     public Integer getValue() {
         return this.value;
-    }
-
-    @Override
-    public void creatingHorizontalAdjacent(Vertex cell) {
-        this.adjacents.add(new Adjacent(Keyboard.LEFT, cell));
-        cell.getAdjacents().add(new Adjacent(Keyboard.RIGHT, this));
-    }
-
-    @Override
-    public void creatingVerticalAdjacent(Vertex cell) {
-        this.adjacents.add(new Adjacent(Keyboard.UP, cell));
-        cell.getAdjacents().add(new Adjacent(Keyboard.DOWN, this));
     }
 
     @Override
@@ -90,12 +73,6 @@ public class Cell implements Vertex {
                 .map(this::movement)
                 .orElse(this);
     }
-
-    @Override
-    public List<Edge> getAdjacents() {
-        return this.adjacents;
-    }
-
     @Override
     public void addAdjacents(Edge edge) {
         this.adjacents.add(edge);

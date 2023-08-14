@@ -42,8 +42,7 @@ public class Board implements Graph {
 
     private void shuffleCell() {
         Iterator<Integer> iterator = this.shuffleValues().iterator();
-        this.cells.stream()
-                .forEach(vertex -> vertex.setValue(iterator.next()));
+        this.cells.forEach(vertex -> vertex.setValue(iterator.next()));
     }
 
     private List<Integer> shuffleValues() {
@@ -57,10 +56,8 @@ public class Board implements Graph {
 
     private void defineEmptyCell() {
         Optional<Vertex> minCell = this.cells.stream()
-                .min(Comparator.comparing(cell -> cell.getValue()));
-        minCell.ifPresent(cell -> {
-            this.emptyCell = cell;
-        });
+                .min(Comparator.comparing(Vertex::getValue));
+        minCell.ifPresent(cell -> this.emptyCell = cell);
     }
 
     @Override

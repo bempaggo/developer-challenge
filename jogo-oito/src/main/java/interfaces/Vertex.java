@@ -4,7 +4,6 @@
  */
 package interfaces;
 
-import java.util.List;
 import model.Keyboard;
 
 /**
@@ -17,17 +16,11 @@ public interface Vertex {
 
     Integer getValue();
 
-    void creatingHorizontalAdjacent(Vertex cell);
-
-    void creatingVerticalAdjacent(Vertex cell);
-
     String valueToText();
 
     Edge getAdjacentByKeyCode(Keyboard key);
 
     Vertex click(Keyboard key);
-
-    List<Edge> getAdjacents();
     
     void addAdjacents(Edge edge);
     
