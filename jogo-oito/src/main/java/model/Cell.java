@@ -54,7 +54,7 @@ public class Cell implements Vertex {
 
     private Vertex movement(Edge adjacent) {
         return Optional.ofNullable(adjacent)
-                .map(Edge::getCell)
+                .map(Edge::cell)
                 .map(this::swapCells)
                 .orElse(this);
     }
@@ -68,7 +68,7 @@ public class Cell implements Vertex {
     @Override
     public Vertex swapCells(Integer value) {
         return this.adjacents.stream()
-                .filter(adjacent -> Objects.equals(adjacent.getCell().getValue(), value))
+                .filter(adjacent -> Objects.equals(adjacent.cell().getValue(), value))
                 .findFirst()
                 .map(this::movement)
                 .orElse(this);

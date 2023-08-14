@@ -9,32 +9,13 @@ import interfaces.Vertex;
 import java.util.Objects;
 
 /**
- *
  * @author allen
  */
-public class Adjacent implements Edge {
-
-    private final Keyboard key;
-    private final Vertex cell;
-
-    public Adjacent(Keyboard key, Vertex cell) {
-        this.key = key;
-        this.cell = cell;
-    }
-
-    @Override
-    public Keyboard getKey() {
-        return this.key;
-    }
-
-    @Override
-    public Vertex getCell() {
-        return this.cell;
-    }
+public record Adjacent(Keyboard key, Vertex cell) implements Edge {
 
     @Override
     public boolean equals(Object obj) {
-        return Objects.equals(((Adjacent) obj).getKey(), this.getKey());
+        return Objects.equals(((Adjacent) obj).key(), this.key());
     }
 
 }
