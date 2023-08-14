@@ -5,6 +5,8 @@ import interfaces.Vertex;
 import model.*;
 
 public class GameFactoryImpl implements GameFactory {
+
+    public GameFactoryImpl () {}
     @Override
     public Vertex createCell() {
         return new Cell();
@@ -24,11 +26,6 @@ public class GameFactoryImpl implements GameFactory {
     @Override
     public Edge createAdjacentRight(Vertex cell) {
         return new Adjacent(Keyboard.RIGHT, cell);
-    }
-
-    @Override
-    public Row createRow() {
-        return new Row();
     }
 
 }
