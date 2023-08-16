@@ -1,6 +1,7 @@
 package model;
 
 import interfaces.Edge;
+import interfaces.Vertex;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ import static org.mockito.Mockito.when;
 
 class CellTest {
 
-    private Cell cell;
+    private Vertex cell;
     Random random = new Random();
 
     @BeforeEach
