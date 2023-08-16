@@ -28,6 +28,15 @@ public class Cell implements Vertex {
         return this.value;
     }
 
+    public List<Edge> getAdjacents() {
+        return this.adjacents;
+    }
+
+    @Override
+    public void addAdjacents(Edge edge) {
+        this.adjacents.add(edge);
+    }
+
     @Override
     public String valueToText() {
         return Optional.of(this.value)
@@ -36,46 +45,39 @@ public class Cell implements Vertex {
                 .orElse("");
     }
 
-    private Edge getAdjacentByKeyCode(Keyboard key) {
-        Adjacent edge = new Adjacent(key, null);
-        Integer indexEdge = this.adjacents.indexOf(edge);
-        return Optional.of(indexEdge)
-                .filter(index -> index != -1)
-                .map(this.adjacents::get)
-                .orElse(null);
-    }
-
     @Override
-    public Vertex swapByKeycode(Keyboard key) {
+    public Vertex findAdjacentByKeycodeAndCallSwap(Keyboard key) {
         Edge adjacent = this.getAdjacentByKeyCode(key);
-        return this.movement(adjacent);
+        return this.findCellInAdjacentsPassingAnEdgeAndCallSwap(adjacent);
     }
 
     @Override
-    public Vertex swapByCellValue(Integer value) {
+    public Vertex findAdjacentByCellValueAndCallSwap(Integer value) {
         return this.adjacents.stream()
                 .filter(adjacent -> Objects.equals(adjacent.cell().getValue(), value))
                 .findFirst()
-                .map(this::movement)
+                .map(this::findCellInAdjacentsPassingAnEdgeAndCallSwap)
                 .orElse(this);
     }
 
-    private Vertex movement(Edge adjacent) {
+    private Vertex findCellInAdjacentsPassingAnEdgeAndCallSwap(Edge adjacent) {
         return Optional.ofNullable(adjacent)
                 .map(Edge::cell)
-                .map(this::swapCells)
+                .map(this::swapCellsValue)
                 .orElse(this);
     }
 
-    private Vertex swapCells(Vertex movementCell) {
+    private Vertex swapCellsValue(Vertex movementCell) {
         this.setValue(movementCell.getValue());
         movementCell.setValue(0);
         return movementCell;
     }
 
-    @Override
-    public void addAdjacents(Edge edge) {
-        this.adjacents.add(edge);
+    private Edge getAdjacentByKeyCode(Keyboard key) {
+        return this.adjacents.stream()
+                .filter(adjacent -> adjacent.key() == key)
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
