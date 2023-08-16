@@ -6,7 +6,6 @@ import interfaces.Vertex;
 public interface GameFactory {
 
     Vertex createCell();
-
     Edge createAdjacentUp(Vertex cell);
     Edge createAdjacentDown(Vertex cell);
     Edge createAdjacentLeft(Vertex cell);
