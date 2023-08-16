@@ -12,11 +12,11 @@ public final class Matrix {
     private final Row firstRow;
     private final Row secondRow;
     private final Row thirdRow;
-    public static List<Vertex> cells;
+    private final List<Vertex> cells;
     //temp var
 
     public Matrix() {
-        Matrix.cells = new ArrayList<>();
+        this.cells = new ArrayList<>();
         Cell.content = 1;
         this.firstRow = new Row();
         this.secondRow = new Row();
@@ -31,19 +31,19 @@ public final class Matrix {
         this.changePositionToValidateTemplate();
     }
 
-    private void changePositionToValidateTemplate(){
+    private void changePositionToValidateTemplate() {
         this.thirdRow.last.setValue(0);
     }
 
     public List<Vertex> getCells() {
-        return Matrix.cells;
+        return this.cells;
     }
 
-    public static final class Row {
+    public final class Row {
 
-        public final Vertex initial;
-        public final Vertex center;
-        public final Vertex last;
+        private final Vertex initial;
+        private final Vertex center;
+        private final Vertex last;
         private final GameFactory gameFactory = new GameFactoryImpl();
 
         public Row() {
@@ -54,13 +54,13 @@ public final class Matrix {
             this.loadCells();
         }
 
-        public void loadCells() {
-            Matrix.cells.add(this.initial);
-            Matrix.cells.add(this.center);
-            Matrix.cells.add(this.last);
+        private void loadCells() {
+            cells.add(this.initial);
+            cells.add(this.center);
+            cells.add(this.last);
         }
 
-        public void defineVerticalAdjacency(Row row) {
+        private void defineVerticalAdjacency(Row row) {
             this.initial.addAdjacents(gameFactory.createAdjacentUp(row.initial));
             this.center.addAdjacents(gameFactory.createAdjacentUp(row.center));
             this.last.addAdjacents(gameFactory.createAdjacentUp(row.last));
@@ -70,7 +70,7 @@ public final class Matrix {
             row.last.addAdjacents(gameFactory.createAdjacentDown(this.last));
         }
 
-        public void defineHorizontalAdjacency() {
+        private void defineHorizontalAdjacency() {
             this.initial.addAdjacents(gameFactory.createAdjacentLeft(this.center));
             this.center.addAdjacents(gameFactory.createAdjacentRight(this.initial));
             this.center.addAdjacents(gameFactory.createAdjacentLeft(this.last));
