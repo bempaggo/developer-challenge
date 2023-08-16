@@ -6,6 +6,8 @@ package interfaces;
 
 import model.Keyboard;
 
+import java.util.List;
+
 /**
  *
  * @author allen
@@ -24,4 +26,5 @@ public interface Vertex {
     
     Vertex findAdjacentByCellValueAndCallSwap(Integer value);
 
+    List<Edge> getAdjacents();
 }
