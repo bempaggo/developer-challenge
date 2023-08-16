@@ -39,7 +39,7 @@ class CellTest {
         //testa para todos os valores no enum Keyboard
         for (Keyboard key : Keyboard.values()) {
             //cria uma célula adjacente e mocka uma adjacent que retorna ela e a key, add na célula
-            Cell adjacentCell = new Cell();
+            Vertex adjacentCell = new Cell();
             adjacentCell.setValue(random.nextInt());
             Adjacent adjacent = mock(Adjacent.class);
             when(adjacent.cell()).thenReturn(adjacentCell);
@@ -47,7 +47,7 @@ class CellTest {
             cell.addAdjacents(adjacent);
 
             //chama o método que será testado
-            Cell result = (Cell) cell.findAdjacentByKeycodeAndCallSwap(key);
+            Vertex result = cell.findAdjacentByKeycodeAndCallSwap(key);
 
             assertEquals(adjacent.cell().getValue(), result.getValue());
             assertNotNull(result);
@@ -65,7 +65,7 @@ class CellTest {
             when(mockAdjacent.key()).thenReturn(null);
 
             //chama o método que será testado
-            Cell result = (Cell) cell.findAdjacentByKeycodeAndCallSwap(key);
+            Vertex result = cell.findAdjacentByKeycodeAndCallSwap(key);
 
             assertEquals(cell.getValue(), result.getValue());
             assertNotNull(result);
@@ -76,14 +76,14 @@ class CellTest {
     @RepeatedTest(5)
     void swapByCellValueWhenCellPresentTest() {
         //cria uma célula adjacente, mocka um Adjacent pra retornar ela e adiciona as adjacências de cell
-        Cell adjacentCell = new Cell();
+        Vertex adjacentCell = new Cell();
         adjacentCell.setValue(random.nextInt());
         Adjacent adjacent = mock(Adjacent.class);
         when(adjacent.cell()).thenReturn(adjacentCell);
         cell.addAdjacents(adjacent);
 
         //chama o método que será testado e armazena numa Cell para usar nos asserts
-        Cell result = (Cell) cell.findAdjacentByCellValueAndCallSwap(adjacentCell.getValue());
+        Vertex result = cell.findAdjacentByCellValueAndCallSwap(adjacentCell.getValue());
 
         assertEquals(adjacent.cell().getValue(), result.getValue());
         assertNotNull(result);
@@ -97,7 +97,7 @@ class CellTest {
         when(mockAdjacent.cell()).thenReturn(null);
 
         // Chama o método que será testado
-        Cell result = (Cell) cell.findAdjacentByCellValueAndCallSwap(random.nextInt());
+        Vertex result = cell.findAdjacentByCellValueAndCallSwap(random.nextInt());
 
         // Verifica que o valor da célula não foi alterado e que o método retornou a própria célula
         assertEquals(cell.getValue(), result.getValue());
