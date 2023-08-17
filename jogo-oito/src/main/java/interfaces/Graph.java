@@ -12,9 +12,9 @@ import java.util.List;
  */
 public interface Graph {
 
-    void feedback();
+    void gameSolutionBoardState();
     
-    void setting();
+    void gameStartBoardState();
 
     void swap(Integer keyCode);
 
@@ -22,5 +22,5 @@ public interface Graph {
 
     void click(Integer cellValue);
 
-    Boolean checkGameOver();
+    Boolean isGameComplete();
 }

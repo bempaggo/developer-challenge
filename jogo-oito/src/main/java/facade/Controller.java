@@ -14,11 +14,11 @@ public class Controller {
     }
     
     public void feedback() {
-        this.board.feedback();
+        this.board.gameSolutionBoardState();
     }
 
     public void setting() {
-        this.board.setting();
+        this.board.gameStartBoardState();
     }
 
     public List<Vertex> getCells() {
@@ -30,7 +30,7 @@ public class Controller {
     }
 
     public Boolean checkGameOver() {
-        return this.board.checkGameOver();
+        return this.board.isGameComplete();
 
     }
 

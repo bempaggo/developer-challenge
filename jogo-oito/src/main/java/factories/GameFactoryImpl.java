@@ -28,4 +28,9 @@ public class GameFactoryImpl implements GameFactory {
         return new Adjacent(Keyboard.RIGHT, cell);
     }
 
+    @Override
+    public Matrix createMatrix() {
+        return new Matrix();
+    }
+
 }

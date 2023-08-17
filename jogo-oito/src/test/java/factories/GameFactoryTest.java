@@ -5,6 +5,7 @@ import interfaces.Vertex;
 import model.Adjacent;
 import model.Cell;
 import model.Keyboard;
+import model.Matrix;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -58,5 +59,11 @@ class GameFactoryTest {
         assertNotNull(adjacent);
         assertTrue(adjacent instanceof Adjacent);
         assertEquals(adjacent.key(), Keyboard.RIGHT);
+    }
+
+    @Test
+    void createMatrixTest() {
+        Matrix matrix = factory.createMatrix();
+        assertNotNull(matrix);
     }
 }

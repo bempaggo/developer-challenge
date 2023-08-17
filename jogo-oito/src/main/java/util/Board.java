@@ -1,5 +1,7 @@
 package util;
 
+import factories.GameFactory;
+import factories.GameFactoryImpl;
 import interfaces.Graph;
 import interfaces.Vertex;
 import java.util.ArrayList;
@@ -16,31 +18,29 @@ public class Board implements Graph {
 
     private List<Vertex> cells;
     private Vertex emptyCell;
-    private Integer length;
     private Matrix matrix;
+    private final GameFactory gameFactory = new GameFactoryImpl();
 
     public Board() {
     }
 
     @Override
-    public void feedback() {
-        this.matrix = new Matrix();
+    public void gameSolutionBoardState() {
+        this.matrix = gameFactory.createMatrix();
         this.cells = this.matrix.getCells();
-        this.length = cells.size();
         this.defineEmptyCell();
     }
 
     @Override
-    public void setting() {
-        this.matrix = new Matrix();
+    public void gameStartBoardState() {
+        this.matrix = gameFactory.createMatrix();
         this.cells = this.matrix.getCells();
-        this.length = cells.size();
-        this.shuffleCell();
+        this.shuffleCells();
         this.defineEmptyCell();
 
     }
 
-    private void shuffleCell() {
+    private void shuffleCells() {
         Iterator<Integer> iterator = this.shuffleValues().iterator();
         this.cells.forEach(vertex -> vertex.setValue(iterator.next()));
     }
@@ -77,10 +77,9 @@ public class Board implements Graph {
     }
 
     @Override
-    public Boolean checkGameOver() {
-        return IntStream.range(0, this.length)
-                .allMatch(index -> this.cells.get(index).getValue() == (index + 1) % this.length);
+    public Boolean isGameComplete() {
+        return IntStream.range(0, this.cells.size())
+                .allMatch(index -> this.cells.get(index).getValue() == (index + 1) % this.cells.size());
 
     }
-
 }
