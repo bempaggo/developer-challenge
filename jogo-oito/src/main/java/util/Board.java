@@ -43,23 +43,22 @@ public class Board implements Graph {
     }
 
     private void shuffleCells() {
-        Iterator<Integer> iterator = this.shuffleValues().iterator();
-        this.cells.forEach(vertex -> vertex.setValue(iterator.next()));
+        Iterator<Vertex> iterator = this.shuffleValues().iterator();
+        for (Vertex cell: this.cells) {
+            cell.setValue(iterator.next().getValue());
+        }
     }
 
-    private List<Integer> shuffleValues() {
-        List<Integer> values = new ArrayList<>();
-        this.cells.stream()
-                .map(Vertex::getValue)
-                .forEach(values::add);
-        Collections.shuffle(values);
-        return values;
+    private List<Vertex> shuffleValues() {
+        BoardMemento shuffledCellValues = new BoardMemento(this.cells);
+        Collections.shuffle(shuffledCellValues.cells());
+        return shuffledCellValues.cells();
     }
-    // TODO: we can improve this by making it return a cell with value = 0 instead of lambda and comparator
+
     private void defineEmptyCell() {
-        Optional<Vertex> minCell = this.cells.stream()
-                .min(Comparator.comparing(Vertex::getValue));
-        minCell.ifPresent(cell -> this.emptyCell = cell);
+        this.emptyCell = this.cells.stream()
+                .min(Comparator.comparing(Vertex::getValue))
+                .orElse(null);
     }
 
     @Override

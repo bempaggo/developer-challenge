@@ -28,9 +28,7 @@ public class Controller {
     }
 
     public void swap(Integer keyCode) {
-        System.out.println(this.isGameComplete() + " call swap");
         this.board.swap(keyCode);
-        System.out.println(this.isGameComplete() + " swap called");
     }
 
     public Boolean isGameComplete() {
