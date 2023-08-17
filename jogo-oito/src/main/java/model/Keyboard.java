@@ -22,7 +22,6 @@ public enum Keyboard {
     private static final Map<Integer, Keyboard> map = Arrays.stream(Keyboard.values())
         .collect(Collectors.toMap(Keyboard::getValue, Function.identity()));
 
-
     Keyboard(Integer value) {
         this.value = value;
     }

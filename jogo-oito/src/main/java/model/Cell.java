@@ -85,4 +85,14 @@ public class Cell implements Vertex {
         return Objects.equals(this.value, ((Cell) obj).value);
     }
 
+    @Override
+    public Cell clone() {
+        try {
+            Cell clone = (Cell) super.clone();
+            clone.value = this.value;
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }

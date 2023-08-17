@@ -13,8 +13,6 @@ public final class Matrix {
     private final Row secondRow;
     private final Row thirdRow;
     private final List<Vertex> cells;
-    //temp var
-
     public Matrix() {
         this.cells = new ArrayList<>();
         Cell.content = 1;

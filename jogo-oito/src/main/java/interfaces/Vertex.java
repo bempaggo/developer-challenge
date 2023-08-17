@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author allen
  */
-public interface Vertex {
+public interface Vertex extends Cloneable {
 
     void setValue(Integer value);
 
@@ -27,4 +27,6 @@ public interface Vertex {
     Vertex findAdjacentByCellValueAndCallSwap(Integer value);
 
     List<Edge> getAdjacents();
+
+    Vertex clone();
 }

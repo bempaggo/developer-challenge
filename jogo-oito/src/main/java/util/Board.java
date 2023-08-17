@@ -4,13 +4,9 @@ import factories.GameFactory;
 import factories.GameFactoryImpl;
 import interfaces.Graph;
 import interfaces.Vertex;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.IntStream;
+
+import java.util.*;
+
 import model.Keyboard;
 import model.Matrix;
 
@@ -18,26 +14,32 @@ public class Board implements Graph {
 
     private List<Vertex> cells;
     private Vertex emptyCell;
-    private Matrix matrix;
+    private BoardMemento gameCompleteBoardPattern;
     private final GameFactory gameFactory = new GameFactoryImpl();
 
     public Board() {
     }
 
     @Override
+    public List<Vertex> getCells() {
+        return this.cells;
+    }
+
+    @Override
     public void gameSolutionBoardState() {
-        this.matrix = gameFactory.createMatrix();
-        this.cells = this.matrix.getCells();
+        Matrix matrix = gameFactory.createMatrix();
+        this.cells = matrix.getCells();
+        this.gameCompleteBoardPattern = new BoardMemento(List.copyOf(this.getCells()));
         this.defineEmptyCell();
     }
 
     @Override
     public void gameStartBoardState() {
-        this.matrix = gameFactory.createMatrix();
-        this.cells = this.matrix.getCells();
+        Matrix matrix = gameFactory.createMatrix();
+        this.cells = matrix.getCells();
+        this.gameCompleteBoardPattern = new BoardMemento(List.copyOf(this.getCells()));
         this.shuffleCells();
         this.defineEmptyCell();
-
     }
 
     private void shuffleCells() {
@@ -53,7 +55,7 @@ public class Board implements Graph {
         Collections.shuffle(values);
         return values;
     }
-
+    // TODO: we can improve this by making it return a cell with value = 0 instead of lambda and comparator
     private void defineEmptyCell() {
         Optional<Vertex> minCell = this.cells.stream()
                 .min(Comparator.comparing(Vertex::getValue));
@@ -72,14 +74,8 @@ public class Board implements Graph {
     }
 
     @Override
-    public List<Vertex> getCells() {
-        return this.cells;
-    }
-
-    @Override
     public Boolean isGameComplete() {
-        return IntStream.range(0, this.cells.size())
-                .allMatch(index -> this.cells.get(index).getValue() == (index + 1) % this.cells.size());
-
+        return this.cells.equals(gameCompleteBoardPattern.cells());
     }
+
 }

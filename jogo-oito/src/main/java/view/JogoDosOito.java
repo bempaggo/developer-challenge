@@ -21,13 +21,11 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     private final List<JButton> buttons;
     private final Controller controller;
-    private JButton reset;
-    private JButton feedback;
 
     public JogoDosOito() {
         super("Jogo dos Oito");
         this.controller = new Controller();
-        this.controller.setting();
+        this.controller.gameStartBoardState();
         this.buttons = new ArrayList<>();
     }
 
@@ -69,7 +67,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void checkGameOver() {
-        Optional.ofNullable(this.controller.checkGameOver())
+        Optional.ofNullable(this.controller.isGameComplete())
                 .filter(Boolean::booleanValue)
                 .ifPresent(gameOver -> {
                     JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
@@ -78,10 +76,10 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void configMenu() {
-        this.reset = this.configReset();
-        this.feedback = this.configFeedback();
-        add(this.feedback);
-        add(this.reset);
+        JButton reset = this.configReset();
+        JButton feedback = this.configFeedback();
+        add(feedback);
+        add(reset);
         add(new JLabel(""));
     }
 
@@ -93,7 +91,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
         });
         return buttonReset;
     }
-    
+
     private JButton configFeedback() {
         JButton buttonFeedback = new JButton("Gabarito");
         buttonFeedback.addActionListener((ActionEvent e) -> {
@@ -105,12 +103,12 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
 
     private void resetGame() {
-        this.controller.setting();
+        this.controller.gameStartBoardState();
         this.updateBoard();
     }
     
     private void showFeedback() {
-        this.controller.feedback();
+        this.controller.gameSolutionBoardState();
         this.updateBoard();
     }
 
@@ -130,8 +128,8 @@ public class JogoDosOito extends JFrame implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         this.controller.swap(e.getKeyCode());
-        this.updateBoard();
         this.checkGameOver();
+        this.updateBoard();
     }
 
     @Override
