@@ -2,6 +2,7 @@ package model;
 
 import interfaces.Edge;
 import interfaces.Vertex;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -36,13 +37,9 @@ public class Cell implements Vertex {
     public void addAdjacents(Edge edge) {
         this.adjacents.add(edge);
     }
-
     @Override
     public String valueToText() {
-        return Optional.of(this.value)
-                .filter(value -> value != 0)
-                .map(String::valueOf)
-                .orElse("");
+        return String.valueOf(this.value);
     }
 
     @Override

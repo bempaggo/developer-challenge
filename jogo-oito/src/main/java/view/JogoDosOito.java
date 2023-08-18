@@ -3,8 +3,9 @@ package view;
 import facade.Controller;
 import interfaces.BoardUpdateListener;
 import interfaces.Vertex;
-import java.awt.Font;
-import java.awt.GridLayout;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -12,15 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 public class JogoDosOito extends JFrame implements KeyListener, BoardUpdateListener {
 
-    private final List<JButton> buttons;
+    private final List<Button> buttons;
     private final Controller controller;
 
     public JogoDosOito(Controller controller) {
@@ -41,29 +37,24 @@ public class JogoDosOito extends JFrame implements KeyListener, BoardUpdateListe
 
     public void createButtons() {
         this.controller.getCells().forEach(cell -> {
-            JButton button = this.configButton(cell);
+            Button button = this.configButton(cell);
             add(button);
             buttons.add(button);
         });
     }
 
     private Integer textToValue(String text) {
-        return Optional.ofNullable(text)
-                .map(Integer::valueOf)
-                .orElse(0);
+        return text.isEmpty() ? 0 : Integer.parseInt(text);
     }
 
-    private JButton configButton(Vertex cell) {
-        JButton button = new JButton();
-        button.setFont(new Font("Arial", Font.BOLD, 36));
-        button.setText(cell.valueToText());
-        button.addActionListener((ActionEvent e) -> {
-            this.controller.click(this.textToValue(button.getText()));
-            this.checkGameOver();
-            SwingUtilities.getRoot(button).requestFocus();
-        });
-        return button;
-
+    private Button configButton(Vertex cell) {
+        return new Button()
+                .withFont(new Font("Arial", Font.BOLD, 36))
+                .withText(cell.valueToText())
+                .withActionListener((ActionEvent e) -> {
+                    this.controller.click(textToValue(e.getActionCommand()));
+                    this.checkGameOver();
+                });
     }
 
     private void checkGameOver() {
@@ -76,29 +67,19 @@ public class JogoDosOito extends JFrame implements KeyListener, BoardUpdateListe
     }
 
     public void configMenu() {
-        JButton reset = this.configReset();
-        JButton feedback = this.configFeedback();
-        add(feedback);
-        add(reset);
+        add(this.configFeedback());
+        add(this.configReset());
         add(new JLabel(""));
     }
 
-    private JButton configReset() {
-        JButton buttonReset = new JButton("Reiniciar");
-        buttonReset.addActionListener((ActionEvent e) -> {
-            this.resetGame();
-            SwingUtilities.getRoot(buttonReset).requestFocus();
-        });
-        return buttonReset;
+    private Button configReset() {
+        return new Button("Reiniciar")
+                .withActionListener((ActionEvent e) -> this.resetGame());
     }
 
-    private JButton configFeedback() {
-        JButton buttonFeedback = new JButton("Gabarito");
-        buttonFeedback.addActionListener((ActionEvent e) -> {
-            this.showFeedback();
-            SwingUtilities.getRoot(buttonFeedback).requestFocus();
-        });
-        return buttonFeedback;
+    private Button configFeedback() {
+        return new Button("Gabarito")
+                .withActionListener((ActionEvent e) -> this.showFeedback());
     }
 
 
@@ -115,9 +96,10 @@ public class JogoDosOito extends JFrame implements KeyListener, BoardUpdateListe
         List<Vertex> cells = this.controller.getCells();
         IntStream.range(0, cells.size())
                 .forEach(index -> {
-                    JButton button = this.buttons.get(index);
+                    Button button = this.buttons.get(index);
                     button.setText(cells.get(index).valueToText());
                 });
+        requestFocus();
     }
 
     @Override
