@@ -15,6 +15,10 @@ public class Controller {
         this.board = new Board();
     }
 
+    public Graph getBoard() {
+        return board;
+    }
+
     public void gameSolutionBoardState() {
         this.board.gameSolutionBoardState();
     }

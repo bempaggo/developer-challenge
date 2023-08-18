@@ -23,4 +23,6 @@ public interface Graph {
     void click(Integer cellValue);
 
     Boolean isGameComplete();
+
+    void addListener(BoardUpdateListener listener);
 }

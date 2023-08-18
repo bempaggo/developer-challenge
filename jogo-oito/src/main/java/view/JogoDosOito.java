@@ -1,6 +1,7 @@
 package view;
 
 import facade.Controller;
+import interfaces.BoardUpdateListener;
 import interfaces.Vertex;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -17,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-public class JogoDosOito extends JFrame implements KeyListener {
+public class JogoDosOito extends JFrame implements KeyListener, BoardUpdateListener {
 
     private final List<JButton> buttons;
     private final Controller controller;
@@ -58,7 +59,6 @@ public class JogoDosOito extends JFrame implements KeyListener {
         button.setText(cell.valueToText());
         button.addActionListener((ActionEvent e) -> {
             this.controller.click(this.textToValue(button.getText()));
-            this.updateBoard();
             this.checkGameOver();
             SwingUtilities.getRoot(button).requestFocus();
         });
@@ -104,15 +104,14 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     private void resetGame() {
         this.controller.gameStartBoardState();
-        this.updateBoard();
     }
     
     private void showFeedback() {
         this.controller.gameSolutionBoardState();
-        this.updateBoard();
     }
 
-    private void updateBoard() {
+    @Override
+    public void updateBoard() {
         List<Vertex> cells = this.controller.getCells();
         IntStream.range(0, cells.size())
                 .forEach(index -> {
@@ -129,7 +128,6 @@ public class JogoDosOito extends JFrame implements KeyListener {
     public void keyPressed(KeyEvent e) {
         this.controller.swap(e.getKeyCode());
         this.checkGameOver();
-        this.updateBoard();
     }
 
     @Override
@@ -138,9 +136,9 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     public static void main(String[] args) {
         JogoDosOito game = new JogoDosOito();
+        game.controller.getBoard().addListener(game);
         game.createButtons();
         game.configMenu();
         game.configureInterface();
-
     }
 }

@@ -2,6 +2,7 @@ package util;
 
 import factories.GameFactory;
 import factories.GameFactoryImpl;
+import interfaces.BoardUpdateListener;
 import interfaces.Graph;
 import interfaces.Vertex;
 
@@ -16,8 +17,10 @@ public class Board implements Graph {
     private Vertex emptyCell;
     private BoardMemento gameCompleteBoardPattern;
     private final GameFactory gameFactory = new GameFactoryImpl();
+    private final List<BoardUpdateListener> boardListeners;
 
     public Board() {
+        this.boardListeners = new ArrayList<>();
     }
 
     @Override
@@ -31,6 +34,7 @@ public class Board implements Graph {
         this.cells = matrix.getCells();
         this.gameCompleteBoardPattern = new BoardMemento(List.copyOf(this.getCells()));
         this.defineEmptyCell();
+        notifyListeners();
     }
 
     @Override
@@ -40,6 +44,7 @@ public class Board implements Graph {
         this.gameCompleteBoardPattern = new BoardMemento(List.copyOf(this.getCells()));
         this.shuffleCells();
         this.defineEmptyCell();
+        notifyListeners();
     }
 
     private void shuffleCells() {
@@ -64,17 +69,28 @@ public class Board implements Graph {
     @Override
     public void click(Integer cellValue) {
         this.emptyCell = this.emptyCell.findAdjacentByCellValueAndCallSwap(cellValue);
+        notifyListeners();
     }
 
     @Override
     public void swap(Integer keyCode) {
-        Keyboard key = Keyboard.fromValue(keyCode);
-        this.emptyCell = this.emptyCell.findAdjacentByKeycodeAndCallSwap(key);
+        this.emptyCell = this.emptyCell.findAdjacentByKeycodeAndCallSwap(Keyboard.fromValue(keyCode));
+        notifyListeners();
     }
 
     @Override
     public Boolean isGameComplete() {
         return this.cells.equals(gameCompleteBoardPattern.cells());
+    }
+
+    public void addListener(BoardUpdateListener listener) {
+        this.boardListeners.add(listener);
+    }
+
+    private void notifyListeners() {
+        for (BoardUpdateListener listener : this.boardListeners) {
+            listener.updateBoard();
+        }
     }
 
 }
