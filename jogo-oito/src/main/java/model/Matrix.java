@@ -1,19 +1,21 @@
 package model;
 
 import factories.GameFactory;
-import factories.GameFactoryImpl;
 import interfaces.Vertex;
 
 import java.util.ArrayList;
 import java.util.List;
-
+// TODO: it looks like a composer
 public final class Matrix {
 
     private final Row firstRow;
     private final Row secondRow;
     private final Row thirdRow;
     private final List<Vertex> cells;
-    public Matrix() {
+    private final GameFactory gameFactory;
+
+    public Matrix(GameFactory gameFactory) {
+        this.gameFactory = gameFactory;
         this.cells = new ArrayList<>();
         Cell.content = 1;
         this.firstRow = new Row();
@@ -42,7 +44,6 @@ public final class Matrix {
         private final Vertex initial;
         private final Vertex center;
         private final Vertex last;
-        private final GameFactory gameFactory = new GameFactoryImpl();
 
         public Row() {
             this.initial = gameFactory.createCell();

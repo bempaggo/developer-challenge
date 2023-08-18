@@ -5,19 +5,7 @@ import interfaces.Vertex;
 
 import java.util.List;
 
-import util.Board;
-
-public class Controller {
-
-    private final Graph board;
-
-    public Controller() {
-        this.board = new Board();
-    }
-
-    public Graph getBoard() {
-        return board;
-    }
+public record Controller(Graph board) {
 
     public void gameSolutionBoardState() {
         this.board.gameSolutionBoardState();

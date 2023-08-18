@@ -1,7 +1,6 @@
 package util;
 
 import factories.GameFactory;
-import factories.GameFactoryImpl;
 import interfaces.BoardUpdateListener;
 import interfaces.Graph;
 import interfaces.Vertex;
@@ -16,11 +15,12 @@ public class Board implements Graph {
     private List<Vertex> cells;
     private Vertex emptyCell;
     private BoardMemento gameCompleteBoardPattern;
-    private final GameFactory gameFactory = new GameFactoryImpl();
+    private final GameFactory gameFactory;
     private final List<BoardUpdateListener> boardListeners;
 
-    public Board() {
+    public Board(GameFactory gameFactory) {
         this.boardListeners = new ArrayList<>();
+        this.gameFactory = gameFactory;
     }
 
     @Override

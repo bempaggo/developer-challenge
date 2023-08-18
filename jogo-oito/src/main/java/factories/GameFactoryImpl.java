@@ -30,7 +30,7 @@ public class GameFactoryImpl implements GameFactory {
 
     @Override
     public Matrix createMatrix() {
-        return new Matrix();
+        return new Matrix(this);
     }
 
 }

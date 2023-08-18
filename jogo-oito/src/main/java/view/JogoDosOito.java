@@ -23,14 +23,14 @@ public class JogoDosOito extends JFrame implements KeyListener, BoardUpdateListe
     private final List<JButton> buttons;
     private final Controller controller;
 
-    public JogoDosOito() {
+    public JogoDosOito(Controller controller) {
         super("Jogo dos Oito");
-        this.controller = new Controller();
+        this.controller = controller;
         this.controller.gameStartBoardState();
         this.buttons = new ArrayList<>();
     }
 
-    private void configureInterface() {
+    public void configureInterface() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
         setLayout(new GridLayout(4, 3));
@@ -39,7 +39,7 @@ public class JogoDosOito extends JFrame implements KeyListener, BoardUpdateListe
         setFocusable(true);
     }
 
-    private void createButtons() {
+    public void createButtons() {
         this.controller.getCells().forEach(cell -> {
             JButton button = this.configButton(cell);
             add(button);
@@ -75,7 +75,7 @@ public class JogoDosOito extends JFrame implements KeyListener, BoardUpdateListe
                 });
     }
 
-    private void configMenu() {
+    public void configMenu() {
         JButton reset = this.configReset();
         JButton feedback = this.configFeedback();
         add(feedback);
@@ -105,7 +105,7 @@ public class JogoDosOito extends JFrame implements KeyListener, BoardUpdateListe
     private void resetGame() {
         this.controller.gameStartBoardState();
     }
-    
+
     private void showFeedback() {
         this.controller.gameSolutionBoardState();
     }
@@ -134,11 +134,4 @@ public class JogoDosOito extends JFrame implements KeyListener, BoardUpdateListe
     public void keyReleased(KeyEvent e) {
     }
 
-    public static void main(String[] args) {
-        JogoDosOito game = new JogoDosOito();
-        game.controller.getBoard().addListener(game);
-        game.createButtons();
-        game.configMenu();
-        game.configureInterface();
-    }
 }
