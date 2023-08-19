@@ -1,4 +1,4 @@
-package interfaces;
+package listeners;
 
 public interface BoardUpdateListener {
 

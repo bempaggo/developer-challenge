@@ -1,8 +1,8 @@
 package view;
 
 import facade.Controller;
-import interfaces.BoardUpdateListener;
 import interfaces.Vertex;
+import listeners.BoardUpdateListener;
 
 import javax.swing.*;
 import java.awt.*;

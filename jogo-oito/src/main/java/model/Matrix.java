@@ -5,23 +5,27 @@ import interfaces.Vertex;
 
 import java.util.ArrayList;
 import java.util.List;
-// TODO: it looks like a composer
+
 public final class Matrix {
 
-    private final Row firstRow;
-    private final Row secondRow;
-    private final Row thirdRow;
-    private final List<Vertex> cells;
+    private Row firstRow;
+    private Row secondRow;
+    private Row thirdRow;
+    private List<Vertex> cells;
     private final GameFactory gameFactory;
 
     public Matrix(GameFactory gameFactory) {
         this.gameFactory = gameFactory;
+        this.populateMatrix();
+        this.defineAdjacent();
+    }
+
+    private void populateMatrix() {
         this.cells = new ArrayList<>();
         Cell.content = 1;
         this.firstRow = new Row();
         this.secondRow = new Row();
         this.thirdRow = new Row();
-        this.defineAdjacent();
     }
 
     private void defineAdjacent() {
@@ -35,7 +39,7 @@ public final class Matrix {
         this.thirdRow.last.setValue(0);
     }
 
-    public List<Vertex> getCells() {
+    public List<Vertex> getComponents() {
         return this.cells;
     }
 
@@ -50,10 +54,10 @@ public final class Matrix {
             this.center = gameFactory.createCell();
             this.last = gameFactory.createCell();
             this.defineHorizontalAdjacency();
-            this.loadCells();
+            this.populateRow();
         }
 
-        private void loadCells() {
+        private void populateRow() {
             cells.add(this.initial);
             cells.add(this.center);
             cells.add(this.last);

@@ -9,7 +9,7 @@ import view.JogoDosOito;
 
 public class GameLauncher {
 
-    static void buildGame() {
+    public static void buildGame() {
         GameFactory gameFactory = new GameFactoryImpl();
         Board board = new Board(gameFactory);
         Controller controller = new Controller(board);
@@ -21,7 +21,7 @@ public class GameLauncher {
         game.configureInterface();
     }
     public static void main(String[] args) {
-        buildGame();
+        GameLauncher.buildGame();
     }
 
 }

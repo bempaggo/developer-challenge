@@ -4,6 +4,8 @@
  */
 package interfaces;
 
+import listeners.BoardUpdateListener;
+
 import java.util.List;
 
 /**

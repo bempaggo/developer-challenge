@@ -1,20 +1,20 @@
 package util;
 
 import factories.GameFactory;
-import interfaces.BoardUpdateListener;
 import interfaces.Graph;
 import interfaces.Vertex;
-
-import java.util.*;
-
+import listeners.BoardUpdateListener;
 import model.Keyboard;
 import model.Matrix;
+import model.MatrixMemento;
+
+import java.util.*;
 
 public class Board implements Graph {
 
     private List<Vertex> cells;
     private Vertex emptyCell;
-    private BoardMemento gameCompleteBoardPattern;
+    private MatrixMemento gameCompleteBoardPattern;
     private final GameFactory gameFactory;
     private final List<BoardUpdateListener> boardListeners;
 
@@ -31,8 +31,8 @@ public class Board implements Graph {
     @Override
     public void gameSolutionBoardState() {
         Matrix matrix = gameFactory.createMatrix();
-        this.cells = matrix.getCells();
-        this.gameCompleteBoardPattern = new BoardMemento(List.copyOf(this.getCells()));
+        this.cells = matrix.getComponents();
+        this.gameCompleteBoardPattern = new MatrixMemento(List.copyOf(this.getCells()));
         this.defineEmptyCell();
         notifyListeners();
     }
@@ -40,8 +40,8 @@ public class Board implements Graph {
     @Override
     public void gameStartBoardState() {
         Matrix matrix = gameFactory.createMatrix();
-        this.cells = matrix.getCells();
-        this.gameCompleteBoardPattern = new BoardMemento(List.copyOf(this.getCells()));
+        this.cells = matrix.getComponents();
+        this.gameCompleteBoardPattern = new MatrixMemento(List.copyOf(this.getCells()));
         this.shuffleCells();
         this.defineEmptyCell();
         notifyListeners();
@@ -55,7 +55,7 @@ public class Board implements Graph {
     }
 
     private List<Vertex> shuffleValues() {
-        BoardMemento shuffledCellValues = new BoardMemento(this.cells);
+        MatrixMemento shuffledCellValues = new MatrixMemento(this.cells);
         Collections.shuffle(shuffledCellValues.cells());
         return shuffledCellValues.cells();
     }
