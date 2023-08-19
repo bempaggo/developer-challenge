@@ -62,7 +62,7 @@ _Precisamos jogar o jogo com mouse._
 
 2° - Allan incluiu uma versão Orientada Objetos, contudo com muito código funcional.
 
-3° - Estamos agoardando ansiosos por adicionar mais nomes de desenvolvedores ou desenvolvedoras aqui. 
+3° - Estamos aguardando ansiosos por adicionar mais nomes de desenvolvedores ou desenvolvedoras aqui. 
 
 ## 2.2 Melhorias
 Gostariamos de uma versão tendendo à POO pura. Onde pode melhorar? 
