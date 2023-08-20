@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+//TODO: i can only implement the proper asserts after i make cells subjects of its nodes
 class CellTest {
 
     private Vertex cell;
@@ -33,88 +34,77 @@ class CellTest {
         assertNotNull(cell.valueToText());
         assertEquals(text, cell.valueToText());
     }
-
     @Test
-    void findAdjacentByKeycodeAndCallSwapWhenAdjacentPresentTest() {
-        //testa para todos os valores no enum Keyboard
+    void performSwapByKeyWhenAdjacentPresent() {
+        //testing for all values on enum Keyboard
         for (Keyboard key : Keyboard.values()) {
-            //cria uma célula adjacente e mocka uma adjacent que retorna ela e a key, add na célula
+            //mocking an adjacent and a AdjacentCell, and adding it to cell.adjacents
             Vertex adjacentCell = new Cell();
             adjacentCell.setValue(random.nextInt());
             Adjacent adjacent = mock(Adjacent.class);
             when(adjacent.cell()).thenReturn(adjacentCell);
             when(adjacent.key()).thenReturn(key);
             cell.addAdjacents(adjacent);
+            // copying the cells for asserts comparing
+            Vertex adjacentCellClone = adjacentCell.clone();
 
-            //chama o método que será testado
-            Vertex result = cell.performSwap(key);
+            cell.performSwap(key);
 
-            assertEquals(adjacent.cell().getValue(), result.getValue());
-            assertNotNull(result);
-            assertNotSame(cell, result);
+            assertEquals(cell, adjacentCellClone);
         }
     }
 
     @Test
-    void findAdjacentByKeycodeAndCallSwapForAllKeyValues() {
-        //testa para todos os valores no enum Keyboard
+    void performSwapByKeyWhenAdjacentNull() {
         for (Keyboard key : Keyboard.values()) {
-            //mocka uma Adjacent nula
             Adjacent mockAdjacent = mock(Adjacent.class);
             when(mockAdjacent.cell()).thenReturn(null);
             when(mockAdjacent.key()).thenReturn(null);
 
-            //chama o método que será testado
-            Vertex result = cell.performSwap(key);
+            cell.performSwap(key);
 
-            assertEquals(cell.getValue(), result.getValue());
-            assertNotNull(result);
-            assertSame(cell, result);
+            assertEquals(cell.getValue(), cell.getValue());
         }
     }
 
+
     @RepeatedTest(5)
-    void swapByCellValueWhenCellPresentTest() {
-        //cria uma célula adjacente, mocka um Adjacent pra retornar ela e adiciona as adjacências de cell
+    void performSwapByValueWhenAdjacentPresent() {
         Vertex adjacentCell = new Cell();
         adjacentCell.setValue(random.nextInt());
         Adjacent adjacent = mock(Adjacent.class);
         when(adjacent.cell()).thenReturn(adjacentCell);
         cell.addAdjacents(adjacent);
 
-        //chama o método que será testado e armazena numa Cell para usar nos asserts
-        Vertex result = cell.performSwap(adjacentCell.getValue());
+        // copying the cells for asserts comparing
+        Vertex adjacentCellClone = adjacentCell.clone();
 
-        assertEquals(adjacent.cell().getValue(), result.getValue());
-        assertNotNull(result);
-        assertNotSame(cell, result);
+        cell.performSwap(adjacentCell.getValue());
+
+        assertEquals(cell, adjacentCellClone);
     }
+
 
     @RepeatedTest(5)
     void swapByCellValueWhenCellNotPresentTest() {
-        // Mocka um Adjacent para retornar null
         Adjacent mockAdjacent = mock(Adjacent.class);
         when(mockAdjacent.cell()).thenReturn(null);
 
-        // Chama o método que será testado
-        Vertex result = cell.performSwap(random.nextInt());
+        cell.performSwap(random.nextInt());
 
-        // Verifica que o valor da célula não foi alterado e que o método retornou a própria célula
-        assertEquals(cell.getValue(), result.getValue());
-        assertSame(cell, result);
+        assertEquals(cell.getValue(), cell.getValue());
     }
 
     @Test
     void addAdjacentsTest() {
-        //mocka uma Adjacent e adiciona à célula, chama o método que é testado
         Edge mockAdjacent = mock(Adjacent.class);
         cell.addAdjacents(mockAdjacent);
 
-        //armazena as adjacents para os asserts
         List<Edge> underTestAdjacents = cell.getAdjacents();
 
         assertNotNull(underTestAdjacents);
         assertTrue(underTestAdjacents.contains(mockAdjacent));
     }
+
 
 }

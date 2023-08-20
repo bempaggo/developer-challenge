@@ -43,31 +43,28 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public Vertex performSwap(Keyboard key) {
+    public void performSwap(Keyboard key) {
         Edge adjacent = this.getAdjacentByKeyCode(key);
-        return this.findCellInAdjacentsPassingAnEdgeAndCallSwap(adjacent);
+        this.findCellInAdjacentsPassingAnEdgeAndCallSwap(adjacent);
     }
 
     @Override
-    public Vertex performSwap(Integer value) {
-        return this.adjacents.stream()
+    public void performSwap(Integer value) {
+        this.adjacents.stream()
                 .filter(adjacent -> Objects.equals(adjacent.cell().getValue(), value))
                 .findFirst()
-                .map(this::findCellInAdjacentsPassingAnEdgeAndCallSwap)
-                .orElse(this);
+                .ifPresent(this::findCellInAdjacentsPassingAnEdgeAndCallSwap);
     }
 
-    private Vertex findCellInAdjacentsPassingAnEdgeAndCallSwap(Edge adjacent) {
-        return Optional.ofNullable(adjacent)
+    private void findCellInAdjacentsPassingAnEdgeAndCallSwap(Edge adjacent) {
+        Optional.ofNullable(adjacent)
                 .map(Edge::cell)
-                .map(this::swapCellsValue)
-                .orElse(this);
+                .ifPresent(this::swapCellsValue);
     }
 
-    private Vertex swapCellsValue(Vertex movementCell) {
+    private void swapCellsValue(Vertex movementCell) {
         this.setValue(movementCell.getValue());
         movementCell.setValue(0);
-        return movementCell;
     }
 
     private Edge getAdjacentByKeyCode(Keyboard key) {
