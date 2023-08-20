@@ -8,12 +8,14 @@ import model.Keyboard;
 import model.Matrix;
 import model.MatrixMemento;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public class Board implements Graph {
 
-    private List<Vertex> cells;
-    private Vertex emptyCell;
+    private Matrix matrix;
     private MatrixMemento gameCompleteBoardPattern;
     private final GameFactory gameFactory;
     private final List<BoardUpdateListener> boardListeners;
@@ -25,62 +27,52 @@ public class Board implements Graph {
 
     @Override
     public List<Vertex> getCells() {
-        return this.cells;
+        return this.matrix.getComponents();
     }
 
     @Override
     public void gameSolutionBoardState() {
-        Matrix matrix = gameFactory.createMatrix();
-        this.cells = matrix.getComponents();
-        this.gameCompleteBoardPattern = new MatrixMemento(List.copyOf(this.getCells()));
-        this.defineEmptyCell();
+        this.matrix = gameFactory.createMatrix();
+        this.gameCompleteBoardPattern = new MatrixMemento(this.matrix);
         notifyListeners();
     }
 
     @Override
     public void gameStartBoardState() {
-        Matrix matrix = gameFactory.createMatrix();
-        this.cells = matrix.getComponents();
-        this.gameCompleteBoardPattern = new MatrixMemento(List.copyOf(this.getCells()));
+        this.matrix = gameFactory.createMatrix();
+        this.gameCompleteBoardPattern = new MatrixMemento(this.matrix);
         this.shuffleCells();
-        this.defineEmptyCell();
         notifyListeners();
     }
 
     private void shuffleCells() {
         Iterator<Vertex> iterator = this.shuffleValues().iterator();
-        for (Vertex cell: this.cells) {
+        for (Vertex cell : this.matrix.getComponents()) {
             cell.setValue(iterator.next().getValue());
         }
     }
 
     private List<Vertex> shuffleValues() {
-        MatrixMemento shuffledCellValues = new MatrixMemento(this.cells);
+        MatrixMemento shuffledCellValues = new MatrixMemento(this.matrix);
         Collections.shuffle(shuffledCellValues.cells());
         return shuffledCellValues.cells();
     }
 
-    private void defineEmptyCell() {
-        this.emptyCell = this.cells.stream()
-                .min(Comparator.comparing(Vertex::getValue))
-                .orElse(null);
-    }
-
     @Override
     public void click(Integer cellValue) {
-        this.emptyCell = this.emptyCell.findAdjacentByCellValueAndCallSwap(cellValue);
+        this.matrix.performSwap(cellValue);
         notifyListeners();
     }
 
     @Override
     public void swap(Integer keyCode) {
-        this.emptyCell = this.emptyCell.findAdjacentByKeycodeAndCallSwap(Keyboard.fromValue(keyCode));
+        this.matrix.performSwap(Keyboard.fromValue(keyCode));
         notifyListeners();
     }
 
     @Override
     public Boolean isGameComplete() {
-        return this.cells.equals(gameCompleteBoardPattern.cells());
+        return gameCompleteBoardPattern.equals(this.matrix);
     }
 
     public void addListener(BoardUpdateListener listener) {

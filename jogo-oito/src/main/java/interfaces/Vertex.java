@@ -20,11 +20,11 @@ public interface Vertex extends Cloneable {
 
     String valueToText();
 
-    Vertex findAdjacentByKeycodeAndCallSwap(Keyboard key);
+    Vertex performSwap(Keyboard key);
     
     void addAdjacents(Edge edge);
-    
-    Vertex findAdjacentByCellValueAndCallSwap(Integer value);
+
+    Vertex performSwap(Integer value);
 
     List<Edge> getAdjacents();
 

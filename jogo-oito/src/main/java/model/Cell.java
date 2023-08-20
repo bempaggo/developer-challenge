@@ -43,13 +43,13 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public Vertex findAdjacentByKeycodeAndCallSwap(Keyboard key) {
+    public Vertex performSwap(Keyboard key) {
         Edge adjacent = this.getAdjacentByKeyCode(key);
         return this.findCellInAdjacentsPassingAnEdgeAndCallSwap(adjacent);
     }
 
     @Override
-    public Vertex findAdjacentByCellValueAndCallSwap(Integer value) {
+    public Vertex performSwap(Integer value) {
         return this.adjacents.stream()
                 .filter(adjacent -> Objects.equals(adjacent.cell().getValue(), value))
                 .findFirst()

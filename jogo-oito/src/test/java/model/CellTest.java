@@ -47,7 +47,7 @@ class CellTest {
             cell.addAdjacents(adjacent);
 
             //chama o método que será testado
-            Vertex result = cell.findAdjacentByKeycodeAndCallSwap(key);
+            Vertex result = cell.performSwap(key);
 
             assertEquals(adjacent.cell().getValue(), result.getValue());
             assertNotNull(result);
@@ -65,7 +65,7 @@ class CellTest {
             when(mockAdjacent.key()).thenReturn(null);
 
             //chama o método que será testado
-            Vertex result = cell.findAdjacentByKeycodeAndCallSwap(key);
+            Vertex result = cell.performSwap(key);
 
             assertEquals(cell.getValue(), result.getValue());
             assertNotNull(result);
@@ -83,7 +83,7 @@ class CellTest {
         cell.addAdjacents(adjacent);
 
         //chama o método que será testado e armazena numa Cell para usar nos asserts
-        Vertex result = cell.findAdjacentByCellValueAndCallSwap(adjacentCell.getValue());
+        Vertex result = cell.performSwap(adjacentCell.getValue());
 
         assertEquals(adjacent.cell().getValue(), result.getValue());
         assertNotNull(result);
@@ -97,7 +97,7 @@ class CellTest {
         when(mockAdjacent.cell()).thenReturn(null);
 
         // Chama o método que será testado
-        Vertex result = cell.findAdjacentByCellValueAndCallSwap(random.nextInt());
+        Vertex result = cell.performSwap(random.nextInt());
 
         // Verifica que o valor da célula não foi alterado e que o método retornou a própria célula
         assertEquals(cell.getValue(), result.getValue());

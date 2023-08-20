@@ -18,6 +18,7 @@ public final class Matrix {
         this.gameFactory = gameFactory;
         this.populateMatrix();
         this.defineAdjacent();
+        this.changePositionToValidateTemplate();
     }
 
     private void populateMatrix() {
@@ -31,8 +32,6 @@ public final class Matrix {
     private void defineAdjacent() {
         this.firstRow.defineVerticalAdjacency(this.secondRow);
         this.secondRow.defineVerticalAdjacency(this.thirdRow);
-
-        this.changePositionToValidateTemplate();
     }
 
     private void changePositionToValidateTemplate() {
@@ -41,6 +40,20 @@ public final class Matrix {
 
     public List<Vertex> getComponents() {
         return this.cells;
+    }
+
+    public Vertex getComponent(Integer cellValue) {
+        Vertex tempCell = gameFactory.createCell();
+        tempCell.setValue(cellValue);
+        return this.cells.get(this.cells.indexOf(tempCell));
+    }
+
+    public void performSwap(Integer cellValue) {
+        this.getComponent(0).performSwap(cellValue);
+    }
+
+    public void performSwap(Keyboard key) {
+        this.getComponent(0).performSwap(key);
     }
 
     public final class Row {
