@@ -6,7 +6,6 @@ import interfaces.Vertex;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class Cell implements Vertex {
 
@@ -37,15 +36,10 @@ public class Cell implements Vertex {
     public void addAdjacents(Edge edge) {
         this.adjacents.add(edge);
     }
+
     @Override
     public String valueToText() {
         return String.valueOf(this.value);
-    }
-
-    @Override
-    public void performSwap(Keyboard key) {
-        Edge adjacent = this.getAdjacentByKeyCode(key);
-        this.findCellInAdjacentsPassingAnEdgeAndCallSwap(adjacent);
     }
 
     @Override
@@ -53,25 +47,24 @@ public class Cell implements Vertex {
         this.adjacents.stream()
                 .filter(adjacent -> Objects.equals(adjacent.cell().getValue(), value))
                 .findFirst()
-                .ifPresent(this::findCellInAdjacentsPassingAnEdgeAndCallSwap);
+                .ifPresent(this::swapValues);
     }
 
-    private void findCellInAdjacentsPassingAnEdgeAndCallSwap(Edge adjacent) {
-        Optional.ofNullable(adjacent)
-                .map(Edge::cell)
-                .ifPresent(this::swapCellsValue);
-    }
-
-    private void swapCellsValue(Vertex movementCell) {
-        this.setValue(movementCell.getValue());
-        movementCell.setValue(0);
-    }
-
-    private Edge getAdjacentByKeyCode(Keyboard key) {
-        return this.adjacents.stream()
+    @Override
+    public void performSwap(Keyboard key) {
+        this.adjacents.stream()
                 .filter(adjacent -> adjacent.key() == key)
                 .findFirst()
-                .orElse(null);
+                .ifPresent(this::swapValues);
+    }
+
+    private void swapValues(Edge adjacent) {
+        Vertex movementCell = adjacent.cell();
+        Integer currentValue = this.getValue();
+        Integer newValue = movementCell.getValue();
+
+        this.setValue(newValue);
+        movementCell.setValue(currentValue);
     }
 
     @Override
