@@ -6,6 +6,7 @@ import interfaces.Vertex;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class Cell implements Vertex {
 
@@ -38,33 +39,47 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public String valueToText() {
-        return String.valueOf(this.value);
+    public List<Vertex> getComponents() {
+        return null;
     }
 
-    @Override
+    public Vertex getComponent(Integer cellValue) {
+        return findAdjacentByValue(cellValue)
+                .map(Edge::cell)
+                .orElse(null);
+    }
+
     public void performSwap(Integer value) {
-        this.adjacents.stream()
-                .filter(adjacent -> Objects.equals(adjacent.cell().getValue(), value))
-                .findFirst()
-                .ifPresent(this::swapValues);
+        findAdjacentByValue(value).ifPresent(adjacent -> swapValues(adjacent.cell()));
     }
 
-    @Override
     public void performSwap(Keyboard key) {
-        this.adjacents.stream()
-                .filter(adjacent -> adjacent.key() == key)
-                .findFirst()
-                .ifPresent(this::swapValues);
+        findAdjacentByKey(key).ifPresent(adjacent -> swapValues(adjacent.cell()));
     }
 
-    private void swapValues(Edge adjacent) {
-        Vertex movementCell = adjacent.cell();
+    private Optional<Edge> findAdjacentByValue(Integer value) {
+        return adjacents.stream()
+                .filter(adjacent -> Objects.equals(adjacent.cell().getValue(), value))
+                .findFirst();
+    }
+
+    private Optional<Edge> findAdjacentByKey(Keyboard key) {
+        return adjacents.stream()
+                .filter(adjacent -> adjacent.key() == key)
+                .findFirst();
+    }
+
+    private void swapValues(Vertex movementCell) {
         Integer currentValue = this.getValue();
         Integer newValue = movementCell.getValue();
 
         this.setValue(newValue);
         movementCell.setValue(currentValue);
+    }
+
+    @Override
+    public String valueToText() {
+        return String.valueOf(this.value);
     }
 
     @Override
