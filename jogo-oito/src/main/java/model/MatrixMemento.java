@@ -1,5 +1,6 @@
 package model;
 
+import interfaces.BoardComponent;
 import interfaces.Vertex;
 
 import java.util.ArrayList;
@@ -7,8 +8,8 @@ import java.util.List;
 
 public record MatrixMemento(List<Vertex> cells) {
 
-    public MatrixMemento(Matrix matrix) {
-        this(matrix.getComponents());
+    public MatrixMemento(BoardComponent component) {
+        this(component.getComponents());
     }
     public MatrixMemento(List<Vertex> cells) {
         // Fazer cópias das células
@@ -18,8 +19,8 @@ public record MatrixMemento(List<Vertex> cells) {
         }
     }
 
-    public boolean equals(Matrix matrix) {
-        return this.cells().equals(matrix.getComponents());
+    public boolean equals(BoardComponent component) {
+        return this.cells().equals(component.getComponents());
     }
 
 }

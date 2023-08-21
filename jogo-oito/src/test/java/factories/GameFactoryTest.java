@@ -1,5 +1,6 @@
 package factories;
 
+import interfaces.BoardComponent;
 import interfaces.Edge;
 import interfaces.Vertex;
 import model.Adjacent;
@@ -63,7 +64,8 @@ class GameFactoryTest {
 
     @Test
     void createMatrixTest() {
-        Matrix matrix = factory.createMatrix();
+        BoardComponent matrix = factory.createMatrix();
         assertNotNull(matrix);
+        assertTrue(matrix instanceof Matrix);
     }
 }

@@ -1,11 +1,11 @@
 package util;
 
 import factories.GameFactory;
+import interfaces.BoardComponent;
 import interfaces.Graph;
 import interfaces.Vertex;
 import listeners.BoardUpdateListener;
 import model.Keyboard;
-import model.Matrix;
 import model.MatrixMemento;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Board implements Graph {
 
-    private Matrix matrix;
+    private BoardComponent matrix;
     private MatrixMemento gameCompleteBoardPattern;
     private final GameFactory gameFactory;
     private final List<BoardUpdateListener> boardListeners;

@@ -1,13 +1,13 @@
 package model;
 
 import factories.GameFactory;
-import interfaces.Component;
+import interfaces.BoardComponent;
 import interfaces.Vertex;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Matrix implements Component {
+public final class Matrix implements BoardComponent {
 
     private Row firstRow;
     private Row secondRow;

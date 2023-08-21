@@ -1,8 +1,8 @@
 package factories;
 
+import interfaces.BoardComponent;
 import interfaces.Edge;
 import interfaces.Vertex;
-import model.Matrix;
 
 public interface GameFactory {
 
@@ -11,5 +11,6 @@ public interface GameFactory {
     Edge createAdjacentDown(Vertex cell);
     Edge createAdjacentLeft(Vertex cell);
     Edge createAdjacentRight(Vertex cell);
-    Matrix createMatrix();
+
+    BoardComponent createMatrix();
 }

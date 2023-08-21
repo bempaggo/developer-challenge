@@ -1,8 +1,12 @@
 package factories;
 
+import interfaces.BoardComponent;
 import interfaces.Edge;
 import interfaces.Vertex;
-import model.*;
+import model.Adjacent;
+import model.Cell;
+import model.Keyboard;
+import model.Matrix;
 
 public class GameFactoryImpl implements GameFactory {
 
@@ -29,7 +33,7 @@ public class GameFactoryImpl implements GameFactory {
     }
 
     @Override
-    public Matrix createMatrix() {
+    public BoardComponent createMatrix() {
         return new Matrix(this);
     }
 

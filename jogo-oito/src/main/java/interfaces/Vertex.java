@@ -10,17 +10,14 @@ import java.util.List;
  *
  * @author allen
  */
-public interface Vertex extends Cloneable, Component {
+public interface Vertex extends Cloneable, BoardComponent {
 
     void setValue(Integer value);
-
     Integer getValue();
-
-    String valueToText();
 
     void addAdjacents(Edge edge);
 
     List<Edge> getAdjacents();
-
+    String valueToText();
     Vertex clone();
 }
