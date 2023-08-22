@@ -2,6 +2,7 @@ package model;
 
 import interfaces.Edge;
 import interfaces.Vertex;
+import interfaces.VertexVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,11 +51,11 @@ public class Cell implements Vertex {
     }
 
     public void performSwap(Integer value) {
-        findAdjacentByValue(value).ifPresent(adjacent -> swapValues(adjacent.cell()));
+        findAdjacentByValue(value).ifPresent(adjacent -> swapWith(adjacent.cell()));
     }
 
     public void performSwap(Keyboard key) {
-        findAdjacentByKey(key).ifPresent(adjacent -> swapValues(adjacent.cell()));
+        findAdjacentByKey(key).ifPresent(adjacent -> swapWith(adjacent.cell()));
     }
 
     private Optional<Edge> findAdjacentByValue(Integer value) {
@@ -69,12 +70,13 @@ public class Cell implements Vertex {
                 .findFirst();
     }
 
-    private void swapValues(Vertex movementCell) {
-        Integer currentValue = this.getValue();
-        Integer newValue = movementCell.getValue();
+    public void accept(VertexVisitor visitor) {
+        visitor.visit(this);
+    }
 
-        this.setValue(newValue);
-        movementCell.setValue(currentValue);
+    public void swapWith(Vertex otherCell) {
+        SwapValuesVisitor swapVisitor = new SwapValuesVisitor(otherCell);
+        accept(swapVisitor);
     }
 
     @Override

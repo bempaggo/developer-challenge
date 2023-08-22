@@ -14,10 +14,10 @@ public interface Vertex extends Cloneable, BoardComponent {
 
     void setValue(Integer value);
     Integer getValue();
-
     void addAdjacents(Edge edge);
-
     List<Edge> getAdjacents();
     String valueToText();
     Vertex clone();
+
+    void accept(VertexVisitor visitor);
 }
