@@ -12,7 +12,7 @@ public record MatrixMemento(List<Vertex> cells) {
         this(component.getComponents());
     }
     public MatrixMemento(List<Vertex> cells) {
-        // Fazer cópias das células
+        // Make deep copies of the cells
         this.cells = new ArrayList<>();
         for (Vertex cell : cells) {
             this.cells.add(cell.clone());

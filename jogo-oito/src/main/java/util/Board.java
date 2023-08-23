@@ -31,21 +31,21 @@ public class Board implements Graph {
     }
 
     @Override
-    public void gameSolutionBoardState() {
-        this.matrix = gameFactory.createMatrix();
-        this.gameCompleteBoardPattern = new MatrixMemento(this.matrix);
-        notifyListeners();
-    }
-
-    @Override
-    public void gameStartBoardState() {
+    public void initializeBoard() {
         this.matrix = gameFactory.createMatrix();
         this.gameCompleteBoardPattern = new MatrixMemento(this.matrix);
         this.shuffleCells();
         notifyListeners();
     }
 
-    private void shuffleCells() {
+    @Override
+    public void setBoardAsSolved() {
+        this.matrix = gameFactory.createMatrix();
+        this.gameCompleteBoardPattern = new MatrixMemento(this.matrix);
+        notifyListeners();
+    }
+
+    public void shuffleCells() {
         Iterator<Vertex> iterator = this.shuffleValues().iterator();
         for (Vertex cell : this.matrix.getComponents()) {
             cell.setValue(iterator.next().getValue());
@@ -59,13 +59,13 @@ public class Board implements Graph {
     }
 
     @Override
-    public void click(Integer cellValue) {
+    public void buttonClicked(Integer cellValue) {
         this.matrix.performSwap(cellValue);
         notifyListeners();
     }
 
     @Override
-    public void swap(Integer keyCode) {
+    public void keyPressed(Integer keyCode) {
         this.matrix.performSwap(Keyboard.fromValue(keyCode));
         notifyListeners();
     }
@@ -79,7 +79,7 @@ public class Board implements Graph {
         this.boardListeners.add(listener);
     }
 
-    private void notifyListeners() {
+    void notifyListeners() {
         for (BoardUpdateListener listener : this.boardListeners) {
             listener.updateBoard();
         }

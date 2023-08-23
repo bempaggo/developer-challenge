@@ -14,6 +14,8 @@ public class GameLauncher {
         Board board = new Board(gameFactory);
         Controller controller = new Controller(board);
         JogoDosOito game = new JogoDosOito(controller);
+        controller.initializeBoard();
+
         board.addListener(game);
 
         game.createButtons();

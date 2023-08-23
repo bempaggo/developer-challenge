@@ -10,7 +10,6 @@ import model.Matrix;
 
 public class GameFactoryImpl implements GameFactory {
 
-    public GameFactoryImpl () {}
     @Override
     public Vertex createCell() {
         return new Cell();

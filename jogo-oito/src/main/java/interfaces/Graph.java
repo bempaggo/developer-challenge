@@ -14,17 +14,14 @@ import java.util.List;
  */
 public interface Graph {
 
-    void gameSolutionBoardState();
-    
-    void gameStartBoardState();
+    void setBoardAsSolved();
 
-    void swap(Integer keyCode);
+    void initializeBoard();
 
+    void keyPressed(Integer keyCode);
     List<Vertex> getCells();
 
-    void click(Integer cellValue);
-
+    void buttonClicked(Integer cellValue);
     Boolean isGameComplete();
-
     void addListener(BoardUpdateListener listener);
 }

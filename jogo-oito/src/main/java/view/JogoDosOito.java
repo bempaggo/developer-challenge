@@ -22,7 +22,6 @@ public class JogoDosOito extends JFrame implements KeyListener, BoardUpdateListe
     public JogoDosOito(Controller controller) {
         super("Jogo dos Oito");
         this.controller = controller;
-        this.controller.gameStartBoardState();
         this.buttons = new ArrayList<>();
     }
 
@@ -52,7 +51,7 @@ public class JogoDosOito extends JFrame implements KeyListener, BoardUpdateListe
                 .withFont(new Font("Arial", Font.BOLD, 36))
                 .withText(cell.valueToText())
                 .withActionListener((ActionEvent e) -> {
-                    this.controller.click(textToValue(e.getActionCommand()));
+                    this.controller.buttonClicked(textToValue(e.getActionCommand()));
                     this.checkGameOver();
                 });
     }
@@ -79,16 +78,16 @@ public class JogoDosOito extends JFrame implements KeyListener, BoardUpdateListe
 
     private Button configFeedback() {
         return new Button("Gabarito")
-                .withActionListener((ActionEvent e) -> this.showFeedback());
+                .withActionListener((ActionEvent e) -> this.showSolution());
     }
 
 
     private void resetGame() {
-        this.controller.gameStartBoardState();
+        this.controller.initializeBoard();
     }
 
-    private void showFeedback() {
-        this.controller.gameSolutionBoardState();
+    private void showSolution() {
+        this.controller.setBoardAsSolved();
     }
 
     @Override
@@ -108,7 +107,7 @@ public class JogoDosOito extends JFrame implements KeyListener, BoardUpdateListe
 
     @Override
     public void keyPressed(KeyEvent e) {
-        this.controller.swap(e.getKeyCode());
+        this.controller.keyPressed(e.getKeyCode());
         this.checkGameOver();
     }
 
