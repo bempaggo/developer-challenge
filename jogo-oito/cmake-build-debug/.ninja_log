@@ -1,0 +1,11 @@
+# ninja log v5
+3124	6380	7140183740743753	bempaggo_developer_challenge.exe	4fc687baa5f1a1d6
+2	822	7145176117065474	build.ninja	99f1aae0846d4795
+15	3120	7140183708176982	CMakeFiles/bempaggo_developer_challenge.dir/src/main.cpp.obj	f48955083abdefab
+13	942	7132277974155808	CMakeFiles/bempaggo_developer_challenge.dir/src/game8.cpp.obj	e9020a2c8569c212
+7	2414	7145204598005109	CMakeFiles/bempaggo_developer_challenge.dir/src/Coord.cpp.obj	542fc81cef849160
+24	2434	7145204598094872	CMakeFiles/bempaggo_developer_challenge.dir/src/game.cpp.obj	1c99a8ce408a98b3
+31	2962	7145204603450543	CMakeFiles/bempaggo_developer_challenge.dir/src/main.cpp.obj	f48955083abdefab
+2436	3043	7145204604388036	CMakeFiles/bempaggo_developer_challenge.dir/src/Space.cpp.obj	3d9306cf56ba92df
+2416	3049	7145204604417959	CMakeFiles/bempaggo_developer_challenge.dir/src/Table.cpp.obj	55bfa8ff4764e6c3
+3049	6043	7145204634432593	bempaggo_developer_challenge.exe	9cc4a9ca65380d32
