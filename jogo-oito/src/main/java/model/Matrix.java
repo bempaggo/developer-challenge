@@ -1,80 +1,59 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-import interfaces.Vertex;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author allen
- */
-public final class Matrix {
+import service.Vertex;
+import service.serviceImpl.Cell;
 
-    private final Row firstRow;
-    private final Row secondRow;
-    private final Row thirdRow;
-    public static List<Vertex> cells;
+public class Matrix {
 
+	private final Row firstRow;
+	private final Row secondRow;
+	private final Row thirdRow;
+	public static List<Vertex> cells;
 
-    public Matrix() {
-        Matrix.cells = new ArrayList<>();
-        Cell.content = 1;
-        this.firstRow = new Row();
-        this.secondRow = new Row();
-        this.thirdRow = new Row();
-        this.defineAdjacent();
-    }
+	public Matrix() {
+		Matrix.cells = new ArrayList<>();
+		Cell.content = 1;
+		this.firstRow = new Row();
+		this.secondRow = new Row();
+		this.thirdRow = new Row();
+		this.defineAdjacent();
+	}
 
-    private void defineAdjacent() {
-        this.firstRow.initial.creatingVerticalAdjacent(secondRow.initial);
-        this.secondRow.initial.creatingVerticalAdjacent(thirdRow.initial);
+	public void defineAdjacent() {
+		firstRow.getInitial().creatingVerticalAdjacent(secondRow.getInitial());
+		secondRow.getInitial().creatingVerticalAdjacent(thirdRow.getInitial());
+		firstRow.getCenter().creatingVerticalAdjacent(secondRow.getCenter());
+		secondRow.getCenter().creatingVerticalAdjacent(thirdRow.getCenter());
+		firstRow.getLast().creatingVerticalAdjacent(secondRow.getLast());
+		secondRow.getLast().creatingVerticalAdjacent(thirdRow.getLast());
+		changePositionToValidateTemplate();
+	}
 
-        this.firstRow.center.creatingVerticalAdjacent(secondRow.center);
-        this.secondRow.center.creatingVerticalAdjacent(thirdRow.center);
+	private void changePositionToValidateTemplate() {
+		thirdRow.getLast().setValue(0);
+	}
 
-        this.firstRow.last.creatingVerticalAdjacent(secondRow.last);
-        this.secondRow.last.creatingVerticalAdjacent(thirdRow.last);
-        
-        this.changePositionToValidateTemplate();
-    }
-    
-    private void changePositionToValidateTemplate(){
-        this.thirdRow.last.setValue(0);
-    }
-    
+	public List<Vertex> getCells() {
+		return Matrix.cells;
+	}
 
-    public List<Vertex> getCells() {
-        return Matrix.cells;
-    }
+	public Row getFirstRow() {
+		return firstRow;
+	}
 
-    private final class Row {
+	public Row getSecondRow() {
+		return secondRow;
+	}
 
-        public final Cell initial;
-        public final Cell center;
-        public final Cell last;
+	public Row getThirdRow() {
+		return thirdRow;
+	}
 
-        public Row() {
-            this.initial = new Cell();
-            this.center = new Cell();
-            this.last = new Cell();
-            this.defineAdjacent();
-            this.loadCells();
-        }
+	public static void setCells(List<Vertex> cells) {
+		Matrix.cells = cells;
+	}
 
-        public void loadCells() {
-            Matrix.cells.add(this.initial);
-            Matrix.cells.add(this.center);
-            Matrix.cells.add(this.last);
-        }
-
-        public void defineAdjacent() {
-            this.initial.creatingHorizontalAdjacent(this.center);
-            this.center.creatingHorizontalAdjacent(this.last);
-        }
-
-    }
 }

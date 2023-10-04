@@ -1,17 +1,19 @@
-package model;
+package service.serviceImpl;
 
-import interfaces.Edge;
-import interfaces.Vertex;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import model.enumType.Keyboard;
+import service.Edge;
+import service.Vertex;
+
 public class Cell implements Vertex {
 
-    private Integer value;
+	private Integer value;
     private final List<Edge> adjacents;
-    public static Integer content;
+    public static Integer content = 1;
 
     public Cell(Integer value) {
         this.value = value;
@@ -24,30 +26,20 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public void setValue(Integer value) {
-        this.value = value;
-    }
-
-    @Override
-    public Integer getValue() {
-        return this.value;
-    }
-
-    @Override
     public void creatingHorizontalAdjacent(Vertex cell) {
-        this.adjacents.add(new Adjacent(Keyboard.LEFT, cell));
+        adjacents.add(new Adjacent(Keyboard.LEFT, cell));
         cell.getAdjacents().add(new Adjacent(Keyboard.RIGHT, this));
     }
 
     @Override
     public void creatingVerticalAdjacent(Vertex cell) {
-        this.adjacents.add(new Adjacent(Keyboard.UP, cell));
+        adjacents.add(new Adjacent(Keyboard.UP, cell));
         cell.getAdjacents().add(new Adjacent(Keyboard.DOWN, this));
     }
 
     @Override
     public String valueToText() {
-        return Optional.of(this.value)
+        return Optional.of(value)
                 .filter(value -> value != 0)
                 .map(String::valueOf)
                 .orElse("");
@@ -56,17 +48,17 @@ public class Cell implements Vertex {
     @Override
     public Edge getAdjacentByKeyCode(Keyboard key) {
         Adjacent edge = new Adjacent(key, null);
-        Integer indexEdge = this.adjacents.indexOf(edge);
+        Integer indexEdge = adjacents.indexOf(edge);
         return Optional.of(indexEdge)
                 .filter(index -> index != -1)
-                .map(this.adjacents::get)
+                .map(adjacents::get)
                 .orElse(null);
     }
 
     @Override
     public Vertex click(Keyboard key) {
-        Edge adjacent = this.getAdjacentByKeyCode(key);
-        return this.movement(adjacent);
+        Edge adjacent = getAdjacentByKeyCode(key);
+        return movement(adjacent);
     }
 
     private Vertex movement(Edge adjacent) {
@@ -77,14 +69,14 @@ public class Cell implements Vertex {
     }
 
     private Vertex swapCells(Vertex movementCell) {
-        this.setValue(movementCell.getValue());
+        setValue(movementCell.getValue());
         movementCell.setValue(0);
         return movementCell;
     }
 
     @Override
     public Vertex swapCells(Integer value) {
-        return this.adjacents.stream()
+        return adjacents.stream()
                 .filter(adjacent -> Objects.equals(adjacent.getCell().getValue(), value))
                 .findFirst()
                 .map(this::movement)
@@ -100,10 +92,21 @@ public class Cell implements Vertex {
     public void addAdjacents(Edge edge) {
         this.adjacents.add(edge);
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        return Objects.equals(this.value, ((Cell) obj).value);
+    
+    public void setValue(Integer value) {
+        this.value = value;
     }
+
+    public Integer getValue() {
+        return this.value;
+    }
+
+	public static Integer getContent() {
+		return content;
+	}
+
+	public static void setContent(Integer content) {
+		Cell.content = content;
+	}
 
 }

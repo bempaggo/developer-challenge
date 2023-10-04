@@ -1,8 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package model;
+package model.enumType;
 
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
@@ -31,7 +27,7 @@ public enum Keyboard {
         return value;
     }
 
-    public static Keyboard fromValue(Integer value) {
+    public static Keyboard keyboardValue(Integer value) {
         return map.get(value);
     }
 
