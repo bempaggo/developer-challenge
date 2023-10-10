@@ -1,5 +1,5 @@
 <h1 align="center">
-    <a href="#" alt="">Jogo do 8</a>
+    <a href="#" alt="">Front-end Projeto</a>
 </h1>
 
 <h4 align="center">
@@ -7,17 +7,13 @@
 </h4>
 
 <p align="center">
- <a href="#sobre-o-projeto">Sobre o projeto</a> •
  <a href="#funcionalidades">Funcionalidades</a> • 
- <a href="#layout">Layout</a> •
+ <a href="#layout">Layout</a> • 
+ <a href="#pré-requisitos">Pré-requisitos</a> •
  <a href="#rodando-o-projeto">Rodando o projeto</a> •
  <a href="#tecnologias">Tecnologias</a> •
  <a href="#anexos">Anexos</a>
 </p>
-
-## Sobre o projeto
-Projeto desenvolvido com objetivo de, 
-
 
 ### Funcionalidades
 - [x] foi feita
@@ -29,20 +25,17 @@ O layout:
   <img alt="img1" title="#img1" src="./assets" width="400px">
 </p>
 
+## Pré-requisitos
+Deve ter instalado em sua máquina a seguinte ferramenta:
+
 ### Rodando o projeto
 ```bash
 
 
 
 ```
-
 ## Tecnologias
 As seguintes ferramentas foram usadas na construção do projeto:
- 
-
 
 ## Anexos
 Documentos para auxiliar no projeto:
-
-
-
