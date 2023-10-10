@@ -15,10 +15,10 @@
  <a href="#anexos">Anexos</a>
 </p>
 
-### Funcionalidades
+## Funcionalidades
 - [x] foi feita
 
-## Layout
+### Layout
 O layout:
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
