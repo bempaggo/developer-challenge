@@ -12,15 +12,16 @@ import java.util.stream.IntStream;
 import model.Keyboard;
 import model.Matrix;
 
+/**
+ * Classe que representa o tabuleiro do jogo.
+ *
+ * @author quintino
+ */
 public class Board implements Graph {
-
     private List<Vertex> cells;
     private Vertex emptyCell;
     private Integer length;
-    private Matrix matrix;
-
-    public Board() {
-    }
+    private Matrix matrix = new Matrix();
 
     @Override
     public void feedback() {
@@ -32,18 +33,15 @@ public class Board implements Graph {
 
     @Override
     public void setting() {
-        this.matrix = new Matrix();
         this.cells = this.matrix.getCells();
         this.length = cells.size();
         this.shuffleCell();
         this.defineEmptyCell();
-
     }
 
     private void shuffleCell() {
         Iterator<Integer> iterator = this.shuffleValues().iterator();
-        this.cells.stream()
-                .forEach(vertex -> vertex.setValue(iterator.next()));
+        this.cells.forEach(vertex -> vertex.setValue(iterator.next()));
     }
 
     private List<Integer> shuffleValues() {
@@ -88,7 +86,6 @@ public class Board implements Graph {
     public Boolean checkGameOver() {
         return IntStream.range(0, this.length)
                 .allMatch(index -> this.cells.get(index).getValue() == (index + 1) % this.length);
-
     }
 
 }

@@ -130,7 +130,7 @@ public class BoardTest {
         Edge adjacent = cell1.getAdjacentByKeyCode(model.Keyboard.LEFT);
         assertEquals(cell2, adjacent.getCell());
     }
-    
+
     @Test
     public void testClickDown() {
         board.swap(Keyboard.DOWN.getValue());
