@@ -12,8 +12,8 @@ import model.Keyboard;
  */
 public interface Edge {
 
-    Keyboard getKey();
+	Keyboard getKey();
 
-    Vertex getCell();
-    
+	Vertex getCell();
+
 }

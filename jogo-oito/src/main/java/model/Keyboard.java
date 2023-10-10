@@ -12,27 +12,22 @@ import java.util.stream.Collectors;
 
 public enum Keyboard {
 
-    UP(KeyEvent.VK_UP),
-    DOWN(KeyEvent.VK_DOWN),
-    LEFT(KeyEvent.VK_LEFT),
-    RIGHT(KeyEvent.VK_RIGHT);
+	UP(KeyEvent.VK_UP), DOWN(KeyEvent.VK_DOWN), LEFT(KeyEvent.VK_LEFT), RIGHT(KeyEvent.VK_RIGHT);
 
-    private final Integer value;
+	private final Integer value;
 
-    private static final Map<Integer, Keyboard> map = Arrays.stream(Keyboard.values())
-        .collect(Collectors.toMap(Keyboard::getValue, Function.identity()));
+	private static final Map<Integer, Keyboard> map = Arrays.stream(Keyboard.values())
+			.collect(Collectors.toMap(Keyboard::getValue, Function.identity()));
 
+	Keyboard(Integer value) {
+		this.value = value;
+	}
 
-    Keyboard(Integer value) {
-        this.value = value;
-    }
+	public Integer getValue() {
+		return value;
+	}
 
-    public Integer getValue() {
-        return value;
-    }
-
-    public static Keyboard fromValue(Integer value) {
-        return map.get(value);
-    }
-
+	public static Keyboard fromValue(Integer value) {
+		return map.get(value);
+	}
 }

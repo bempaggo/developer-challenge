@@ -7,35 +7,34 @@ import util.Board;
 
 public class Controller {
 
-    private final Graph board;
+	private final Graph board;
 
-    public Controller() {
-        this.board = new Board();
-    }
-    
-    public void feedback() {
-        this.board.feedback();
-    }
+	public Controller() {
+		this.board = new Board();
+	}
 
-    public void setting() {
-        this.board.setting();
-    }
+	public void feedback() {
+		this.board.feedback();
+	}
 
-    public List<Vertex> getCells() {
-        return this.board.getCells();
-    }
+	public void setting() {
+		this.board.setting();
+	}
 
-    public void swap(Integer keyCode) {
-        this.board.swap(keyCode);
-    }
+	public List<Vertex> getCells() {
+		return this.board.getCells();
+	}
 
-    public Boolean checkGameOver() {
-        return this.board.checkGameOver();
+	public void swap(Integer keyCode) {
+		this.board.swap(keyCode);
+	}
 
-    }
+	public Boolean checkGameOver() {
+		return this.board.checkGameOver();
 
-    public void click(Integer cellValue) {
-        this.board.click(cellValue);
-    }
+	}
 
+	public void click(Integer cellValue) {
+		this.board.click(cellValue);
+	}
 }

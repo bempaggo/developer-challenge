@@ -12,17 +12,17 @@ import java.util.List;
  */
 public interface Graph {
 
-    void feedback();
-    
-    void setting();
+	void feedback();
 
-    void swap(Integer keyCode);
+	void setting();
 
-    List<Vertex> getCells();
+	void swap(Integer keyCode);
 
-    Vertex getEmptyCell();
+	List<Vertex> getCells();
 
-    void click(Integer cellValue);
+	Vertex getEmptyCell();
 
-    Boolean checkGameOver();
+	void click(Integer cellValue);
+
+	Boolean checkGameOver();
 }

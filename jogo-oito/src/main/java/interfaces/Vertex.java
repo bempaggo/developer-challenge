@@ -13,24 +13,24 @@ import model.Keyboard;
  */
 public interface Vertex {
 
-    void setValue(Integer value);
+	void setValue(Integer value);
 
-    Integer getValue();
+	Integer getValue();
 
-    void creatingHorizontalAdjacent(Vertex cell);
+	void creatingHorizontalAdjacent(Vertex cell);
 
-    void creatingVerticalAdjacent(Vertex cell);
+	void creatingVerticalAdjacent(Vertex cell);
 
-    String valueToText();
+	String valueToText();
 
-    Edge getAdjacentByKeyCode(Keyboard key);
+	Edge getAdjacentByKeyCode(Keyboard key);
 
-    Vertex click(Keyboard key);
+	Vertex click(Keyboard key);
 
-    List<Edge> getAdjacents();
-    
-    void addAdjacents(Edge edge);
-    
-    Vertex swapCells(Integer value);
+	List<Edge> getAdjacents();
+
+	void addAdjacents(Edge edge);
+
+	Vertex swapCells(Integer value);
 
 }
