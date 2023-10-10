@@ -34,8 +34,10 @@ Deve ter instalado em sua máquina a seguinte ferramenta:
 
 
 ```
+
 ## Tecnologias
 As seguintes ferramentas foram usadas na construção do projeto:
+ - Vue
 
 ## Anexos
 Documentos para auxiliar no projeto:
