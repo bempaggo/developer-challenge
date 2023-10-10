@@ -1,5 +1,5 @@
 <h1 align="center">
-    <a href="#" alt="">Padrões de projeto</a>
+    <a href="#" alt="">Paradigma de Programação</a>
 </h1>
 
 <h4 align="center">
@@ -7,7 +7,7 @@
 </h4>
 
 <p align="center">
- <a href="#sobre-o-projeto">Paradigma de Programação</a> •
+ <a href="#sobre-o-projeto">Sobre o projeto</a> •
  <a href="#funcionalidades">Funcionalidades</a> • 
 </p>
 
