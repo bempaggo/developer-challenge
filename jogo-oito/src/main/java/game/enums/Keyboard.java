@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package game.enums;
 
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
@@ -21,7 +21,6 @@ public enum Keyboard {
 
     private static final Map<Integer, Keyboard> map = Arrays.stream(Keyboard.values())
         .collect(Collectors.toMap(Keyboard::getValue, Function.identity()));
-
 
     Keyboard(Integer value) {
         this.value = value;

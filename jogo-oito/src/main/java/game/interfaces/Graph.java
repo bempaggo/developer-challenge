@@ -2,27 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package interfaces;
+package game.interfaces;
 
 import java.util.List;
+
+import game.model.Cell;
 
 /**
  *
  * @author allen
  */
 public interface Graph {
-
-    void feedback();
     
-    void setting();
+    void setting(Boolean feedback);
 
     void swap(Integer keyCode);
 
-    List<Vertex> getCells();
+    List<Cell> getCells();
 
-    Vertex getEmptyCell();
+    Cell getEmptyCell();
 
     void click(Integer cellValue);
 
-    Boolean checkGameOver();
+    Boolean checkVictory();
 }

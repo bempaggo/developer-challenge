@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package interfaces;
+package game.interfaces;
 
-import model.Keyboard;
+import game.enums.Keyboard;
+import game.model.Cell;
 
 /**
  *
@@ -14,6 +15,6 @@ public interface Edge {
 
     Keyboard getKey();
 
-    Vertex getCell();
+    Cell getCell();
     
 }

@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package game.model;
 
-import interfaces.Edge;
-import interfaces.Vertex;
 import java.util.Objects;
+
+import game.enums.Keyboard;
+import game.interfaces.Edge;
 
 /**
  *
@@ -15,9 +16,9 @@ import java.util.Objects;
 public class Adjacent implements Edge{
 
     private final Keyboard key;
-    private final Vertex cell;
+    private final Cell cell;
 
-    public Adjacent(Keyboard key, Vertex cell) {
+    public Adjacent(Keyboard key, Cell cell) {
         this.key = key;
         this.cell = cell;
     }
@@ -28,7 +29,7 @@ public class Adjacent implements Edge{
     }
 
     @Override
-    public Vertex getCell() {
+    public Cell getCell() {
         return this.cell;
     }
 

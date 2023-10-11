@@ -2,17 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package game;
+package game.model;
 
-import interfaces.Edge;
-import interfaces.Vertex;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
-import model.Adjacent;
-import model.Cell;
-import model.Keyboard;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import game.enums.Keyboard;
+import game.interfaces.Vertex;
 
 public class CellTest{
 
@@ -31,8 +30,8 @@ public class CellTest{
 
     @Test
     public void testCreatingHorizontalAdjacent() {
-        Vertex cell1 = new Cell(1);
-        Vertex cell2 = new Cell(2);
+        Cell cell1 = new Cell(1);
+        Cell cell2 = new Cell(2);
 
         cell1.creatingHorizontalAdjacent(cell2);
 
@@ -42,8 +41,8 @@ public class CellTest{
 
     @Test
     public void testCreatingVerticalAdjacent() {
-        Vertex cell1 = new Cell(1);
-        Vertex cell2 = new Cell(2);
+        Cell cell1 = new Cell(1);
+        Cell cell2 = new Cell(2);
 
         cell1.creatingVerticalAdjacent(cell2);
 
@@ -62,8 +61,8 @@ public class CellTest{
 
     @Test
     public void testGetAdjacentByKeyCode() {
-        Vertex cell1 = new Cell(1);
-        Vertex cell2 = new Cell(2);
+        Cell cell1 = new Cell(1);
+        Cell cell2 = new Cell(2);
         cell1.creatingHorizontalAdjacent(cell2);
 
         assertEquals(cell2, cell1.getAdjacentByKeyCode(Keyboard.LEFT).getCell());
@@ -71,8 +70,8 @@ public class CellTest{
 
     @Test
     public void testClick() {
-        Vertex cell1 = new Cell(1);
-        Vertex cell2 = new Cell(2);
+        Cell cell1 = new Cell(1);
+        Cell cell2 = new Cell(2);
         cell1.creatingHorizontalAdjacent(cell2);
 
         assertEquals(cell2, cell1.click(Keyboard.LEFT));
@@ -80,8 +79,8 @@ public class CellTest{
 
     @Test
     public void testSwapCells() {
-        Vertex cell1 = new Cell(0);
-        Vertex cell2 = new Cell(2);
+        Cell cell1 = new Cell(0);
+        Cell cell2 = new Cell(2);
         cell1.creatingHorizontalAdjacent(cell2);
 
         cell1.swapCells(cell2.getValue());
@@ -91,30 +90,17 @@ public class CellTest{
     }
 
     @Test
-    public void testAddAdjacents() {
-        Vertex cell1 = new Cell(1);
-        Vertex cell2 = new Cell(2);
-        Edge edge = new Adjacent(Keyboard.RIGHT, cell2);
-
-        cell1.addAdjacents(edge);
-
-        List<Edge> adjacents = cell1.getAdjacents();
-        assertEquals(1, adjacents.size());
-        assertEquals(edge, adjacents.get(0));
-    }
-
-    @Test
     public void defineAdjacents() {
-        Vertex cell1 = new Cell(5);
-        Vertex cell2 = new Cell(10);
-        Vertex cell3 = new Cell(15);
-        Vertex cell4 = new Cell(20);
+        Cell cell1 = new Cell(5);
+        Cell cell2 = new Cell(10);
+        Cell cell3 = new Cell(15);
+        Cell cell4 = new Cell(20);
 
         cell1.creatingVerticalAdjacent(cell2);
         cell1.creatingVerticalAdjacent(cell3);
         cell1.creatingHorizontalAdjacent(cell4);
 
-        List<Edge> adjacents = cell1.getAdjacents();
+        List<Adjacent> adjacents = cell1.getAdjacents();
         assertEquals(cell2, adjacents.get(0).getCell());
         assertEquals(cell3, adjacents.get(1).getCell());
         assertEquals(cell4, adjacents.get(2).getCell());
