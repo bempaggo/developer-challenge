@@ -1,5 +1,5 @@
 <h1 align="center">
-    <a href="#" alt="">Front-end Projeto</a>
+    <a href="#" alt="">Front-End</a>
 </h1>
 
 <h4 align="center">
@@ -8,25 +8,15 @@
 
 <p align="center">
  <a href="#funcionalidades">Funcionalidades</a> • 
- <a href="#layout">Layout</a> • 
- <a href="#pré-requisitos">Pré-requisitos</a> •
  <a href="#rodando-o-projeto">Rodando o projeto</a> •
- <a href="#tecnologias">Tecnologias</a> •
- <a href="#anexos">Anexos</a>
+ <a href="#tecnologias">Tecnologias</a>
 </p>
 
 ## Funcionalidades
-- [x] foi feita
+- [] foi aplicado o modelo de apis REST para escala do projeto
+- [] foi aplicado programação orientada a objetos
+- [] foi aplicado padrões de projetos : S.O.L.I.D
 
-### Layout
-O layout:
-
-<p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="img1" title="#img1" src="./assets" width="400px">
-</p>
-
-## Pré-requisitos
-Deve ter instalado em sua máquina a seguinte ferramenta:
 
 ### Rodando o projeto
 ```bash
@@ -37,7 +27,4 @@ Deve ter instalado em sua máquina a seguinte ferramenta:
 
 ## Tecnologias
 As seguintes ferramentas foram usadas na construção do projeto:
- - Vue
-
-## Anexos
-Documentos para auxiliar no projeto:
+ - Vue.js
