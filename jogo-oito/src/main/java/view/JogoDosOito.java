@@ -1,7 +1,5 @@
 package view;
 
-import facade.Controller;
-import interfaces.Vertex;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,25 +7,28 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.IntStream;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import facade.GameController;
+import interfaces.GameVertex;
+
 public class JogoDosOito extends JFrame implements KeyListener {
 
 	private final List<JButton> buttons;
-	private final Controller controller;
+	private final GameController controller;
 	private JButton reset;
 	private JButton feedback;
 
 	public JogoDosOito() {
 		super("Jogo dos Oito");
-		this.controller = new Controller();
-		this.controller.setting();
+		this.controller = new GameController();
+		this.controller.setupGame();
 		this.buttons = new ArrayList<>();
 	}
 
@@ -41,47 +42,52 @@ public class JogoDosOito extends JFrame implements KeyListener {
 	}
 
 	private void createButtons() {
-		this.controller.getCells().forEach(cell -> {
-			JButton button = this.configButton(cell);
+		this.controller.getGameCells().forEach(cell -> {
+			JButton button = this.configureButton(cell);
 			add(button);
 			buttons.add(button);
 		});
 	}
 
 	private Integer textToValue(String text) {
-		return Optional.ofNullable(text).map(Integer::valueOf).orElse(0);
+	    if (text != null && !text.isEmpty()) {
+	        return Integer.valueOf(text);
+	    }
+	    JOptionPane.showMessageDialog(this, "Célula é vazia, por favor, selecione outra célula!", "Aviso", JOptionPane.ERROR_MESSAGE);
+
+	    return 0;
 	}
 
-	private JButton configButton(Vertex cell) {
+
+	private JButton configureButton(GameVertex cell) {
 		JButton button = new JButton();
 		button.setFont(new Font("Arial", Font.BOLD, 36));
-		button.setText(cell.valueToText());
+		button.setText(cell.valueToString());
 		button.addActionListener((ActionEvent e) -> {
-			this.controller.click(this.textToValue(button.getText()));
+			this.controller.processCellClick(this.textToValue(button.getText()));
 			this.updateBoard();
 			this.checkGameOver();
 			SwingUtilities.getRoot(button).requestFocus();
 		});
 		return button;
-
 	}
 
 	private void checkGameOver() {
-		Optional.ofNullable(this.controller.checkGameOver()).filter(Boolean::booleanValue).ifPresent(gameOver -> {
+		if (this.controller.isGameOver()) {
 			JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
 			resetGame();
-		});
+		}
 	}
 
-	private void configMenu() {
-		this.reset = this.configReset();
-		this.feedback = this.configFeedback();
+	private void configureMenu() {
+		this.reset = this.configureReset();
+		this.feedback = this.configureFeedback();
 		add(this.feedback);
 		add(this.reset);
 		add(new JLabel(""));
 	}
 
-	private JButton configReset() {
+	private JButton configureReset() {
 		JButton buttonReset = new JButton("Reiniciar");
 		buttonReset.addActionListener((ActionEvent e) -> {
 			this.resetGame();
@@ -90,7 +96,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
 		return buttonReset;
 	}
 
-	private JButton configFeedback() {
+	private JButton configureFeedback() {
 		JButton buttonFeedback = new JButton("Gabarito");
 		buttonFeedback.addActionListener((ActionEvent e) -> {
 			this.showFeedback();
@@ -100,20 +106,20 @@ public class JogoDosOito extends JFrame implements KeyListener {
 	}
 
 	private void resetGame() {
-		this.controller.setting();
+		this.controller.setupGame();
 		this.updateBoard();
 	}
 
 	private void showFeedback() {
-		this.controller.feedback();
+		this.controller.provideFeedback();
 		this.updateBoard();
 	}
 
 	private void updateBoard() {
-		List<Vertex> cells = this.controller.getCells();
+		List<GameVertex> cells = this.controller.getGameCells();
 		IntStream.range(0, cells.size()).forEach(index -> {
 			JButton button = this.buttons.get(index);
-			button.setText(cells.get(index).valueToText());
+			button.setText(cells.get(index).valueToString());
 		});
 	}
 
@@ -123,7 +129,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		this.controller.swap(e.getKeyCode());
+		this.controller.performSwap(e.getKeyCode());
 		this.updateBoard();
 		this.checkGameOver();
 	}
@@ -135,7 +141,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
 	public static void main(String[] args) {
 		JogoDosOito game = new JogoDosOito();
 		game.createButtons();
-		game.configMenu();
+		game.configureMenu();
 		game.configureInterface();
 	}
 }
