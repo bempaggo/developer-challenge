@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface Graph {
     
-    void setting(Boolean feedback);
+    void setting(Boolean feedback, Integer order);
 
     void swap(Integer keyCode);
 

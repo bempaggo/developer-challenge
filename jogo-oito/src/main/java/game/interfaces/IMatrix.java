@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IMatrix {
 
-	public void createCells(Boolean feedback);
+	public void createCells(Boolean feedback, Integer order);
 	
 	public List<Vertex> getCells();
 

@@ -25,7 +25,7 @@ public class BoardTest {
     @BeforeEach
     public void setUp() {
         board = new Board();
-        board.setting(true);
+        board.setting(true, 3);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class BoardTest {
     public void testcheckvictory() {
         Assertions.assertTrue(this.board.checkVictory());
         board = new Board();
-        board.setting(false);
+        board.setting(false, 3);
         Assertions.assertFalse(board.checkVictory());
     }
 

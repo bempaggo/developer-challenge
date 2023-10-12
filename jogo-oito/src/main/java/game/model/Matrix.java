@@ -5,7 +5,6 @@
 package game.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -23,33 +22,41 @@ public final class Matrix implements IMatrix {
 
     private List<Vertex> cells;
     private Vertex emptyCell;
-    private final List<Integer> indexHorizontal = Arrays.asList(0,1,3,4,6,7);
-    private final List<Integer> indexVertical = Arrays.asList(0,1,2,3,4,5);
     private List<Integer> values;
-    private final Integer SIZE = 9;
+    private Integer size;
 
     public Matrix() {
         this.cells = new ArrayList<>();
-        this.values = Arrays.asList(1,2,3,4,5,6,7,8,0);
+        this.values = new ArrayList<>();
     }
     
     @Override
-    public void createCells(Boolean feedback) {
+    public void createCells(Boolean feedback, Integer order) {
+    	this.createValues(order);
+    	
     	if (!feedback) {
     		Collections.shuffle(values);
     	}
     	
-    	IntStream.range(0, SIZE).forEach(index -> this.cells.add(new Cell(this.values.get(index))));
-    	this.defineAdjacent();
+    	IntStream.range(0, this.size).forEach(index -> this.cells.add(new Cell(this.values.get(index))));
+    	this.defineAdjacent(order);
     	this.defineEmptyCell();
     }
     
-    private void defineAdjacent() {
-    	IntStream.range(0, SIZE).forEach(index -> {
-    		if (indexHorizontal.contains(index))
+    private void createValues(Integer order) {
+    	this.size = order*order;
+    	IntStream.range(0, this.size).forEach(index -> this.values.add(index+1));
+    	this.values.set(size-1, 0);
+    }
+    
+    private void defineAdjacent(Integer order) {
+    	Integer multiple = order * (order-1);
+    	IntStream.range(0, this.size).forEach(index -> {
+    		Integer rest = index % order;
+    		if (!rest.equals(order -1))
     			this.cells.get(index).creatingHorizontalAdjacent(this.cells.get(index+1));
-    		if (indexVertical.contains(index))
-    			this.cells.get(index).creatingVerticalAdjacent(this.cells.get(index+3));
+    		if (index < multiple)
+    			this.cells.get(index).creatingVerticalAdjacent(this.cells.get(index+order));
     	});
     }
     

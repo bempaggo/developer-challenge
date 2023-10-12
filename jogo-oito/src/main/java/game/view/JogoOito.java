@@ -25,11 +25,12 @@ public class JogoOito extends JFrame implements KeyListener {
     private final Controller controller;
     private JButton reset;
     private JButton feedback;
+    private final Integer ORDER = 3;
 
     public JogoOito() {
         super("Jogo dos Oito");
         this.controller = new Controller();
-        this.controller.setting(false);
+        this.controller.setting(false, this.ORDER);
         this.buttons = new ArrayList<>();
         addKeyListener(this);
     }
@@ -109,7 +110,7 @@ public class JogoOito extends JFrame implements KeyListener {
 
 
     private void settingGame(Boolean feedback) {
-        this.controller.setting(feedback);
+        this.controller.setting(feedback, this.ORDER);
         this.updateBoard();
     }
     

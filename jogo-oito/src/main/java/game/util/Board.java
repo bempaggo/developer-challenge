@@ -18,9 +18,9 @@ public class Board implements Graph {
     }
 
     @Override
-    public void setting(Boolean feedback) {
+    public void setting(Boolean feedback, Integer order) {
         this.matrix = new Matrix();
-        this.matrix.createCells(feedback);
+        this.matrix.createCells(feedback, order);
         this.cells = this.matrix.getCells();
         this.length = cells.size();
     }

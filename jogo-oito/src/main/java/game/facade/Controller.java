@@ -14,8 +14,8 @@ public class Controller {
         this.board = new Board();
     }
 
-    public void setting(Boolean feedback) {
-        this.board.setting(feedback);
+    public void setting(Boolean feedback, Integer order) {
+        this.board.setting(feedback, order);
     }
 
     public List<Vertex> getCells() {
