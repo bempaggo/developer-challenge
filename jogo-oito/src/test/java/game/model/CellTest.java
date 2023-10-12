@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import game.enums.Keyboard;
+import game.interfaces.Edge;
 import game.interfaces.Vertex;
 
 public class CellTest{
@@ -100,7 +101,7 @@ public class CellTest{
         cell1.creatingVerticalAdjacent(cell3);
         cell1.creatingHorizontalAdjacent(cell4);
 
-        List<Adjacent> adjacents = cell1.getAdjacents();
+        List<Edge> adjacents = cell1.getAdjacents();
         assertEquals(cell2, adjacents.get(0).getCell());
         assertEquals(cell3, adjacents.get(1).getCell());
         assertEquals(cell4, adjacents.get(2).getCell());

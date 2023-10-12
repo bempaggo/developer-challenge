@@ -2,7 +2,7 @@ package game.facade;
 
 import java.util.List;
 
-import game.model.Cell;
+import game.interfaces.Vertex;
 import game.util.Board;
 
 
@@ -18,7 +18,7 @@ public class Controller {
         this.board.setting(feedback);
     }
 
-    public List<Cell> getCells() {
+    public List<Vertex> getCells() {
         return this.board.getCells();
     }
 

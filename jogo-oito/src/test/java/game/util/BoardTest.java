@@ -42,7 +42,7 @@ public class BoardTest {
 
     @Test
     public void testGetCells() {
-        List<Cell> cells = board.getCells();
+        List<Vertex> cells = board.getCells();
 
         assertNotNull(cells);
         assertEquals(9, cells.size());

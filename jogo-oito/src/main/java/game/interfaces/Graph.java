@@ -6,8 +6,6 @@ package game.interfaces;
 
 import java.util.List;
 
-import game.model.Cell;
-
 /**
  *
  * @author allen
@@ -18,9 +16,9 @@ public interface Graph {
 
     void swap(Integer keyCode);
 
-    List<Cell> getCells();
+    List<Vertex> getCells();
 
-    Cell getEmptyCell();
+    Vertex getEmptyCell();
 
     void click(Integer cellValue);
 

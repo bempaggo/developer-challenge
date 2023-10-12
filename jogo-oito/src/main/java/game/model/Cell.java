@@ -6,12 +6,13 @@ import java.util.Objects;
 import java.util.Optional;
 
 import game.enums.Keyboard;
+import game.interfaces.Edge;
 import game.interfaces.Vertex;
 
 public class Cell implements Vertex {
 
     private Integer value;
-    private final List<Adjacent> adjacents;
+    private final List<Edge> adjacents;
 
     public Cell(Integer value) {
         this.value = value;
@@ -29,13 +30,13 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public void creatingHorizontalAdjacent(Cell cell) {
+    public void creatingHorizontalAdjacent(Vertex cell) {
         this.adjacents.add(new Adjacent(Keyboard.LEFT, cell));
         cell.getAdjacents().add(new Adjacent(Keyboard.RIGHT, this));
     }
 
     @Override
-    public void creatingVerticalAdjacent(Cell cell) {
+    public void creatingVerticalAdjacent(Vertex cell) {
         this.adjacents.add(new Adjacent(Keyboard.UP, cell));
         cell.getAdjacents().add(new Adjacent(Keyboard.DOWN, this));
     }
@@ -49,7 +50,7 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public Adjacent getAdjacentByKeyCode(Keyboard key) {
+    public Edge getAdjacentByKeyCode(Keyboard key) {
         Adjacent edge = new Adjacent(key, null);
         Integer indexEdge = this.adjacents.indexOf(edge);
         return Optional.of(indexEdge)
@@ -59,26 +60,26 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public Cell click(Keyboard key) {
-        Adjacent adjacent = this.getAdjacentByKeyCode(key);
+    public Vertex click(Keyboard key) {
+        Edge adjacent = this.getAdjacentByKeyCode(key);
         return this.movement(adjacent);
     }
 
-    private Cell movement(Adjacent adjacent) {
+    private Vertex movement(Edge adjacent) {
         return Optional.ofNullable(adjacent)
-                .map(Adjacent::getCell)
+                .map(Edge::getCell)
                 .map(this::swapCells)
                 .orElse(this);
     }
 
-    private Cell swapCells(Cell movementCell) {
+    private Vertex swapCells(Vertex movementCell) {
         this.setValue(movementCell.getValue());
         movementCell.setValue(0);
         return movementCell;
     }
 
     @Override
-    public Cell swapCells(Integer value) {
+    public Vertex swapCells(Integer value) {
         return this.adjacents.stream()
                 .filter(adjacent -> Objects.equals(adjacent.getCell().getValue(), value))
                 .findFirst()
@@ -87,7 +88,7 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public List<Adjacent> getAdjacents() {
+    public List<Edge> getAdjacents() {
         return this.adjacents;
     }
 

@@ -7,8 +7,7 @@ package game.interfaces;
 import java.util.List;
 
 import game.enums.Keyboard;
-import game.model.Adjacent;
-import game.model.Cell;
+
 
 /**
  *
@@ -20,18 +19,18 @@ public interface Vertex {
 
     Integer getValue();
 
-    void creatingHorizontalAdjacent(Cell cell);
+    void creatingHorizontalAdjacent(Vertex cell);
 
-    void creatingVerticalAdjacent(Cell cell);
+    void creatingVerticalAdjacent(Vertex cell);
 
     String valueToText();
 
-    Adjacent getAdjacentByKeyCode(Keyboard key);
+    Edge getAdjacentByKeyCode(Keyboard key);
 
-    Cell click(Keyboard key);
+    Vertex click(Keyboard key);
 
-    List<Adjacent> getAdjacents();
+    List<Edge> getAdjacents();
     
-    Cell swapCells(Integer value);
+    Vertex swapCells(Integer value);
 
 }

@@ -5,7 +5,6 @@
 package game.interfaces;
 
 import game.enums.Keyboard;
-import game.model.Cell;
 
 /**
  *
@@ -15,6 +14,6 @@ public interface Edge {
 
     Keyboard getKey();
 
-    Cell getCell();
+    Vertex getCell();
     
 }

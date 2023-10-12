@@ -5,12 +5,12 @@ import java.util.stream.IntStream;
 
 import game.enums.Keyboard;
 import game.interfaces.Graph;
-import game.model.Cell;
+import game.interfaces.Vertex;
 import game.model.Matrix;
 
 public class Board implements Graph {
 
-    private List<Cell> cells;
+    private List<Vertex> cells;
     private Integer length;
     private Matrix matrix;
 
@@ -37,12 +37,12 @@ public class Board implements Graph {
     }
 
     @Override
-    public List<Cell> getCells() {
+    public List<Vertex> getCells() {
         return this.cells;
     }
 
     @Override
-    public Cell getEmptyCell() {
+    public Vertex getEmptyCell() {
         return this.matrix.getEmptyCell();
     }
 

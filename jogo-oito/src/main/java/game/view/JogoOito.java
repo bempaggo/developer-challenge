@@ -17,14 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import game.facade.Controller;
-import game.model.Cell;
+import game.interfaces.Vertex;
 
 public class JogoOito extends JFrame implements KeyListener {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3149458477093257344L;
 	
 	private final List<JButton> buttons;
     private final Controller controller;
@@ -48,7 +43,7 @@ public class JogoOito extends JFrame implements KeyListener {
     }
 
     public void createButtons() {
-    	List<Cell> cells = this.controller.getCells();
+    	List<Vertex> cells = this.controller.getCells();
     	IntStream.range(0, cells.size())
         .forEach(index -> {
         	JButton button = this.configButton(cells.get(index));
@@ -63,7 +58,7 @@ public class JogoOito extends JFrame implements KeyListener {
                 .orElse(0);
     }
 
-    public JButton configButton(Cell cell) {
+    public JButton configButton(Vertex cell) {
         JButton button = new JButton();
         button.setFont(new Font("Arial", Font.BOLD, 36));
         button.setText(cell.valueToText());
@@ -119,7 +114,7 @@ public class JogoOito extends JFrame implements KeyListener {
     }
     
    public void updateBoard() {
-        List<Cell> cells = this.controller.getCells();
+        List<Vertex> cells = this.controller.getCells();
         IntStream.range(0, cells.size())
                 .forEach(index -> {
                     JButton button = this.buttons.get(index);

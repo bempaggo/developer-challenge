@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 import game.interfaces.IMatrix;
+import game.interfaces.Vertex;
 
 /**
  *
@@ -20,8 +21,8 @@ import game.interfaces.IMatrix;
  */
 public final class Matrix implements IMatrix {
 
-    private List<Cell> cells;
-    private Cell emptyCell;
+    private List<Vertex> cells;
+    private Vertex emptyCell;
     private final List<Integer> indexHorizontal = Arrays.asList(0,1,3,4,6,7);
     private final List<Integer> indexVertical = Arrays.asList(0,1,2,3,4,5);
     private List<Integer> values;
@@ -53,7 +54,7 @@ public final class Matrix implements IMatrix {
     }
     
     private void defineEmptyCell() {
-        Optional<Cell> minCell = this.cells.stream()
+        Optional<Vertex> minCell = this.cells.stream()
                 .min(Comparator.comparing(cell -> cell.getValue()));
         minCell.ifPresent(cell -> {
             this.setEmptyCell(cell);
@@ -61,17 +62,17 @@ public final class Matrix implements IMatrix {
     }
     
     @Override
-    public List<Cell> getCells() {
+    public List<Vertex> getCells() {
         return this.cells;
     }
 
     @Override
-	public Cell getEmptyCell() {
+	public Vertex getEmptyCell() {
 		return emptyCell;
 	}
 
     @Override
-	public void setEmptyCell(Cell emptyCell) {
+	public void setEmptyCell(Vertex emptyCell) {
 		this.emptyCell = emptyCell;
 	}
 

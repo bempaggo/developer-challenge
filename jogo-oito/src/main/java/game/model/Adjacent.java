@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import game.enums.Keyboard;
 import game.interfaces.Edge;
+import game.interfaces.Vertex;
 
 /**
  *
@@ -16,9 +17,9 @@ import game.interfaces.Edge;
 public class Adjacent implements Edge{
 
     private final Keyboard key;
-    private final Cell cell;
+    private final Vertex cell;
 
-    public Adjacent(Keyboard key, Cell cell) {
+    public Adjacent(Keyboard key, Vertex cell) {
         this.key = key;
         this.cell = cell;
     }
@@ -29,7 +30,7 @@ public class Adjacent implements Edge{
     }
 
     @Override
-    public Cell getCell() {
+    public Vertex getCell() {
         return this.cell;
     }
 
