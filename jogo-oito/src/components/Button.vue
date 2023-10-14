@@ -19,6 +19,11 @@ defineProps<{ text: string, func: Function }>()
   background-color: #237847;
 }
 
+.btn:hover {
+  cursor: pointer;
+  border: 2px solid white;
+}
+
 h1 {
   filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 1));
 }

@@ -7,7 +7,8 @@ const store = useGameStore()
 </script>
 
 <template>
-  <div class='btn' @click="store.move(num)" :style="{ backgroundImage: `url(${IMAGES[num]})` }">
+  <div v-bind:class='{ btn: num != 0, btnZero: num == 0 }' @click="store.move(num)"
+    :style="{ backgroundImage: `url(${IMAGES[num]})` }">
     <h1>{{ num }}</h1>
   </div>
 </template>
@@ -23,6 +24,24 @@ const store = useGameStore()
   border-radius: 10%;
   background-size: cover;
   background-position: center;
+}
+
+.btn:hover {
+  border: 2px solid white;
+  cursor: pointer;
+}
+
+.btnZero {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: end;
+  padding-left: 5%;
+  border-radius: 10%;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(0.5)
 }
 
 h1 {
