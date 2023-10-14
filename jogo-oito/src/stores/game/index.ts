@@ -8,8 +8,15 @@ export const useGameStore = defineStore("game", {
   getters: {},
   actions: {
     move(num: number) {
-      if (!this.game.getVictoryStatus())
-      this.game.moveNum(num);
+      if (!this.game.getVictoryStatus()) this.game.moveNum(num);
+    },
+
+    resetGame() {
+      this.game.resetGame();
+    },
+
+    winGame() {
+      this.game.winGame();
     },
   },
 });

@@ -19,6 +19,14 @@ export default class GameController {
     return this.boardMatrix;
   }
 
+  resetGame() {
+    //.. todo
+  }
+
+  winGame() {
+    // .. todo
+  }
+
   private updateVictoryStatus() {
     const winBoardMatrix = [
       [1, 2, 3],
