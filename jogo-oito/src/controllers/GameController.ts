@@ -21,12 +21,33 @@ export default class GameController {
     return this.boardMatrix;
   }
 
+  setBoardMatrix(toMatrix: number[][]) {
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        this.boardMatrix[i][j] = toMatrix[i][j];
+      }
+    }
+  }
+
   resetGame() {
-    //.. todo
+    const resetMatrix = [
+      [1, 2, 3],
+      [8, 0, 4],
+      [7, 5, 6],
+    ];
+
+    this.setBoardMatrix(resetMatrix);
+    this.victoryStatus = false;
   }
 
   winGame() {
-    // .. todo
+    const winMatrix = [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 0],
+    ];
+    this.setBoardMatrix(winMatrix);
+    this.victoryStatus = true;
   }
 
   private updateVictoryStatus() {
