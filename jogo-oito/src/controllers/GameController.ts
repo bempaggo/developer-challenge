@@ -28,7 +28,7 @@ export default class GameController {
   }
 
   private updateVictoryStatus() {
-    const winBoardMatrix = [
+    const winMatrix = [
       [1, 2, 3],
       [4, 5, 6],
       [7, 8, 0],
@@ -36,7 +36,7 @@ export default class GameController {
 
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        if (this.boardMatrix[i][j] !== winBoardMatrix[i][j]) {
+        if (this.boardMatrix[i][j] !== winMatrix[i][j]) {
           return false;
         }
       }
@@ -58,7 +58,7 @@ export default class GameController {
     return axis;
   }
 
-  private setBoardMatrixNum(x: number, y: number, num: number) {
+  private setMatrixNum(x: number, y: number, num: number) {
     this.boardMatrix[y][x] = num;
   }
 
@@ -69,8 +69,8 @@ export default class GameController {
   ) {
     const directionValue = this.boardMatrix[to.y][to.x];
     if (directionValue != null && directionValue == 0) {
-      this.setBoardMatrixNum(to.x, to.y, num);
-      this.setBoardMatrixNum(from.x, from.y, 0);
+      this.setMatrixNum(to.x, to.y, num);
+      this.setMatrixNum(from.x, from.y, 0);
     }
   }
 
@@ -112,7 +112,7 @@ export default class GameController {
 
   moveNum(num: number) {
     if (num == 0) return;
-    const axis = this.getNumMatrixIndex(num);
+    const axis = this.getMatrixNumIndex(num);
     const from = {
       x: axis[1],
       y: axis[0],
