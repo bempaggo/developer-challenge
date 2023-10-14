@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Button from '../components/Button.vue'
+import Square from '../components/Square.vue'
 import { useGameStore } from '../stores/game'
 const store = useGameStore()
 const board = store.game.getBoardMatrix()
@@ -7,23 +7,23 @@ const board = store.game.getBoardMatrix()
 
 <template>
   <div class='container'>
-    <Button :num="board[0][0]" />
-    <Button :num="board[0][1]" />
-    <Button :num="board[0][2]" />
-    <Button :num="board[1][0]" />
-    <Button :num="board[1][1]" />
-    <Button :num="board[1][2]" />
-    <Button :num="board[2][0]" />
-    <Button :num="board[2][1]" />
-    <Button :num="board[2][2]" />
+    <Square :num="board[0][0]" />
+    <Square :num="board[0][1]" />
+    <Square :num="board[0][2]" />
+    <Square :num="board[1][0]" />
+    <Square :num="board[1][1]" />
+    <Square :num="board[1][2]" />
+    <Square :num="board[2][0]" />
+    <Square :num="board[2][1]" />
+    <Square :num="board[2][2]" />
   </div>
 </template>
 
 <style scoped>
 .container {
-  width: 300px;
-  height: 300px;
-  background-color: red;
+  width: 500px;
+  height: 500px;
+  background-color: #237847;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
