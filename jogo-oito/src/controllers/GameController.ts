@@ -46,13 +46,16 @@ export default class GameController {
   }
 
   private getNumMatrixIndex(num: number) {
+    let axis: number[] = []
     for (let i = 0; i <= 2; i++) {
       for (let j = 0; j <= 2; j++) {
         if (this.boardMatrix[i][j] == num) {
-          return [i, j];
+          axis = [i, j];
         }
       }
     }
+
+    return axis;
   }
 
   private setBoardMatrixNum(x: number, y: number, num: number) {
@@ -111,8 +114,8 @@ export default class GameController {
     if (num == 0) return;
     const axis = this.getNumMatrixIndex(num);
     const from = {
-      x: axis!![1],
-      y: axis!![0],
+      x: axis[1],
+      y: axis[0],
     };
 
     this.tryMoveNumToLeft(from, { x: from.x - 1, y: from.y }, num);
