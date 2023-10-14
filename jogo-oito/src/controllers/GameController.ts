@@ -1,3 +1,5 @@
+import { Axis } from "../model/Axis";
+
 export default class GameController {
   private boardMatrix: number[][];
   private victoryStatus: boolean;
@@ -46,7 +48,7 @@ export default class GameController {
   }
 
   private getMatrixNumIndex(num: number) {
-    let axis: number[] = []
+    let axis: number[] = [];
     for (let i = 0; i <= 2; i++) {
       for (let j = 0; j <= 2; j++) {
         if (this.boardMatrix[i][j] == num) {
@@ -62,11 +64,10 @@ export default class GameController {
     this.boardMatrix[y][x] = num;
   }
 
-  private tryMoveNum(
-    from: { x: number; y: number },
-    to: { x: number; y: number },
-    num: number,
-  ) {
+  private tryMoveNum(axis: Axis, num: number) {
+    const from = axis.from;
+    const to = axis.to;
+
     const directionValue = this.boardMatrix[to.y][to.x];
     if (directionValue != null && directionValue == 0) {
       this.setMatrixNum(to.x, to.y, num);
@@ -74,40 +75,24 @@ export default class GameController {
     }
   }
 
-  private tryMoveNumToRight(
-    from: { x: number; y: number },
-    to: { x: number; y: number },
-    num: number,
-  ) {
-    if (to.x < 0) return;
-    this.tryMoveNum(from, { x: to.x, y: to.y }, num);
+  private tryMoveNumToRight(axis: Axis, num: number) {
+    if (axis.to.x < 0) return;
+    this.tryMoveNum(axis, num);
   }
 
-  private tryMoveNumToLeft(
-    from: { x: number; y: number },
-    to: { x: number; y: number },
-    num: number,
-  ) {
-    if (to.x > 2) return;
-    this.tryMoveNum(from, { x: to.x, y: to.y }, num);
+  private tryMoveNumToLeft(axis: Axis, num: number) {
+    if (axis.to.x > 2) return;
+    this.tryMoveNum(axis, num);
   }
 
-  private tryMoveNumToUp(
-    from: { x: number; y: number },
-    to: { x: number; y: number },
-    num: number,
-  ) {
-    if (to.y < 0) return;
-    this.tryMoveNum(from, { x: to.x, y: to.y }, num);
+  private tryMoveNumToUp(axis: Axis, num: number) {
+    if (axis.to.y < 0) return;
+    this.tryMoveNum(axis, num);
   }
 
-  private tryMoveNumToDown(
-    from: { x: number; y: number },
-    to: { x: number; y: number },
-    num: number,
-  ) {
-    if (to.y > 2) return;
-    this.tryMoveNum(from, { x: to.x, y: to.y }, num);
+  private tryMoveNumToDown(axis: Axis, num: number) {
+    if (axis.to.y > 2) return;
+    this.tryMoveNum(axis, num);
   }
 
   moveNum(num: number) {
@@ -118,10 +103,10 @@ export default class GameController {
       y: axis[0],
     };
 
-    this.tryMoveNumToLeft(from, { x: from.x - 1, y: from.y }, num);
-    this.tryMoveNumToRight(from, { x: from.x + 1, y: from.y }, num);
-    this.tryMoveNumToDown(from, { x: from.x, y: from.y + 1 }, num);
-    this.tryMoveNumToUp(from, { x: from.x, y: from.y - 1 }, num);
+    this.tryMoveNumToLeft(new Axis(from, { x: from.x - 1, y: from.y }), num);
+    this.tryMoveNumToRight(new Axis(from, { x: from.x + 1, y: from.y }), num);
+    this.tryMoveNumToDown(new Axis(from, { x: from.x, y: from.y + 1 }), num);
+    this.tryMoveNumToUp(new Axis(from, { x: from.x, y: from.y - 1 }), num);
     this.victoryStatus = this.updateVictoryStatus();
   }
 }
