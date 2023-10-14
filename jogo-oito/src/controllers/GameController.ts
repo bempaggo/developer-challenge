@@ -71,7 +71,7 @@ export default class GameController {
     }
   }
 
-  private tryMoveNumRight(
+  private tryMoveNumToRight(
     from: { x: number; y: number },
     to: { x: number; y: number },
     num: number,
@@ -80,7 +80,7 @@ export default class GameController {
     this.tryMoveNum(from, { x: to.x, y: to.y }, num);
   }
 
-  private tryMoveNumLeft(
+  private tryMoveNumToLeft(
     from: { x: number; y: number },
     to: { x: number; y: number },
     num: number,
@@ -89,7 +89,7 @@ export default class GameController {
     this.tryMoveNum(from, { x: to.x, y: to.y }, num);
   }
 
-  private tryMoveNumUp(
+  private tryMoveNumToUp(
     from: { x: number; y: number },
     to: { x: number; y: number },
     num: number,
@@ -98,7 +98,7 @@ export default class GameController {
     this.tryMoveNum(from, { x: to.x, y: to.y }, num);
   }
 
-  private tryMoveNumDown(
+  private tryMoveNumToDown(
     from: { x: number; y: number },
     to: { x: number; y: number },
     num: number,
@@ -115,10 +115,10 @@ export default class GameController {
       y: axis!![0],
     };
 
-    this.tryMoveNumLeft(from, { x: from.x - 1, y: from.y }, num);
-    this.tryMoveNumRight(from, { x: from.x + 1, y: from.y }, num);
-    this.tryMoveNumDown(from, { x: from.x, y: from.y + 1 }, num);
-    this.tryMoveNumUp(from, { x: from.x, y: from.y - 1 }, num);
+    this.tryMoveNumToLeft(from, { x: from.x - 1, y: from.y }, num);
+    this.tryMoveNumToRight(from, { x: from.x + 1, y: from.y }, num);
+    this.tryMoveNumToDown(from, { x: from.x, y: from.y + 1 }, num);
+    this.tryMoveNumToUp(from, { x: from.x, y: from.y - 1 }, num);
     this.victoryStatus = this.updateVictoryStatus();
   }
 }
