@@ -1,11 +1,12 @@
-import { Axis } from "../model/Axis";
-import Matrix from "./Matrix";
+import { Axis } from "../utils/Axis";
+import { Matrix } from "../interfaces/Matrix";
+import { Board } from "../interfaces/Board";
 
-export default class Board {
+export class BoardImpl implements Board {
   private matrix: Matrix;
 
-  constructor() {
-    this.matrix = new Matrix();
+  constructor(matrix: Matrix) {
+    this.matrix = matrix;
   }
 
   get() {

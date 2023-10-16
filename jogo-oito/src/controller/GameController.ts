@@ -1,11 +1,11 @@
-import Board from "../model/Board";
+import { Board } from "../interfaces/Board";
 
-export default class GameController {
+export class GameController {
   private board: Board;
   private victoryStatus: boolean;
 
-  constructor() {
-    this.board = new Board();
+  constructor(board: Board) {
+    this.board = board;
     this.victoryStatus = false;
   }
 

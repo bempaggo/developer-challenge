@@ -1,6 +1,7 @@
-import { Axis } from "../model/Axis";
+import Matrix from "../interfaces/Matrix";
+import { Axis } from "../utils/Axis";
 
-export default class Matrix {
+export class MatrixImpl implements Matrix {
   private matrix: number[][];
   private winMatrix = [
     [1, 2, 3],
