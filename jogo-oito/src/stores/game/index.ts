@@ -8,7 +8,7 @@ export const useGameStore = defineStore("game", {
   getters: {},
   actions: {
     getBoard() {
-      return this.game.getBoard()
+      return this.game.getBoard();
     },
 
     moveNum(num: number) {
@@ -16,11 +16,11 @@ export const useGameStore = defineStore("game", {
     },
 
     resetGame() {
-      this.game.resetGame();
+      this.game.reset();
     },
 
     winGame() {
-      this.game.winGame();
+      this.game.win();
     },
   },
 });

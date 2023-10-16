@@ -2,26 +2,26 @@
 import Square from '../components/Square.vue'
 import Button from '../components/Button.vue'
 import { useGameStore } from '../stores/game'
-const store = useGameStore()
-const board = store.getBoard()
+const gameStore = useGameStore()
+const gameBoard = gameStore.getBoard()
 </script>
 
 <template>
   <div class='game-container'>
     <div class='board-container'>
-      <Square :num="board[0][0]" />
-      <Square :num="board[0][1]" />
-      <Square :num="board[0][2]" />
-      <Square :num="board[1][0]" />
-      <Square :num="board[1][1]" />
-      <Square :num="board[1][2]" />
-      <Square :num="board[2][0]" />
-      <Square :num="board[2][1]" />
-      <Square :num="board[2][2]" />
+      <Square :num="gameBoard[0][0]" />
+      <Square :num="gameBoard[0][1]" />
+      <Square :num="gameBoard[0][2]" />
+      <Square :num="gameBoard[1][0]" />
+      <Square :num="gameBoard[1][1]" />
+      <Square :num="gameBoard[1][2]" />
+      <Square :num="gameBoard[2][0]" />
+      <Square :num="gameBoard[2][1]" />
+      <Square :num="gameBoard[2][2]" />
     </div>
     <div class='buttons-container'>
-      <Button text="Reset" :func="store.resetGame" />
-      <Button text="Win" :func="store.winGame" />
+      <Button text="Reset" :func="gameStore.resetGame" />
+      <Button text="Win" :func="gameStore.winGame" />
     </div>
   </div>
 </template>

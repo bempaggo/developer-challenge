@@ -14,21 +14,21 @@ export default class GameController {
   }
 
   getBoard() {
-    return this.board.getMatrix();
+    return this.board.get();
   }
 
-  resetGame() {
-    this.board.resetMatrix();
+  reset() {
+    this.board.reset();
     this.victoryStatus = false;
   }
 
-  winGame() {
-    this.board.setWinMatrix();
+  win() {
+    this.board.setWin();
     this.victoryStatus = true;
   }
 
   private updateVictoryStatus() {
-    this.victoryStatus = this.board.checkVictoryMatrix();
+    this.victoryStatus = this.board.checkVictory();
   }
 
   moveNum(num: number) {
