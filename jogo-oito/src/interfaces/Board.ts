@@ -12,13 +12,13 @@ export interface Board {
 
   checkVictory(): boolean;
 
-  tryMoveNumToRight(axis: Axis, num: number): void;
+  tryMoveNumToRight(axis: Axis): void;
 
-  tryMoveNumToLeft(axis: Axis, num: number): void;
+  tryMoveNumToLeft(axis: Axis): void;
 
-  tryMoveNumToUp(axis: Axis, num: number): void;
+  tryMoveNumToUp(axis: Axis): void;
 
-  tryMoveNumToDown(axis: Axis, num: number): void;
+  tryMoveNumToDown(axis: Axis): void;
 
   moveNum(num: number): void;
 }

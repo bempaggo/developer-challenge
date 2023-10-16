@@ -25,24 +25,24 @@ export class BoardImpl implements Board {
     return this.matrix.checkVictory();
   }
 
-  private tryMoveNumToRight(axis: Axis, num: number) {
+  private tryMoveNumToRight(axis: Axis) {
     if (axis.to.x < 0) return;
-    this.matrix.switchValue(axis, num);
+    this.matrix.switchValue(axis);
   }
 
-  private tryMoveNumToLeft(axis: Axis, num: number) {
+  private tryMoveNumToLeft(axis: Axis) {
     if (axis.to.x > 2) return;
-    this.matrix.switchValue(axis, num);
+    this.matrix.switchValue(axis);
   }
 
-  private tryMoveNumToUp(axis: Axis, num: number) {
+  private tryMoveNumToUp(axis: Axis) {
     if (axis.to.y < 0) return;
-    this.matrix.switchValue(axis, num);
+    this.matrix.switchValue(axis);
   }
 
-  private tryMoveNumToDown(axis: Axis, num: number) {
+  private tryMoveNumToDown(axis: Axis) {
     if (axis.to.y > 2) return;
-    this.matrix.switchValue(axis, num);
+    this.matrix.switchValue(axis);
   }
 
   moveNum(num: number) {
@@ -53,9 +53,9 @@ export class BoardImpl implements Board {
       y: axis[0],
     };
 
-    this.tryMoveNumToLeft(new Axis(from, { x: from.x - 1, y: from.y }), num);
-    this.tryMoveNumToRight(new Axis(from, { x: from.x + 1, y: from.y }), num);
-    this.tryMoveNumToDown(new Axis(from, { x: from.x, y: from.y + 1 }), num);
-    this.tryMoveNumToUp(new Axis(from, { x: from.x, y: from.y - 1 }), num);
+    this.tryMoveNumToLeft(new Axis(from, { x: from.x - 1, y: from.y }));
+    this.tryMoveNumToRight(new Axis(from, { x: from.x + 1, y: from.y }));
+    this.tryMoveNumToDown(new Axis(from, { x: from.x, y: from.y + 1 }));
+    this.tryMoveNumToUp(new Axis(from, { x: from.x, y: from.y - 1 }));
   }
 }

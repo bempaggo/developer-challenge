@@ -19,5 +19,5 @@ export interface Matrix {
 
   setNum(x: number, y: number, num: number): void;
 
-  switchValue(axis: Axis, num: number): void;
+  switchValue(axis: Axis): void;
 }

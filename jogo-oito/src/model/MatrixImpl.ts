@@ -67,14 +67,15 @@ export class MatrixImpl implements Matrix {
     this.matrix[y][x] = num;
   }
 
-  switchValue(axis: Axis, num: number) {
+  switchValue(axis: Axis) {
     const from = axis.from;
     const to = axis.to;
+    const fromValue = this.matrix[from.y][to.y];
+    const toValue = this.matrix[to.y][to.x];
 
-    const directionValue = this.matrix[to.y][to.x];
-    if (directionValue != null && directionValue == 0) {
-      this.setNum(to.x, to.y, num);
-      this.setNum(from.x, from.y, 0);
+    if (toValue != null && toValue == 0) {
+      this.setNum(to.x, to.y, fromValue);
+      this.setNum(from.x, from.y, toValue);
     }
   }
 }
