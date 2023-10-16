@@ -47,10 +47,10 @@ export class BoardImpl implements Board {
 
   moveNum(num: number) {
     if (num == 0) return;
-    const axis = this.matrix.getNumIndex(num);
+    const numAxis = this.matrix.getNumIndex(num);
     const from = {
-      x: axis[1],
-      y: axis[0],
+      x: numAxis[1],
+      y: numAxis[0],
     };
 
     this.tryMoveNumToLeft(new Axis(from, { x: from.x - 1, y: from.y }));
