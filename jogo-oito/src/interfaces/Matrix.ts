@@ -1,4 +1,5 @@
 import { Axis } from "../utils/Axis";
+import { AxisPair } from "../utils/PairOfAxis";
 
 export interface Matrix {
   matrix: number[][];
@@ -15,9 +16,9 @@ export interface Matrix {
 
   checkVictory(): boolean;
 
-  getNumIndex(num: number): number[];
+  getNumAxis(num: number): Axis;
 
   setNum(x: number, y: number, num: number): void;
 
-  switchValue(axis: Axis): void;
+  switchValue(axis: AxisPair): void;
 }

@@ -1,4 +1,4 @@
-import { Axis } from "../utils/Axis";
+import { AxisPair } from "../utils/PairOfAxis";
 import { Matrix } from "./Matrix";
 
 export interface Board {
@@ -12,13 +12,13 @@ export interface Board {
 
   checkVictory(): boolean;
 
-  tryMoveNumToRight(axis: Axis): void;
+  tryMoveNumToRight(axis: AxisPair): void;
 
-  tryMoveNumToLeft(axis: Axis): void;
+  tryMoveNumToLeft(axis: AxisPair): void;
 
-  tryMoveNumToUp(axis: Axis): void;
+  tryMoveNumToUp(axis: AxisPair): void;
 
-  tryMoveNumToDown(axis: Axis): void;
+  tryMoveNumToDown(axis: AxisPair): void;
 
   moveNum(num: number): void;
 }

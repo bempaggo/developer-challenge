@@ -1,5 +1,6 @@
 import { Matrix } from "../interfaces/Matrix";
 import { Axis } from "../utils/Axis";
+import { AxisPair } from "../utils/PairOfAxis";
 
 export class MatrixImpl implements Matrix {
   private matrix: number[][];
@@ -50,12 +51,13 @@ export class MatrixImpl implements Matrix {
     return true;
   }
 
-  getNumIndex(num: number) {
-    let axis: number[] = [];
+  getNumAxis(num: number) {
+    let axis: Axis = new Axis(0, 0)
+
     for (let i = 0; i <= 2; i++) {
       for (let j = 0; j <= 2; j++) {
         if (this.matrix[i][j] == num) {
-          axis = [i, j];
+          axis = new Axis(j, i);
         }
       }
     }
@@ -67,7 +69,7 @@ export class MatrixImpl implements Matrix {
     this.matrix[y][x] = num;
   }
 
-  switchValue(axis: Axis) {
+  switchValue(axis: AxisPair) {
     const from = axis.from;
     const to = axis.to;
     const fromValue = this.matrix[from.y][to.y];
