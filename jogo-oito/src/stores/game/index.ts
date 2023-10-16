@@ -7,7 +7,11 @@ export const useGameStore = defineStore("game", {
   }),
   getters: {},
   actions: {
-    move(num: number) {
+    getBoard() {
+      return this.game.getBoard()
+    },
+
+    moveNum(num: number) {
       if (!this.game.getVictoryStatus()) this.game.moveNum(num);
     },
 

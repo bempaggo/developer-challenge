@@ -3,7 +3,7 @@ import Square from '../components/Square.vue'
 import Button from '../components/Button.vue'
 import { useGameStore } from '../stores/game'
 const store = useGameStore()
-const board = store.game.getBoardMatrix()
+const board = store.getBoard()
 </script>
 
 <template>

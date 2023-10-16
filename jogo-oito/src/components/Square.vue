@@ -7,7 +7,7 @@ const store = useGameStore()
 </script>
 
 <template>
-  <div v-bind:class='{ btn: num != 0, btnZero: num == 0 }' @click="store.move(num)"
+  <div v-bind:class='{ btn: num != 0, btnZero: num == 0 }' @click="store.moveNum(num)"
     :style="{ backgroundImage: `url(${IMAGES[num]})` }">
     <h1>{{ num }}</h1>
   </div>
