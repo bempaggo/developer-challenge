@@ -1,4 +1,4 @@
-import Matrix from "../interfaces/Matrix";
+import { Matrix } from "../interfaces/Matrix";
 import { Axis } from "../utils/Axis";
 
 export class MatrixImpl implements Matrix {
