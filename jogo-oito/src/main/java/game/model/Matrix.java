@@ -41,7 +41,7 @@ public final class Matrix implements IMatrix {
     	
     	IntStream.range(0, this.SIZE).forEach(index -> {
     		this.cells.get(index).setValue(this.values.get(index));
-    		if (this.values.get(index).equals(0))
+    		if (this.values.get(index).equals(9))
     			this.emptyCell = this.cells.get(index);
     	});
     }
@@ -53,7 +53,6 @@ public final class Matrix implements IMatrix {
     		numbers.add(index+1);
     		this.cells.add(new Cell());
     	});
-    	numbers.set(SIZE-1, 0);
     	
     	return numbers;
     }
@@ -88,7 +87,7 @@ public final class Matrix implements IMatrix {
     @Override
     public Boolean checkVictory() {
         return IntStream.range(0, this.SIZE)
-                .allMatch(index -> this.cells.get(index).getValue() == (index + 1) % this.SIZE);
+                .allMatch(index -> this.cells.get(index).getValue() == (index + 1));
     }
     
     @Override

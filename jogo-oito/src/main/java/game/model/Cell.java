@@ -48,7 +48,7 @@ public class Cell implements Vertex {
     @Override
     public String valueToText() {
         return Optional.of(this.value)
-                .filter(value -> value != 0)
+                .filter(value -> value != 9)
                 .map(String::valueOf)
                 .orElse("");
     }
@@ -78,7 +78,7 @@ public class Cell implements Vertex {
 
     private Vertex swapCells(Vertex movementCell) {
         this.setValue(movementCell.getValue());
-        movementCell.setValue(0);
+        movementCell.setValue(9);
         return movementCell;
     }
 

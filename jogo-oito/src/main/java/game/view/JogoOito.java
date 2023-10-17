@@ -29,6 +29,7 @@ public class JogoOito extends JFrame implements KeyListener {
     public JogoOito() {
         super("Jogo dos Oito");
         this.controller = new Controller();
+        this.controller.setting(false);
         this.buttons = new ArrayList<>();
         addKeyListener(this);
     }
@@ -54,7 +55,7 @@ public class JogoOito extends JFrame implements KeyListener {
     private Integer textToValue(String text) {
         return Optional.ofNullable(text)
                 .map(Integer::valueOf)
-                .orElse(0);
+                .orElse(9);
     }
 
     public JButton configButton(Vertex cell) {
