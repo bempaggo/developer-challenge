@@ -14,7 +14,7 @@ const store = useGameStore()
 </template>
 
 <style scoped>
-.btn {
+.btn, .btnZero {
   width: 100%;
   height: 100%;
   display: flex;
@@ -32,15 +32,6 @@ const store = useGameStore()
 }
 
 .btnZero {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: start;
-  align-items: end;
-  padding-left: 5%;
-  border-radius: 10%;
-  background-size: cover;
-  background-position: center;
   filter: grayscale(0.5)
 }
 
