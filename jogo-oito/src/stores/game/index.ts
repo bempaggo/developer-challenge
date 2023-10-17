@@ -22,5 +22,9 @@ export const useGameStore = defineStore("game", {
     winGame() {
       this.game.win();
     },
+
+    checkVictoryStatus() {
+      return this.game.getVictoryStatus();
+    },
   },
 });

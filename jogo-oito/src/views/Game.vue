@@ -7,10 +7,14 @@ import { computed } from 'vue';
 const gameStore = useGameStore()
 const gameBoard = gameStore.getBoard()
 const gameBoardAsArray = computed(() => gameBoard.flat().flat())
+const victoryStatus = computed(() => gameStore.checkVictoryStatus())
 </script>
 
 <template>
   <div class='game-container'>
+    <div class='status-container'>
+      <h1 v-if="victoryStatus == true">You win!</h1>
+    </div>
     <div class='board-container'>
       <Square v-for="num in gameBoardAsArray" :num="num" />
     </div>
@@ -24,9 +28,17 @@ const gameBoardAsArray = computed(() => gameBoard.flat().flat())
 <style scoped>
 .game-container {
   display: flex;
-  height: 620px;
+  height: 700px;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.status-container {
+  height: 25px;
+}
+
+h1 {
+  filter: drop-shadow(2px 2px 2px #237847);
 }
 
 .board-container {
