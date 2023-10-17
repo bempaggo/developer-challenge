@@ -72,7 +72,7 @@ export class MatrixImpl implements Matrix {
   switchValue(axis: AxisPair) {
     const from = axis.from;
     const to = axis.to;
-    const fromValue = this.matrix[from.y][to.y];
+    const fromValue = this.matrix[from.y][from.x];
     const toValue = this.matrix[to.y][to.x];
 
     if (toValue != null && toValue == 0) {
