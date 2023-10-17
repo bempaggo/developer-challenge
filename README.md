@@ -1,105 +1,27 @@
-# [REMOTO] Desafio para vaga de desenvolvedor [Sênior, em processo de contratação].
+<h1 align="center">
+<p float="left">
+<img src="https://user-images.githubusercontent.com/79764273/275768616-6a49b003-83a4-4a9c-be9f-aa2cc50ecc3e.jpg" width="400">
+<img src="https://user-images.githubusercontent.com/79764273/275769989-12f37c02-02b4-4def-ae4d-101c9f96468d.jpg" width="400">
+</p>
+</h1>
+<p align="center"><b>Jogo dos Oito</b> feito em <b>Vue + Typescript</b> usando <b>Vite</b>!</br></p>
 
-![image](https://user-images.githubusercontent.com/5315184/228086966-4b4b41cc-276c-4d04-96b8-5d37317a89e8.png)
+<h2>📋 Notas</h2>
+<li>Tentei seguir a <a href="https://vueschool.io/articles/vuejs-tutorials/how-to-structure-a-large-scale-vue-js-application/">arquitetura recomendada pro Vue</a> (MVVM)</li>
+<li>Usei o <a href="https://pinia.vuejs.org">Pinia</a> pra fazer a <b>Store</b> e segurar/manipular os estados do Jogo.</li>
+<li>Usei o <a href="https://vitest.dev">Vitest</a> para escrever os testes, visto que o JEST tem algumas limitações com projetos feitos em Vite.</li>
+<li>Tentei explorar o máximo o possível de POO nesse projeto, mas evitei ser um pouco "desnecessário".</li>
+<li>Acredito ter escrito um código limpo, testável e "escalável".</li>
+<li>Fiz uma interface mais amigável e intuitiva pro jogador.</li>
+<li>Espero que gostem, um abraço! 😉</li>
 
-A Bempaggo é uma empresa do setor de pagamentos.
+<h2>📦 Instalação / Execução</h2> 
+<ul>
+<li>npm install -> npm run dev</li>
+</ul>
 
-## Informações sobre a vaga:
-
--> Local de trabalho 100% REMOTO.
-
--> Vaga para trabalho remoto (Residir no Brasil por mais de 6 meses no ano).
-
--> R$ 10K (inicial) - Desenvolvedor Sênior (em processo de contrataçâo).
-
--> R$ 5K (inicial) - Desenvolvedor Pleno.
-
--> R$ 2K (inicial) - Desenvolvedor Estágio.
-
--> + Benefícios.
-
-
-## Principais tecnologias que utilizamos:
-
--> Banco de Dados (Postgresql e Mysql).
-
--> Backend -> Java (ORM, jakarta.ws.rs [jersey]), Rust.
-
--> Frontend -> JavaScript, TypeScript, Vue, CSS e HTML.
-
--> Testes automatizados-> unidade e aceitação (JUnit).
-
--> Github e AWS.
-
--> Desenvolvimento dirigido por testes (TDD), destacando a programação em par e assegurar primeiro.
-
-
-## Requisito da vaga
-
--> Domínio do paradigma de programação orientada aos objetos (POO).
-
-##
-# INSTRUÇÕES:
-
-## 1 - Crie um fork do projeto.
-__https://github.com/bempaggo/developer-challenge__
-
-## 2 - Melhore o nosso projeto inicial.
-
-
-_Esperamos que você seja melhor que o ChatGPT e do @AllenHichard ._
-
-_Valorizamos código com qualidade, ausência de dívidas técnicas..._
-
-_Mostre para nós o teu potencial por meio do código._
-
-_Aplicar programação orientada aos objetos é uma exigência para esta vaga._
-
-_Precisamos jogar o jogo com mouse._
-
-## 2.1 Histórico do desenvolvimento
-1° - Chat Gpt gerou um código Java para um jogo do 8, o código aparentava estruturas monolíticas.
-
-2° - Allan incluiu uma versão Orientada Objetos, contudo com muito código funcional.
-
-3° - Estamos agoardando ansiosos por adicionar mais nomes de desenvolvedores ou desenvolvedoras aqui. 
-
-## 2.2 Melhorias
-Gostariamos de uma versão tendendo à POO pura. Onde pode melhorar? 
-  São diversos pontos, alguns mais evidentes: Melhorar as abstrações, incluido nomes e conceitos do jogo de 8. Reduzir o volume de código. Aplicar Padrões de Projetos de Software.    
-
-## 3 - Faça um pull request ao nosso projeto.
-
-_Indique o nível da vaga na mensagem de pull request._
-
-_Sugerimos que capriche sempre que pedir um pull request, reveja o que os outros já fizeram isso ajuda a revisão._
-
-
-## 4 - Aguarde uma revisão.
-
-_Caso rejeitado, apontaremos apenas um problema._
-
-## 5 - O que é avaliado no desafio?
-
--> Avaliamos o domínio de Programação Orientada aos Objetos.
-
-### Dicas do avaliador:
-
--> A empresa utiliza essencialmente Java e TypeScript como linguagem.
-
--> Orienta-se utilização da linguagem que domine para resolver o desafio (especialmente se quiser concorrer à vaga de estágio. Eu não tenho preferência por linguagem).
-
--> Neste momento, a quantidade de tecnologias que têm contato/domine/goste é indiferente.
-
--> Disciplinas de: Matemática, Português, Inglês e Física são desejáveis.
-
--> Programação Orientada aos Objetos não se refere às tecnologias.
-
--> Caso utilize testes automatizados, a chance do candidato ter o _pull request_ aceito aumenta significativamente.
-
--> Respire. Leia atentamente a Seção 5.
-
--> [Se liga ](https://refactoring.guru/)https://refactoring.guru/
-
-
-
+<h2>🔬 Testes</h2>
+<ul>
+<li>npm run test</li>
+</ul>
+<img src="https://i.imgur.com/d8pu6LL.jpg" width="100%"/>
