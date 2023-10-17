@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package game.util;
+package game.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -16,25 +16,24 @@ import org.junit.jupiter.api.Test;
 import game.enums.Keyboard;
 import game.interfaces.Edge;
 import game.interfaces.Vertex;
-import game.model.Cell;
 
-public class BoardTest {
+public class MatrixTest {
 
-    private Board board;
+    private Matrix matrix;
 
     @BeforeEach
     public void setUp() {
-        board = new Board();
-        board.setting(true, 3);
+        matrix = new Matrix();
+        matrix.createCells(true);
     }
 
     @Test
     public void testSwap() {
-        Vertex emptyCell = board.getEmptyCell();
-        Vertex cell = board.getCells().get(7);
+        Vertex emptyCell = matrix.getEmptyCell();
+        Vertex cell = matrix.getCells().get(7);
         Integer cellValue = cell.getValue();
 
-        board.click(cellValue);
+        matrix.click(cellValue);
 
         assertEquals(cellValue, emptyCell.getValue());
         assertEquals(0, cell.getValue());
@@ -42,7 +41,7 @@ public class BoardTest {
 
     @Test
     public void testGetCells() {
-        List<Vertex> cells = board.getCells();
+        List<Vertex> cells = matrix.getCells();
 
         assertNotNull(cells);
         assertEquals(9, cells.size());
@@ -50,8 +49,8 @@ public class BoardTest {
 
     @Test
     public void testDefineCellRelationships() {
-        Vertex cell1 = board.getCells().get(1);
-        Vertex cell2 = board.getCells().get(2);
+        Vertex cell1 = matrix.getCells().get(1);
+        Vertex cell2 = matrix.getCells().get(2);
 
         Edge adjacent1 = cell1.getAdjacentByKeyCode(game.enums.Keyboard.LEFT);
         Edge adjacent2 = cell2.getAdjacentByKeyCode(game.enums.Keyboard.RIGHT);
@@ -62,11 +61,11 @@ public class BoardTest {
 
     @Test
     public void testClick() {
-        Vertex emptyCell = board.getEmptyCell();
-        Vertex cell = board.getCells().get(7);
+        Vertex emptyCell = matrix.getEmptyCell();
+        Vertex cell = matrix.getCells().get(7);
         Integer cellValue = cell.getValue();
 
-        board.click(cellValue);
+        matrix.click(cellValue);
 
         assertEquals(cellValue, emptyCell.getValue());
         assertEquals(0, cell.getValue());
@@ -74,10 +73,10 @@ public class BoardTest {
 
     @Test
     public void testcheckvictory() {
-        Assertions.assertTrue(this.board.checkVictory());
-        board = new Board();
-        board.setting(false, 3);
-        Assertions.assertFalse(board.checkVictory());
+        Assertions.assertTrue(this.matrix.checkVictory());
+        matrix = new Matrix();
+        matrix.createCells(false);
+        Assertions.assertFalse(matrix.checkVictory());
     }
 
     @Test
@@ -130,26 +129,26 @@ public class BoardTest {
     
     @Test
     public void testClickDown() {
-        board.swap(Keyboard.DOWN.getValue());
-        Assertions.assertEquals(5, board.getCells().indexOf(board.getEmptyCell()));
+        matrix.swap(Keyboard.DOWN.getValue());
+        Assertions.assertEquals(5, matrix.getCells().indexOf(matrix.getEmptyCell()));
     }
 
     @Test
     public void testClickUp() {
-        board.swap(Keyboard.UP.getValue());
-        Assertions.assertEquals(8, board.getCells().indexOf(board.getEmptyCell()));
+        matrix.swap(Keyboard.UP.getValue());
+        Assertions.assertEquals(8, matrix.getCells().indexOf(matrix.getEmptyCell()));
     }
 
     @Test
     public void testClickRight() {
-        board.swap(Keyboard.RIGHT.getValue());
-        Assertions.assertEquals(7, board.getCells().indexOf(board.getEmptyCell()));
+        matrix.swap(Keyboard.RIGHT.getValue());
+        Assertions.assertEquals(7, matrix.getCells().indexOf(matrix.getEmptyCell()));
     }
 
     @Test
     public void testClickLeft() {
-        board.swap(Keyboard.LEFT.getValue());
-        Assertions.assertEquals(8, board.getCells().indexOf(board.getEmptyCell()));
+        matrix.swap(Keyboard.LEFT.getValue());
+        Assertions.assertEquals(8, matrix.getCells().indexOf(matrix.getEmptyCell()));
     }
 
 }

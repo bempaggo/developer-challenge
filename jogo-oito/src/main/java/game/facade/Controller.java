@@ -3,35 +3,34 @@ package game.facade;
 import java.util.List;
 
 import game.interfaces.Vertex;
-import game.util.Board;
-
+import game.model.Matrix;
 
 public class Controller {
 
-    private final Board board;
+    private final Matrix matrix;
 
     public Controller() {
-        this.board = new Board();
+        this.matrix = new Matrix();
     }
 
-    public void setting(Boolean feedback, Integer order) {
-        this.board.setting(feedback, order);
+    public void setting(Boolean feedback) {
+        this.matrix.createCells(feedback);
     }
 
     public List<Vertex> getCells() {
-        return this.board.getCells();
+        return this.matrix.getCells();
     }
 
     public void swap(Integer keyCode) {
-        this.board.swap(keyCode);
+        this.matrix.swap(keyCode);
     }
 
     public Boolean checkVictory() {
-        return this.board.checkVictory();
+        return this.matrix.checkVictory();
     }
 
     public void click(Integer cellValue) {
-        this.board.click(cellValue);
+        this.matrix.click(cellValue);
     }
 
 }

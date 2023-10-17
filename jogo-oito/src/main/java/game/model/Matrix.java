@@ -6,11 +6,10 @@ package game.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.IntStream;
 
+import game.enums.Keyboard;
 import game.interfaces.IMatrix;
 import game.interfaces.Vertex;
 
@@ -22,50 +21,74 @@ public final class Matrix implements IMatrix {
 
     private List<Vertex> cells;
     private Vertex emptyCell;
-    private List<Integer> values;
-    private Integer size;
+    private final List<Integer> values;
+    private final Integer SIZE = 9;
+    private final Integer ORDER = 3;
 
     public Matrix() {
         this.cells = new ArrayList<>();
-        this.values = new ArrayList<>();
+        this.values = this.createValues();
+        this.defineAdjacent();
     }
     
     @Override
-    public void createCells(Boolean feedback, Integer order) {
-    	this.createValues(order);
-    	
+    public void createCells(Boolean feedback) {	
     	if (!feedback) {
-    		Collections.shuffle(values);
+    		Collections.shuffle(this.values);
+    	} else {
+    		Collections.sort(this.values);
     	}
     	
-    	IntStream.range(0, this.size).forEach(index -> this.cells.add(new Cell(this.values.get(index))));
-    	this.defineAdjacent(order);
-    	this.defineEmptyCell();
-    }
-    
-    private void createValues(Integer order) {
-    	this.size = order*order;
-    	IntStream.range(0, this.size).forEach(index -> this.values.add(index+1));
-    	this.values.set(size-1, 0);
-    }
-    
-    private void defineAdjacent(Integer order) {
-    	Integer multiple = order * (order-1);
-    	IntStream.range(0, this.size).forEach(index -> {
-    		Integer rest = index % order;
-    		if (!rest.equals(order -1))
-    			this.cells.get(index).creatingHorizontalAdjacent(this.cells.get(index+1));
-    		if (index < multiple)
-    			this.cells.get(index).creatingVerticalAdjacent(this.cells.get(index+order));
+    	IntStream.range(0, this.SIZE).forEach(index -> {
+    		this.cells.get(index).setValue(this.values.get(index));
+    		if (this.values.get(index).equals(0))
+    			this.emptyCell = this.cells.get(index);
     	});
     }
     
-    private void defineEmptyCell() {
-        Optional<Vertex> minCell = this.cells.stream()
-                .min(Comparator.comparing(cell -> cell.getValue()));
-        minCell.ifPresent(cell -> {
-            this.setEmptyCell(cell);
-        });
+    private List<Integer> createValues() {
+    	List<Integer> numbers = new ArrayList<>();
+    	
+    	IntStream.range(0, this.SIZE).forEach(index -> {
+    		numbers.add(index+1);
+    		this.cells.add(new Cell());
+    	});
+    	numbers.set(SIZE-1, 0);
+    	
+    	return numbers;
+    }
+    
+    private void defineAdjacent() {
+    	IntStream.range(0, this.ORDER).forEach(row -> {
+    		IntStream.range(0, this.ORDER).forEach(col -> {
+    			Integer index = this.getIndexCell(row, col);
+    			if (col < this.ORDER-1)
+    				this.cells.get(index).creatingHorizontalAdjacent(this.cells.get(index+1));
+    			if (row < this.ORDER-1)
+    				this.cells.get(index).creatingVerticalAdjacent(this.cells.get(index+this.ORDER));
+    		});
+    	});
+    }
+    
+    private Integer getIndexCell(Integer row, Integer col) {
+    	return row * this.ORDER + col;
+    }
+    
+    @Override
+    public void click(Integer cellValue) {
+        this.emptyCell = this.emptyCell.swapCells(cellValue);
+    }
+
+    @Override
+    public void swap(Integer keyCode) {
+        Keyboard key = Keyboard.fromValue(keyCode);
+        this.emptyCell = this.emptyCell.click(key);
+    }
+    
+    @Override
+    public Boolean checkVictory() {
+        return IntStream.range(0, this.SIZE)
+                .allMatch(index -> this.cells.get(index).getValue() == (index + 1) % this.SIZE);
     }
     
     @Override
@@ -76,11 +99,6 @@ public final class Matrix implements IMatrix {
     @Override
 	public Vertex getEmptyCell() {
 		return emptyCell;
-	}
-
-    @Override
-	public void setEmptyCell(Vertex emptyCell) {
-		this.emptyCell = emptyCell;
 	}
 
 }

@@ -34,9 +34,9 @@ public class Adjacent implements Edge{
         return this.cell;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return Objects.equals(((Adjacent) obj).getKey(), this.getKey());
-    }
+   @Override
+   public boolean equals(Object obj) {
+       return Objects.equals(((Adjacent) obj).getKey(), this.getKey());
+   }
 
 }

@@ -14,12 +14,16 @@ public class Cell implements Vertex {
     private Integer value;
     private final List<Edge> adjacents;
 
+    public Cell() {
+    	this.adjacents = new ArrayList<>();
+	}
+    
     public Cell(Integer value) {
         this.value = value;
         this.adjacents = new ArrayList<>();
     }
 
-    @Override
+	@Override
     public void setValue(Integer value) {
         this.value = value;
     }
