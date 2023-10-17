@@ -2,22 +2,17 @@
 import Square from '../components/Square.vue'
 import Button from '../components/Button.vue'
 import { useGameStore } from '../stores/game'
+import { computed } from 'vue';
+
 const gameStore = useGameStore()
 const gameBoard = gameStore.getBoard()
+const gameBoardAsArray = computed(() => gameBoard.flat().flat())
 </script>
 
 <template>
   <div class='game-container'>
     <div class='board-container'>
-      <Square :num="gameBoard[0][0]" />
-      <Square :num="gameBoard[0][1]" />
-      <Square :num="gameBoard[0][2]" />
-      <Square :num="gameBoard[1][0]" />
-      <Square :num="gameBoard[1][1]" />
-      <Square :num="gameBoard[1][2]" />
-      <Square :num="gameBoard[2][0]" />
-      <Square :num="gameBoard[2][1]" />
-      <Square :num="gameBoard[2][2]" />
+      <Square v-for="num in gameBoardAsArray" :num="num" />
     </div>
     <div class='buttons-container'>
       <Button text="Reset" :func="gameStore.resetGame" />
