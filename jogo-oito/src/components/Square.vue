@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { useGameStore } from '../stores/game'
 import IMAGES from '../assets/Images.ts'
+import { computed } from 'vue';
 
 defineProps<{ num: number }>()
 const store = useGameStore()
+const victoryStatus = computed(() => store.checkVictoryStatus())
 </script>
 
 <template>
-  <div v-bind:class='{ btn: num != 0, btnZero: num == 0 }' @click="store.moveNum(num)"
-    :style="{ backgroundImage: `url(${IMAGES[num]})` }">
-    <h1>{{ num }}</h1>
+  <div v-bind:class='{ btn: num != 0 || victoryStatus, btnZero: num == 0 && !victoryStatus }' @click="store.moveNum(num)"
+       v-bind:style="[ num != 0 || victoryStatus ? { backgroundImage: `url(${IMAGES[num]})` } : { backgroundImage: none }]">
   </div>
 </template>
 
@@ -28,12 +29,12 @@ const store = useGameStore()
 }
 
 .btn:hover {
-  border: 2px solid white;
+  border: 2px solid rgba(255, 255, 255, 0.8);
   cursor: pointer;
 }
 
 .btnZero {
-  filter: grayscale(0.5)
+  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 h1 {
