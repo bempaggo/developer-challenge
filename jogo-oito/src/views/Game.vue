@@ -14,6 +14,7 @@ const victoryStatus = computed(() => gameStore.checkVictoryStatus())
   <div class='game-container'>
     <div class='status-container'>
       <h1 v-if="victoryStatus == true">You win!</h1>
+      <h1 v-else>Let's play!</h1>
     </div>
     <div class='board-container'>
       <Square v-for="num in gameBoardAsArray" :num="num" />
@@ -31,6 +32,7 @@ const victoryStatus = computed(() => gameStore.checkVictoryStatus())
   height: 700px;
   flex-direction: column;
   justify-content: space-between;
+  padding-bottom: 4%;
 }
 
 .status-container {
