@@ -52,7 +52,7 @@ export class MatrixImpl implements Matrix {
   }
 
   getNumAxis(num: number) {
-    let axis: Axis = new Axis(0, 0)
+    let axis: Axis = new Axis(0, 0);
 
     for (let i = 0; i <= 2; i++) {
       for (let j = 0; j <= 2; j++) {

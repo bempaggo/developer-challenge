@@ -73,8 +73,8 @@ test("should get the Axis of a value in matrix", () => {
 
 test("should switch num value with zero value in matrix", () => {
   const matrix = new MatrixImpl();
-  const from = matrix.getNumAxis(2)
-  const to = matrix.getNumAxis(0)
+  const from = matrix.getNumAxis(2);
+  const to = matrix.getNumAxis(0);
   const axis = new AxisPair(from, to);
 
   matrix.switchValue(axis);

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useGameStore } from '../stores/game';
-import IMAGES from '../assets/Images.ts';
+import { useGameStore } from '../stores/game'
+import IMAGES from '../assets/Images.ts'
 
 defineProps<{ num: number }>()
 const store = useGameStore()
@@ -14,7 +14,8 @@ const store = useGameStore()
 </template>
 
 <style scoped>
-.btn, .btnZero {
+.btn,
+.btnZero {
   width: 100%;
   height: 100%;
   display: flex;

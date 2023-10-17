@@ -48,7 +48,7 @@ export class BoardImpl implements Board {
 
   moveNum(num: number) {
     if (num == 0) return;
-    
+
     const fromAxis = this.matrix.getNumAxis(num);
     const toLeftAxis = new Axis(fromAxis.x - 1, fromAxis.y);
     const toRightAxis = new Axis(fromAxis.x + 1, fromAxis.y);
