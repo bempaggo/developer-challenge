@@ -4,7 +4,8 @@
  */
 package model;
 
-import interfaces.Vertex;
+import service.CellImpl;
+import service.interfaces.Cell;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +18,12 @@ public final class Matrix {
     private final Row firstRow;
     private final Row secondRow;
     private final Row thirdRow;
-    public static List<Vertex> cells;
+    public static List<Cell> cells;
 
 
     public Matrix() {
         Matrix.cells = new ArrayList<>();
-        Cell.content = 1;
+        CellImpl.content = 1;
         this.firstRow = new Row();
         this.secondRow = new Row();
         this.thirdRow = new Row();
@@ -30,14 +31,14 @@ public final class Matrix {
     }
 
     private void defineAdjacent() {
-        this.firstRow.initial.creatingVerticalAdjacent(secondRow.initial);
-        this.secondRow.initial.creatingVerticalAdjacent(thirdRow.initial);
+        this.firstRow.initial.createVerticalAdjacent(secondRow.initial);
+        this.secondRow.initial.createVerticalAdjacent(thirdRow.initial);
 
-        this.firstRow.center.creatingVerticalAdjacent(secondRow.center);
-        this.secondRow.center.creatingVerticalAdjacent(thirdRow.center);
+        this.firstRow.center.createVerticalAdjacent(secondRow.center);
+        this.secondRow.center.createVerticalAdjacent(thirdRow.center);
 
-        this.firstRow.last.creatingVerticalAdjacent(secondRow.last);
-        this.secondRow.last.creatingVerticalAdjacent(thirdRow.last);
+        this.firstRow.last.createVerticalAdjacent(secondRow.last);
+        this.secondRow.last.createVerticalAdjacent(thirdRow.last);
         
         this.changePositionToValidateTemplate();
     }
@@ -47,20 +48,20 @@ public final class Matrix {
     }
     
 
-    public List<Vertex> getCells() {
+    public List<Cell> getCells() {
         return Matrix.cells;
     }
 
-    private final class Row {
+    private static final class Row {
 
-        public final Cell initial;
-        public final Cell center;
-        public final Cell last;
+        public final CellImpl initial;
+        public final CellImpl center;
+        public final CellImpl last;
 
         public Row() {
-            this.initial = new Cell();
-            this.center = new Cell();
-            this.last = new Cell();
+            this.initial = new CellImpl();
+            this.center = new CellImpl();
+            this.last = new CellImpl();
             this.defineAdjacent();
             this.loadCells();
         }
@@ -72,8 +73,8 @@ public final class Matrix {
         }
 
         public void defineAdjacent() {
-            this.initial.creatingHorizontalAdjacent(this.center);
-            this.center.creatingHorizontalAdjacent(this.last);
+            this.initial.createHorizontalAdjacent(this.center);
+            this.center.createHorizontalAdjacent(this.last);
         }
 
     }

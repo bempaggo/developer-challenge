@@ -1,7 +1,7 @@
 package view;
 
-import facade.Controller;
-import interfaces.Vertex;
+import controller.Controller;
+import service.interfaces.Cell;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -21,13 +21,11 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     private final List<JButton> buttons;
     private final Controller controller;
-    private JButton reset;
-    private JButton feedback;
 
     public JogoDosOito() {
         super("Jogo dos Oito");
         this.controller = new Controller();
-        this.controller.setting();
+        this.controller.setter();
         this.buttons = new ArrayList<>();
     }
 
@@ -54,7 +52,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
                 .orElse(0);
     }
 
-    private JButton configButton(Vertex cell) {
+    private JButton configButton(Cell cell) {
         JButton button = new JButton();
         button.setFont(new Font("Arial", Font.BOLD, 36));
         button.setText(cell.valueToText());
@@ -78,10 +76,10 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void configMenu() {
-        this.reset = this.configReset();
-        this.feedback = this.configFeedback();
-        add(this.feedback);
-        add(this.reset);
+        JButton reset = this.configReset();
+        JButton feedback = this.configFeedback();
+        add(feedback);
+        add(reset);
         add(new JLabel(""));
     }
 
@@ -105,7 +103,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
 
     private void resetGame() {
-        this.controller.setting();
+        this.controller.setter();
         this.updateBoard();
     }
     
@@ -115,7 +113,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private void updateBoard() {
-        List<Vertex> cells = this.controller.getCells();
+        List<Cell> cells = this.controller.getCells();
         IntStream.range(0, cells.size())
                 .forEach(index -> {
                     JButton button = this.buttons.get(index);
