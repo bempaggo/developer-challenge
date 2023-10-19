@@ -1,7 +1,7 @@
-package util;
+package service;
 
-import interfaces.Graph;
-import interfaces.Vertex;
+import model.Matrix;
+import service.interfaces.Cell;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,17 +9,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
-import model.Keyboard;
-import model.Matrix;
 
-public class Board implements Graph {
+import service.interfaces.Graph;
+import util.Keyboard;
 
-    private List<Vertex> cells;
-    private Vertex emptyCell;
+public class GraphImpl implements Graph {
+
+    private List<Cell> cells;
+    private Cell emptyCell;
     private Integer length;
     private Matrix matrix;
 
-    public Board() {
+    public GraphImpl() {
     }
 
     @Override
@@ -31,7 +32,7 @@ public class Board implements Graph {
     }
 
     @Override
-    public void setting() {
+    public void setter() {
         this.matrix = new Matrix();
         this.cells = this.matrix.getCells();
         this.length = cells.size();
@@ -42,26 +43,25 @@ public class Board implements Graph {
 
     private void shuffleCell() {
         Iterator<Integer> iterator = this.shuffleValues().iterator();
-        this.cells.stream()
+        this.cells
                 .forEach(vertex -> vertex.setValue(iterator.next()));
     }
 
     private List<Integer> shuffleValues() {
         List<Integer> values = new ArrayList<>();
         this.cells.stream()
-                .map(Vertex::getValue)
+                .map(Cell::getValue)
                 .forEach(values::add);
         Collections.shuffle(values);
         return values;
     }
 
     private void defineEmptyCell() {
-        Optional<Vertex> minCell = this.cells.stream()
-                .min(Comparator.comparing(cell -> cell.getValue()));
-        minCell.ifPresent(cell -> {
-            this.emptyCell = cell;
-        });
+        Optional<Cell> minCell = this.cells.stream()
+                .min(Comparator.comparing(Cell::getValue));
+        minCell.ifPresent(this::accept);
     }
+
 
     @Override
     public void click(Integer cellValue) {
@@ -75,12 +75,12 @@ public class Board implements Graph {
     }
 
     @Override
-    public List<Vertex> getCells() {
+    public List<Cell> getCells() {
         return this.cells;
     }
 
     @Override
-    public Vertex getEmptyCell() {
+    public Cell getEmptyCell() {
         return this.emptyCell;
     }
 
@@ -91,4 +91,7 @@ public class Board implements Graph {
 
     }
 
+    private void accept(Cell cell) {
+        this.emptyCell = cell;
+    }
 }

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package interfaces;
+package service.interfaces;
 
 import java.util.List;
 
@@ -14,13 +14,13 @@ public interface Graph {
 
     void feedback();
     
-    void setting();
+    void setter();
 
     void swap(Integer keyCode);
 
-    List<Vertex> getCells();
+    List<Cell> getCells();
 
-    Vertex getEmptyCell();
+    Cell getEmptyCell();
 
     void click(Integer cellValue);
 

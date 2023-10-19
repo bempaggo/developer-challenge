@@ -1,25 +1,27 @@
-package model;
+package service;
 
-import interfaces.Edge;
-import interfaces.Vertex;
+import service.interfaces.Cell;
+import service.interfaces.Edge;
+import util.Keyboard;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class Cell implements Vertex {
+public class CellImpl implements Cell {
 
     private Integer value;
     private final List<Edge> adjacents;
     public static Integer content;
 
-    public Cell(Integer value) {
+    public CellImpl(Integer value) {
         this.value = value;
         this.adjacents = new ArrayList<>();
     }
 
-    public Cell() {
-        this.value = Cell.content++;
+    public CellImpl() {
+        this.value = CellImpl.content++;
         this.adjacents = new ArrayList<>();
     }
 
@@ -34,15 +36,15 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public void creatingHorizontalAdjacent(Vertex cell) {
-        this.adjacents.add(new Adjacent(Keyboard.LEFT, cell));
-        cell.getAdjacents().add(new Adjacent(Keyboard.RIGHT, this));
+    public void createHorizontalAdjacent(service.interfaces.Cell cell) {
+        this.adjacents.add(new EdgeImpl(Keyboard.LEFT, cell));
+        cell.getAdjacents().add(new EdgeImpl(Keyboard.RIGHT, this));
     }
 
     @Override
-    public void creatingVerticalAdjacent(Vertex cell) {
-        this.adjacents.add(new Adjacent(Keyboard.UP, cell));
-        cell.getAdjacents().add(new Adjacent(Keyboard.DOWN, this));
+    public void createVerticalAdjacent(service.interfaces.Cell cell) {
+        this.adjacents.add(new EdgeImpl(Keyboard.UP, cell));
+        cell.getAdjacents().add(new EdgeImpl(Keyboard.DOWN, this));
     }
 
     @Override
@@ -55,7 +57,7 @@ public class Cell implements Vertex {
 
     @Override
     public Edge getAdjacentByKeyCode(Keyboard key) {
-        Adjacent edge = new Adjacent(key, null);
+        EdgeImpl edge = new EdgeImpl(key, null);
         Integer indexEdge = this.adjacents.indexOf(edge);
         return Optional.of(indexEdge)
                 .filter(index -> index != -1)
@@ -64,26 +66,26 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public Vertex click(Keyboard key) {
+    public service.interfaces.Cell click(Keyboard key) {
         Edge adjacent = this.getAdjacentByKeyCode(key);
         return this.movement(adjacent);
     }
 
-    private Vertex movement(Edge adjacent) {
+    private service.interfaces.Cell movement(Edge adjacent) {
         return Optional.ofNullable(adjacent)
                 .map(Edge::getCell)
                 .map(this::swapCells)
                 .orElse(this);
     }
 
-    private Vertex swapCells(Vertex movementCell) {
+    private service.interfaces.Cell swapCells(service.interfaces.Cell movementCell) {
         this.setValue(movementCell.getValue());
         movementCell.setValue(0);
         return movementCell;
     }
 
     @Override
-    public Vertex swapCells(Integer value) {
+    public service.interfaces.Cell swapCells(Integer value) {
         return this.adjacents.stream()
                 .filter(adjacent -> Objects.equals(adjacent.getCell().getValue(), value))
                 .findFirst()
@@ -97,13 +99,13 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public void addAdjacents(Edge edge) {
+    public void addAdjacent(Edge edge) {
         this.adjacents.add(edge);
     }
 
     @Override
     public boolean equals(Object obj) {
-        return Objects.equals(this.value, ((Cell) obj).value);
+        return Objects.equals(this.value, ((CellImpl) obj).value);
     }
 
 }

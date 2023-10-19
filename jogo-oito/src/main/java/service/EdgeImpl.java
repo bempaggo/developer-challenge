@@ -2,22 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package service;
 
-import interfaces.Edge;
-import interfaces.Vertex;
+import service.interfaces.Edge;
+import service.interfaces.Cell;
+import util.Keyboard;
+
 import java.util.Objects;
 
 /**
  *
  * @author allen
  */
-public class Adjacent implements Edge{
+public class EdgeImpl implements Edge{
 
     private final Keyboard key;
-    private final Vertex cell;
+    private final Cell cell;
 
-    public Adjacent(Keyboard key, Vertex cell) {
+    public EdgeImpl(Keyboard key, Cell cell) {
         this.key = key;
         this.cell = cell;
     }
@@ -28,13 +30,13 @@ public class Adjacent implements Edge{
     }
 
     @Override
-    public Vertex getCell() {
+    public Cell getCell() {
         return this.cell;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return Objects.equals(((Adjacent) obj).getKey(), this.getKey());
+        return Objects.equals(((EdgeImpl) obj).getKey(), this.getKey());
     }
 
 }

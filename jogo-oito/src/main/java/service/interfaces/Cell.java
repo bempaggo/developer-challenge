@@ -2,35 +2,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package interfaces;
+package service.interfaces;
 
 import java.util.List;
-import model.Keyboard;
+import util.Keyboard;
 
 /**
  *
  * @author allen
  */
-public interface Vertex {
+public interface Cell {
 
     void setValue(Integer value);
 
     Integer getValue();
 
-    void creatingHorizontalAdjacent(Vertex cell);
+    void createHorizontalAdjacent(Cell cell);
 
-    void creatingVerticalAdjacent(Vertex cell);
+    void createVerticalAdjacent(Cell cell);
 
     String valueToText();
 
     Edge getAdjacentByKeyCode(Keyboard key);
 
-    Vertex click(Keyboard key);
+    Cell click(Keyboard key);
 
     List<Edge> getAdjacents();
     
-    void addAdjacents(Edge edge);
+    void addAdjacent(Edge edge);
     
-    Vertex swapCells(Integer value);
+    Cell swapCells(Integer value);
 
 }
