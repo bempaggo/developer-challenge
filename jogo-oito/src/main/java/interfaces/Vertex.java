@@ -4,8 +4,9 @@
  */
 package interfaces;
 
+import enums.Keyboard;
+
 import java.util.List;
-import model.Keyboard;
 
 /**
  *
@@ -17,20 +18,16 @@ public interface Vertex {
 
     Integer getValue();
 
-    void creatingHorizontalAdjacent(Vertex cell);
+    void createHorizontalAdjacent(Vertex cell);
 
-    void creatingVerticalAdjacent(Vertex cell);
+    void createVerticalAdjacent(Vertex cell);
 
     String valueToText();
 
     Edge getAdjacentByKeyCode(Keyboard key);
 
-    Vertex click(Keyboard key);
-
     List<Edge> getAdjacents();
     
     void addAdjacents(Edge edge);
-    
-    Vertex swapCells(Integer value);
 
 }

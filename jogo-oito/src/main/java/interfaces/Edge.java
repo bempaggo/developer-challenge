@@ -4,7 +4,7 @@
  */
 package interfaces;
 
-import model.Keyboard;
+import enums.Keyboard;
 
 /**
  *
@@ -15,5 +15,6 @@ public interface Edge {
     Keyboard getKey();
 
     Vertex getCell();
-    
+
+    Boolean cellValueIsEqual(Integer value);
 }

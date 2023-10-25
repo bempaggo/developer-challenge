@@ -16,13 +16,14 @@ public interface Graph {
     
     void setting();
 
-    void swap(Integer keyCode);
-
     List<Vertex> getCells();
 
     Vertex getEmptyCell();
 
-    void click(Integer cellValue);
+    void setEmptyCell(Vertex cell);
 
-    Boolean checkGameOver();
+    void setCurrentCellValue(Integer cellValue);
+
+    Integer getCurrentCellValue();
+
 }
