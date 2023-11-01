@@ -1,0 +1,3 @@
+C:/rep/bempaggo developer challenge/cmake-build-debug/CMakeFiles/bempaggo_developer_challenge.dir
+C:/rep/bempaggo developer challenge/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/rep/bempaggo developer challenge/cmake-build-debug/CMakeFiles/rebuild_cache.dir
