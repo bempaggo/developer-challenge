@@ -1,7 +1,5 @@
 package view;
 
-import facade.Controller;
-import interfaces.Vertex;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -11,18 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-public class JogoDosOito extends JFrame implements KeyListener {
+import controller.Controller;
+import service.Vertex;
 
-    private final List<JButton> buttons;
+public class JogoDosOito extends JFrame implements KeyListener {
+	
+	private static final long serialVersionUID = 1022620956191549378L;
+	
+	private final List<JButton> buttons;
     private final Controller controller;
     private JButton reset;
     private JButton feedback;
+    private JButton instructions;
 
     public JogoDosOito() {
         super("Jogo dos Oito");
@@ -49,9 +53,14 @@ public class JogoDosOito extends JFrame implements KeyListener {
     }
 
     private Integer textToValue(String text) {
-        return Optional.ofNullable(text)
+    	
+    	if(text.isEmpty()) {
+        	JOptionPane.showMessageDialog(this, "Deve clicar no número para mover para o espaço vazio!");
+        	return 0;
+    	}	
+       return Optional.ofNullable(text)
                 .map(Integer::valueOf)
-                .orElse(0);
+                .orElse(0);    
     }
 
     private JButton configButton(Vertex cell) {
@@ -80,9 +89,10 @@ public class JogoDosOito extends JFrame implements KeyListener {
     private void configMenu() {
         this.reset = this.configReset();
         this.feedback = this.configFeedback();
+        this.instructions = this.configInstructions();
         add(this.feedback);
         add(this.reset);
-        add(new JLabel(""));
+        add(instructions);
     }
 
     private JButton configReset() {
@@ -105,20 +115,20 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
 
     private void resetGame() {
-        this.controller.setting();
-        this.updateBoard();
+        controller.setting();
+        updateBoard();
     }
     
     private void showFeedback() {
-        this.controller.feedback();
-        this.updateBoard();
+        controller.feedback();
+        updateBoard();
     }
 
     private void updateBoard() {
-        List<Vertex> cells = this.controller.getCells();
+        List<Vertex> cells = controller.getCells();
         IntStream.range(0, cells.size())
                 .forEach(index -> {
-                    JButton button = this.buttons.get(index);
+                    JButton button = buttons.get(index);
                     button.setText(cells.get(index).valueToText());
                 });
     }
@@ -129,13 +139,23 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        this.controller.swap(e.getKeyCode());
-        this.updateBoard();
-        this.checkGameOver();
+        controller.swap(e.getKeyCode());
+        updateBoard();
+        checkGameOver();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+    }
+    
+    private JButton configInstructions() {
+        JButton buttonInstructions = new JButton("Instruções");
+        buttonInstructions.addActionListener((ActionEvent e) -> {
+            JOptionPane.showMessageDialog(this, "Regra: \n - Use os botões Up, Down, Left, Right, para mover os númeroa a extremidade do espaço vazio"
+            		+ " e completar a sequencia como proposto no gabarito.");
+            SwingUtilities.getRoot(buttonInstructions).requestFocus();
+        });
+        return buttonInstructions;
     }
 
     public static void main(String[] args) {

@@ -1,39 +1,54 @@
 package game;
 
-import model.Adjacent;
-import model.Cell;
-import model.Keyboard;
-import interfaces.Edge;
-import interfaces.Vertex;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import model.enumType.Keyboard;
+import service.Edge;
+import service.Vertex;
+import service.serviceImpl.Adjacent;
+import service.serviceImpl.Cell;
 
 public class AdjacentTest {
 
-    @Test
-    public void testGetKey() {
-        Edge edge = new Adjacent(Keyboard.RIGHT, null);
-        assertEquals(Keyboard.RIGHT, edge.getKey());
-    }
+	@Test
+	@DisplayName("Test edge creation with right key")
+	public void testEdgeCreationWithRightKey() {
 
-    @Test
-    public void testGetCell() {
-        Vertex cell = new Cell(1);
-        Edge edge = new Adjacent(Keyboard.RIGHT, cell);
-        assertEquals(cell, edge.getCell());
-    }
+		Edge edge = new Adjacent(Keyboard.RIGHT, null);
+		Keyboard result = edge.getKey();
+		assertEquals(Keyboard.RIGHT, result, "Expected Keyboard.RIGHT");
+	}
 
-    @Test
-    public void testEquals() {
-        Vertex cell1 = new Cell(1);
-        Vertex cell2 = new Cell(2);
+	@Test
+	@DisplayName("Test edge creation with left key")
+	public void testEdgeCreationWithLeftKey() {
 
-        Edge edge1 = new Adjacent(Keyboard.RIGHT, cell2);
-        Edge edge2 = new Adjacent(Keyboard.LEFT, cell1);
+		Edge edge = new Adjacent(Keyboard.LEFT, null);
+		Keyboard result = edge.getKey();
+		assertEquals(Keyboard.LEFT, result, "Expected Keyboard.LEFT");
+	}
 
-        assertEquals(edge1.getCell().click(Keyboard.RIGHT), cell2);
-        assertEquals(edge2.getCell().click(Keyboard.LEFT), cell1);
+	@Test
+	@DisplayName("Test edge cell click right")
+	public void testEdgeCellClickRight() {
 
-    }
+		Vertex cell = new Cell(1);
+		Edge edge = new Adjacent(Keyboard.RIGHT, cell);
+		Vertex result = edge.getCell().click(Keyboard.RIGHT);
+		assertEquals(cell, result, "Expected the same cell after clicking RIGHT");
+	}
+
+	@Test
+	@DisplayName("Test edge cell click left")
+	public void testEdgeCellClickLeft() {
+
+		Vertex cell = new Cell(2);
+		Edge edge = new Adjacent(Keyboard.LEFT, cell);
+		Vertex result = edge.getCell().click(Keyboard.LEFT);
+		assertEquals(cell, result, "Expected the same cell after clicking LEFT");
+	}
 
 }

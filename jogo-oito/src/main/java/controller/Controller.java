@@ -1,41 +1,42 @@
-package facade;
+package controller;
 
-import interfaces.Graph;
-import interfaces.Vertex;
 import java.util.List;
-import util.Board;
+
+import service.Graph;
+import service.Vertex;
+import service.serviceImpl.Board;
 
 public class Controller {
 
     private final Graph board;
 
     public Controller() {
-        this.board = new Board();
+        board = new Board();
     }
     
     public void feedback() {
-        this.board.feedback();
+        board.feedback();
     }
 
     public void setting() {
-        this.board.setting();
+        board.setting();
     }
 
     public List<Vertex> getCells() {
-        return this.board.getCells();
+        return board.getCells();
     }
 
     public void swap(Integer keyCode) {
-        this.board.swap(keyCode);
+        board.swap(keyCode);
     }
 
     public Boolean checkGameOver() {
-        return this.board.checkGameOver();
+        return board.checkGameOver();
 
     }
 
     public void click(Integer cellValue) {
-        this.board.click(cellValue);
+        board.click(cellValue);
     }
 
 }
