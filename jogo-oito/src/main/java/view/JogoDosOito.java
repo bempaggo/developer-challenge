@@ -2,6 +2,8 @@ package view;
 
 import facade.Controller;
 import interfaces.Vertex;
+import util.Board;
+
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -26,9 +28,12 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     public JogoDosOito() {
         super("Jogo dos Oito");
-        this.controller = new Controller();
+        this.controller = new Controller(new Board());
         this.controller.setting();
         this.buttons = new ArrayList<>();
+        createButtons();
+        configMenu();
+        configureInterface();
     }
 
     private void configureInterface() {
@@ -61,15 +66,14 @@ public class JogoDosOito extends JFrame implements KeyListener {
         button.addActionListener((ActionEvent e) -> {
             this.controller.click(this.textToValue(button.getText()));
             this.updateBoard();
-            this.checkGameOver();
+            this.checkVictory();
             SwingUtilities.getRoot(button).requestFocus();
         });
         return button;
-
     }
 
-    private void checkGameOver() {
-        Optional.ofNullable(this.controller.checkGameOver())
+    private void checkVictory() {
+        Optional.ofNullable(this.controller.checkVicory())
                 .filter(Boolean::booleanValue)
                 .ifPresent(gameOver -> {
                     JOptionPane.showMessageDialog(this, "Parabéns, você venceu!");
@@ -131,18 +135,10 @@ public class JogoDosOito extends JFrame implements KeyListener {
     public void keyPressed(KeyEvent e) {
         this.controller.swap(e.getKeyCode());
         this.updateBoard();
-        this.checkGameOver();
+        this.checkVictory();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-    }
-
-    public static void main(String[] args) {
-        JogoDosOito game = new JogoDosOito();
-        game.createButtons();
-        game.configMenu();
-        game.configureInterface();
-
     }
 }

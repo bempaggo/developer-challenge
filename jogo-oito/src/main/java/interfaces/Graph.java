@@ -24,5 +24,5 @@ public interface Graph {
 
     void click(Integer cellValue);
 
-    Boolean checkGameOver();
+    Boolean checkVictory();
 }

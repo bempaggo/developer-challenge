@@ -4,6 +4,7 @@
  */
 package model;
 
+import interfaces.DefinableAdjacent;
 import interfaces.Vertex;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,38 +13,37 @@ import java.util.List;
  *
  * @author allen
  */
-public final class Matrix {
+public final class Matrix implements DefinableAdjacent{
 
-    private final Row firstRow;
-    private final Row secondRow;
-    private final Row thirdRow;
+    private List<Row> rows;
+    private final int NUMBER_OF_ROWS = 3;
     public static List<Vertex> cells;
-
 
     public Matrix() {
         Matrix.cells = new ArrayList<>();
         Cell.content = 1;
-        this.firstRow = new Row();
-        this.secondRow = new Row();
-        this.thirdRow = new Row();
+        this.rows = new ArrayList<>();
+        for(int i =0; i < NUMBER_OF_ROWS; i++){
+            this.rows.add(new Row());
+        }
         this.defineAdjacent();
     }
 
-    private void defineAdjacent() {
-        this.firstRow.initial.creatingVerticalAdjacent(secondRow.initial);
-        this.secondRow.initial.creatingVerticalAdjacent(thirdRow.initial);
-
-        this.firstRow.center.creatingVerticalAdjacent(secondRow.center);
-        this.secondRow.center.creatingVerticalAdjacent(thirdRow.center);
-
-        this.firstRow.last.creatingVerticalAdjacent(secondRow.last);
-        this.secondRow.last.creatingVerticalAdjacent(thirdRow.last);
-        
+    public void defineAdjacent() {
+        for(int i = 0; i < NUMBER_OF_ROWS - 1; i++){
+            Row upRow = rows.get(i);
+            Row downRow = rows.get(i + 1);
+            for(int j = 0; j < upRow.cells.size();j++){
+                Vertex upCell = upRow.cells.get(j);
+                Vertex downCell = downRow.cells.get(j);
+                upCell.creatingVerticalAdjacent(downCell);
+            }
+        }
         this.changePositionToValidateTemplate();
     }
     
     private void changePositionToValidateTemplate(){
-        this.thirdRow.last.setValue(0);
+        this.rows.get(NUMBER_OF_ROWS - 1).cells.get(2).setValue(0);
     }
     
 
@@ -51,30 +51,33 @@ public final class Matrix {
         return Matrix.cells;
     }
 
-    private final class Row {
+    public List<Row> getRows() {
+        return this.rows;
+    }
 
-        public final Cell initial;
-        public final Cell center;
-        public final Cell last;
+    private final class Row implements DefinableAdjacent{
 
+        private List<Vertex> cells;
+        private final int NUMBER_OF_CELLS = 3;
         public Row() {
-            this.initial = new Cell();
-            this.center = new Cell();
-            this.last = new Cell();
+            this.cells = new ArrayList<>();
+            for(int i = 0; i < NUMBER_OF_CELLS; i++){
+                this.cells.add(new Cell());
+            }
             this.defineAdjacent();
             this.loadCells();
         }
 
         public void loadCells() {
-            Matrix.cells.add(this.initial);
-            Matrix.cells.add(this.center);
-            Matrix.cells.add(this.last);
+            Matrix.cells.addAll(this.cells);
         }
 
         public void defineAdjacent() {
-            this.initial.creatingHorizontalAdjacent(this.center);
-            this.center.creatingHorizontalAdjacent(this.last);
+            for(int i = 0; i < NUMBER_OF_CELLS - 1; i++){
+                Vertex leftCell = this.cells.get(i);
+                Vertex rightCell = this.cells.get(i + 1);
+                leftCell.creatingHorizontalAdjacent(rightCell);
+            }
         }
-
     }
 }

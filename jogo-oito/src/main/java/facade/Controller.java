@@ -9,8 +9,8 @@ public class Controller {
 
     private final Graph board;
 
-    public Controller() {
-        this.board = new Board();
+    public Controller(Graph graph) {
+        this.board = graph;
     }
     
     public void feedback() {
@@ -29,8 +29,8 @@ public class Controller {
         this.board.swap(keyCode);
     }
 
-    public Boolean checkGameOver() {
-        return this.board.checkGameOver();
+    public Boolean checkVicory() {
+        return this.board.checkVictory();
 
     }
 
