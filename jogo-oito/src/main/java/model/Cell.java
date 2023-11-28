@@ -2,13 +2,22 @@ package model;
 
 import interfaces.Edge;
 import interfaces.Vertex;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Classe que representa uma célula do jogo.
+ *
+ * @author quintino
+ */
+@Data
+@EqualsAndHashCode
 public class Cell implements Vertex {
-
     private Integer value;
     private final List<Edge> adjacents;
     public static Integer content;
@@ -21,16 +30,6 @@ public class Cell implements Vertex {
     public Cell() {
         this.value = Cell.content++;
         this.adjacents = new ArrayList<>();
-    }
-
-    @Override
-    public void setValue(Integer value) {
-        this.value = value;
-    }
-
-    @Override
-    public Integer getValue() {
-        return this.value;
     }
 
     @Override
@@ -92,18 +91,8 @@ public class Cell implements Vertex {
     }
 
     @Override
-    public List<Edge> getAdjacents() {
-        return this.adjacents;
-    }
-
-    @Override
     public void addAdjacents(Edge edge) {
         this.adjacents.add(edge);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return Objects.equals(this.value, ((Cell) obj).value);
     }
 
 }

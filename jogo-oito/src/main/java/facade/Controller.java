@@ -3,16 +3,21 @@ package facade;
 import interfaces.Graph;
 import interfaces.Vertex;
 import java.util.List;
+
 import util.Board;
 
+/**
+ * Classe que representa o controlador do jogo.
+ *
+ * @author quintino
+ */
 public class Controller {
-
-    private final Graph board;
+    private final Graph board = new Board();
 
     public Controller() {
-        this.board = new Board();
+        this.setting();
     }
-    
+
     public void feedback() {
         this.board.feedback();
     }
@@ -31,7 +36,6 @@ public class Controller {
 
     public Boolean checkGameOver() {
         return this.board.checkGameOver();
-
     }
 
     public void click(Integer cellValue) {

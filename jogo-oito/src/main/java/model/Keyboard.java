@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.awt.event.KeyEvent;
@@ -10,8 +6,12 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * Enum que representa as teclas do teclado.
+ *
+ * @author quintino
+ */
 public enum Keyboard {
-
     UP(KeyEvent.VK_UP),
     DOWN(KeyEvent.VK_DOWN),
     LEFT(KeyEvent.VK_LEFT),
@@ -19,9 +19,8 @@ public enum Keyboard {
 
     private final Integer value;
 
-    private static final Map<Integer, Keyboard> map = Arrays.stream(Keyboard.values())
-        .collect(Collectors.toMap(Keyboard::getValue, Function.identity()));
-
+    private static final Map<Integer, Keyboard> map =
+            Arrays.stream(Keyboard.values()).collect(Collectors.toMap(Keyboard::getValue, Function.identity()));
 
     Keyboard(Integer value) {
         this.value = value;

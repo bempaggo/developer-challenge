@@ -17,18 +17,23 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+/**
+ * Classe responsável por gerenciar a interface gráfica do jogo.
+ *
+ * @author quintino
+ */
 public class JogoDosOito extends JFrame implements KeyListener {
-
-    private final List<JButton> buttons;
+    private final List<JButton> buttons = new ArrayList<>();
     private final Controller controller;
-    private JButton reset;
-    private JButton feedback;
 
     public JogoDosOito() {
         super("Jogo dos Oito");
         this.controller = new Controller();
-        this.controller.setting();
-        this.buttons = new ArrayList<>();
+        this.controller.getCells().forEach(this::configButton);
+        this.configReset();
+        this.configFeedback();
+        add(new JLabel(""));
+        this.configureInterface();
     }
 
     private void configureInterface() {
@@ -40,21 +45,13 @@ public class JogoDosOito extends JFrame implements KeyListener {
         setFocusable(true);
     }
 
-    private void createButtons() {
-        this.controller.getCells().forEach(cell -> {
-            JButton button = this.configButton(cell);
-            add(button);
-            buttons.add(button);
-        });
-    }
-
     private Integer textToValue(String text) {
         return Optional.ofNullable(text)
                 .map(Integer::valueOf)
                 .orElse(0);
     }
 
-    private JButton configButton(Vertex cell) {
+    private void configButton(Vertex cell) {
         JButton button = new JButton();
         button.setFont(new Font("Arial", Font.BOLD, 36));
         button.setText(cell.valueToText());
@@ -64,8 +61,8 @@ public class JogoDosOito extends JFrame implements KeyListener {
             this.checkGameOver();
             SwingUtilities.getRoot(button).requestFocus();
         });
-        return button;
-
+        add(button);
+        buttons.add(button);
     }
 
     private void checkGameOver() {
@@ -77,40 +74,28 @@ public class JogoDosOito extends JFrame implements KeyListener {
                 });
     }
 
-    private void configMenu() {
-        this.reset = this.configReset();
-        this.feedback = this.configFeedback();
-        add(this.feedback);
-        add(this.reset);
-        add(new JLabel(""));
+    private void configReset() {
+        JButton button = new JButton("Reiniciar");
+        button.addActionListener((ActionEvent e) -> {
+            this.resetGame();
+            SwingUtilities.getRoot(button).requestFocus();
+        });
+        add(button);
     }
 
-    private JButton configReset() {
-        JButton buttonReset = new JButton("Reiniciar");
-        buttonReset.addActionListener((ActionEvent e) -> {
-            this.resetGame();
-            SwingUtilities.getRoot(buttonReset).requestFocus();
+    private void configFeedback() {
+        JButton button = new JButton("Gabarito");
+        button.addActionListener((ActionEvent e) -> {
+            this.controller.feedback();
+            this.updateBoard();
+            SwingUtilities.getRoot(button).requestFocus();
         });
-        return buttonReset;
-    }
-    
-    private JButton configFeedback() {
-        JButton buttonFeedback = new JButton("Gabarito");
-        buttonFeedback.addActionListener((ActionEvent e) -> {
-            this.showFeedback();
-            SwingUtilities.getRoot(buttonFeedback).requestFocus();
-        });
-        return buttonFeedback;
+        add(button);
     }
 
 
     private void resetGame() {
         this.controller.setting();
-        this.updateBoard();
-    }
-    
-    private void showFeedback() {
-        this.controller.feedback();
         this.updateBoard();
     }
 
@@ -125,6 +110,7 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
+        //TODO document why this method is empty
     }
 
     @Override
@@ -136,13 +122,10 @@ public class JogoDosOito extends JFrame implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        //TODO document why this method is empty
     }
 
     public static void main(String[] args) {
-        JogoDosOito game = new JogoDosOito();
-        game.createButtons();
-        game.configMenu();
-        game.configureInterface();
-
+        new JogoDosOito();
     }
 }
