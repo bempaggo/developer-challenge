@@ -1,0 +1,44 @@
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+
+.tabuleiro {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 10px;
+}
+
+.linha {
+  display: flex;
+  justify-content: center;
+}
+
+.Placar_Table{
+  padding: 5px;
+  border: solid 1px #5566;
+  width: 300px;
+}
+
+.Placar_Table td{
+  border: solid 1px #5566;
+}
+
+button {
+  width: 100px;
+  height: 100px;
+  font-size: 24px;
+  margin: 10px;
+  background-color: white;
+  border: none;
+  outline: none;
+}
+
+button.vazio {
+  background-color: lightgray;
+  cursor: not-allowed;
+}
+

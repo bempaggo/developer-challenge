@@ -1,0 +1,9 @@
+.Placar_Table{
+  padding: 5px;
+  border: solid 1px #5566;
+  width: 300px;
+}
+
+.Placar_Table td{
+  border: solid 1px #5566;
+}
